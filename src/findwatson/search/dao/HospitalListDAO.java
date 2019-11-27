@@ -3,12 +3,13 @@ package findwatson.search.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
-import findwatson.admin.dto.HospitalListDTO;
+import findwatson.admin.dto.HListDTO;
 
 
 public class HospitalListDAO {
@@ -34,7 +35,7 @@ public class HospitalListDAO {
 	}
 
 	// 검색에 따른 목록 반환 
-	public List<HospitalListDTO> selectAll(String input_city, String input_gu, String input_dong, 
+	public List<HListDTO> selectAll(String input_city, String input_gu, String input_dong, 
 			String input_medicalAnimal, String input_medicalDept, String input_infoRegist) throws Exception{
 		String sql = "select * from hospitalList where city=? and gu=? and dong=? and medicalAnimal=? and medicalDept=? and infoRegist=?";
 		try (
@@ -52,24 +53,22 @@ public class HospitalListDAO {
 					ResultSet rs = pstat.executeQuery();
 					
 					){
-				List<HospitalListDTO> list = new ArrayList<HospitalListDTO>();
+				List<HListDTO> list = new ArrayList<HListDTO>();
 				while(rs.next()) {
 					int seq = rs.getInt(1);
 					String hosptName = rs.getString(2);
-					int zipcode = rs.getInt(3);
-					String city = rs.getString(4);
-					String gu = rs.getString(5);
-					String dong = rs.getString(6);
-					String address = rs.getString(7);
-					String phone = rs.getString(8);
-					String homepage = rs.getString(9);
-					String img = rs.getString(10);
-					String medicalAnimal = rs.getString(11);
-					String medicalDept = rs.getString(12);
-					String infoRegist = rs.getString(13);
+					int postcode = rs.getInt(3);
+					String address1 = rs.getString(4);
+					String address2 = rs.getString(5);
+					String phone = rs.getString(6);
+					String homepage = rs.getString(7);
+					String img = rs.getString(8);
+					String medicalAnimal = rs.getString(9);
+					String openTime = rs.getString(10);
+					Timestamp registDate = rs.getTimestamp(11);
 				
-					HospitalListDTO dto = new HospitalListDTO(seq, hosptName, zipcode, city, gu, dong, address, 
-							phone, homepage, img, medicalAnimal, medicalDept, infoRegist);
+					HListDTO dto = new HListDTO(seq, hosptName, postcode, address1, address2,
+							phone, homepage, img, medicalAnimal, openTime, registDate);
 					list.add(dto);
 				}
 				return list;

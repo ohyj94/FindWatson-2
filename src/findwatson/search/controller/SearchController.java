@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonArray;
 
-import findwatson.admin.dto.HospitalListDTO;
+import findwatson.admin.dto.HListDTO;
 import findwatson.search.dao.HospitalListDAO;
 
 @WebServlet("*.s")
@@ -55,7 +55,7 @@ public class SearchController extends HttpServlet {
 			String input_medicalDept = request.getParameter("medicalDept");
 			String input_infoRegist = request.getParameter("infoRegist");
 			
-			List<HospitalListDTO> list = new ArrayList<>();
+			List<HListDTO> list = new ArrayList<>();
 			
 			list = HospitalListDAO.getInstance().selectAll(input_city, input_gu, input_dong, input_medicalAnimal, input_medicalDept, input_infoRegist);
 			request.setAttribute("list", list);
