@@ -18,9 +18,9 @@ public class memberController extends HttpServlet {
        
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String URI = request.getRequestURI(); // ������Ʈ ����� URI����
-		String ctxpath = request.getContextPath(); // ������Ʈ�� ����
-		String path = URI.substring(ctxpath.length()); //
+		String URI = request.getRequestURI(); 
+		String ctxpath = request.getContextPath(); 
+		String path = URI.substring(ctxpath.length()); 
 		System.out.println(URI);
 		
 		MemberDAO dao = MemberDAO.getInstance();
