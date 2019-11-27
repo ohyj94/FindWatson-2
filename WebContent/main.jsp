@@ -234,17 +234,12 @@ img {
 			<div id="footer" class="col-12">푸터</div>
 		</div>
 	</div>
-
+<c:choose>
+    <c:when test="${result} }">
+    location.href="${pageContext.request.contextPath}/index.jsp"
+    </c:when>
+    </c:choose>
 	<script>
-   <c:choose>
-   <c:when test="${ result}">
-   alert("로그인 성공!!");
-   </c:when>
-   <c:when test= "${!result}">
-   alert("로그인 실패!!");
-   </c:when>
-   </c:choose>
-   
    $("#zone").on("click", function(){
 		$.ajax({
 			url : "selectGu.s",
