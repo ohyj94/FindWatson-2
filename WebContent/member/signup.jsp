@@ -223,7 +223,7 @@
                     </div>
                 </div>
                 <div class=row>
-                    <div class="col-12 con"><button type=button id= save>가입</button></div>
+                    <div id=join class="col-12 con"><button type=button id= save>가입</button></div>
                 </div>
             </form>
             <script>
@@ -345,7 +345,10 @@
                     }
                 
             })
-
+			//회원가입 확인
+			$("#join").on("click",function(){
+				location.href="${pageContext.request.contextPath}/signup.member"
+			})
         </script>
 </body>
 </html>

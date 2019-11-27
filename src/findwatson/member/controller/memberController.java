@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import findwatson.member.dao.MemberDAO;
+import findwatson.member.dto.MemberDTO;
 
 
 @WebServlet("*.member")
@@ -17,11 +18,13 @@ public class memberController extends HttpServlet {
        
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String URI = request.getRequestURI(); // ÇÁ·ÎÁ§Æ® ¸íºÎÅÍ URI±îÁö
-		String ctxpath = request.getContextPath(); // ÇÁ·ÎÁ§Æ®¸í¸¸ ¶¾°Í
-		String path = URI.substring(ctxpath.length()); // 
+		String URI = request.getRequestURI(); 
+		String ctxpath = request.getContextPath(); 
+		String path = URI.substring(ctxpath.length()); 
+		System.out.println(URI);
 		
 		MemberDAO dao = MemberDAO.getInstance();
+		
 		
 		if(path.contentEquals("/login.member")) {
 			String id = request.getParameter("id");
@@ -37,13 +40,44 @@ public class memberController extends HttpServlet {
 					
 				}else {
 					response.sendRedirect("index.jsp");
-					System.out.println(id + ": ·Î±×ÀÎ ½ÇÆÐ");
 					
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
+		}//ë¡œê·¸ì•„ì›ƒ
+		else if (path.contentEquals("/logout.member")) {
+			request.getSession().removeAttribute("loginInfo");
+			response.sendRedirect("index.jsp");
+		}//íšŒì›ê°€ìž…
+		else if(path.contentEquals("/signup.member")) {
+			String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			String name = request.getParameter("name");
+			int birth = Integer.parseInt(request.getParameter("birth"));
+			String gender = request.getParameter("gender");
+			String email = request.getParameter("email");
+			String phone = request.getParameter("phone");
+			int postcode = Integer.parseInt(request.getParameter("postcode"));
+			String address1 = request.getParameter("address1");
+			String address2 = request.getParameter("address2");
+			String lovePet = request.getParameter("lovePet");
+			String signPath = request.getParameter("signPath");
+			
+			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath);
+			try {
+				int signup = dao.insert(dto);
+				if(signup >0) {
+					response.sendRedirect("../index.jsp");
+				}else {
+					response.sendRedirect("../error.jsp");
+				}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}

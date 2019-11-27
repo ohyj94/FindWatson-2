@@ -70,7 +70,7 @@ img {
 	<div class="container">
 		<div class="row">
 			<div id="loginBtn" class="col-12 text-right">
-				<button class="btn btn-sm btn-outline-secondary">로그아웃</button>
+				<button id=logout class="btn btn-sm btn-outline-secondary">로그아웃</button>
 			</div>
 		</div>
 		<div class="row">
@@ -257,6 +257,10 @@ img {
 			alert("오류 발생");
 		});
 	})
+	  $("#logout").on("click",function(){
+	  location.href = "${pageContext.request.contextPath}/logout.member"
+  })
+  
 </script>
 </body>
 </html>
