@@ -15,6 +15,7 @@ public class MemberDTO {
 	private String address2;
 	private String lovePet;
 	private String signPath;
+	
 	public MemberDTO(String id, String pw, String name, Date birth, String gender, String email, String phone,
 			int zipcode, String address1, String address2, String lovePet, String signPath) {
 		super();

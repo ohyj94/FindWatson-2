@@ -12,6 +12,7 @@ import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import findwatson.admin.dto.BanDTO;
 import findwatson.admin.dto.MemberDTO;
 import findwatson.admin.utils.Util;
+import findwatson.configuration.Configuration;
 
 public class AdminDAO {
 	private static AdminDAO instance;
@@ -20,8 +21,8 @@ public class AdminDAO {
 	private AdminDAO () {
 		bds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 		bds.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
-		bds.setUsername("manager");
-		bds.setPassword("manager");
+		bds.setUsername("watson");
+		bds.setPassword("watson");
 		bds.setInitialSize(30);
 	}
 	public synchronized static AdminDAO getInstance() {
@@ -285,6 +286,111 @@ public class AdminDAO {
 				banList.add(dto);
 			}
 			return banList;
+		}
+	}
+	//게시판 내의 총 글의 개수
+	public int recordTotalCount () throws Exception {
+		String sql = "select count(id) from member";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//페이지 네비게이터
+	public String getPageNav(int currentPage) throws Exception {
+		//게시판 내의 총 글의 개수
+		int recordTotalCount = this.recordTotalCount();
+		//한 페이지에 몇개의 글을 보여줄건지
+		//int recordCountPerPage = 10;
+		//한 페이지에서 몇개의 네비게이터를 보여줄건지
+		//int naviCountPerPage = 10;
+		//총 몇개의 페이지인지
+		int pageTotalCount = 0;
+		if(recordTotalCount % Configuration.recordCountPerPage > 0) {
+			//총 글의 개수를 페이지당 보여줄 개수로 나누었을 때, 나머지가 생기면 총페이지의 개수 +1
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+		}
+
+		//현재 페이지 값이 비정상 값일 때, 조정하는 보안 코드
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		//현재 내가 위치하고 있는 페이지에 따라 네비게이터 시작 페이지 값을 구하는 공식
+		int startNavi = ((currentPage-1) / Configuration.naviCountPerPage) * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + Configuration.naviCountPerPage - 1;
+
+		//페이지 끝값이 비정상 값일 때, 조정하는 보안 코드
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		System.out.println("현재 페이지 번호 : " + currentPage);
+		System.out.println("네비게이터 시작 번호 : " + startNavi);
+		System.out.println("네비게이터 끝 번호 : " + endNavi);
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if(currentPage == 1) {
+			needPrev = false;
+		}
+		if(currentPage == pageTotalCount) {
+			needNext = false;
+		}
+		StringBuilder sb = new StringBuilder();
+
+		if(needPrev) {sb.append("<a href='adminMemberList.admin?cpage="+(currentPage-1)+"'> < </a>");}
+
+		for(int i = startNavi; i <= endNavi;i++) {
+			sb.append("<a href='adminMemberList.admin?cpage="+i+"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+		}
+		if(needNext) {sb.append("<a href='adminMemberList.admin?cpage="+(currentPage+1)+"'> > </a>");}
+		return sb.toString();
+	}
+	//게시판 목록 10개씩
+	public List<MemberDTO> listByPage(int start, int end) throws Exception{
+		String sql = "select * from"
+				+ "(select member.*, row_number() over (order by name) as rown from member)"
+				+ " where rown between ? and ?";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, start);
+			pstat.setInt(2, end);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+				List<MemberDTO> result = new ArrayList<>();
+				while(rs.next()) {
+					String id = rs.getString(1);
+					String pw = rs.getString(2);
+					String name = rs.getString(3);
+					Date birth = rs.getDate(4);
+					String gender = rs.getString(5);
+					String email = rs.getString(6);
+					String phone = rs.getString(7);
+					int zipcode = rs.getInt(8);
+					String address1 = rs.getString(9);
+					String address2 = rs.getString(10);
+					String lovePet = rs.getString(11);
+					String signPath = rs.getString(12);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,zipcode,address1,address2,lovePet,signPath);
+					result.add(dto);
+				}
+				return result;
+			}
 		}
 	}
 }

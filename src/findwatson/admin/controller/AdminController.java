@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import findwatson.admin.dao.AdminDAO;
 import findwatson.admin.dto.BanDTO;
 import findwatson.admin.dto.MemberDTO;
+import findwatson.configuration.Configuration;
 
-@WebServlet("/AdminController")
+@WebServlet("*.admin")
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
@@ -22,6 +23,8 @@ public class AdminController extends HttpServlet {
 		AdminDAO dao = AdminDAO.getInstance();
 		request.setCharacterEncoding("utf8");
 		response.setContentType("text/html; charset=UTF-8");
+		System.out.println("request uri - "+request.getRequestURI());
+		System.out.println("cmd - " + cmd);
 		try {
 			if(cmd.contentEquals("관리자 로그인")) {
 				String id = request.getParameter("id");
@@ -40,15 +43,37 @@ public class AdminController extends HttpServlet {
 			else if(cmd.contentEquals("관리자 비밀번호 변경")) {
 				
 			}
-			else if(cmd.contentEquals("회원목록조회")) {
-				List<MemberDTO> list = dao.selectAll();
+			else if(cmd.contentEquals("/admin/adminMemberList.admin")) {
+				//List<MemberDTO> list = dao.selectAll();
+				//request.setAttribute("list", list);
+				System.out.println("admincontroller 연결 성공");
+				//네비
+				int cpage = 1;
+				String param = request.getParameter("cpage");
+				
+				if(param!=null) {
+					cpage = Integer.parseInt(param);	
+				}
+				
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);	
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<MemberDTO> list = dao.listByPage(start, end);
+				
+				String pageNavi = dao.getPageNav(cpage);
+				
+				request.setAttribute("pageNavi", pageNavi);
 				request.setAttribute("list", list);
+				
+				//
+				//나중에 pagenavi메서드에서 a태그 없애줘야함
+				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
 				
 			}
 			else if(cmd.contentEquals("차단한ip목록")) {
 				List<BanDTO> list = dao.selectBanList();
 				request.setAttribute("list", list);
-				
+				//request.getRequestDispatcher("차단한ip목록.jsp").forward(request, response);
 			}
 			else if(cmd.contentEquals("아이디로 회원 검색")) {
 				String id = request.getParameter("id");
