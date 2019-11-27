@@ -62,6 +62,11 @@ img {
 </style>
 </head>
 <body>
+<c:choose>
+    <c:when test="${logininfo ==null} }">
+    location.href="${pageContext.request.contextPath}/index.jsp"
+    </c:when>
+    </c:choose>
 	<div class="container">
 		<div class="row">
 			<div id="loginBtn" class="col-12 text-right">
@@ -234,11 +239,6 @@ img {
 			<div id="footer" class="col-12">푸터</div>
 		</div>
 	</div>
-<c:choose>
-    <c:when test="${result} }">
-    location.href="${pageContext.request.contextPath}/index.jsp"
-    </c:when>
-    </c:choose>
 	<script>
    $("#zone").on("click", function(){
 		$.ajax({

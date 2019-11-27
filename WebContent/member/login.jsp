@@ -96,15 +96,16 @@
 
             <div class=row>
                 <div class="col-12 con">
+                    <form action="login.member" method=post id=frm></form>
                     <input type=text id=id name=id>
                     <br>
-                    <input type=text id=id name=id>
+                    <input type=text id=pw name=pw>
                 </div>
             </div>
             
             <div class=row>
                 <div class="col-12 con">
-                  <a href="#">아이디 찾기</a> 
+                  <a href="#">아이디 찾기</a> / 
                   <a href="#">비밀번호 찾기</a>  
                 </div>
             </div>
@@ -130,7 +131,7 @@
         $("#login").on("click",function(){
             var result = confirm("로그인하시겠습니까?");
             if(result){
-                $("#login").submit();
+                $("#frm").submit();
             }
         })
         
