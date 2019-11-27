@@ -20,10 +20,11 @@ public class memberController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String URI = request.getRequestURI(); // ������Ʈ ����� URI����
 		String ctxpath = request.getContextPath(); // ������Ʈ�� ����
-		String path = URI.substring(ctxpath.length()); // 
+		String path = URI.substring(ctxpath.length()); //
+		System.out.println(URI);
 		
 		MemberDAO dao = MemberDAO.getInstance();
-		MemberDTO dto = new MemberDTO();
+		
 		
 		if(path.contentEquals("/login.member")) {
 			String id = request.getParameter("id");
@@ -45,18 +46,32 @@ public class memberController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}else if (path.contentEquals("/logout.member")) {
+		}//로그아웃
+		else if (path.contentEquals("/logout.member")) {
 			request.getSession().removeAttribute("loginInfo");
 			response.sendRedirect("index.jsp");
-		}else if (path.contentEquals("/signup.member")) {
+		}//회원가입
+		else if(path.contentEquals("/signup.member")) {
+			String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			String name = request.getParameter("name");
+			int birth = Integer.parseInt(request.getParameter("birth"));
+			String gender = request.getParameter("gender");
+			String email = request.getParameter("email");
+			String phone = request.getParameter("phone");
+			int postcode = Integer.parseInt(request.getParameter("postcode"));
+			String address1 = request.getParameter("address1");
+			String address2 = request.getParameter("address2");
+			String lovePet = request.getParameter("lovePet");
+			String signPath = request.getParameter("signPath");
 			
-		}else if(path.contentEquals("/signup.member")) {
+			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath);
 			try {
-				int sigup = dao.insert(dto);
-				if(sigup >0) {
+				int signup = dao.insert(dto);
+				if(signup >0) {
 					response.sendRedirect("../index.jsp");
 				}else {
-					response.sendRedirect("error.jsp");
+					response.sendRedirect("../error.jsp");
 				}
 				
 			} catch (Exception e) {
