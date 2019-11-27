@@ -126,7 +126,7 @@
         </form>
         <script>
             $("#signUp").on("click",function(){
-                location.href="login.member";
+                location.href="signup.jsp";
             })
         $("#login").on("click",function(){
             var result = confirm("로그인하시겠습니까?");

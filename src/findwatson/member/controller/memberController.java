@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import findwatson.member.dao.MemberDAO;
+import findwatson.member.dto.MemberDTO;
 
 
 @WebServlet("*.member")
@@ -17,11 +18,12 @@ public class memberController extends HttpServlet {
        
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String URI = request.getRequestURI(); // ÇÁ·ÎÁ§Æ® ¸íºÎÅÍ URI±îÁö
-		String ctxpath = request.getContextPath(); // ÇÁ·ÎÁ§Æ®¸í¸¸ ¶¾°Í
+		String URI = request.getRequestURI(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ URIï¿½ï¿½ï¿½ï¿½
+		String ctxpath = request.getContextPath(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String path = URI.substring(ctxpath.length()); // 
 		
 		MemberDAO dao = MemberDAO.getInstance();
+		MemberDTO dto = new MemberDTO();
 		
 		if(path.contentEquals("/login.member")) {
 			String id = request.getParameter("id");
@@ -37,13 +39,30 @@ public class memberController extends HttpServlet {
 					
 				}else {
 					response.sendRedirect("index.jsp");
-					System.out.println(id + ": ·Î±×ÀÎ ½ÇÆÐ");
 					
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
+		}else if (path.contentEquals("/logout.member")) {
+			request.getSession().removeAttribute("loginInfo");
+			response.sendRedirect("index.jsp");
+		}else if (path.contentEquals("/signup.member")) {
+			
+		}else if(path.contentEquals("/signup.member")) {
+			try {
+				int sigup = dao.insert(dto);
+				if(sigup >0) {
+					response.sendRedirect("../index.jsp");
+				}else {
+					response.sendRedirect("error.jsp");
+				}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}

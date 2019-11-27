@@ -345,7 +345,10 @@
                     }
                 
             })
-
+			//회원가입 확인
+			$("#signup").on("click",function(){
+				location.href="/signup.member"
+			})
         </script>
 </body>
 </html>
