@@ -62,6 +62,11 @@ img {
 </style>
 </head>
 <body>
+<c:choose>
+    <c:when test="${logininfo ==null} }">
+    location.href="${pageContext.request.contextPath}/index.jsp"
+    </c:when>
+    </c:choose>
 	<div class="container">
 		<div class="row">
 			<div id="loginBtn" class="col-12 text-right">
@@ -234,17 +239,7 @@ img {
 			<div id="footer" class="col-12">푸터</div>
 		</div>
 	</div>
-
 	<script>
-   <c:choose>
-   <c:when test="${ result}">
-   alert("로그인 성공!!");
-   </c:when>
-   <c:when test= "${!result}">
-   alert("로그인 실패!!");
-   </c:when>
-   </c:choose>
-   
    $("#zone").on("click", function(){
 		$.ajax({
 			url : "selectGu.s",

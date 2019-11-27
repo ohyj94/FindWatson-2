@@ -32,9 +32,8 @@ public class memberController extends HttpServlet {
 			try {
 				boolean result = dao.loginOk(id, pw);
 				if(result) {
-					request.getSession().setAttribute("loginCheck","value");
-					request.setAttribute("result",result);
-					request.getRequestDispatcher("/main.jsp").forward(request, response);
+					request.getSession().setAttribute("logininfo",id);
+					response.sendRedirect("/main.jsp");
 					
 				}else {
 					response.sendRedirect("index.jsp");
