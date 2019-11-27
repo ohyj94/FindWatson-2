@@ -47,17 +47,17 @@ public class MemberDAO {
 		
 	}
 	public int insert(MemberDTO dto)throws Exception{
-		String sql = "insert into values member(?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into values member(?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
 		try(Connection con = bds.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1,dto.getId());
 			pstat.setString(2, dto.getPw());
 			pstat.setString(3, dto.getName());
-			pstat.setInt(4, dto.getBirth());
+			pstat.setString(4, dto.getBirth());
 			pstat.setString(5, dto.getGender());
 			pstat.setString(6, dto.getEmail());
 			pstat.setString(7, dto.getPhone());
-			pstat.setInt(8, dto.getPostcode());
+			pstat.setString(8, dto.getPostcode());
 			pstat.setString(9, dto.getAddress1());
 			pstat.setString(10, dto.getAddress2());
 			pstat.setString(11, dto.getLovePet());

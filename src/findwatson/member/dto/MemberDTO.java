@@ -1,18 +1,21 @@
 package findwatson.member.dto;
 
+import java.sql.Timestamp;
+
 public class MemberDTO {
 	private String id;
 	private String pw;
 	private String name;
-	private int birth;
+	private String birth;
 	private String gender;
 	private String email;
 	private String phone;
-	private int postcode;
+	private String postcode;
 	private String address1;
 	private String address2;
 	private String lovePet;
 	private String signPath;
+	private Timestamp date;
 	
 	
 	public MemberDTO() {
@@ -20,8 +23,8 @@ public class MemberDTO {
 	}
 
 
-	public MemberDTO(String id, String pw, String name, int birth, String gender, String email, String phone,
-			int postcode, String address1, String address2, String lovePet, String signPath) {
+	public MemberDTO(String id, String pw, String name, String birth, String gender, String email, String phone,
+			String postcode, String address1, String address2, String lovePet, String signPath, Timestamp date) {
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -35,6 +38,7 @@ public class MemberDTO {
 		this.address2 = address2;
 		this.lovePet = lovePet;
 		this.signPath = signPath;
+		this.date = date;
 	}
 
 
@@ -68,12 +72,12 @@ public class MemberDTO {
 	}
 
 
-	public int getBirth() {
+	public String getBirth() {
 		return birth;
 	}
 
 
-	public void setBirth(int birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 
@@ -108,12 +112,12 @@ public class MemberDTO {
 	}
 
 
-	public int getPostcode() {
+	public String getPostcode() {
 		return postcode;
 	}
 
 
-	public void setPostcode(int postcode) {
+	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 
@@ -156,6 +160,17 @@ public class MemberDTO {
 	public void setSignPath(String signPath) {
 		this.signPath = signPath;
 	}
+
+
+	public Timestamp getDate() {
+		return date;
+	}
+
+
+	public void setDate(Timestamp date) {
+		this.date = date;
+	}
+	
 	
 	
 	

@@ -55,23 +55,23 @@ public class memberController extends HttpServlet {
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
-			int birth = Integer.parseInt(request.getParameter("birth"));
+			String birth = request.getParameter("birth");
 			String gender = request.getParameter("gender");
 			String email = request.getParameter("email");
 			String phone = request.getParameter("phone");
-			int postcode = Integer.parseInt(request.getParameter("postcode"));
+			String postcode =request.getParameter("postcode");
 			String address1 = request.getParameter("address1");
 			String address2 = request.getParameter("address2");
 			String lovePet = request.getParameter("lovePet");
 			String signPath = request.getParameter("signPath");
 			
-			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath);
+			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,null);
 			try {
 				int signup = dao.insert(dto);
 				if(signup >0) {
-					response.sendRedirect("../index.jsp");
+					response.sendRedirect("index.jsp");
 				}else {
-					response.sendRedirect("../error.jsp");
+					response.sendRedirect("error.jsp");
 				}
 				
 			} catch (Exception e) {
