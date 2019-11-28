@@ -2,18 +2,19 @@ package findwatson.review.dto;
 
 public class ReviewFileDTO {
 	private int seq;
-	private int articleSeq;
+	private int hosptReviewSeq;
 	private String fileName;
 	private String oriFileName;
 	
 	public ReviewFileDTO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public ReviewFileDTO(int seq, int articleSeq, String fileName, String oriFileName) {
+	public ReviewFileDTO(int seq, int hosptReviewSeq, String fileName, String oriFileName) {
 		super();
 		this.seq = seq;
-		this.articleSeq = articleSeq;
+		this.hosptReviewSeq = hosptReviewSeq;
 		this.fileName = fileName;
 		this.oriFileName = oriFileName;
 	}
@@ -26,12 +27,12 @@ public class ReviewFileDTO {
 		this.seq = seq;
 	}
 
-	public int getArticleSeq() {
-		return articleSeq;
+	public int getHosptReviewSeq() {
+		return hosptReviewSeq;
 	}
 
-	public void setArticleSeq(int articleSeq) {
-		this.articleSeq = articleSeq;
+	public void setHosptReviewSeq(int hosptReviewSeq) {
+		this.hosptReviewSeq = hosptReviewSeq;
 	}
 
 	public String getFileName() {
@@ -49,5 +50,7 @@ public class ReviewFileDTO {
 	public void setOriFileName(String oriFileName) {
 		this.oriFileName = oriFileName;
 	}
+	
+	
 		
 }

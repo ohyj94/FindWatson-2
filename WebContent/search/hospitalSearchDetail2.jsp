@@ -194,7 +194,10 @@ width:100%;
 				</p>
 				</div>
 				<div class=col-2>${dto.writeDate}</div>
-				<div class=col-2>${dto.writer}</div>
+				<div class=col-2>
+				${dto.writer} 
+				<button type=button id = like>좋아요</button>
+				</div>
 			</div>
 			
 			<div class="row collapse" id = "collapse${dto.seq}">

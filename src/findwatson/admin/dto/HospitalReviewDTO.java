@@ -13,10 +13,9 @@ public class HospitalReviewDTO {
 	private Timestamp writedDate;
 	private String ipAddr;
 	private int likeCount;
-	private int viewCount;
 	
 	public HospitalReviewDTO(int seq, int articleSeq, int score, String title, String content, String header, String writer,
-			Timestamp writedDate, String ipAddr, int likeCount, int viewCount) {
+			Timestamp writedDate, String ipAddr, int likeCount) {
 		super();
 		this.seq = seq;
 		this.articleSeq = articleSeq;
@@ -28,7 +27,6 @@ public class HospitalReviewDTO {
 		this.writedDate = writedDate;
 		this.ipAddr = ipAddr;
 		this.likeCount = likeCount;
-		this.viewCount = viewCount;
 		
 	}
 
@@ -116,12 +114,5 @@ public class HospitalReviewDTO {
 		this.likeCount = likeCount;
 	}
 
-	public int getViewCount() {
-		return viewCount;
-	}
-
-	public void setViewCount(int viewCount) {
-		this.viewCount = viewCount;
-	}
 	
 }

@@ -20,11 +20,6 @@
                 height: 100px;
                 margin: auto;
             }
-            #article-img{
-                width:100%;
-                height: 100px;
-                margin: auto;
-            }
             #footer>div{
                 height: 100%;
             }
@@ -83,6 +78,7 @@
           <a class="dropdown-item" href="#">전문가Q&A</a>
           <a class="dropdown-item" href="#">자유게시판</a>
           <a class="dropdown-item" href="#">질문게시판</a>
+          <a class="dropdown-item" href="#">1:1문의</a>
         </div>
         </li>
         <li class="nav-item dropdown">
@@ -110,10 +106,14 @@
             <div class="row">
                 <div id="footer" class="col-12">
                     <div class="row p-1">
-                        <div id="footer-logo" class="col-4">
-                            <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12">
+                        <div id="footer-logo" class="col-12 col-sm-4">
+                            <div class="row">
+                                    <div class="col">
+                                    <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12">
+                                </div>
+                            </div>
                         </div>
-                        <div id="footer-contents" class="col-8">
+                        <div id="footer-contents" class="col-12 col-sm-8">
                             <div class="row">
                                 <div class="col-6 col-sm-auto"><a href="#">회사소개</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">이용약관</a></div>
