@@ -67,7 +67,7 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/adminBoardNotice.manager">공지사항</a>
+                                    <a class="nav-link" href="#">공지사항</a>
                                 </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -111,36 +111,35 @@
             <div class="row">
             <div id="article-middle" class="col-12 mt-2">
                 <div class="row mb-3 p-1 text-center">
-                    <h3 id="board-top" class="col-auto col-sm-4 m-0">공지사항</h3>
+                    <h3 id="board-top" class="col-auto col-sm-4 m-0">차단 IP 조회</h3>
                     <span class="col-auto col-sm-8 mt-2">
                            <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
                     </span>
             </div>
             <div class="row line">
-                <div class="col-1 d-none d-md-block"></div>
+                
                 <div class="col-md-3 d-none d-md-block">
-                    제목
+                    아이디
                 </div>
                 <div class="col-md-3 d-none d-md-block">
-                    내용
+           IP
                 </div>
                 <div class="col-md-6 d-none d-md-block">
-                    작성일
+                    차단 사유
                 </div>
-            
             </div>
             <!-- 게시글 목록 -->
            <c:forEach items="${list}" var="list">
            <div class="row line">
                 
                 <div class="col-md-3 d-none d-md-block">
-                    ${list.title}
+                    ${list.id}
                 </div>
                 <div class="col-md-3 d-none d-md-block">
-           			${list.content }
+           			${list.ip }
                 </div>
                 <div class="col-md-6 d-none d-md-block">
-                    ${list.formedDate }
+                    ${list.reason }
                 </div>
             </div>
             </c:forEach>
