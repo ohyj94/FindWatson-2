@@ -38,7 +38,7 @@ public class reviewController extends HttpServlet {
 		String cmd = requestURI.substring(contextPath.length());
 		System.out.println("cmd : " + cmd);
 		
-		if(cmd.contentEquals("/search/imgUpload.re")) {//¸®ºäÀÛ¼º½Ã »çÁø ¾÷·Îµå
+		if(cmd.contentEquals("/search/imgUpload.re")) {//ì´ë¯¸ì§€ ì—…ë¡œë“œ
 			String repositoryName = "reviewImg";
 			String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
 			System.out.println(uploadPath);
@@ -52,35 +52,35 @@ public class reviewController extends HttpServlet {
 			
 			String fileName = multi.getFilesystemName("reviewImg");
 			String oriFileName = multi.getOriginalFileName("reviewImg");
-			System.out.println("¿ø·¡ ÆÄÀÏ ÀÌ¸§ : " + oriFileName);
-			System.out.println("ÃÖÁ¾ ÆÄÀÏ ÀÌ¸§ : " + fileName);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ : " + oriFileName);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ : " + fileName);
 			
 			try {
-				fDao.insert(new ReviewFileDTO(0, 7777, fileName, oriFileName));//°Ô½Ã±Û½Ã¹º½º ¾È³Ö¾îµµ µÉ°Å°°À½
+				fDao.insert(new ReviewFileDTO(0, 7777, fileName, oriFileName));//ï¿½Ô½Ã±Û½Ã¹ï¿½ï¿½ï¿½ ï¿½È³Ö¾îµµ ï¿½É°Å°ï¿½ï¿½ï¿½
 			}catch(Exception e) {
 				e.printStackTrace();
 				response.sendRedirect(contextPath + "error.jsp");
 			}
-			//¼­¹ö¿¡ ÀúÀåµÈ ÀÌ¹ÌÁöÀÇ °æ·Î 
+			//ì„œë²„ì˜ ì´ë¯¸ì§€ ê²½ë¡œ
 			String imgPath = "../" + repositoryName + "/" + fileName;
 			System.out.println(imgPath);
 			
 			JsonObject jObj = new JsonObject();
 			jObj.addProperty("imgPath", imgPath);
 			pwriter.append(jObj.toString());
-		}else if(cmd.contentEquals("/search/reviewWrite.re")){ //¸®ºäÀÛ¼º
+		}else if(cmd.contentEquals("/search/reviewWrite.re")){ //ë¦¬ë·° ë“±ë¡
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			
 			try {
-				dao.insert(new ReviewDTO(0,7777,5,title,content,"¾Ş¹«»õ", "test", null, ipAddr, 0 , 0));
+				dao.insert(new ReviewDTO(0,7777,5,title,content,"ï¿½Ş¹ï¿½ï¿½ï¿½", "test", null, ipAddr, 0 , 0));
 				response.sendRedirect("hospitalSearchDetail2.re");
 				
 			}catch(Exception e){
 				e.printStackTrace();
 				response.sendRedirect(contextPath + "error.jsp");
 			}
-		}else if(cmd.contentEquals("/search/hospitalSearchDetail2.re")) { //µğÅ×ÀÏºä2µé¾î¿ÔÀ»¶§
+		}else if(cmd.contentEquals("/search/hospitalSearchDetail2.re")) { //ë³‘ì› ë””í…Œì¼ë·° 2
 			try {               
 				int cpage = 1;
 				String cpageInput = request.getParameter("cpage");
@@ -89,13 +89,12 @@ public class reviewController extends HttpServlet {
 				}
 				String navi = dao.getPageNavi(cpage, 7777);
 				request.setAttribute("cpage", cpage);
-				request.setAttribute("navi", navi); //³×ºñ¹Ù ³Ñ±â±â
+				request.setAttribute("navi", navi); 
 				
-				//¸®½ºÆ® Àß¶ó¼­ ³Ñ±â±â
 				int startRecord = cpage*Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
 				int endRecord = cpage*Configuration.recordCountPerPage;
 				
-				List<ReviewDTO> reviewList = dao.selectByPage(startRecord, endRecord);
+				List<ReviewDTO> reviewList = dao.selectByPage(7777, startRecord, endRecord);
 				request.setAttribute("reviewList", reviewList);
 				request.getRequestDispatcher("hospitalSearchDetail2.jsp").forward(request, response);
 			}catch(Exception e) {

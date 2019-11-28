@@ -35,7 +35,8 @@ public class ReviewDAO {
 		return instance;
 	}
 	
-	public int insert(ReviewDTO dto)throws Exception{ //¸®ºädbÀúÀå
+	//ë¦¬ë·° ë“±ë¡
+	public int insert(ReviewDTO dto)throws Exception{ 
 		String sql = "insert into hosptReview values (hosptReviewSeq.nextval, ?,0,?,?,?,?,sysdate,?,0,0)";
 		try(
 				Connection con = getConnection();
@@ -53,6 +54,7 @@ public class ReviewDAO {
 		}
 	}
 
+	//ë¦¬ë·° ëª‡ê°œìˆëŠ”ì§€ ë¦¬í„´ - ì¸ìê°’ ë³‘ì› ì‹œí€€ìŠ¤
 	public int getArticleCount(int articleSeq) throws Exception{
 		String sql = "select count(*) from hosptreview where articleseq = ?";
 		try(
@@ -71,6 +73,7 @@ public class ReviewDAO {
 		}
 	}
 	
+	//ëª¨ë“  ë¦¬ë·° ì¶œë ¥
 	public List<ReviewDTO> selectAll() throws Exception{
 		String sql = "select * from hosptreview order by seq desc";
 		List<ReviewDTO> list = new ArrayList<>();
@@ -101,8 +104,10 @@ public class ReviewDAO {
 		}	
 	}
 	
-	public List<ReviewDTO> selectByPage(int start, int end) throws Exception{
-		String sql = "select * from (select row_number() over (order by seq desc)as rown, hosptreview.* from hosptreview) where rown between ? and ?";
+	//í˜ì´ì§€ë‹¹ ë¦¬ë·° ì¶œë ¥ - ì¸ìê°’ ë³‘ì› ì‹œí€€ìŠ¤, ì‹œì‘í˜ì´ì§€ë²ˆí˜¸ , ëí˜ì´ì§€ ë²ˆí˜¸
+	public List<ReviewDTO> selectByPage(int articleSeqInput, int start, int end) throws Exception{
+		String sql = "select * from (select row_number() over (order by seq desc)as rown, hosptreview.* from hosptreview) "
+				+ "where rown between ? and ?  and articleSeq = ?";
 		List<ReviewDTO> list = new ArrayList<>();
 		try(
 			Connection con = getConnection();
@@ -110,13 +115,14 @@ public class ReviewDAO {
 				){
 			pstat.setInt(1, start);
 			pstat.setInt(2, end);
+			pstat.setInt(3, articleSeqInput);
 			try(
 					ResultSet rs = pstat.executeQuery();
 					){
 				while(rs.next()) {
 					//(hosptReviewSeq.nextval, 0,0,'title','content','bird','writer',sysdate,'localhost',0,0)
 					int seq = rs.getInt(2);
-					int articleSeq = rs.getInt(3);
+					int articleSeq = articleSeqInput;
 					int score = rs.getInt(4);
 					String title = rs.getString(5);
 					String content = rs.getString(6);
@@ -139,7 +145,6 @@ public class ReviewDAO {
 	public String getPageNavi(int currentPage, int articleSeq)throws Exception{
 		int recordTotalCount = this.getArticleCount(7777);
 		
-		//ÃÑ ¸î°³ÀÇ ÆäÀÌÁöÀÎÁö
 		int pageTotalCount  = 0;
 		int adv = recordTotalCount / Configuration.recordCountPerPage;
 		
@@ -149,14 +154,12 @@ public class ReviewDAO {
 			pageTotalCount = adv;
 		}
 		
-		//Àå³­ ¸·±â
 		if(currentPage < 1) {
 			currentPage = 1;
 		}else if(currentPage > pageTotalCount) {
 			currentPage = pageTotalCount;
 		}
 		
-		//ÇöÀç ³»°¡ À§Ä¡ÇÑ ÆäÀÌÁö¿¡ µû¶ó ³×ºñ°ÔÀÌÅÍ ½ÃÀÛ ÆäÀÌÁö°ª ±¸ÇÏ±â
 		int startNavi = (currentPage - 1)/Configuration.naviCountPerPage *Configuration.naviCountPerPage +1;
 		int endNavi = startNavi + (Configuration.naviCountPerPage -1);
 		

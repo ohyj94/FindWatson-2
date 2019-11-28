@@ -78,6 +78,9 @@ img {
 #page${cpage}{
 	color : red;
 }
+#logo{
+width:100%;
+}
 </style>
 </head>
 <body>
@@ -248,7 +251,7 @@ img {
 
 		$("#summernote").summernote({
 			height : 600,
-			width : 800,
+			tabsize: 2,
 			callbacks : {
 				onImageUpload : function(files) {
 					var data = new FormData();
