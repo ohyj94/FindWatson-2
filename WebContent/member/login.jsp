@@ -42,7 +42,7 @@
         </style>
 </head>
 <body>
- <form action=${pageContext.request.contextPath}login.member method=post>
+ <form action=${pageContext.request.contextPath}/login.member method=post id=frm>
         <div class="container">
             <div class="row">
                 <div id="loginBtn" class="col-12 text-right">
@@ -93,10 +93,11 @@
 
             <div class=row>
                 <div class="col-12 con">
-                    <form action="login.member" method=post id=frm></form>
-                    <input type=text id=id name=id>
+                    <!-- <form action="login.member" method=post id=frm> -->
+                    <input type=text id=id name="id">
                     <br>
-                    <input type=text id=pw name=pw>
+                    <input type=text id=pw name="pw">
+     
                 </div>
             </div>
             
@@ -109,11 +110,11 @@
             
             <div class=row>
                 <div class="col-12 con">
+                	<button type="button" id=login>로그인</button>
                     <button type="button" id=signUp>회원가입</button>
-                     <button type="button" id=login>로그인</button>
                 </div>
             </div>
-            <!--            -->
+            
             <div class="row">
                 <div id="footer" class="col-12">
                     푸터
@@ -126,7 +127,7 @@
                 location.href="signup.jsp";
             })
         $("#login").on("click",function(){
-        	 $("#frm").submit();
+        	$("#frm").submit();
         })
         
         </script>
