@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,12 +20,18 @@
                 height: 100px;
                 margin: auto;
             }
+/*
+            #article{
+                height: 600px;
+            }
+*/
+            #article>*{
+                height: 100%;
+            }
             #article-img{
                 width:100%;
                 height: 100px;
                 margin: auto;
-            }
-            #footer{
             }
             #footer>div{
                 height: 100%;
@@ -42,18 +48,26 @@
             .navbar-nav{
                 width: 100%;
             }
+            #category{width: 100%; height: 100%;}
+            #board-contents{overflow: auto; font-size: 10pt;}
+            .article-navi{width: 100%;}
+            .article-navi>div>ul>li{display: inline-block; width: 100%;}
+            .Anavi{width: 100%;}
+            .search-box>*{width: 100%;}
+            .write-box>*{width: 100%;}
+            #boardTitle{width:100%;}
         </style>
 </head>
 <body>
-<div class="container">
+    <div class="container">
             <div class="row mb-2">
-                <div id="loginBtn" class="col-12 p-1 text-right">
-                    <button class="btn btn-sm btn-outline-secondary">로그인</button>
+                <div id="loginBtn" class="col-12 text-right">
+                    <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
                 </div>
             </div>
             <div class="row">
                 <div id="title" class="col-12 mb-3 p-1 text-center">
-                    <img id="logo" src="imgs/logo.png" class="col-12">
+                    <img id="logo" src="../imgs/logo.png" class="col-12">
                 </div>
             </div>
             <div class="row">
@@ -91,21 +105,49 @@
                 </div>
             </div>
             <!--            -->
-
-
-
-
-
+            <div class="row">
+                <div class="col-12" id="article">
+                    <div class="row">
+                        <div id="article-middle" class="col-12 mt-2">
+                           <div class="row mb-3 p-1 text-center">
+                                <h3 id="board-top" class="col-auto col-sm-4 m-0">질문게시판</h3>
+                                <span class="col-auto col-sm-8 mt-2">반려동물에 대해 질문하는 게시판 입니다.</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 p-1">
+                                    <select id="category">
+                                        <option value="">말머리</option>
+                                    </select>
+                                </div>
+                                <div class="col-10 p-1">
+<input type="text" class="" id="boardTitle" name="boardTitle">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 p-1">
+                                    <!-- 썸머노트 -->
+<textarea name="" id="" cols="30" rows="10"></textarea>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-12 p-1 text-center">
+<button id="writeBtn" type="button" class="btn btn-sm btn-outline-secondary">작성</button>
+<button id="updateBtn" type="button" class="btn btn-sm btn-outline-secondary">수정</button>
+<button id="deleteBtn" type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!--            -->
             <div class="row">
                 <div id="footer" class="col-12">
                     <div class="row p-1">
-                        <div id="footer-logo" class="col-12 col-sm-4">
-                            <div class="row">
-                                <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12">
-                            </div>
+                        <div id="footer-logo" class="col-4">
+                            <img id="logo" src="../imgs/logo.png" class="d-none d-sm-block col-12">
                         </div>
-                        <div id="footer-contents" class="col-12 col-sm-8">
+                        <div id="footer-contents" class="col-8">
                             <div class="row">
                                 <div class="col-6 col-sm-auto"><a href="#">회사소개</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">이용약관</a></div>
