@@ -176,7 +176,7 @@
             </form>
              <%--검색 컨테이너 끝 --%>
 
-            <%-- 검색 결과 컨테이너 시작 --%>
+    <%-- 검색 결과 컨테이너 시작 --%>
             <div class =row>
                 <div class=col-12>
                     <h1>2(검색된 병원)</h1>
@@ -184,13 +184,23 @@
                 </div>
             </div>
             
+            		<c:choose>
+            		<%-- 글이 없는 경우  --%>
+				<c:when test="${list.size() == 0}">
+				<tr align=center>
+					<td colspan=5 height=300p >글이 없습니다</td></tr>
+				</c:when>
+<%-- 글이 있는 경우 --%>
+				<c:otherwise>
+				
             <c:forEach items="${list}" var="hospital">
             <div class =row>
                 <div class=col-4>
                     <img src = "${hospital.img}" id =hImg >
                 </div>
                 <div class = col-8>
-                     <a href="#">${hospital.hosptName}</a>
+                     <a href="contents.s?seq=${hospital.seq}">${hospital.hosptName}</a>
+                  
                     <ul>
                         <li>순서 : "${hospital.seq}"</li>
                         <li>병원 이름 : "${hospital.hosptName}"</li>
@@ -202,11 +212,15 @@
                         <li>진료 동물 : ${hospital.medicalAnimal}</li>
                         <li>진료 시간 : ${hospital.openTime}</li>
                         <li>정보 등록일 : ${hospital.registDate}</li> 
+                         <li>조회수 : ${hospital.viewCount}</li> 
                     </ul>
+                    
                 </div>
             </div>
             </c:forEach>
-            
+            	</c:otherwise>
+		</c:choose>
+		
       <%-- 검색 결과 컨테이너 끝 --%>
             
             
@@ -226,12 +240,12 @@
         </div>
         
              <script>
-        $("#address").on("click", function(){
+        $("#address1").on("click", function(){
     		$.ajax({
     			url : "selectGu.s",
     			type : "post",
     			dataType : "json",
-    			data : {city : $("#address option:selected").val()}
+    			data : {city : $("#address1 option:selected").val()}
     		}).done(function(result){
     			$("#address2").find("option").remove().end().append("<option value=''>전체</option>");
     			  

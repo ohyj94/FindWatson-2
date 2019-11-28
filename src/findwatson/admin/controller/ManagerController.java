@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import findwatson.admin.dao.ManagerDAO;
 import findwatson.admin.dto.HListDTO;
+import findwatson.admin.dto.NoticeDTO;
 import findwatson.board.dto.BoardDTO;
+import findwatson.configuration.Configuration;
 
 
-@WebServlet("/ManagerController")
+@WebServlet("*.manager")
 public class ManagerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,15 +29,38 @@ public class ManagerController extends HttpServlet {
 			if(cmd.contentEquals("병원리스트")) {
 				List<HListDTO> list = dao.hospitalList();
 				request.setAttribute("list", list);
-				
-				
+
+
 			}
 			else if(cmd.contentEquals("병원정보등록")) {
 				String hName = request.getParameter("hName");
-				
+
 			}
 			else if(cmd.contentEquals("병원정보수정")) {
+
+			}
+			else if(cmd.contentEquals("/admin/adminBoardNotice.manager")) {
+				System.out.println("공지사항 진입 성공");
 				
+
+				int cpage = 1;
+				String param = request.getParameter("cpage");
+				
+				if(param!=null) {
+					cpage = Integer.parseInt(param);	
+				}
+				
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);	
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<NoticeDTO> list = dao.noticeListByPage(start, end);
+				
+				String pageNavi = dao.getNoticeListPageNav(cpage);
+				
+				request.setAttribute("pageNavi", pageNavi);
+				request.setAttribute("list", list);
+			
+				request.getRequestDispatcher("/admin/adminBoardNotice.jsp").forward(request, response);
 			}
 			else if(cmd.contentEquals("1:1문의게시판 목록")) {
 				dao.oneByOneList();

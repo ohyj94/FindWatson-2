@@ -14,22 +14,9 @@
 
         <style>
             *{box-sizing: border-box}
-            div{border: 1px solid black}
+/*            div{border: 1px solid black}*/
             #logo{
                 width: 500px;
-                height: 100px;
-                margin: auto;
-            }
-/*
-            #article{
-                height: 600px;
-            }
-*/
-            #article>*{
-                height: 100%;
-            }
-            #article-img{
-                width:100%;
                 height: 100px;
                 margin: auto;
             }
@@ -48,14 +35,15 @@
             .navbar-nav{
                 width: 100%;
             }
+            #article, .line{
+                border: 0.5px solid lightgray;
+            }
             #category{width: 100%; height: 100%;}
-            #board-contents{overflow: auto; font-size: 10pt;}
-            .article-navi{width: 100%;}
-            .article-navi>div>ul>li{display: inline-block; width: 100%;}
-            .Anavi{width: 100%;}
             .search-box>*{width: 100%;}
             .write-box>*{width: 100%;}
-            #boardTitle{width:100%;}
+            #article, .line{
+                border: 0.5px solid lightgray;
+            }
         </style>
 </head>
 <body>
@@ -67,7 +55,7 @@
             </div>
             <div class="row">
                 <div id="title" class="col-12 mb-3 p-1 text-center">
-                    <img id="logo" src="../imgs/logo.png" class="col-12">
+                    <img id="logo" src="imgs/logo.png" class="col-12">
                 </div>
             </div>
             <div class="row">
@@ -81,24 +69,37 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">공지사항</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">병원검색</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">전문가Q&A</a>
-                                </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          커뮤니티
+          병원관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">자유게시판</a>
-          <a class="dropdown-item" href="#">질문게시판</a>
+          <a class="dropdown-item" href="#">병원정보 등록</a>
+          <a class="dropdown-item" href="#">병원정보 수정/삭제</a>
+          <a class="dropdown-item" href="#">병원리뷰</a>
         </div>
         </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">마이페이지</a>
-                                </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          게시판관리
+        </a>
+        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">전문가Q&A</a>
+          <a class="dropdown-item" href="#">자유게시판</a>
+          <a class="dropdown-item" href="#">질문게시판</a>
+          <a class="dropdown-item" href="#">1:1문의</a>
+        </div>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          회원관리
+        </a>
+        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminMemberList.admin">회원목록조회</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminBanList.admin">차단 IP 조회</a>
+          <a class="dropdown-item" href="#">회원 통계</a>
+        </div>
+        </li>
                             </ul>
                         </div>
                     </nav>
@@ -106,34 +107,61 @@
             </div>
             <!--            -->
             <div class="row">
-                <div class="col-12" id="article">
-                    <div class="row">
-                        <div id="article-middle" class="col-12 mt-2">
-                           <div class="row mb-3 p-1 text-center">
-                                <h3 id="board-top" class="col-auto col-sm-4 m-0">자유게시판</h3>
-                                <span class="col-auto col-sm-8 mt-2">자유롭게 소통하는 공간 입니다.</span>
-                            </div>
+        <div class="col-12 mb-3" id="article">
+            <div class="row">
+            <div id="article-middle" class="col-12 mt-2">
+                <div class="row mb-3 p-1 text-center">
+                    <h3 id="board-top" class="col-auto col-sm-4 m-0">차단 IP 조회</h3>
+                    <span class="col-auto col-sm-8 mt-2">
+                           <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
+                    </span>
+            </div>
+            <div class="row line">
+                
+                <div class="col-md-3 d-none d-md-block">
+                    아이디
+                </div>
+                <div class="col-md-3 d-none d-md-block">
+           IP
+                </div>
+                <div class="col-md-6 d-none d-md-block">
+                    차단 사유
+                </div>
+            </div>
+            <!-- 게시글 목록 -->
+           <c:forEach items="${list}" var="list">
+           <div class="row line">
+                
+                <div class="col-md-3 d-none d-md-block">
+                    ${list.id}
+                </div>
+                <div class="col-md-3 d-none d-md-block">
+           			${list.ip }
+                </div>
+                <div class="col-md-6 d-none d-md-block">
+                    ${list.reason }
+                </div>
+            </div>
+            </c:forEach>
                             <div class="row">
-                                <div class="col-2 p-1">
-                                    <select id="category">
-                                        <option value="">말머리</option>
-                                    </select>
-                                </div>
-                                <div class="col-10 p-1">
-<input type="text" class="" id="boardTitle" name="boardTitle">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 p-1">
-                                    <!-- 썸머노트 -->
-<textarea name="" id="" cols="30" rows="10"></textarea>
+                                <div class="col-12 text-center">
+                                    ${pageNavi}
                                 </div>
                             </div>
                             <div class="row mb-2">
-                                <div class="col-12 p-1 text-center">
-<button id="writeBtn" type="button" class="btn btn-sm btn-outline-secondary">작성</button>
-<button id="updateBtn" type="button" class="btn btn-sm btn-outline-secondary">수정</button>
-<button id="deleteBtn" type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
+                                <div class="col-auto col-sm-2 p-1">
+                                    <select id="category">
+                                        <option value="">제목</option>
+                                    </select>
+                                </div>
+                                <div class="search-box col-auto col-sm-6 p-1">
+                                    <input type="text" class="" id="search" name="search" value="">
+                                </div>
+                                <div class="search-box col-auto col-sm-2 p-1">
+                                    <button class="btn btn-sm btn-outline-secondary">검색</button>
+                                </div>
+                                <div class="write-box col-auto col-sm-2 text-center p-1">
+                                    <button class="btn btn-sm btn-outline-secondary">작성하기</button>
                                 </div>
                             </div>
                         </div>
@@ -144,10 +172,14 @@
             <div class="row">
                 <div id="footer" class="col-12">
                     <div class="row p-1">
-                        <div id="footer-logo" class="col-4">
-                            <img id="logo" src="../imgs/logo.png" class="d-none d-sm-block col-12"> 
+                        <div id="footer-logo" class="col-12 col-sm-4">
+                            <div class="row">
+                                <div class="col">
+                                    <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12">
+                                </div>
+                            </div>
                         </div>
-                        <div id="footer-contents" class="col-8">
+                        <div id="footer-contents" class="col-12 col-sm-8">
                             <div class="row">
                                 <div class="col-6 col-sm-auto"><a href="#">회사소개</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">이용약관</a></div>

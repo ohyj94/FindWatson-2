@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
 
         <style>
             *{box-sizing: border-box}
-            div{border: 1px solid black}
+/*            div{border: 1px solid black}*/
             #logo{
                 width: 500px;
                 height: 100px;
@@ -35,12 +35,18 @@
             .navbar-nav{
                 width: 100%;
             }
+            #category{width: 100%; height: 100%;}
+            .search-box>*{width: 100%;}
+            .write-box>*{width: 100%;}
+            #article, .line{
+                border: 0.5px solid lightgray;
+            }
         </style>
 </head>
 <body>
-<div class="container">
+    <div class="container">
             <div class="row mb-2">
-                <div id="loginBtn" class="col-12 p-1 text-right">
+                <div id="loginBtn" class="col-12 text-right">
                     <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
                 </div>
             </div>
@@ -92,11 +98,92 @@
                 </div>
             </div>
             <!--            -->
-
-
-
-
-
+            <div class="row">
+                <div class="col-12 mb-3" id="article">
+                    <div class="row">
+                        <div id="article-middle" class="col-12 mt-2">
+                           <div class="row mb-3 p-1 text-center">
+                                <h3 id="board-top" class="col-auto col-sm-4 m-0">자유게시판</h3>
+                                <span class="col-auto col-sm-8 mt-2">자유롭게 소통하는 공간 입니다.</span>
+                            </div>
+                            <div class="row line">
+                <div class="col-1 d-none d-md-block"></div>
+                <div class="col-md-2 d-none d-md-block">
+                    말머리
+                </div>
+                <div class="col-md-5 d-none d-md-block">
+                    제목
+                </div>
+                <div class="col-md-2 d-none d-md-block">
+                    작성자
+                </div>
+                <div class="col-md-2 d-none d-md-block">
+                    작성날짜
+                </div>
+            </div>
+            <!-- 게시글 목록 -->
+            <div class="row line">
+                <div class="col-1 d-none d-md-block">1</div>
+                <div class="col-md-2 d-none d-md-block">
+                    앵무새
+                </div>
+                <div class="col-8 col-md-5 text-left">
+                    아파요...
+                </div>
+                <!-- 모바일에서만 보이는 div -->
+                <div class="col-4 d-block d-md-none">앵무새</div>
+                <!-- 모바일에서만 보이는 div -->
+                <div class="col-6 col-md-2 text-left">
+                    박소현
+                </div>
+                <div class="col-6 col-md-2">
+                    2019-11-28
+                </div>
+            </div>
+            <div class="row line">
+                <div class="col-1 d-none d-md-block">2</div>
+                <div class="col-md-2 d-none d-md-block">
+                    고슴도치
+                </div>
+                <div class="col-8 col-md-5 text-left">
+                    나도....
+                </div>
+                <!-- 모바일에서만 보이는 div -->
+                <div class="col-4 d-block d-md-none">고슴도치</div>
+                <!-- 모바일에서만 보이는 div -->
+                <div class="col-6 col-md-2 text-left">
+                    최익태
+                </div>
+                <div class="col-6 col-md-2">
+                    2019-11-28
+                </div>
+            </div>            
+            <!-- -->
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    1 2 3 4 5
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-auto col-sm-2 p-1">
+                                    <select id="category">
+                                        <option value="">제목</option>
+                                    </select>
+                                </div>
+                                <div class="search-box col-auto col-sm-6 p-1">
+                                    <input type="text" class="" id="search" name="search" value="">
+                                </div>
+                                <div class="search-box col-auto col-sm-2 p-1">
+                                    <button class="btn btn-sm btn-outline-secondary">검색</button>
+                                </div>
+                                <div class="write-box col-auto col-sm-2 text-center p-1">
+                                    <button class="btn btn-sm btn-outline-secondary">글쓰기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!--            -->
             <div class="row">
                 <div id="footer" class="col-12">

@@ -67,9 +67,9 @@ public class AdminController extends HttpServlet {
 				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);	
 				int end = cpage * Configuration.recordCountPerPage;
 				
-				List<MemberDTO> list = dao.listByPage(start, end);
+				List<MemberDTO> list = dao.MemberListByPage(start, end);
 				
-				String pageNavi = dao.getPageNav(cpage);
+				String pageNavi = dao.getMemberListPageNav(cpage);
 				
 				request.setAttribute("pageNavi", pageNavi);
 				request.setAttribute("list", list);
@@ -80,11 +80,30 @@ public class AdminController extends HttpServlet {
 				
 			}
 			//차단한 ip 목록
-			else if(cmd.contentEquals("차단한ip목록")) {
+			else if(cmd.contentEquals("/admin/adminBanList.admin")) {
 				
-				List<BanDTO> list = dao.selectBanList();
+				//List<BanDTO> list = dao.selectBanList();
+				//request.setAttribute("list", list);
+				int cpage = 1;
+				String param = request.getParameter("cpage");
+				
+				if(param!=null) {
+					cpage = Integer.parseInt(param);	
+				}
+				
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);	
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<BanDTO> list = dao.BanListByPage(start, end);
+				
+				String pageNavi = dao.getBanListPageNav(cpage);
+				
+				request.setAttribute("pageNavi", pageNavi);
 				request.setAttribute("list", list);
-				//request.getRequestDispatcher("차단한ip목록.jsp").forward(request, response);
+				
+				//
+				
+				request.getRequestDispatcher("/admin/adminBanList.jsp").forward(request, response);
 			}
 			//회원목록에서 아이디로 회원 검색
 			else if(cmd.contentEquals("아이디로 회원 검색")) {
