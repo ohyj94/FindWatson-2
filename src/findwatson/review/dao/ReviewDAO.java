@@ -37,12 +37,12 @@ public class ReviewDAO {
 	
 	//리뷰 등록
 	public int insert(ReviewDTO dto)throws Exception{ 
-		String sql = "insert into hosptReview values (hosptReviewSeq.nextval, ?,0,?,?,?,?,sysdate,?,0,0)";
+		String sql = "insert into hosptReview values (hosptReviewSeq.nextval, ?,0,?,?,?,?,sysdate,?,0)";
 		try(
 				Connection con = getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setInt(1, dto.getArticleSeq());
+			pstat.setInt(1, dto.getHosptListSeq());
 			pstat.setString(2, dto.getTitle());
 			pstat.setString(3, dto.getContent());
 			pstat.setString(4, dto.getHeader()); 
@@ -55,13 +55,13 @@ public class ReviewDAO {
 	}
 
 	//리뷰 몇개있는지 리턴 - 인자값 병원 시퀀스
-	public int getArticleCount(int articleSeq) throws Exception{
-		String sql = "select count(*) from hosptreview where articleseq = ?";
+	public int getArticleCount(int hosptReviewSeq) throws Exception{
+		String sql = "select count(*) from hosptReview where hosptListSeq = ?";
 		try(
 			Connection con = getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setInt(1, 7777);
+			pstat.setInt(1, hosptReviewSeq);
 			try(
 					ResultSet rs = pstat.executeQuery();	
 					){
@@ -75,7 +75,7 @@ public class ReviewDAO {
 	
 	//모든 리뷰 출력
 	public List<ReviewDTO> selectAll() throws Exception{
-		String sql = "select * from hosptreview order by seq desc";
+		String sql = "select * from hosptReview order by seq desc";
 		List<ReviewDTO> list = new ArrayList<>();
 		try(
 			Connection con = getConnection();
@@ -94,10 +94,9 @@ public class ReviewDAO {
 				Timestamp writeDate = rs.getTimestamp(8);
 				String ipAddr = rs.getString(9);
 				int likeCount = rs.getInt(10);
-				int viewCount = rs.getInt(11);
 				
 				ReviewDTO dto = new ReviewDTO(seq, articleSeq, score, title, content, header, writer,
-						writeDate, ipAddr, likeCount, viewCount);
+						writeDate, ipAddr, likeCount);
 				list.add(dto);
 			}
 			return list;
@@ -107,7 +106,7 @@ public class ReviewDAO {
 	//페이지당 리뷰 출력 - 인자값 병원 시퀀스, 시작페이지번호 , 끝페이지 번호
 	public List<ReviewDTO> selectByPage(int articleSeqInput, int start, int end) throws Exception{
 		String sql = "select * from (select row_number() over (order by seq desc)as rown, hosptreview.* from hosptreview) "
-				+ "where rown between ? and ?  and articleSeq = ?";
+				+ "where rown between ? and ?  and hosptListSeq = ?";
 		List<ReviewDTO> list = new ArrayList<>();
 		try(
 			Connection con = getConnection();
@@ -120,7 +119,6 @@ public class ReviewDAO {
 					ResultSet rs = pstat.executeQuery();
 					){
 				while(rs.next()) {
-					//(hosptReviewSeq.nextval, 0,0,'title','content','bird','writer',sysdate,'localhost',0,0)
 					int seq = rs.getInt(2);
 					int articleSeq = articleSeqInput;
 					int score = rs.getInt(4);
@@ -131,10 +129,9 @@ public class ReviewDAO {
 					Timestamp writeDate = rs.getTimestamp(9);
 					String ipAddr = rs.getString(10);
 					int likeCount = rs.getInt(11);
-					int viewCount = rs.getInt(12);
 					
 					ReviewDTO dto = new ReviewDTO(seq, articleSeq, score, title, content, header, writer,
-							writeDate, ipAddr, likeCount, viewCount);
+							writeDate, ipAddr, likeCount);
 					list.add(dto);
 				}
 			}
@@ -142,8 +139,8 @@ public class ReviewDAO {
 		return list;
 	}
 
-	public String getPageNavi(int currentPage, int articleSeq)throws Exception{
-		int recordTotalCount = this.getArticleCount(7777);
+	public String getPageNavi(int currentPage, int hosptReviewSeq)throws Exception{
+		int recordTotalCount = this.getArticleCount(hosptReviewSeq);
 		
 		int pageTotalCount  = 0;
 		int adv = recordTotalCount / Configuration.recordCountPerPage;

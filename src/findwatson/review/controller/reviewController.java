@@ -38,6 +38,10 @@ public class reviewController extends HttpServlet {
 		String cmd = requestURI.substring(contextPath.length());
 		System.out.println("cmd : " + cmd);
 		
+	     
+		int hosptListSeq = 7777;
+					
+		
 		if(cmd.contentEquals("/search/imgUpload.re")) {//이미지 업로드
 			String repositoryName = "reviewImg";
 			String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
@@ -52,14 +56,14 @@ public class reviewController extends HttpServlet {
 			
 			String fileName = multi.getFilesystemName("reviewImg");
 			String oriFileName = multi.getOriginalFileName("reviewImg");
-			System.out.println("���� ���� �̸� : " + oriFileName);
-			System.out.println("���� ���� �̸� : " + fileName);
+			System.out.println("원래 파일 이름 : " + oriFileName);
+			System.out.println("최종 파일 이름 " + fileName);
 			
 			try {
-				fDao.insert(new ReviewFileDTO(0, 7777, fileName, oriFileName));//�Խñ۽ù��� �ȳ־ �ɰŰ���
+				fDao.insert(new ReviewFileDTO(0, 7777, fileName, oriFileName));
 			}catch(Exception e) {
 				e.printStackTrace();
-				response.sendRedirect(contextPath + "error.jsp");
+				response.sendRedirect(contextPath + "/error.jsp");
 			}
 			//서버의 이미지 경로
 			String imgPath = "../" + repositoryName + "/" + fileName;
@@ -71,35 +75,34 @@ public class reviewController extends HttpServlet {
 		}else if(cmd.contentEquals("/search/reviewWrite.re")){ //리뷰 등록
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
-			
 			try {
-				dao.insert(new ReviewDTO(0,7777,5,title,content,"�޹���", "test", null, ipAddr, 0 , 0));
+				dao.insert(new ReviewDTO(0,7777,5,title,content,"햄스터", "test", null, ipAddr, 0 ));
 				response.sendRedirect("hospitalSearchDetail2.re");
 				
 			}catch(Exception e){
 				e.printStackTrace();
-				response.sendRedirect(contextPath + "error.jsp");
+				response.sendRedirect(contextPath + "/error.jsp");
 			}
 		}else if(cmd.contentEquals("/search/hospitalSearchDetail2.re")) { //병원 디테일뷰 2
-			try {               
+			try {    
 				int cpage = 1;
 				String cpageInput = request.getParameter("cpage");
 				if(cpageInput != null) {
 					cpage = Integer.parseInt(request.getParameter("cpage"));
 				}
-				String navi = dao.getPageNavi(cpage, 7777);
+				String navi = dao.getPageNavi(cpage, hosptListSeq);
 				request.setAttribute("cpage", cpage);
 				request.setAttribute("navi", navi); 
 				
 				int startRecord = cpage*Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
 				int endRecord = cpage*Configuration.recordCountPerPage;
 				
-				List<ReviewDTO> reviewList = dao.selectByPage(7777, startRecord, endRecord);
+				List<ReviewDTO> reviewList = dao.selectByPage(hosptListSeq, startRecord, endRecord);
 				request.setAttribute("reviewList", reviewList);
 				request.getRequestDispatcher("hospitalSearchDetail2.jsp").forward(request, response);
 			}catch(Exception e) {
 				e.printStackTrace();
-				response.sendRedirect(contextPath + "error.jsp");
+				response.sendRedirect(contextPath + "/error.jsp");
 			}
 		}else {
 			response.sendRedirect(contextPath+"/error.jsp");

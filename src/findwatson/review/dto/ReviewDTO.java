@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class ReviewDTO {
 	private int seq;
-	private int articleSeq;
+	private int hosptListSeq;
 	private int score;
 	private String title;
 	private String content;
@@ -13,17 +13,17 @@ public class ReviewDTO {
 	private Timestamp writeDate;
 	private String ipAddr;
 	private int likeCount;
-	private int viewCount;
 	
 	public ReviewDTO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public ReviewDTO(int seq, int articleSeq, int score, String title, String content, String header, String writer,
-			Timestamp writeDate, String ipAddr, int likeCount, int viewCount) {
+	public ReviewDTO(int seq, int hosptListSeq, int score, String title, String content, String header, String writer,
+			Timestamp writeDate, String ipAddr, int likeCount) {
 		super();
 		this.seq = seq;
-		this.articleSeq = articleSeq;
+		this.hosptListSeq = hosptListSeq;
 		this.score = score;
 		this.title = title;
 		this.content = content;
@@ -32,7 +32,6 @@ public class ReviewDTO {
 		this.writeDate = writeDate;
 		this.ipAddr = ipAddr;
 		this.likeCount = likeCount;
-		this.viewCount = viewCount;
 	}
 
 	public int getSeq() {
@@ -43,12 +42,12 @@ public class ReviewDTO {
 		this.seq = seq;
 	}
 
-	public int getArticleSeq() {
-		return articleSeq;
+	public int getHosptListSeq() {
+		return hosptListSeq;
 	}
 
-	public void setArticleSeq(int articleSeq) {
-		this.articleSeq = articleSeq;
+	public void setHosptListSeq(int hosptListSeq) {
+		this.hosptListSeq = hosptListSeq;
 	}
 
 	public int getScore() {
@@ -114,14 +113,7 @@ public class ReviewDTO {
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
-
-	public int getViewCount() {
-		return viewCount;
-	}
-
-	public void setViewCount(int viewCount) {
-		this.viewCount = viewCount;
-	}
 	
+
 	
 }
