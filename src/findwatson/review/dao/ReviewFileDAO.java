@@ -30,13 +30,13 @@ public class ReviewFileDAO {
 		return instance;
 	}
 	
-	public int insert(ReviewFileDTO dto)throws Exception{ //∏Æ∫‰file db¿˙¿Â
+	public int insert(ReviewFileDTO dto)throws Exception{ 
 		String sql = "insert into reviewPhoto values (reviewPhotoSeq.nextval,?,?,?)";
 		try(
 				Connection con = getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setInt(1, dto.getArticleSeq());
+			pstat.setInt(1, dto.getHosptReviewSeq());
 			pstat.setString(2, dto.getFileName());
 			pstat.setString(3, dto.getOriFileName());
 			int result = pstat.executeUpdate();
