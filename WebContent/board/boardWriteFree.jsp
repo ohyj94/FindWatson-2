@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
 
         <style>
             *{box-sizing: border-box}
-            div{border: 1px solid black}
+/*            div{border: 1px solid black}*/
             #logo{
                 width: 500px;
                 height: 100px;
@@ -35,12 +35,17 @@
             .navbar-nav{
                 width: 100%;
             }
+            #category{width: 100%; height: 100%;}
+            #boardTitle{width:100%;}
+            #article, .line{
+                border: 0.5px solid lightgray;
+            }
         </style>
 </head>
 <body>
-<div class="container">
+    <div class="container">
             <div class="row mb-2">
-                <div id="loginBtn" class="col-12 p-1 text-right">
+                <div id="loginBtn" class="col-12 text-right">
                     <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
                 </div>
             </div>
@@ -92,11 +97,41 @@
                 </div>
             </div>
             <!--            -->
-
-
-
-
-
+            <div class="row">
+                <div class="col-12 mb-3" id="article">
+                    <div class="row">
+                        <div id="article-middle" class="col-12 mt-2">
+                           <div class="row mb-3 p-1 text-center">
+                                <h3 id="board-top" class="col-auto col-sm-4 m-0">자유게시판</h3>
+                                <span class="col-auto col-sm-8 mt-2">자유롭게 소통하는 공간 입니다.</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 p-1">
+                                    <select id="category">
+                                        <option value="">말머리</option>
+                                    </select>
+                                </div>
+                                <div class="col-10 p-1">
+<input type="text" class="" id="boardTitle" name="boardTitle">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 p-1">
+                                    <!-- 썸머노트 -->
+<textarea name="" id="" cols="30" rows="10"></textarea>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-12 p-1 text-center">
+<button id="writeBtn" type="button" class="btn btn-sm btn-outline-secondary">작성</button>
+<button id="updateBtn" type="button" class="btn btn-sm btn-outline-secondary">수정</button>
+<button id="deleteBtn" type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!--            -->
             <div class="row">
                 <div id="footer" class="col-12">

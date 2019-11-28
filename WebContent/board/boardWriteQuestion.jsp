@@ -14,22 +14,9 @@
 
         <style>
             *{box-sizing: border-box}
-            div{border: 1px solid black}
+/*            div{border: 1px solid black}*/
             #logo{
                 width: 500px;
-                height: 100px;
-                margin: auto;
-            }
-/*
-            #article{
-                height: 600px;
-            }
-*/
-            #article>*{
-                height: 100%;
-            }
-            #article-img{
-                width:100%;
                 height: 100px;
                 margin: auto;
             }
@@ -49,13 +36,10 @@
                 width: 100%;
             }
             #category{width: 100%; height: 100%;}
-            #board-contents{overflow: auto; font-size: 10pt;}
-            .article-navi{width: 100%;}
-            .article-navi>div>ul>li{display: inline-block; width: 100%;}
-            .Anavi{width: 100%;}
-            .search-box>*{width: 100%;}
-            .write-box>*{width: 100%;}
             #boardTitle{width:100%;}
+            #article, .line{
+                border: 0.5px solid lightgray;
+            }
         </style>
 </head>
 <body>
@@ -67,7 +51,7 @@
             </div>
             <div class="row">
                 <div id="title" class="col-12 mb-3 p-1 text-center">
-                    <img id="logo" src="../imgs/logo.png" class="col-12">
+                    <img id="logo" src="imgs/logo.png" class="col-12">
                 </div>
             </div>
             <div class="row">
@@ -96,9 +80,17 @@
           <a class="dropdown-item" href="#">질문게시판</a>
         </div>
         </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">마이페이지</a>
-                                </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          마이페이지
+        </a>
+        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">내 정보 보기</a>
+          <a class="dropdown-item" href="#">내 정보 수정</a>
+          <a class="dropdown-item" href="#">1 : 1 문의</a>
+          <a class="dropdown-item" href="#">회원 탈퇴</a>
+        </div>
+        </li>
                             </ul>
                         </div>
                     </nav>
@@ -106,12 +98,12 @@
             </div>
             <!--            -->
             <div class="row">
-                <div class="col-12" id="article">
+                <div class="col-12 mb-3" id="article">
                     <div class="row">
                         <div id="article-middle" class="col-12 mt-2">
                            <div class="row mb-3 p-1 text-center">
-                                <h3 id="board-top" class="col-auto col-sm-4 m-0">자유게시판</h3>
-                                <span class="col-auto col-sm-8 mt-2">자유롭게 소통하는 공간 입니다.</span>
+                                <h3 id="board-top" class="col-auto col-sm-4 m-0">질문게시판</h3>
+                                <span class="col-auto col-sm-8 mt-2">반려동물에 대해 질문하는 게시판 입니다.</span>
                             </div>
                             <div class="row">
                                 <div class="col-2 p-1">
@@ -144,10 +136,14 @@
             <div class="row">
                 <div id="footer" class="col-12">
                     <div class="row p-1">
-                        <div id="footer-logo" class="col-4">
-                            <img id="logo" src="../imgs/logo.png" class="d-none d-sm-block col-12"> 
+                        <div id="footer-logo" class="col-12 col-sm-4">
+                            <div class="row">
+                                <div class="col">
+                                    <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12">
+                                </div>
+                            </div>
                         </div>
-                        <div id="footer-contents" class="col-8">
+                        <div id="footer-contents" class="col-12 col-sm-8">
                             <div class="row">
                                 <div class="col-6 col-sm-auto"><a href="#">회사소개</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">이용약관</a></div>

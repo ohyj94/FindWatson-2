@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
 
         <style>
             *{box-sizing: border-box}
-            div{border: 1px solid black}
+/*            div{border: 1px solid black}*/
             #logo{
                 width: 500px;
                 height: 100px;
@@ -35,12 +35,17 @@
             .navbar-nav{
                 width: 100%;
             }
+            #category{width: 100%; height: 100%;}
+            #boardTitle{width:100%;}
+            #article, .line{
+                border: 0.5px solid lightgray;
+            }
         </style>
 </head>
 <body>
-<div class="container">
+    <div class="container">
             <div class="row mb-2">
-                <div id="loginBtn" class="col-12 p-1 text-right">
+                <div id="loginBtn" class="col-12 text-right">
                     <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
                 </div>
             </div>
@@ -60,30 +65,35 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">공지사항</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">병원검색</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">전문가Q&A</a>
-                                </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          커뮤니티
+          병원관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">자유게시판</a>
-          <a class="dropdown-item" href="#">질문게시판</a>
+          <a class="dropdown-item" href="#">병원정보 등록</a>
+          <a class="dropdown-item" href="#">병원정보 수정/삭제</a>
+          <a class="dropdown-item" href="#">병원리뷰</a>
         </div>
         </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          마이페이지
+          게시판관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">내 정보 보기</a>
-          <a class="dropdown-item" href="#">내 정보 수정</a>
-          <a class="dropdown-item" href="#">1 : 1 문의</a>
-          <a class="dropdown-item" href="#">회원 탈퇴</a>
+          <a class="dropdown-item" href="#">전문가Q&A</a>
+          <a class="dropdown-item" href="#">자유게시판</a>
+          <a class="dropdown-item" href="#">질문게시판</a>
+          <a class="dropdown-item" href="#">1:1문의</a>
+        </div>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          회원관리
+        </a>
+        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">회원목록조회</a>
+          <a class="dropdown-item" href="#">차단 IP 조회</a>
+          <a class="dropdown-item" href="#">회원 통계</a>
         </div>
         </li>
                             </ul>
@@ -92,11 +102,47 @@
                 </div>
             </div>
             <!--            -->
-
-
-
-
-
+            <div class="row">
+                <div class="col-12 mb-3" id="article">
+                    <div class="row">
+                        <div id="article-middle" class="col-12 mt-2">
+                           <div class="row mb-3 p-1 text-center">
+                                <h3 id="board-top" class="col-auto col-sm-4 m-0">전문가 Q&A</h3>
+                                <span class="col-auto col-sm-8 mt-2">
+                                <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
+                                </span>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 p-1">
+                                    <select id="category">
+                                        <option value="">말머리</option>
+                                        <option value="">뱀</option>
+                                        <option value="">고슴도치</option>
+                                        <option value="">앵무새</option>
+                                    </select>
+                                </div>
+                                <div class="col-10 p-1">
+<input type="text" class="" id="boardTitle" name="boardTitle">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 p-1">
+                                    <!-- 썸머노트 -->
+<textarea name="" id="" cols="30" rows="10"></textarea>
+                                    <!-- 썸머노트 -->
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-12 p-1 text-center">
+<button id="writeBtn" type="button" class="btn btn-sm btn-outline-secondary">작성</button>
+<button id="updateBtn" type="button" class="btn btn-sm btn-outline-secondary">수정</button>
+<button id="deleteBtn" type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!--            -->
             <div class="row">
                 <div id="footer" class="col-12">
