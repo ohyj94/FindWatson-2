@@ -6,48 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>병원상세검색2</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+		<%--부트 스트랩 --%>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-<link
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css"
-	rel="stylesheet">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+
+		<%--썸머노트 --%>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+
+<meta charset="UTF-8">
+
 <style>
 * {
 	box-sizing: border-box
 }
 
 div {
-	border: 1px solid green
+		border: 1px solid green;
 }
 
 #logo {
@@ -95,10 +75,17 @@ img {
 .center {
 	text-align: center;
 }
+#page${cpage}{
+	color : red;
+}
+#logo{
+width:100%;
+}
 </style>
 </head>
 <body>
-	<form action="#" method="post" id=reviewSave>
+	<form action="reviewWrite.re" method="post" id=reviewSave>
+
 		<div class="container">
 			<div class="row">
 				<div id="loginBtn" class="col-12 text-right">
@@ -140,16 +127,14 @@ img {
 			<div class="row">
 				<div class="col-12">
 					<h1 name=hosName>병원 이름</h1>
-					<h5 name=mdfDate>
-						정보수정일 2019.01.01 Total.100
-					</h5>
+					<h5 name=mdfDate>정보수정일 2019.01.01 Total.100</h5>
 					<hr>
 				</div>
 			</div>
 
 			<div class=row>
 				<div class="col-6">
-					<img src="../resource/hospital/김포우리병원계열.jpg" id=hosImg>
+					<img src="../imgs/hospital/김포우리병원계열.jpg" id=hosImg>
 				</div>
 				<div class="col-6">
 					<div class="row hosIn1">
@@ -177,7 +162,6 @@ img {
 					<hr>
 				</div>
 			</div>
-
 			<div class=row>
 				<div class=col-12>
 					<h2>후기</h2>
@@ -189,26 +173,57 @@ img {
 					<a href="#">좋아요순</a> <a href="#">최신순</a> <a href="#">별점순</a>
 				</div>
 			</div>
+			<c:choose>
+			<c:when test="${list.size() == 0}">
 			<div class=row>
-				<div class=col-2>별점</div>
-				<div class=col-4>제목</div>
-				<div class=col-2>작성일</div>
-				<div class=col-2>ip</div>
-				<div class=col-2>삭제</div>
+			<div class=col-12>
+			게시글이 존재하지 않습니다.
 			</div>
+			</div>
+			</c:when>
+			<c:otherwise>
+			<c:forEach items="${reviewList}" var="dto">
+			<div class=row>
+				<div class=col-2>${dto.score}</div>
+				<div class=col-6>
+				<p>
+ 				 <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse${dto.seq}" aria-expanded="false" 
+ 				 aria-controls="collapseExample">
+				${dto.title}
+				</button>
+				</p>
+				</div>
+				<div class=col-2>${dto.writeDate}</div>
+				<div class=col-2>${dto.writer}</div>
+			</div>
+			
+			<div class="row collapse" id = "collapse${dto.seq}">
+			<div class="col-12 card card-body">
+			${dto.content}
+			</div>
+			</div>
+			</c:forEach>
+			</c:otherwise>
+			</c:choose>
+			
+			<div class=row>
+			<div class="col-12 center">
+			${navi}
+			</div>
+			</div>
+			
 			<div class=row>
 				<div class=col-12>
 					<h2>후기 남기기</h2>
-					제목 : <input type="text" id=title name=title><br>
-					<textarea id="summernote" name=editordata></textarea>
-					<button type = button id=reviewSave></button>
+					제목 : <input type="text" id=titleReview name=title><br>
+
 				</div>
 			</div>
-
 			<div class=row>
-				<div class="col-12 center">
-					<button id=save>등록</button>
-				</div>
+			<div class="col-12 center">
+					<textarea id="summernote" name=content ></textarea><br>
+					<button id=reviewSaveBtn type=button>후기 등록</button>
+			</div>
 			</div>
 
 			<div class="row">
@@ -217,62 +232,58 @@ img {
 		</div>
 	</form>
 	<script>
-            $("#reviewSaveBtn").on("click",function(){
-                var result = confirm("정말 등록 하시겠습니까?");
-                if(result){
-                    location.href="reviewWrite.hos";
-                }
-            })
-            <script>
-                $("#summernote").summernote({
-                height : 600,
-                width : 800,
-                callbacks:{
-                    onImageUpload:function(files){
-                        var data = new FormData();
-                        data.append("img", files[0]);
-                        //폼태그에서 인풋 타입파일에서 파일 선택한거까지의 상태
+		$("#reviewSaveBtn").on("click", function() {
+			var title = $("#titleReview").val(); 
+			var content = $(".note-editable").html();
+			console.log(title);
+			console.log(content);
+			
+			if( (title == "") || (content == "") ){
+				alert("내용을 입력해주세요");
+			}else{
+				var result = confirm("정말 등록 하시겠습니까?");
+				if(result){
+					$("#reviewSave").submit();
+				}
+			}
+			
+		})
 
-                        $.ajax({
-                            url:"upload.file",
-                            enctype:"multipart/form-data",
-                            type:"post", //get으로 안됨
-                            data:data,
-                            contentType:false,
-                            processData:false,
-                            cache:false,
-                            dataType:"json"
-                        }).done(function(resp){
-                            console.log("오는거 성공~~");
-                            //1.
-                            console.log(resp.url);
-                            var p = $("<p></p>");
-                            var img = $("<img>");
-                            $(img).attr("src",resp.url);
-                            p.append(img);
-                            $(".note-editable").append(p);
+		$("#summernote").summernote({
+			height : 600,
+			tabsize: 2,
+			callbacks : {
+				onImageUpload : function(files) {
+					var data = new FormData();
+					data.append("reviewImg", files[0]);
 
-                            //2.
-                            //var img2 = $("<img>");
-                            //console.log(resp.url);
-                            //Jquery는 대상을 선택하면 무조건 배열임
-                            //img2.attr("src", resp.url);
-                            //console.log(img2[0]);
+					$.ajax({
+						url : "imgUpload.re",
+						enctype : "multipart/form-data",
+						type : "post",
+						data : data,
+						contentType : false,
+						processData : false,
+						cache : false,
+						dataType : "json"
+					}).done(function(resp) {
+						console.log(resp.imgPath);
+						var p = $("<p></p>");
+						var img = $("<img>");
+						$(img).attr("src", resp.imgPath);
+						p.append(img);
+						$(".note-editable").append(p);
+					}).fail(function(a, b, c) {
+						console.log("fail");
+						console.log(a);
+						console.log(b);
+						console.log(c);
+					});
 
-                            //$("#summernote").summernote('insertNode', img2[0]);
+				}
+			}
+		})
+	</script>
 
-
-                        }).fail(function(a,b,c){
-                            console.log("fail");
-                            console.log(a);
-                            console.log(b);
-                            console.log(c);
-                        });
-
-                    }
-                }
-            })
-
-        </script>
 </body>
 </html>

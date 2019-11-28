@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import findwatson.admin.dao.AdminDAO;
 import findwatson.admin.dto.BanDTO;
-import findwatson.admin.dto.MemberDTO;
 import findwatson.configuration.Configuration;
+import findwatson.member.dto.MemberDTO;
 
 @WebServlet("*.admin")
 public class AdminController extends HttpServlet {

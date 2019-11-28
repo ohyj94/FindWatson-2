@@ -6,17 +6,16 @@
 <head>
  <meta charset="UTF-8">
         <title>찾아줘 왓슨!</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <%--부트 스트랩 --%>
+		   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
         <style>
             *{box-sizing: border-box}
@@ -92,9 +91,11 @@
                     <hr>
                 </div>
             </div>
-
+            
+            
+ <%--검색 컨테이너 시작 --%>
+<form action="${pageContext.request.contextPath}/searchFrom.s" method="post">
             <div class="container detailSearch">
-                <%--검색 컨테이너 시작 --%>
                 <div class =row>
                     <div class=col-12>
                         <h5> 지역별 검색</h5>
@@ -102,36 +103,20 @@
                 </div>
                    <div class = row>
                     <div class=col-3>
-                        <select name=city>
-                            <option>서울</option>
-                            <option>경기도</option>
-                            <option>충청도</option>
-                            <option>강원도</option>
-
-
+                        <select name="address" id="address">
+                       	<option value="null">-시 선택-</option>
+						<option value="서울">서울</option>
                         </select>
                     </div>
                     <div class=col-3>
-                        <select name=gu>
-                            <option>덕양구</option>
-                            <option>구로구</option>
-                            <option>일산동구</option>
-                            <option>일산서구</option>
+                        <select name="address2" id="address2">
+                      	<option value="null">-구 선택-</option>
                         </select>
                     </div>
-                    
-                    <div class=col-3>
-                        <select name=dong>
-                            <option>고양시</option>
-                            <option>일산시</option>
-                            <option>시</option>
-                            <option>시</option>
-                        </select>
-                    </div>
-                   
+             
 
                     <div class = col-3>
-                        <button id="search">검색</button>
+                        <button id=send_btn>검색</button>
                     </div>
                 </div>
 
@@ -143,30 +128,30 @@
 
                 <div class = row>
                     <div class=col-3>
-                        새<input type="checkbox" name=animal value=bird>
+                        새<input type="checkbox" name=animal value=새>
                     </div>
                     <div class=col-3>
-                        물고기<input type="checkbox" name=animal value=fish>
+                        물고기<input type="checkbox" name=animal value=물고기>
                     </div>
                     <div class=col-3>
-                        햄스터<input type="checkbox" name=animal value=mouse>
+                        햄스터<input type="checkbox" name=animal value=햄스터>
                     </div>
                     <div class=col-3>
-                        토끼<input type="checkbox" name=animal value=rabbit>
+                        토끼<input type="checkbox" name=animal value=토끼>
                     </div>
                 </div>
                 <div class = row>
                     <div class=col-3>
-                        고슴도치<input type="checkbox" name=animal value=hedgehog>
+                        고슴도치<input type="checkbox" name=animal value=고슴도치>
                     </div>
                     <div class=col-3>
-                        파충류<input type="checkbox" name=animal value=reptile>
+                        파충류<input type="checkbox" name=animal value=파충류>
                     </div>
                     <div class=col-3>
-                        곤충류<input type="checkbox" name=animal value=bug>
+                        곤충류<input type="checkbox" name=animal value=곤충류>
                     </div>
                     <div class=col-3>
-                        기타<input type=text><input type="checkbox" name=animal value=other>
+                        기타<input type="checkbox" name=animal value=기타>
                     </div>
                 </div>
 
@@ -176,85 +161,54 @@
                     </div>
                 </div>
                 <div class=row>
-                    <div class=col-2>
-                        1<input type="checkbox">
+                    <div class=col-4>
+                      <input type="checkbox" name=time value=주간진료>주간진료
                     </div>
-                    <div class=col-2>
-                        2<input type="checkbox">
+                    <div class=col-4>
+                        <input type="checkbox" name=time value=24시간진료>24시간진료
                     </div>
-                    <div class=col-2>
-                        3 <input type="checkbox">
+                    <div class=col-4>
+                     	<input type="checkbox" name=time value=야간응급진료>야간응급진료
                     </div>
-                    <div class=col-2>
-                        4<input type="checkbox">
-                    </div>
-                    <div class=col-2>
-                        5<input type="checkbox">
-                    </div>
-                    <div class=col-2>
-                        6<input type="checkbox">
-                    </div>
+            
                 </div>
-                
-                  <div class= row>
-                    <div class= col-12>
-                        <h5>진료 과목</h5>
-                    </div>
-                </div>
-                <div class=row>
-                    <div class=col-2>
-                        1<input type="checkbox">
-                    </div>
-                    <div class=col-2>
-                        2<input type="checkbox">
-                    </div>
-                    <div class=col-2>
-                        3 <input type="checkbox">
-                    </div>
-                    <div class=col-2>
-                        4<input type="checkbox">
-                    </div>
-                    <div class=col-2>
-                        5<input type="checkbox">
-                    </div>
-                    <div class=col-2>
-                        6<input type="checkbox">
-                    </div>
-                </div>
-            </div> <%--검색 컨테이너 끝 --%>
+            </div>
+            </form>
+             <%--검색 컨테이너 끝 --%>
 
+            <%-- 검색 결과 컨테이너 시작 --%>
             <div class =row>
                 <div class=col-12>
                     <h1>2(검색된 병원)</h1>
                     <hr>
                 </div>
             </div>
+            
+            <c:forEach items="${list}" var="hospital">
             <div class =row>
                 <div class=col-4>
-                    <img src = "../resource/hospital/김포우리병원계열.jpg" id =hosImg >
+                    <img src = "${hospital.img}" id =hImg >
                 </div>
                 <div class = col-8>
-                     <a href="#"><h2>김포우리병원계열</h2></a>
+                     <a href="#">${hospital.hosptName}</a>
                     <ul>
-                        <li>김포 위치</li>
-                        <li>12345</li>
-                        <li>12345</li>
+                        <li>순서 : "${hospital.seq}"</li>
+                        <li>병원 이름 : "${hospital.hosptName}"</li>
+                        <li>우편번호 : ${hospital.postcode}</li>
+                        <li>주소1 : ${hospital.address1}</li>
+                        <li>주소2 : ${hospital.address2}</li>
+                        <li>전화번호 : ${hospital.phone}</li>
+                        <li>홈페이지 : ${hospital.homepage}</li>
+                        <li>진료 동물 : ${hospital.medicalAnimal}</li>
+                        <li>진료 시간 : ${hospital.openTime}</li>
+                        <li>정보 등록일 : ${hospital.registDate}</li> 
                     </ul>
                 </div>
             </div>
-            <div class =row>
-                <div class=col-4>
-                    <img src = "../resource/hospital/병원이름모름.jpg" id =hosImg >
-                </div>
-                <div class = col-8>
-                    <a href="#"><h2>김포우리병원계열</h2></a>
-                    <ul>
-                        <li>김포 위치</li>
-                        <li>12345</li>
-                        <li>12345</li>
-                    </ul>
-                </div>
-            </div>
+            </c:forEach>
+            
+      <%-- 검색 결과 컨테이너 끝 --%>
+            
             
             <div class=row>
                 <div class= col-12>
@@ -270,5 +224,26 @@
                 </div>
             </div>
         </div>
+        
+             <script>
+        $("#address").on("click", function(){
+    		$.ajax({
+    			url : "selectGu.s",
+    			type : "post",
+    			dataType : "json",
+    			data : {city : $("#address option:selected").val()}
+    		}).done(function(result){
+    			$("#address2").find("option").remove().end().append("<option value=''>전체</option>");
+    			  
+    			  //배열 개수 만큼 option 추가
+    			   $.each(result, function(i){
+    			    $("#address2").append("<option value='"+result[i]+"'>"+result[i]+"</option>")
+    			   });  
+    		}).fail(function(){
+    			alert("오류 발생");
+    		});
+    	})
+        </script>
+        
 </body>
 </html>

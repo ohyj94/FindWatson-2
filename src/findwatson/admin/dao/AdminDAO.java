@@ -1,18 +1,18 @@
 package findwatson.admin.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import findwatson.admin.dto.BanDTO;
-import findwatson.admin.dto.MemberDTO;
 import findwatson.admin.utils.Util;
 import findwatson.configuration.Configuration;
+import findwatson.member.dto.MemberDTO;
 
 public class AdminDAO {
 	private static AdminDAO instance;
@@ -79,16 +79,17 @@ public class AdminDAO {
 				String id = rs.getString(1);
 				String pw = rs.getString(2);
 				String name = rs.getString(3);
-				Date birth = rs.getDate(4);
+				String birth = rs.getString(4);
 				String gender = rs.getString(5);
 				String email = rs.getString(6);
 				String phone = rs.getString(7);
-				int zipcode = rs.getInt(8);
+				String postcode = rs.getString(8);
 				String address1 = rs.getString(9);
 				String address2 = rs.getString(10);
 				String lovePet = rs.getString(11);
 				String signPath = rs.getString(12);
-				MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,zipcode,address1,address2,lovePet,signPath);
+				Timestamp date = rs.getTimestamp(13);
+				MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
 				memberList.add(dto);
 			}
 			return memberList;
@@ -107,19 +108,20 @@ public class AdminDAO {
 					){	
 				List<MemberDTO> memberList = new ArrayList<>();
 				while(rs.next()) {
-					String id2 = rs.getString(1);
+					
 					String pw = rs.getString(2);
 					String name = rs.getString(3);
-					Date birth = rs.getDate(4);
+					String birth = rs.getString(4);
 					String gender = rs.getString(5);
 					String email = rs.getString(6);
 					String phone = rs.getString(7);
-					int zipcode = rs.getInt(8);
+					String postcode = rs.getString(8);
 					String address1 = rs.getString(9);
 					String address2 = rs.getString(10);
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
-					MemberDTO dto = new MemberDTO(id2,pw,name,birth,gender,email,phone,zipcode,address1,address2,lovePet,signPath);
+					Timestamp date = rs.getTimestamp(13);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -141,17 +143,18 @@ public class AdminDAO {
 				while(rs.next()) {
 					String id = rs.getString(1);
 					String pw = rs.getString(2);
-					String name2 = rs.getString(3);
-					Date birth = rs.getDate(4);
+					
+					String birth = rs.getString(4);
 					String gender = rs.getString(5);
 					String email = rs.getString(6);
 					String phone = rs.getString(7);
-					int zipcode = rs.getInt(8);
+					String postcode = rs.getString(8);
 					String address1 = rs.getString(9);
 					String address2 = rs.getString(10);
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
-					MemberDTO dto = new MemberDTO(id,pw,name2,birth,gender,email,phone,zipcode,address1,address2,lovePet,signPath);
+					Timestamp date = rs.getTimestamp(13);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -171,19 +174,20 @@ public class AdminDAO {
 					){	
 				List<MemberDTO> memberList = new ArrayList<>();
 				while(rs.next()) {
-					String id2 = rs.getString(1);
+					String id = rs.getString(1);
 					String pw = rs.getString(2);
 					String name = rs.getString(3);
-					Date birth2 = rs.getDate(4);
+					
 					String gender = rs.getString(5);
 					String email = rs.getString(6);
 					String phone = rs.getString(7);
-					int zipcode = rs.getInt(8);
+					String postcode = rs.getString(8);
 					String address1 = rs.getString(9);
 					String address2 = rs.getString(10);
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
-					MemberDTO dto = new MemberDTO(id2,pw,name,birth2,gender,email,phone,zipcode,address1,address2,lovePet,signPath);
+					Timestamp date = rs.getTimestamp(13);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -205,17 +209,18 @@ public class AdminDAO {
 				while(rs.next()) {
 					String id = rs.getString(1);
 					String pw = rs.getString(2);
-					String name2 = rs.getString(3);
-					Date birth = rs.getDate(4);
-					String gender2 = rs.getString(5);
+					String name = rs.getString(3);
+					String birth = rs.getString(4);
+					
 					String email = rs.getString(6);
 					String phone = rs.getString(7);
-					int zipcode = rs.getInt(8);
+					String postcode = rs.getString(8);
 					String address1 = rs.getString(9);
 					String address2 = rs.getString(10);
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
-					MemberDTO dto = new MemberDTO(id,pw,name2,birth,gender2,email,phone,zipcode,address1,address2,lovePet,signPath);
+					Timestamp date = rs.getTimestamp(13);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -237,17 +242,18 @@ public class AdminDAO {
 				while(rs.next()) {
 					String id = rs.getString(1);
 					String pw = rs.getString(2);
-					String name2 = rs.getString(3);
-					Date birth = rs.getDate(4);
+					String name = rs.getString(3);
+					String birth = rs.getString(4);
 					String gender = rs.getString(5);
 					String email = rs.getString(6);
 					String phone = rs.getString(7);
-					int zipcode = rs.getInt(8);
+					String postcode = rs.getString(8);
 					String address1 = rs.getString(9);
 					String address2 = rs.getString(10);
-					String lovePet2 = rs.getString(11);
+					
 					String signPath = rs.getString(12);
-					MemberDTO dto = new MemberDTO(id,pw,name2,birth,gender,email,phone,zipcode,address1,address2,lovePet2,signPath);
+					Timestamp date = rs.getTimestamp(13);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -377,16 +383,17 @@ public class AdminDAO {
 					String id = rs.getString(1);
 					String pw = rs.getString(2);
 					String name = rs.getString(3);
-					Date birth = rs.getDate(4);
+					String birth = rs.getString(4);
 					String gender = rs.getString(5);
 					String email = rs.getString(6);
 					String phone = rs.getString(7);
-					int zipcode = rs.getInt(8);
+					String postcode = rs.getString(8);
 					String address1 = rs.getString(9);
 					String address2 = rs.getString(10);
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,zipcode,address1,address2,lovePet,signPath);
+					Timestamp date = rs.getTimestamp(13);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
 					result.add(dto);
 				}
 				return result;

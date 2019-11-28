@@ -6,28 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>찾아줘 왓슨!</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<%--부트 스트랩 --%>
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<link
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
 * {
@@ -180,18 +168,21 @@ img {
 					</div>
 				</div>
 			</div>
+			
+			  <%--검색 컨테이너 시작 --%>
+			<form action="${pageContext.request.contextPath}/searchFrom.s" method="post">
 			<div id="article-botton" class="col-12">
 				<div class="col-12 mb-2">동물병원 상세 검색</div>
 				<div id="area-search" class="col-12">
 					<div class="row mb-2">
-						<lable class="col-auto">지역별</lable>
-						<select name="zone" id="zone" class="col-12 col-sm-3">
-							<option value="">-시 선택-</option>
+						<label class="col-auto">지역별</label>
+						<select name="address" id="address" class="col-12 col-sm-3">
+							<option value="null">-시 선택-</option>
 							<option value="서울">서울</option>
-						</select> <select name="zone2" id="zone2" class="col-12 col-sm-3">
-							<option value="">-구 선택-</option>
+						</select> <select name="address2" id="address2" class="col-12 col-sm-3">
+							<option value="null">-구 선택-</option>
 						</select>
-						<button class="col-auto m-auto btn btn-sm btn-outline-secondary">검색</button>
+						<button class="col-auto m-auto btn btn-sm btn-outline-secondary" id=send_btn>검색</button>
 					</div>
 					<div class="row mb-2">
 						<div class="col-12">진료동물</div>
@@ -234,29 +225,31 @@ img {
 					</div>
 				</div>
 			</div>
-		</div>
+		
+			</form>
+			
 		<div class="row">
 			<div id="footer" class="col-12">푸터</div>
 		</div>
 	</div>
 	<script>
-   $("#zone").on("click", function(){
-		$.ajax({
-			url : "selectGu.s",
-			type : "post",
-			dataType : "json",
-			data : {city : $("#zone option:selected").val()}
-		}).done(function(result){
-			$("#zone2").find("option").remove().end().append("<option value=''>전체</option>");
-			  
-			  //배열 개수 만큼 option 추가
-			   $.each(result, function(i){
-			    $("#zone2").append("<option value='"+result[i]+"'>"+result[i]+"</option>")
-			   });  
-		}).fail(function(){
-			alert("오류 발생");
-		});
-	})
+	 $("#address").on("click", function(){
+			$.ajax({
+				url : "${pageContext.request.contextPath}/selectGu.s",
+				type : "post",
+				dataType : "json",
+				data : {city : $("#address option:selected").val()}
+			}).done(function(result){
+				$("#address2").find("option").remove().end().append("<option value=''>전체</option>");
+				  
+				  //배열 개수 만큼 option 추가
+				   $.each(result, function(i){
+				    $("#address2").append("<option value='"+result[i]+"'>"+result[i]+"</option>")
+				   });  
+			}).fail(function(){
+				alert("오류 발생");
+			});
+		})
 	  $("#logout").on("click",function(){
 	  location.href = "${pageContext.request.contextPath}/logout.member"
   })
