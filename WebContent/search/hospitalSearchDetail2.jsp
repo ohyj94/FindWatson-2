@@ -19,6 +19,8 @@
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 
+		<%--별점 --%>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta charset="UTF-8">
 
 <style>
@@ -80,6 +82,15 @@ img {
 }
 #logo{
 width:100%;
+}
+.checked {
+                color: orange;
+            }
+.starCon{
+display :inline;
+}
+.fa-star:hover{
+cursor : pointer;
 }
 </style>
 </head>
@@ -170,7 +181,9 @@ width:100%;
 
 			<div class=row>
 				<div class=col-12 id=array>
-					<a href="#">좋아요순</a> <a href="#">최신순</a> <a href="#">별점순</a>
+					<a href="hospitalSearchDetail2ByScore.re" id=scoreRange>별점순</a>
+					<a href="hospitalSearchDetail2.re">최신순</a> 
+					<a href="#" id=defaultRange>좋아요순</a>
 				</div>
 			</div>
 			<c:choose>
@@ -182,9 +195,18 @@ width:100%;
 			</div>
 			</c:when>
 			<c:otherwise>
-			<c:forEach items="${reviewList}" var="dto">
+			<c:forEach items="${reviewList}" var="dto"><%-------------------------------------------------------------------------------------------------- --%>
 			<div class=row>
-				<div class=col-2>${dto.score}</div>
+				<div class=col-2>
+				<div id=starCon>
+            <span class="fa fa-star" id="star1t${dto.seq}" onclick="addt${dto.seq}(this,1)"></span>
+            <span class="fa fa-star" id="star2t${dto.seq}" onclick="addt${dto.seq}(this,2)"></span>
+            <span class="fa fa-star" id="star3t${dto.seq}" onclick="addt${dto.seq}(this,3)"></span>
+            <span class="fa fa-star" id="star4t${dto.seq}" onclick="addt${dto.seq}(this,4)"></span>
+            <span class="fa fa-star" id="star5t${dto.seq}" onclick="addt${dto.seq}(this,5)"></span>
+            <input type="hidden" id="rating" value="0" name="rating">
+       				</div>
+				</div>
 				<div class=col-6>
 				<p>
  				 <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse${dto.seq}" aria-expanded="false" 
@@ -205,7 +227,28 @@ width:100%;
 			${dto.content}
 			</div>
 			</div>
-			</c:forEach>
+			<script>
+			//별점 - 출력
+             var point = ${dto.score};
+             $("#star"+point+"t${dto.seq}").trigger("click");
+			
+             function addt${dto.seq}(ths,sno){
+                 for (var i=1;i<=5;i++){
+                     var cur=document.getElementById("star"+i+"t" + ${dto.seq});
+                     cur.className="fa fa-star";
+                 }
+                 for (var i=1;i<=sno;i++){
+                     var cur=document.getElementById("star"+i+"t" + ${dto.seq});
+                     if(cur.className=="fa fa-star")
+                     {
+                         cur.className="fa fa-star checked";
+                         $("#rating").val(i);
+                     }
+                 }
+             }
+             
+			</script>
+			</c:forEach><%------------------------------------------------------------------------------------------------------------------------------ --%>
 			</c:otherwise>
 			</c:choose>
 			
@@ -218,7 +261,17 @@ width:100%;
 			<div class=row>
 				<div class=col-12>
 					<h2>후기 남기기</h2>
-					제목 : <input type="text" id=titleReview name=title><br>
+					제목 : <input type="text" id=titleReview name=title>
+					별점 : 
+					<div class=starCon>
+            <span class="fa fa-star" id="star1" onclick="add(this,1)"></span>
+            <span class="fa fa-star" id="star2" onclick="add(this,2)"></span>
+            <span class="fa fa-star" id="star3" onclick="add(this,3)"></span>
+            <span class="fa fa-star" id="star4" onclick="add(this,4)"></span>
+            <span class="fa fa-star" id="star5" onclick="add(this,5)"></span>
+            <input type="hidden" id="rating" value="0" name="rating">
+       				</div>
+					<br>
 
 				</div>
 			</div>
@@ -286,6 +339,23 @@ width:100%;
 				}
 			}
 		})
+		//별점 함수 -입력
+		 function add(ths,sno){
+               for (var i=1;i<=5;i++){
+                   var cur=document.getElementById("star"+i)
+                   cur.className="fa fa-star"
+               }
+               for (var i=1;i<=sno;i++){
+                   var cur=document.getElementById("star"+i)
+                   if(cur.className=="fa fa-star")
+                   {
+                       cur.className="fa fa-star checked"
+                       $("#rating").val(i);
+                   }
+               }
+           }
+		
+		
 	</script>
 
 </body>
