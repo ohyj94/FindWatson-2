@@ -86,7 +86,7 @@
                 </div>
             </div>
             <!--            -->
-            <form action="signUp." method="post" id=signUp>
+            <form action="../signUp.member" method="post" id=signUp>
                 <div class =row>
                     <div class= col-12>
                         <h1>회원가입</h1>
@@ -96,7 +96,7 @@
                 <div class =row>
                     <div class= col-12>
                         <h5>아이디</h5>
-                        <input type=text id = id>
+                        <input type=text id = id name="id">
                         <div id=idCheck></div>
                     </div>
                 </div>
@@ -104,11 +104,11 @@
                 <div class =row>
                     <div class= "col-12 col-md-6">
                         <h5>비밀번호</h5>
-                        <input type=text id = pw>
+                        <input type=text id = pw name="pw">
                     </div>
                     <div class= "col-12 col-md-6">
                         <h5>비밀번호 확인</h5>
-                        <input type=text id = pwRe>
+                        <input type=text id = pwRe name="pwRe">
                     </div>
                     <div class=col-12 id=pwCheck></div>
                 </div>
@@ -116,7 +116,7 @@
                 <div class =row>
                     <div class= col-12>
                         <h5>이름</h5>
-                        <input type=text id = name>
+                        <input type=text id = name name="name">
                     </div>
                     <div class=col-12>
                         <div id=nameCheck></div>
@@ -126,12 +126,12 @@
                 <div class =row>
                     <div class= "col-12 col-md-6">
                         <h5>생년월일</h5>
-                        <input type=text id = year placeholder="년도">
+                        <input type=text id = year placeholder="년도" name="birth">
                     </div>
                     <div class= "col-12 col-md-6">
                         <h5><br></h5>
-                        <input type=text id = month placeholder="월">
-                        <input type=text id = day placeholder="일">
+                        <input type=text id = month placeholder="월" name="birth">
+                        <input type=text id = day placeholder="일" name="birth">
                     </div>
                 </div>
 
@@ -147,7 +147,7 @@
                 <div class =row>
                     <div class= col-12>
                         <h5>본인 확인 이메일</h5>
-                        <input type=text id = email>
+                        <input type=text id = email name="email">
                     </div>
                     <div class=col-12>
                         <div id=emailCheck></div>
@@ -157,7 +157,7 @@
                 <div class =row>
                     <div class= col-12>
                         <h5>휴대폰 번호</h5>
-                        <input type=text id = phone>
+                        <input type=text id = phone name="phone">
                     </div>
                     <div class=col-12>
                         <div id=phoneCheck></div>
@@ -187,16 +187,16 @@
                     </div>
                 </div>
                 <div class=row>
-                    <div class=col-3>새<input type=checkbox name=animal value=bird></div>
-                    <div class=col-3>물고기<input type=checkbox name=animal value=fish></div>
-                    <div class=col-3>햄스터<input type=checkbox name=animal value=mouse></div>
-                    <div class=col-3>토끼<input type=checkbox name=animal value=rabbit></div>
+                    <div class=col-3>새<input type=checkbox name=lovePet value=bird></div>
+                    <div class=col-3>물고기<input type=checkbox name=lovePet value=fish></div>
+                    <div class=col-3>햄스터<input type=checkbox name=lovePet value=mouse></div>
+                    <div class=col-3>토끼<input type=checkbox name=lovePet value=rabbit></div>
                 </div>
                 <div class=row>
-                    <div class=col-3>고슴도치<input type=checkbox name=animal value=hedgehog></div>
-                    <div class=col-3>파충류<input type=checkbox name=animal value=reptile></div>
-                    <div class=col-3>곤충류<input type=checkbox name=animal value=bug></div>
-                    <div class=col-3>기타<input type=checkbox name=animal value=other><input type=text name=otherAnimal></div>
+                    <div class=col-3>고슴도치<input type=checkbox name=lovePet value=hedgehog></div>
+                    <div class=col-3>파충류<input type=checkbox name=lovePet value=reptile></div>
+                    <div class=col-3>곤충류<input type=checkbox name=lovePet value=bug></div>
+                    <div class=col-3>기타<input type=checkbox name=lovePet value=other><input type=text name=otherAnimal></div>
                 </div>
 
                 <div class=row>
@@ -223,15 +223,12 @@
                 </div>
             </form>
             <script>
-                $("#save").on("click",function(){
-                    var result = confirm("가입하시겠습니까?");
-                    if(result){
+            $("#save").on("click",function(){
                         $("#signUp").submit();
-                    }
                 })
             </script>
 
-            <!--            -->
+          
             <div class="row">
                 <div id="footer" class="col-12">
                     푸터
@@ -341,7 +338,7 @@
                     }
                 
             })
-
+			
         </script>
 </body>
 </html>

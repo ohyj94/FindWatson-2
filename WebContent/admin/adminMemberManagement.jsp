@@ -145,5 +145,10 @@
                 </div>
             </div>
         </div>
+        <script>
+        	$("#memberListSelect").on("click",function(){
+        		location.href="adminMemberList.admin";
+        	})
+        </script>
 </body>
 </html>

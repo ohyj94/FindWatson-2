@@ -57,7 +57,7 @@ public class reviewController extends HttpServlet {
 			String fileName = multi.getFilesystemName("reviewImg");
 			String oriFileName = multi.getOriginalFileName("reviewImg");
 			System.out.println("원래 파일 이름 : " + oriFileName);
-			System.out.println("최종 파일 이름 " + fileName);
+			System.out.println("올린 파일 이름 : " + fileName);
 			
 			try {
 				fDao.insert(new ReviewFileDTO(0, 7777, fileName, oriFileName));
@@ -76,7 +76,7 @@ public class reviewController extends HttpServlet {
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			try {
-				dao.insert(new ReviewDTO(0,7777,5,title,content,"햄스터", "test", null, ipAddr, 0 ));
+				dao.insert(new ReviewDTO(0,7777,5,title,content,"header", "test", null, ipAddr, 0));
 				response.sendRedirect("hospitalSearchDetail2.re");
 				
 			}catch(Exception e){
