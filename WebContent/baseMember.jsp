@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,8 +25,6 @@
                 height: 100px;
                 margin: auto;
             }
-            #footer{
-            }
             #footer>div{
                 height: 100%;
             }
@@ -48,7 +46,7 @@
 <div class="container">
             <div class="row mb-2">
                 <div id="loginBtn" class="col-12 p-1 text-right">
-                    <button class="btn btn-sm btn-outline-secondary">로그인</button>
+                    <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
                 </div>
             </div>
             <div class="row">
@@ -82,9 +80,17 @@
           <a class="dropdown-item" href="#">질문게시판</a>
         </div>
         </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">마이페이지</a>
-                                </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          마이페이지
+        </a>
+        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">내 정보 보기</a>
+          <a class="dropdown-item" href="#">내 정보 수정</a>
+          <a class="dropdown-item" href="#">1 : 1 문의</a>
+          <a class="dropdown-item" href="#">회원 탈퇴</a>
+        </div>
+        </li>
                             </ul>
                         </div>
                     </nav>
@@ -100,12 +106,10 @@
             <div class="row">
                 <div id="footer" class="col-12">
                     <div class="row p-1">
-                        <div id="footer-logo" class="col-12 col-sm-4">
-                            <div class="row">
-                                <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12">
-                            </div>
+                        <div id="footer-logo" class="col-4">
+                            <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12">
                         </div>
-                        <div id="footer-contents" class="col-12 col-sm-8">
+                        <div id="footer-contents" class="col-8">
                             <div class="row">
                                 <div class="col-6 col-sm-auto"><a href="#">회사소개</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">이용약관</a></div>
