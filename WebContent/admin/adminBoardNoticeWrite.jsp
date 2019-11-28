@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -19,6 +19,8 @@
                 width: 500px;
                 height: 100px;
                 margin: auto;
+            }
+            #footer{
             }
             #footer>div{
                 height: 100%;
@@ -41,7 +43,7 @@
 <div class="container">
             <div class="row mb-2">
                 <div id="loginBtn" class="col-12 p-1 text-right">
-                    <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
+                    <button class="btn btn-sm btn-outline-secondary">로그인</button>
                 </div>
             </div>
             <div class="row">
@@ -75,17 +77,9 @@
           <a class="dropdown-item" href="#">질문게시판</a>
         </div>
         </li>
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          마이페이지
-        </a>
-        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">내 정보 보기</a>
-          <a class="dropdown-item" href="#">내 정보 수정</a>
-          <a class="dropdown-item" href="#">1 : 1 문의</a>
-          <a class="dropdown-item" href="#">회원 탈퇴</a>
-        </div>
-        </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">마이페이지</a>
+                                </li>
                             </ul>
                         </div>
                     </nav>
