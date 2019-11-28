@@ -51,7 +51,7 @@ img {
 </head>
 <body>
 <c:choose>
-    <c:when test="${logininfo ==null} }">
+    <c:when test="${loginInfo ==null} }">
     location.href="${pageContext.request.contextPath}/index.jsp"
     </c:when>
     </c:choose>
@@ -82,7 +82,7 @@ img {
 							<li class="nav-item"><a class="nav-link" href="#">전문가Q&A</a>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="#">커뮤니티</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">마이페이지</a>
+							<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/mypageInfo.member">마이페이지</a>
 							</li>
 						</ul>
 					</div>

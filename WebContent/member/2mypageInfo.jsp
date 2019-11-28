@@ -48,7 +48,8 @@
  <div class="container">
             <div class="row">
                 <div id="loginBtn" class="col-12 text-right">
-                    <button class="btn btn-sm btn-outline-secondary">로그인</button>
+                <form action="login.jsp" method="post" id=frm>
+                    <button class="btn btn-sm btn-outline-secondary">로그인</button></form>
                 </div>
             </div>
             <div class="row">
@@ -99,11 +100,11 @@
                         <br>
                         <li><a href="#">내 정보 보기</a></li>
                         <br>
-                        <li><a href="#">내 정보 수정</a></li>
+                        <li><a href="mypageModify.jsp">내 정보 수정</a></li>
                         <br>
-                        <li><a href="#">1:1 문의</a></li>
+                        <li><a href="mypageOneByOne.jsp">1:1 문의</a></li>
                         <br>
-                        <li><a href="#">회원탈퇴</a></li>
+                        <li><a href="mypageWithdrawal.jsp">회원탈퇴</a></li>
                         <br>
                     </ul>    
                 </div>
