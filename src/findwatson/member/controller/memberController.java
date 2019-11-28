@@ -21,7 +21,7 @@ public class memberController extends HttpServlet {
 		String URI = request.getRequestURI(); 
 		String ctxpath = request.getContextPath(); 
 		String path = URI.substring(ctxpath.length()); 
-		System.out.println(URI);
+		System.out.println(path);
 		
 		MemberDAO dao = MemberDAO.getInstance();
 		
@@ -36,7 +36,7 @@ public class memberController extends HttpServlet {
 				boolean result = dao.loginOk(id, pw);
 				if(result) {
 					request.getSession().setAttribute("logininfo",id);
-					response.sendRedirect("/main.jsp");
+					response.sendRedirect("main.jsp");
 					
 				}else {
 					response.sendRedirect("index.jsp");
@@ -51,7 +51,7 @@ public class memberController extends HttpServlet {
 			request.getSession().removeAttribute("loginInfo");
 			response.sendRedirect("index.jsp");
 		}//회원가입
-		else if(path.contentEquals("/signup.member")) {
+		else if(path.contentEquals("/signUp.member")) {
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
@@ -64,6 +64,8 @@ public class memberController extends HttpServlet {
 			String address2 = request.getParameter("address2");
 			String lovePet = request.getParameter("lovePet");
 			String signPath = request.getParameter("signPath");
+			
+			System.out.println(id);
 			
 			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,null);
 			try {
