@@ -52,11 +52,11 @@ public class reviewController extends HttpServlet {
 			
 			String fileName = multi.getFilesystemName("reviewImg");
 			String oriFileName = multi.getOriginalFileName("reviewImg");
-			System.out.println("���� ���� �̸� : " + oriFileName);
-			System.out.println("���� ���� �̸� : " + fileName);
+			System.out.println("원래 파일 이름 : " + oriFileName);
+			System.out.println("올린 파일 이름 : " + fileName);
 			
 			try {
-				fDao.insert(new ReviewFileDTO(0, 7777, fileName, oriFileName));//�Խñ۽ù��� �ȳ־ �ɰŰ���
+				fDao.insert(new ReviewFileDTO(0, 7777, fileName, oriFileName));
 			}catch(Exception e) {
 				e.printStackTrace();
 				response.sendRedirect(contextPath + "error.jsp");
@@ -73,7 +73,7 @@ public class reviewController extends HttpServlet {
 			String content = request.getParameter("content");
 			
 			try {
-				dao.insert(new ReviewDTO(0,7777,5,title,content,"�޹���", "test", null, ipAddr, 0 , 0));
+				dao.insert(new ReviewDTO(0,7777,5,title,content,"header", "test", null, ipAddr, 0 , 0));
 				response.sendRedirect("hospitalSearchDetail2.re");
 				
 			}catch(Exception e){
