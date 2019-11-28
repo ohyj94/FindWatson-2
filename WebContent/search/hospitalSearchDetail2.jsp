@@ -92,6 +92,9 @@ display :inline;
 .fa-star:hover{
 cursor : pointer;
 }
+#titleReview{
+width:80%;
+}
 </style>
 </head>
 <body>
@@ -183,7 +186,7 @@ cursor : pointer;
 				<div class=col-12 id=array>
 					<a href="hospitalSearchDetail2ByScore.re" id=scoreRange>별점순</a>
 					<a href="hospitalSearchDetail2.re">최신순</a> 
-					<a href="#" id=defaultRange>좋아요순</a>
+					<a href="hospitalSearchDetail2ByLike.re" id=defaultRange>좋아요순</a>
 				</div>
 			</div>
 			<c:choose>
@@ -204,7 +207,7 @@ cursor : pointer;
             <span class="fa fa-star" id="star3t${dto.seq}" onclick="addt${dto.seq}(this,3)"></span>
             <span class="fa fa-star" id="star4t${dto.seq}" onclick="addt${dto.seq}(this,4)"></span>
             <span class="fa fa-star" id="star5t${dto.seq}" onclick="addt${dto.seq}(this,5)"></span>
-            <input type="hidden" id="rating" value="0" name="rating">
+      
        				</div>
 				</div>
 				<div class=col-6>
@@ -218,7 +221,7 @@ cursor : pointer;
 				<div class=col-2>${dto.writeDate}</div>
 				<div class=col-2>
 				${dto.writer} 
-				<button type=button id = like>좋아요</button>
+				<button type=button id="like${dto.seq}">좋아요</button> ${dto.likeCount}
 				</div>
 			</div>
 			
@@ -246,11 +249,16 @@ cursor : pointer;
                      }
                  }
              }
+           //좋아요 기능
+     		$("#like${dto.seq}").on("click",function(){
+     			location.href="likeIncrement.re?seq="+${dto.seq};
+     		}); 
              
 			</script>
 			</c:forEach><%------------------------------------------------------------------------------------------------------------------------------ --%>
 			</c:otherwise>
 			</c:choose>
+
 			
 			<div class=row>
 			<div class="col-12 center">
@@ -269,7 +277,7 @@ cursor : pointer;
             <span class="fa fa-star" id="star3" onclick="add(this,3)"></span>
             <span class="fa fa-star" id="star4" onclick="add(this,4)"></span>
             <span class="fa fa-star" id="star5" onclick="add(this,5)"></span>
-            <input type="hidden" id="rating" value="0" name="rating">
+            <input type="hidden" id="rating" value="1" name="rating">
        				</div>
 					<br>
 
