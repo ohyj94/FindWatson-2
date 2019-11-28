@@ -69,6 +69,7 @@ public class HospitalListDAO {
 						String medicalAnimal = rs.getString(9);
 						String openTime = rs.getString(10);
 						Timestamp registDate = rs.getTimestamp(11);
+						
 					System.out.println(3);
 						HListDTO dto = new HListDTO(seq, hosptName, postcode, city, gu,
 								phone, homepage, img, medicalAnimal, openTime, registDate);

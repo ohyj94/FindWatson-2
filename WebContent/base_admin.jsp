@@ -86,6 +86,7 @@
           <a class="dropdown-item" href="#">전문가Q&A</a>
           <a class="dropdown-item" href="#">자유게시판</a>
           <a class="dropdown-item" href="#">질문게시판</a>
+          <a class="dropdown-item" href="#">1:1문의게시판</a>
         </div>
         </li>
         <li class="nav-item dropdown">

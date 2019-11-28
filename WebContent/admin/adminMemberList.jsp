@@ -125,8 +125,7 @@ a {
 			<div class=col-9>
 				<!--우측 공간 시작-->
 				<c:forEach items="${list}" var="list">
-					<div>아이디 : ${list.id}</div>
-					<div>이름 : ${list.name}</div>
+					<div>아이디 : ${list.id}  이름 : ${list.name}</div>
 				</c:forEach>
 				<div class="col-12" style="text-align: center">${pageNavi}</div>
 				<!--우측 공간 끝-->
