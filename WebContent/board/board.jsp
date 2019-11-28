@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,13 +20,19 @@
                 margin: auto;
                 background-color: ghostwhite;
             }
+/*
+            #article{
+                height: 600px;
+            }
+*/
+            #article>*{
+                height: 100%;
+            }
             #article-img{
                 width:100%;
                 height: 100px;
                 margin: auto;
                 background-color: ghostwhite;
-            }
-            #footer{
             }
             #footer>div{
                 height: 100%;
@@ -45,13 +50,20 @@
             .navbar-nav{
                 width: 100%;
             }
+            #category{width: 100%; height: 100%;}
+            #board-contents{overflow: auto; font-size: 10pt;}
+            .article-navi{width: 100%;}
+            .article-navi>div>ul>li{display: inline-block; width: 100%;}
+            .Anavi{width: 100%;}
+            .search-box>*{width: 100%;}
+            .write-box>*{width: 100%;}
         </style>
 </head>
 <body>
-<div class="container">
+    <div class="container">
             <div class="row mb-2">
-                <div id="loginBtn" class="col-12 p-1 text-right">
-                    <button class="btn btn-sm btn-outline-secondary">로그인</button>
+                <div id="loginBtn" class="col-12 text-right">
+                    <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
                 </div>
             </div>
             <div class="row">
@@ -94,7 +106,78 @@
                 </div>
             </div>
             <!--            -->
-
+            <div class="row">
+                <div class="col-12" id="article">
+                    <div class="row">
+                        <div id="article-middle" class="col-12 mt-2">
+                           <div class="row mb-3 p-1 text-center">
+                                <h3 id="board-top" class="col-auto col-sm-4 m-0">자유게시판</h3>
+                                <span class="col-auto col-sm-8 mt-2">자유롭게 소통하는 공간 입니다.</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 p-1">
+                                    <table id="board-contents" class="table mb-0">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col"></th>
+                                          <th scope="col">말머리</th>
+                                          <th scope="col">제목</th>
+                                          <th scope="col">작성자</th>
+                                          <th scope="col">작성날짜</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                       <!-- 10개씩 출력! -->
+                                        <tr>
+                                          <th scope="row">1</th>
+                                          <td>뱀</td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">2</th>
+                                          <td>앵무새</td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">3</th>
+                                          <td>고슴도치</td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    1 2 3 4 5
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-auto col-sm-2 p-1">
+                                    <select id="category">
+                                        <option value="">제목</option>
+                                    </select>
+                                </div>
+                                <div class="search-box col-auto col-sm-6 p-1">
+                                    <input type="text" class="" id="search" name="search" value="">
+                                </div>
+                                <div class="search-box col-auto col-sm-2 p-1">
+                                    <button class="btn btn-sm btn-outline-secondary">검색</button>
+                                </div>
+                                <div class="write-box col-auto col-sm-2 text-center p-1">
+                                    <button class="btn btn-sm btn-outline-secondary">글쓰기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -103,12 +186,10 @@
             <div class="row">
                 <div id="footer" class="col-12">
                     <div class="row p-1">
-                        <div id="footer-logo" class="col-12 col-sm-4">
-                            <div class="row">
-                                <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12">
-                            </div>
+                        <div id="footer-logo" class="col-4">
+                            <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12"> 
                         </div>
-                        <div id="footer-contents" class="col-12 col-sm-8">
+                        <div id="footer-contents" class="col-8">
                             <div class="row">
                                 <div class="col-6 col-sm-auto"><a href="#">회사소개</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">이용약관</a></div>
