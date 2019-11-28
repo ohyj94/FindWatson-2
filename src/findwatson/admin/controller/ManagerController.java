@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import findwatson.admin.dao.ManagerDAO;
-import findwatson.admin.dto.BoardDTO;
 import findwatson.admin.dto.HListDTO;
+import findwatson.board.dto.BoardDTO;
 
 
 @WebServlet("/ManagerController")
@@ -31,10 +31,14 @@ public class ManagerController extends HttpServlet {
 				
 			}
 			else if(cmd.contentEquals("병원정보등록")) {
+				String hName = request.getParameter("hName");
 				
 			}
 			else if(cmd.contentEquals("병원정보수정")) {
 				
+			}
+			else if(cmd.contentEquals("1:1문의게시판 목록")) {
+				dao.oneByOneList();
 			}
 			else if(cmd.contentEquals("질문게시판 목록")) {
 				List<BoardDTO> list = dao.qBoardList();

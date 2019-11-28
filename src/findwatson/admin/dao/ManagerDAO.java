@@ -9,10 +9,10 @@ import java.util.List;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
-import findwatson.admin.dto.BoardDTO;
 import findwatson.admin.dto.ExpertDTO;
 import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
+import findwatson.board.dto.BoardDTO;
 
 public class ManagerDAO {
 	private static ManagerDAO instance;
@@ -155,6 +155,30 @@ public class ManagerDAO {
 			return result;
 		}
 	}
+	//1:1문의 게시글 목록
+	public List<BoardDTO> oneByOneList() throws Exception{
+		String sql = "select * from OneByOne";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			List<BoardDTO> list = new ArrayList<>();
+			while (rs.next()) {
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String header = rs.getString(3);
+				String title = rs.getString(4);
+				String content = rs.getString(5);
+				String ipAddr = rs.getString(6);
+				int viewCount = rs.getInt(7);
+				Timestamp writeDate = rs.getTimestamp(8);
+				BoardDTO dto = new BoardDTO(seq,writer,header,title,content,ipAddr,viewCount,writeDate);
+				list.add(dto);
+			}
+			return list;
+		}
+	}
 	//1:1문의 게시글 삭제
 	public int delOneByOne(int seq) throws Exception {
 		String sql = "delete from OneByOne where seq=?";
@@ -185,9 +209,31 @@ public class ManagerDAO {
 			return result;
 		}
 	}
+	//전문가 Q&A 목록
+	public List<ExpertDTO> expertList() throws Exception{
+		String sql = "select * from expert";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			List<ExpertDTO> list = new ArrayList<>();
+			while (rs.next()) {
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String title = rs.getString(3);
+				String content = rs.getString(4);
+				Timestamp writeDate = rs.getTimestamp(5);
+				int viewCount = rs.getInt(6);
+				ExpertDTO dto = new ExpertDTO(seq,writer,title,content,writeDate,viewCount);
+				list.add(dto);
+			}
+			return list;
+		}
+	}
 	//전문가 Q&A 수정
 	public int modifyExpert (ExpertDTO dto, int seq)throws Exception {
-		String sql = "update Expert set title=?,content=? where seq=?";
+		String sql = "update expert set title=?,content=? where seq=?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -202,7 +248,7 @@ public class ManagerDAO {
 	}
 	//전문가 Q&A 삭제
 	public int delExpert(int seq) throws Exception {
-		String sql = "delete from Expert where seq=?";
+		String sql = "delete from expert where seq=?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -332,5 +378,4 @@ public class ManagerDAO {
 			}
 		}
 	}
-	
 }

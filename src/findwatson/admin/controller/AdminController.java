@@ -26,6 +26,7 @@ public class AdminController extends HttpServlet {
 		System.out.println("request uri - "+request.getRequestURI());
 		System.out.println("cmd - " + cmd);
 		try {
+			//관리자 로그인
 			if(cmd.contentEquals("관리자 로그인")) {
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
@@ -40,9 +41,17 @@ public class AdminController extends HttpServlet {
 					response.sendRedirect("관리자 로그인 실패 페이지");
 				}
 			}
+			//관리자 비밀번호 변경
 			else if(cmd.contentEquals("관리자 비밀번호 변경")) {
+				String id = (String)request.getSession().getAttribute("id");
+				String pw = request.getParameter("pw");
+				int result = dao.adminInfoPwUpdate(id, pw);
+				if(result > 0) {
+					response.sendRedirect("index.jsp");
+				}
 				
 			}
+			//회원전체목록
 			else if(cmd.contentEquals("/admin/adminMemberList.admin")) {
 				//List<MemberDTO> list = dao.selectAll();
 				//request.setAttribute("list", list);
@@ -66,15 +75,18 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("list", list);
 				
 				//
-				//나중에 pagenavi메서드에서 a태그 없애줘야함
+				
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
 				
 			}
+			//차단한 ip 목록
 			else if(cmd.contentEquals("차단한ip목록")) {
+				
 				List<BanDTO> list = dao.selectBanList();
 				request.setAttribute("list", list);
 				//request.getRequestDispatcher("차단한ip목록.jsp").forward(request, response);
 			}
+			//회원목록에서 아이디로 회원 검색
 			else if(cmd.contentEquals("아이디로 회원 검색")) {
 				String id = request.getParameter("id");
 				List<MemberDTO> list = dao.selectById(id);
