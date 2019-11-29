@@ -15,7 +15,8 @@ public class MemberDTO {
 	private String address2;
 	private String lovePet;
 	private String signPath;
-	private Timestamp date;
+	private Timestamp signdate;
+	
 	
 	
 	public MemberDTO() {
@@ -24,7 +25,7 @@ public class MemberDTO {
 
 
 	public MemberDTO(String id, String pw, String name, String birth, String gender, String email, String phone,
-			String postcode, String address1, String address2, String lovePet, String signPath, Timestamp date) {
+			String postcode, String address1, String address2, String lovePet, String signPath, Timestamp signdate) {
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -38,7 +39,7 @@ public class MemberDTO {
 		this.address2 = address2;
 		this.lovePet = lovePet;
 		this.signPath = signPath;
-		this.date = date;
+		this.signdate = signdate;
 	}
 
 
@@ -162,13 +163,13 @@ public class MemberDTO {
 	}
 
 
-	public Timestamp getDate() {
-		return date;
+	public Timestamp getSigndate() {
+		return signdate;
 	}
 
 
-	public void setDate(Timestamp date) {
-		this.date = date;
+	public void setSigndate(Timestamp signdate) {
+		this.signdate = signdate;
 	}
 	
 	

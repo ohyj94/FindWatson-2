@@ -39,7 +39,7 @@ public class reviewController extends HttpServlet {
 		System.out.println("cmd : " + cmd);
 		
 	     
-		int hosptListSeq = 7777;
+		int hosptListSeq = 7777; //나중에 글번호 받아서 써야됨
 					
 		
 		if(cmd.contentEquals("/search/imgUpload.re")) {//이미지 업로드
@@ -60,7 +60,7 @@ public class reviewController extends HttpServlet {
 			System.out.println("올린 파일 이름 : " + fileName);
 			
 			try {
-				fDao.insert(new ReviewFileDTO(0, 7777, fileName, oriFileName));
+				fDao.insert(new ReviewFileDTO(0, hosptListSeq, fileName, oriFileName));
 			}catch(Exception e) {
 				e.printStackTrace();
 				response.sendRedirect(contextPath + "/error.jsp");
@@ -75,15 +75,39 @@ public class reviewController extends HttpServlet {
 		}else if(cmd.contentEquals("/search/reviewWrite.re")){ //리뷰 등록
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
+			int score = Integer.parseInt(request.getParameter("rating"));
+			System.out.println(score);
 			try {
-				dao.insert(new ReviewDTO(0,7777,5,title,content,"header", "test", null, ipAddr, 0));
+				dao.insert(new ReviewDTO(0,hosptListSeq,score,title,content,"header", "test", null, ipAddr, 0));
 				response.sendRedirect("hospitalSearchDetail2.re");
 				
 			}catch(Exception e){
 				e.printStackTrace();
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
-		}else if(cmd.contentEquals("/search/hospitalSearchDetail2.re")) { //병원 디테일뷰 2
+		}else if(cmd.contentEquals("/search/hospitalSearchDetail2.re")) { //병원 디테일뷰 2 - 디폴트:최신순
+			try {    
+				int cpage = 1;
+				String cpageInput = request.getParameter("cpage");
+				if(cpageInput != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				String navi = dao.getPageNavi(cpage, hosptListSeq);
+				request.setAttribute("cpage", cpage);
+				request.setAttribute("navi", navi); 
+				request.setAttribute("hosptListSeq", hosptListSeq);
+				
+				int startRecord = cpage*Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
+				int endRecord = cpage*Configuration.recordCountPerPage;
+				
+				List<ReviewDTO> reviewList = dao.selectByPage(hosptListSeq, startRecord, endRecord);
+				request.setAttribute("reviewList", reviewList);
+				request.getRequestDispatcher("hospitalSearchDetail2.jsp").forward(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+				response.sendRedirect(contextPath + "/error.jsp");
+			}
+		}else if(cmd.contentEquals("/search/hospitalSearchDetail2ByScore.re")) {//병원 디테일뷰 2 - 별점 순
 			try {    
 				int cpage = 1;
 				String cpageInput = request.getParameter("cpage");
@@ -97,9 +121,43 @@ public class reviewController extends HttpServlet {
 				int startRecord = cpage*Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
 				int endRecord = cpage*Configuration.recordCountPerPage;
 				
-				List<ReviewDTO> reviewList = dao.selectByPage(hosptListSeq, startRecord, endRecord);
+				List<ReviewDTO> reviewList = dao.selectByPageByScore(hosptListSeq, startRecord, endRecord);
 				request.setAttribute("reviewList", reviewList);
 				request.getRequestDispatcher("hospitalSearchDetail2.jsp").forward(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+				response.sendRedirect(contextPath + "/error.jsp");
+			}
+			
+			
+		}else if(cmd.contentEquals("/search/hospitalSearchDetail2ByLike.re")) {//병원 디테일뷰 2 - 좋아요 순
+			try {    
+				int cpage = 1;
+				String cpageInput = request.getParameter("cpage");
+				if(cpageInput != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				String navi = dao.getPageNavi(cpage, hosptListSeq);
+				request.setAttribute("cpage", cpage);
+				request.setAttribute("navi", navi); 
+				
+				int startRecord = cpage*Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
+				int endRecord = cpage*Configuration.recordCountPerPage;
+				
+				List<ReviewDTO> reviewList = dao.selectByPageByLike(hosptListSeq, startRecord, endRecord);
+				request.setAttribute("reviewList", reviewList);
+				request.getRequestDispatcher("hospitalSearchDetail2.jsp").forward(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+				response.sendRedirect(contextPath + "/error.jsp");
+			}
+			
+			
+		}else if(cmd.contentEquals("/search/likeIncrement.re")) {
+			int reviewSeq = Integer.parseInt(request.getParameter("seq"));
+			try {
+				dao.incrementLike(reviewSeq);
+				response.sendRedirect("hospitalSearchDetail2ByLike.re");
 			}catch(Exception e) {
 				e.printStackTrace();
 				response.sendRedirect(contextPath + "/error.jsp");

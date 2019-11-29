@@ -67,5 +67,41 @@ public class MemberDAO {
 			return result;
 		}
 	}
-	
+	public int delete(String id) throws Exception{
+		String sql = "delete from member where id=?";
+		try(Connection con = bds.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	public MemberDTO selectMyInfo(String id)throws Exception{
+		String sql = "select * from member where id=?";
+		try(Connection con = bds.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, id);
+			try(ResultSet rs = pstat.executeQuery();){
+				MemberDTO dto = new MemberDTO();
+				if(rs.next()){
+					dto.setId(rs.getString(1));
+					dto.setPw(rs.getString(2));
+					dto.setName(rs.getString(3));
+					dto.setBirth(rs.getString(4));
+					dto.setGender(rs.getString(5));
+					dto.setEmail(rs.getString(6));
+					dto.setPhone(rs.getString(7));
+					dto.setPostcode(rs.getString(8));
+					dto.setAddress1(rs.getString(9));
+					dto.setAddress2(rs.getString(10));
+					dto.setLovePet(rs.getString(11));
+					dto.setSignPath(rs.getString(12));
+				}
+				return dto;
+			}
+			
+		}
+	}
 }

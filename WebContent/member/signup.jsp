@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
- <meta charset="UTF-8">
+<meta charset="UTF-8">
         <title>찾아줘 왓슨!</title>
+<<<<<<< HEAD
      	 <%--부트 스트랩 --%>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -14,6 +15,13 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+=======
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+>>>>>>> 1f859f063c9e11ec7fdf6f33d83c45e552244ffe
 
         <style>
             *{box-sizing: border-box}
@@ -30,36 +38,39 @@
                 margin: auto;
                 background-color: ghostwhite;
             }
-            #footer{
-                height: 100px;
+            #footer>div{
+                height: 100%;
             }
-            img{
-                width:500px;
+            #footer-logo>div{
+                height: 100%; 
+                background-color: ghostwhite;
             }
-            #red{
-                color: red;
+            #footer-contents{font-size: 8pt;}
+            .nav-item{
+                display: inline-block;
+                width: 100%;
+                text-align: center;
             }
-            #blue{
-                color: blue;
+            .navbar-nav{
+                width: 100%;
             }
         </style>
 </head>
 <body>
- <div class="container">
-            <div class="row">
-                <div id="loginBtn" class="col-12 text-right">
-                    <button class="btn btn-sm btn-outline-secondary">로그인</button>
+<div class="container">
+            <div class="row mb-2">
+                <div id="loginBtn" class="col-12 p-1 text-right">
+                    <button id=login class="btn btn-sm btn-outline-secondary">로그인</button>
                 </div>
             </div>
             <div class="row">
-                <div id="title" class="col-12 mb-3">
-                    <div id="logo" href="#">로고이미지</div>
+                <div id="title" class="col-12 mb-3 p-1 text-center">
+                    <img id="logo" src="imgs/logo.png" class="col-12">
                 </div>
             </div>
             <div class="row">
-                <div id="navi" class="col-12 mb-3">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" href="#">Home</a>
+                <div id="navi" class="col-12 mb-3 p-1">
+                    <nav class="p-0 navbar navbar-expand-sm navbar-light bg-light">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -74,19 +85,33 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">전문가Q&A</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">커뮤니티</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">마이페이지</a>
-                                </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          커뮤니티
+        </a>
+        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">자유게시판</a>
+          <a class="dropdown-item" href="#">질문게시판</a>
+        </div>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          마이페이지
+        </a>
+        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="mypageInfo.jsp">내 정보</a>
+          <a class="dropdown-item" href="mypageDonation.jsp">내 후원보기</a>
+          <a class="dropdown-item" href="mypageOneByOne.jsp">1 : 1 문의</a>
+          <a class="dropdown-item" href="mypageWithdrawal.jsp">회원 탈퇴</a>
+        </div>
+        </li>
                             </ul>
                         </div>
                     </nav>
                 </div>
             </div>
             <!--            -->
-            <form action="../signUp.member" method="post" id=signUp>
+ <form action="../signUp.member" method="post" id=signUp>
                 <div class =row>
                     <div class= col-12>
                         <h1>회원가입</h1>
@@ -231,12 +256,47 @@
           
             <div class="row">
                 <div id="footer" class="col-12">
-                    푸터
+
+
+
+
+            <!--            -->
+            <div class="row">
+                <div id="footer" class="col-12">
+                    <div class="row p-1">
+                        <div id="footer-logo" class="col-4">
+                            <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12">
+                        </div>
+                        <div id="footer-contents" class="col-8">
+                            <div class="row">
+                                <div class="col-6 col-sm-auto"><a href="#">회사소개</a></div>
+                                <div class="col-6 col-sm-auto"><a href="#">이용약관</a></div>
+                                <div class="col-6 col-sm-auto"><a href="#">개인정보취급방침</a></div>
+                                <div class="col-6 col-sm-auto"><a href="#">저작권안내</a></div>
+                                <div class="col-12 col-sm-auto"><a href="#">광고및제휴문의</a></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    상호명 : 찾아줘 왓슨! | 대표자 : 왓슨 | 사업자등록번호 : 100-12-191205
+                                </div>
+                                <div class="col-12">
+                                    주소 : 서울 중구 남대문로 120 대일빌딩 3층 F Class 대표전화 02-1544-9970
+                                </div>
+                                <div class="col-12">
+                                    Copyright(c) 2019 찾아줘 왓슨! All Rights Reserved.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <script>
+        <script type="text/javascript">
+        $("#login").on("click",function(){
+        	location.href="login.jsp"
+        })
+        
+         
             //우편번호
             function sample4_execDaumPostcode() {
                 new daum.Postcode({
@@ -338,7 +398,7 @@
                     }
                 
             })
-			
+        
         </script>
 </body>
 </html>
