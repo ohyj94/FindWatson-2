@@ -52,7 +52,7 @@
             </div>
             <div class="row">
                 <div id="title" class="col-12 mb-3 p-1 text-center">
-                    <img id="logo" src="imgs/logo.png" class="col-12">
+                    <img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12">
                 </div>
             </div>
             <div class="row">
@@ -122,48 +122,37 @@
                 </div>
             </div>
             <!-- 게시글 목록 -->
-            <div class="row line">
-                <div class="col-1 d-none d-md-block">1</div>
-                <div class="col-md-2 d-none d-md-block">
-                    응급처치
-                </div>
-                <div class="col-8 col-md-5 text-left">
-                    도마뱀 탈피 도와주는법
-                </div>
-                <!-- 모바일에서만 보이는 div -->
-                <div class="col-4 d-block d-md-none">공지</div>
-                <!-- 모바일에서만 보이는 div -->
-                <div class="col-6 col-md-2 text-left">
-                    관리자
-                </div>
-                <div class="col-6 col-md-2">
-                    2019-11-28
-                </div>
+			<c:choose>
+				<c:when test="${list.size() == 0}">게시물이 없습니다.</c:when>
+				<c:when test="${list.size() > 0}">
+					<c:forEach items="${list}" var="dto">
+						<div class="row line">
+			                <div class="col-1 d-none d-md-block">1</div>
+			                <div class="col-md-2 d-none d-md-block">
+			                	${dto.animalHeader}
+			                </div>
+			                <div class="col-8 col-md-5 text-left">
+			                    ${dto.title}
+			                </div>
+			                <!-- 모바일에서만 보이는 div -->
+			                <div class="col-4 d-block d-md-none">${dto.animalHeader}</div>
+			                <!-- 모바일에서만 보이는 div -->
+			                <div class="col-6 col-md-2 text-left">
+			                   	${dto.writer}
+			                </div>
+			                <div class="col-6 col-md-2 text-center">
+			                    ${dto.writeDate}
+			                </div>
+			            </div>
+					</c:forEach>
+				</c:when>	            
+			</c:choose>          
+            <div class="row">
+	            <div class="col-12 text-center">
+	            	${pageNavi}
+	            </div>
             </div>
-            <div class="row line">
-                <div class="col-1 d-none d-md-block">2</div>
-                <div class="col-md-2 d-none d-md-block">
-                    꿀팁
-                </div>
-                <div class="col-8 col-md-5 text-left">
-                    반려동물 스트레스 해소법!
-                </div>
-                <!-- 모바일에서만 보이는 div -->
-                <div class="col-4 d-block d-md-none">이벤트</div>
-                <!-- 모바일에서만 보이는 div -->
-                <div class="col-6 col-md-2 text-left">
-                    관리자
-                </div>
-                <div class="col-6 col-md-2">
-                    2019-11-28
-                </div>
-            </div>             
             <!-- -->
-                            <div class="row">
-                                <div class="col-12 text-center">
-                                    1 2 3 4 5
-                                </div>
-                            </div>
                             <div class="row mb-2">
                                 <div class="col-auto col-sm-2 p-1">
                                     <select id="category">
@@ -188,7 +177,7 @@
                         <div id="footer-logo" class="col-12 col-sm-4">
                             <div class="row">
                                 <div class="col">
-                                    <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12">
+                                    <img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="d-none d-sm-block col-12">
                                 </div>
                             </div>
                         </div>

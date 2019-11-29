@@ -53,7 +53,7 @@
             </div>
             <div class="row">
                 <div id="title" class="col-12 mb-3 p-1 text-center">
-                    <img id="logo" src="imgs/logo.png" class="col-12">
+                    <img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12">
                 </div>
             </div>
             <div class="row">
@@ -102,7 +102,7 @@
                     <div class="row p-1">
                         <div id="footer-logo" class="col-12 col-sm-4">
                             <div class="row">
-                                <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12">
+                                <img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="d-none d-sm-block col-12">
                             </div>
                         </div>
                         <div id="footer-contents" class="col-12 col-sm-8">
