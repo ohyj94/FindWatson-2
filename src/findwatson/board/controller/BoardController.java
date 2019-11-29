@@ -19,25 +19,26 @@ import findwatson.board.dao.BoardDAO;
 import findwatson.board.dao.FilesDAO;
 import findwatson.board.dto.BoardDTO;
 import findwatson.board.dto.FilesDTO;
+
 import findwatson.configuration.Configuration;
 
 
 @WebServlet("*.bo")
 public class BoardController extends HttpServlet {
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter pwriter = response.getWriter();
+		FilesDAO fDao = FilesDAO.getInstance();
+		BoardDAO dao = BoardDAO.getInstance();
+		
 		String requestURI = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		String cmd = requestURI.substring(contextPath.length());
 		System.out.println("컨트롤러 : " + cmd);
-		
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-	    response.setContentType("text/html; charset=UTF-8");
-	    
-	    PrintWriter pwriter = response.getWriter();
-	    FilesDAO fDao = FilesDAO.getInstance();
-	    BoardDAO dao = BoardDAO.getInstance();
+	 
 	    //String id = (String)request.getSession().getAttribute("loginInfo");
 	    String id = "test"; // 테스트
 	    String ipAddr = request.getRemoteAddr();
@@ -54,7 +55,7 @@ public class BoardController extends HttpServlet {
 				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
 				int end = cpage * Configuration.recordCountPerPage;
 				
-				List<BoardDTO> list = dao.selectAll();
+				List<BoardDTO> list = dao.selectByPage(start, end, "자유");
 				String pageNavi = dao.getPageNavi(cpage,pageCategory);
 				
 				request.setAttribute("list", list);
@@ -72,7 +73,7 @@ public class BoardController extends HttpServlet {
 				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
 				int end = cpage * Configuration.recordCountPerPage;
 				
-				List<BoardDTO> list = dao.selectAll();
+				List<BoardDTO> list = dao.selectByPage(start, end, "질문");
 				String pageNavi = dao.getPageNavi(cpage,pageCategory);
 				
 				request.setAttribute("list", list);
@@ -90,10 +91,11 @@ public class BoardController extends HttpServlet {
 				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
 				int end = cpage * Configuration.recordCountPerPage;
 				
-				List<BoardDTO> list = dao.selectAll();
+				//아직안했으
+				//List<BoardDTO> list = dao.selectAll();
 				String pageNavi = dao.getPageNavi(cpage,pageCategory);
 				
-				request.setAttribute("list", list);
+				//request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("board/boardFree.jsp").forward(request, response);
 				
@@ -108,10 +110,11 @@ public class BoardController extends HttpServlet {
 				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
 				int end = cpage * Configuration.recordCountPerPage;
 				
-				List<BoardDTO> list = dao.selectAll();
+				//아직안했으
+				//List<BoardDTO> list = dao.selectAll();
 				String pageNavi = dao.getPageNavi(cpage,pageCategory);
 				
-				request.setAttribute("list", list);
+				//request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("board/boardFree.jsp").forward(request, response);
 			
@@ -126,7 +129,7 @@ public class BoardController extends HttpServlet {
 				dao.insert(new BoardDTO(0,id, header, animalHeader, questionTitle, content, ipAddr, 0, null));
 	            response.sendRedirect("boardQuestion.bo");
 	            
-	        
+	        //커뮤니티(질문) - 이미지 업로드
 			} else if(cmd.contentEquals("/imgUploadQuestion.bo")) {
 				String repositoryName = "boardQuestImgRepository";
 				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
@@ -206,7 +209,6 @@ public class BoardController extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

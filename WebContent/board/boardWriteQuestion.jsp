@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,8 +6,7 @@
 <meta charset="UTF-8">
 <title>찾아줘 왓슨!</title>
 <%--부트스트랩 --%>
-<meta name="viewport"
-   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet"
    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -72,6 +70,7 @@ display:none;
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/communityQuestionWrite.bo" method="post" id=frm>
+
    <div class="container">
       <div class="row mb-2">
          <div id="loginBtn" class="col-12 text-right">
