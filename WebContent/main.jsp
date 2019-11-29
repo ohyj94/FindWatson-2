@@ -51,7 +51,7 @@ img {
 </head>
 <body>
 <c:choose>
-    <c:when test="${logininfo ==null} }">
+    <c:when test="${logininfo ==null}">
     location.href="${pageContext.request.contextPath}/index.jsp"
     </c:when>
     </c:choose>

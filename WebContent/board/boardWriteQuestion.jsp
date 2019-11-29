@@ -71,7 +71,7 @@ display:none;
 </style>
 </head>
 <body>
-<form action="communityQuestionWrite.bo" method="post" id=frm>
+<form action="${pageContext.request.contextPath}/communityQuestionWrite.bo" method="post" id=frm>
 	<div class="container">
 		<div class="row mb-2">
 			<div id="loginBtn" class="col-12 text-right">
@@ -161,8 +161,6 @@ display:none;
 							<div class="col-12 p-1 text-center">
 								<button id="writeBtn" type=button
 									class="btn btn-sm btn-outline-secondary">등록</button>
-								<button id="resetBtn" type="button"
-									class="btn btn-sm btn-outline-secondary">초기화</button>
 							</div>
 						</div>
 					</div>
@@ -224,7 +222,7 @@ display:none;
 				data.append("comQuestionImg", files[0]);
 
 				$.ajax({
-					url : "imgUploadQuestion.bo",
+					url : "${pageContext.request.contextPath}/imgUploadQuestion.bo",
 					enctype : "multipart/form-data",
 					type : "post",
 					data : data,
