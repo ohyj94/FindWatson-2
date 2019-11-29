@@ -39,7 +39,7 @@ public class ManagerDAO {
 	}
 	//병원 리스트
 	public List<HListDTO> hospitalList() throws Exception{
-		String sql = "select seq,hosptName from hospitalList";
+		String sql = "select seq,hosptName from hosptList";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -57,7 +57,7 @@ public class ManagerDAO {
 	}
 	//병원 정보 등록
 	public int insertHospital(HListDTO dto) throws Exception{
-		String sql = "insert into hospitalList values(hospitalList_seq.nextval,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into hosptList values(hosptListSeq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -72,6 +72,7 @@ public class ManagerDAO {
 			pstat.setString(8, dto.getMedicalAnimal());
 			pstat.setString(9, dto.getOpenTime());
 			pstat.setTimestamp(10, dto.getRegistDate());
+			pstat.setInt(11, dto.getViewCount());
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
@@ -79,7 +80,7 @@ public class ManagerDAO {
 	}
 	//병원정보 수정
 	public int modifyHospital (HListDTO dto, int seq)throws Exception {
-		String sql = "update hospitalList set HosptName=?,postcode=?,address1=?,address2=?,phone=?,homepage=?,img=?,medicalAnimal=?,openTime=?,registDate=? where seq=?";
+		String sql = "update hosptList set HosptName=?,postcode=?,address1=?,address2=?,phone=?,homepage=?,img=?,medicalAnimal=?,openTime=?,registDate=?,viewCount=? where seq=?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -94,6 +95,7 @@ public class ManagerDAO {
 			pstat.setString(8, dto.getMedicalAnimal());
 			pstat.setString(9, dto.getOpenTime());
 			pstat.setTimestamp(10, dto.getRegistDate());
+			pstat.setInt(11, dto.getViewCount());
 			pstat.setInt(13, seq);
 			int result = pstat.executeUpdate();
 			con.commit();
@@ -102,7 +104,7 @@ public class ManagerDAO {
 	}
 	//병원정보 삭제
 	public int delHospital(int seq) throws Exception{
-		String sql = "delete hospitalList where seq = ?";
+		String sql = "delete hosptList where seq = ?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -279,6 +281,105 @@ public class ManagerDAO {
 			return list;
 		}
 	}
+	//전문가목록 10개씩
+	public List<ExpertDTO> expertListByPage(int start, int end) throws Exception{
+		String sql = "select * from"
+				+ "(select expert.*, row_number() over (order by seq) as rown from expert)"
+				+ " where rown between ? and ?";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, start);
+			pstat.setInt(2, end);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+				List<ExpertDTO> result = new ArrayList<>();
+				while(rs.next()) {
+					int seq = rs.getInt(1);
+					String writer = rs.getString(2);
+					String title = rs.getString(3);
+					String content = rs.getString(4);
+					Timestamp writeDate = rs.getTimestamp(5);
+					int viewCount = rs.getInt(6);
+					ExpertDTO dto = new ExpertDTO(seq,writer,title,content,writeDate,viewCount);
+					result.add(dto);
+				}
+				return result;
+			}
+		}
+	}
+	//전문가목록 총 글의 개수
+	public int recordExpertListTotalCount () throws Exception {
+		String sql = "select count(seq) from expert";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//공지사항목록 페이지 네비게이터
+	public String getExpertListPageNav(int currentPage) throws Exception {
+		//게시판 내의 총 글의 개수
+		int recordTotalCount = this.recordExpertListTotalCount();
+		//한 페이지에 몇개의 글을 보여줄건지
+		//int recordCountPerPage = 10;
+		//한 페이지에서 몇개의 네비게이터를 보여줄건지
+		//int naviCountPerPage = 10;
+		//총 몇개의 페이지인지
+		int pageTotalCount = 0;
+		if(recordTotalCount % Configuration.recordCountPerPage > 0) {
+			//총 글의 개수를 페이지당 보여줄 개수로 나누었을 때, 나머지가 생기면 총페이지의 개수 +1
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+		}
+
+		//현재 페이지 값이 비정상 값일 때, 조정하는 보안 코드
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		//현재 내가 위치하고 있는 페이지에 따라 네비게이터 시작 페이지 값을 구하는 공식
+		int startNavi = ((currentPage-1) / Configuration.naviCountPerPage) * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + Configuration.naviCountPerPage - 1;
+
+		//페이지 끝값이 비정상 값일 때, 조정하는 보안 코드
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		System.out.println("현재 페이지 번호 : " + currentPage);
+		System.out.println("네비게이터 시작 번호 : " + startNavi);
+		System.out.println("네비게이터 끝 번호 : " + endNavi);
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if(currentPage == 1) {
+			needPrev = false;
+		}
+		if(currentPage == pageTotalCount) {
+			needNext = false;
+		}
+		StringBuilder sb = new StringBuilder();
+
+		if(needPrev) {sb.append("<a href='adminBoardExpert.manager?cpage="+(currentPage-1)+"'> < </a>");}
+
+		for(int i = startNavi; i <= endNavi;i++) {
+			sb.append("<a href='adminBoardExpert.manager?cpage="+i+"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+		}
+		if(needNext) {sb.append("<a href='adminBoardExpert.manager?cpage="+(currentPage+1)+"'> > </a>");}
+		return sb.toString();
+	}
 	//1:1문의 게시글 삭제
 	public int delOneByOne(int seq) throws Exception {
 		String sql = "delete from OneByOne where seq=?";
@@ -294,7 +395,7 @@ public class ManagerDAO {
 	}
 	//전문가 Q&A 글쓰기
 	public int writeExpert(ExpertDTO dto) throws Exception{
-		String sql = "insert into Expert values(expert_seq.nextval,?,?,?,?,?)";
+		String sql = "insert into Expert values(expertSeq.nextval,?,?,?,?,?)";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
