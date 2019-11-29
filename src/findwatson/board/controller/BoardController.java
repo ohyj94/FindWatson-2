@@ -3,6 +3,7 @@ package findwatson.board.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,10 +20,11 @@ import findwatson.board.dao.FilesDAO;
 import findwatson.board.dto.BoardDTO;
 import findwatson.board.dto.FilesDTO;
 
+import findwatson.configuration.Configuration;
+
 
 @WebServlet("*.bo")
 public class BoardController extends HttpServlet {
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -35,108 +37,171 @@ public class BoardController extends HttpServlet {
 		String requestURI = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		String cmd = requestURI.substring(contextPath.length());
-		String ipAddr = request.getRemoteAddr();
-		//String id = (String)request.getSession().getAttribute("loginInfo");
-		
-		//임시
-		System.out.println("cmd : " + cmd);
-		String id = "test";
-		
-		if(cmd.contentEquals("/communityQuestionWrite.bo")) {//커뮤니티(질문) - 글쓰기
-			String header = request.getParameter("header");
-			String animalHeader = request.getParameter("animalHeader");
-			String questionTitle = request.getParameter("questionTitle");
-			String content = request.getParameter("content");
+		System.out.println("컨트롤러 : " + cmd);
+	 
+	    //String id = (String)request.getSession().getAttribute("loginInfo");
+	    String id = "test"; // 테스트
+	    String ipAddr = request.getRemoteAddr();
+	    
+		try {
+			// 자유게시판 글 목록 출력
+			if(cmd.contentEquals("/boardFree.bo")) {
+				String pageCategory = "boardFree.bo";
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<BoardDTO> list = dao.selectByPage(start, end, "자유");
+				String pageNavi = dao.getPageNavi(cpage,pageCategory);
+				
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("board/boardFree.jsp").forward(request, response);
+				
+			// 질문게시판 글 목록 출력
+			} else if(cmd.contentEquals("/boardQuestion.bo")) {
+				String pageCategory = "boardQuestion.bo";
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<BoardDTO> list = dao.selectByPage(start, end, "질문");
+				String pageNavi = dao.getPageNavi(cpage,pageCategory);
+				
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("board/boardFree.jsp").forward(request, response);
+				
+			// 전문가Q&A 글 목록 출력			
+			} else if(cmd.contentEquals("/boardExpert.bo")) {
+				String pageCategory = "boardExpert.bo";
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				//아직안했으
+				//List<BoardDTO> list = dao.selectAll();
+				String pageNavi = dao.getPageNavi(cpage,pageCategory);
+				
+				//request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("board/boardFree.jsp").forward(request, response);
+				
+			// 공지사항 글 목록 출력
+			} else if(cmd.contentEquals("/boardNotice.bo")) {
+				String pageCategory = "boardNotice.bo";
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				//아직안했으
+				//List<BoardDTO> list = dao.selectAll();
+				String pageNavi = dao.getPageNavi(cpage,pageCategory);
+				
+				//request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("board/boardFree.jsp").forward(request, response);
 			
-			try {
+			// 커뮤니티(질문) - 글쓰기
+			} else if(cmd.contentEquals("/communityQuestionWrite.bo")) {
+				
+				String header = request.getParameter("header");
+				String animalHeader = request.getParameter("animalHeader");
+				String questionTitle = request.getParameter("questionTitle");
+				String content = request.getParameter("content");
+				
 				dao.insert(new BoardDTO(0,id, header, animalHeader, questionTitle, content, ipAddr, 0, null));
-				response.sendRedirect("boardQuestion.bo");
-				//이거 아직 안생김
-			}catch(Exception e) {
-				e.printStackTrace();
-				response.sendRedirect(contextPath + "/error.jsp");
+	            response.sendRedirect("boardQuestion.bo");
+	            
+	        //커뮤니티(질문) - 이미지 업로드
+			} else if(cmd.contentEquals("/imgUploadQuestion.bo")) {
+				String repositoryName = "boardQuestImgRepository";
+				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
+				System.out.println(uploadPath);
+				
+		        File uploadFilePath = new File(uploadPath);
+		        if(!uploadFilePath.exists()) {
+		           uploadFilePath.mkdir();
+		        }
+		         
+		        int maxSize = 1024 * 1024 * 100;
+		        MultipartRequest multi = new MultipartRequest(request,uploadPath, maxSize,"UTF-8",new DefaultFileRenamePolicy());
+		         
+		        String fileName = multi.getFilesystemName("comQuestionImg");
+		        String oriFileName = multi.getOriginalFileName("comQuestionImg");
+		        System.out.println("원래 파일 이름 : " + oriFileName);
+		        System.out.println("올린 파일 이름 : " + fileName);
+				
+		        fDao.insert(new FilesDTO(0, 0, fileName, oriFileName));
+		        
+		        //서버의 이미지 경로
+		        String imgPath = "../" + repositoryName + "/" + fileName;
+		        System.out.println(imgPath);
+		         
+		        JsonObject jObj = new JsonObject();
+		        jObj.addProperty("imgPath", imgPath);
+		        pwriter.append(jObj.toString());
+		        
+		    // 커뮤니티(자유) - 글쓰기
+			} else if(cmd.contentEquals("/communityFreeWrite.bo")) {
+				String header = request.getParameter("header");
+		        String animalHeader = request.getParameter("animalHeader");
+		        String questionTitle = request.getParameter("freeTitle");
+		        String content = request.getParameter("content");
+		        
+		        dao.insert(new BoardDTO(0,id, header, animalHeader, questionTitle, content, ipAddr, 0, null));
+	            response.sendRedirect("boardFree.bo");
+
+	        // 커뮤니티(자유) - 이미지 업로드
+			} else if(cmd.contentEquals("/imgUploadFree.bo")) {
+				String repositoryName = "boardFreeImgRepository";
+				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
+
+				File uploadFilePath = new File(uploadPath);
+		        if(!uploadFilePath.exists()) {
+		           uploadFilePath.mkdir();
+		        }
+		         
+		        int maxSize = 1024 * 1024 * 100;
+		        MultipartRequest multi = new MultipartRequest(request,uploadPath, maxSize,"UTF-8",new DefaultFileRenamePolicy());
+		         
+		        String fileName = multi.getFilesystemName("comFreeImg");
+		        String oriFileName = multi.getOriginalFileName("comFreeImg");
+		        System.out.println("원래 파일 이름 : " + oriFileName);
+		        System.out.println("올린 파일 이름 : " + fileName);
+
+		        fDao.insert(new FilesDTO(0, 0, fileName, oriFileName));
+
+				// 서버의 이미지 경로
+				String imgPath = "../" + repositoryName + "/" + fileName;
+				System.out.println(imgPath);
+
+				JsonObject jObj = new JsonObject();
+				jObj.addProperty("imgPath", imgPath);
+				pwriter.append(jObj.toString());
+			
+			// 등록되지 않은 경로로 입장시
+			} else {
+				response.sendRedirect("error.jsp");
 			}
-		}else if(cmd.contentEquals("/imgUploadQuestion.bo")){//커뮤니티(질문) - 이미지 업로드
-			String repositoryName = "boardQuestImgRepository";
-			String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
-			
-			System.out.println(uploadPath);
-			File uploadFilePath = new File(uploadPath);
-			if(!uploadFilePath.exists()) {
-				uploadFilePath.mkdir();
-			}
-			
-			int maxSize = 1024 * 1024 * 100;
-			MultipartRequest multi = new MultipartRequest(request,uploadPath, maxSize,"UTF-8",new DefaultFileRenamePolicy());
-			
-			String fileName = multi.getFilesystemName("comQuestionImg");
-			String oriFileName = multi.getOriginalFileName("comQuestionImg");
-			System.out.println("원래 파일 이름 : " + oriFileName);
-			System.out.println("올린 파일 이름 : " + fileName);
-			
-			try {
-				fDao.insert(new FilesDTO(0, 0, fileName, oriFileName));
-			}catch(Exception e) {
-				e.printStackTrace();
-				response.sendRedirect(contextPath + "/error.jsp");
-			}
-			//서버의 이미지 경로
-			String imgPath = "../" + repositoryName + "/" + fileName;
-			System.out.println(imgPath);
-			
-			JsonObject jObj = new JsonObject();
-			jObj.addProperty("imgPath", imgPath);
-			pwriter.append(jObj.toString());
-	
-		}else if(cmd.contentEquals("/communityFreeWrite.bo")) {//커뮤니티(자유) - 글쓰기
-			String header = request.getParameter("header");
-			String animalHeader = request.getParameter("animalHeader");
-			String freeTitle = request.getParameter("freeTitle");
-			String content = request.getParameter("content");
-			System.out.println(header);
-			System.out.println(animalHeader);
-			System.out.println(freeTitle);
-			System.out.println(content);
-			try {
-				dao.insert(new BoardDTO(0,id, header, animalHeader, freeTitle, content, ipAddr, 0, null));
-				response.sendRedirect("boardFree.bo");
-				//이거 아직 안생김
-			}catch(Exception e) {
-				e.printStackTrace();
-				response.sendRedirect(contextPath + "/error.jsp");
-			}
-		}else if(cmd.contentEquals("/imgUploadFree.bo")) {//커뮤니티(자유) - 이미지 업로드
-			String repositoryName = "boardFreeImgRepository";
-			String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
-			
-			System.out.println(uploadPath);
-			File uploadFilePath = new File(uploadPath);
-			if(!uploadFilePath.exists()) {
-				uploadFilePath.mkdir();
-			}
-			
-			int maxSize = 1024 * 1024 * 100;
-			MultipartRequest multi = new MultipartRequest(request,uploadPath, maxSize,"UTF-8",new DefaultFileRenamePolicy());
-			
-			String fileName = multi.getFilesystemName("comFreeImg");
-			String oriFileName = multi.getOriginalFileName("comFreeImg");
-			System.out.println("원래 파일 이름 : " + oriFileName);
-			System.out.println("올린 파일 이름 : " + fileName);
-			
-			try {
-				fDao.insert(new FilesDTO(0, 0, fileName, oriFileName));
-			}catch(Exception e) {
-				e.printStackTrace();
-				response.sendRedirect(contextPath + "/error.jsp");
-			}
-			//서버의 이미지 경로
-			String imgPath = "../" + repositoryName + "/" + fileName;
-			System.out.println(imgPath);
-			
-			JsonObject jObj = new JsonObject();
-			jObj.addProperty("imgPath", imgPath);
-			pwriter.append(jObj.toString());
-		}else{//등롣되지 않은 경로로 입장시
+		} catch(Exception e) {
+			e.printStackTrace();
 			response.sendRedirect("error.jsp");
 		}
 		

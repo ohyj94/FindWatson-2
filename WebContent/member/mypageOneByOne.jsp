@@ -46,14 +46,12 @@
         </style>
 </head>
 <body>
-
 <div class="container">
             <div class="row mb-2">
                 <div id="loginBtn" class="col-12 p-1 text-right">
-                    <button id=logout class="btn btn-sm btn-outline-secondary">로그아웃</button>
+                    <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
                 </div>
             </div>
-          
             <div class="row">
                 <div id="title" class="col-12 mb-3 p-1 text-center">
                     <img id="logo" src="imgs/logo.png" class="col-12">
@@ -92,7 +90,7 @@
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="mypageInfo.jsp">내 정보</a>
           <a class="dropdown-item" href="mypageDonation.jsp">내 후원보기</a>
-          <a class="dropdown-item" href="mypageOneByOne.jsp">1 : 1 문의</a>
+          <a class="dropdown-item" href="#">1 : 1 문의</a>
           <a class="dropdown-item" href="mypageWithdrawal.jsp">회원 탈퇴</a>
         </div>
         </li>
@@ -102,25 +100,7 @@
                 </div>
             </div>
             <!--            -->
- <div class= row>
-                        <div class= col-12>
-                            <h2>회원 탈퇴</h2>
-                            <hr>
-                            <br>
-                        </div>
-                    </div>
-                    <div class=row>
-                        <div class=col-12>
-                            비밀번호 재입력
-                            <input type="text" id=pw><br>
-                            비밀번호 확인
-                            <input type="text" id=pwRe><br>
-                            <form action="${pageContext.request.contextPath}/mypageWithdrawal.member" method="post" id=frm>
-                            <div id=pwCheck></div>
-                            <button id=withdrawal>탈퇴하기</button>
-                            </form>
-                        </div>
-                    </div>
+
 
 
 
@@ -156,51 +136,5 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-        $("#logout").on("click",function(){
-        	location.href="../index.jsp"
-        })
-            $("#pwRe").on("keyup",function(){
-                var pw = $("#pw").val();
-                var pwRe = $("#pwRe").val();
-
-                if(pw != pwRe){
-                    $("#pwCheck").html("두 비밀번호가 일치하지 않습니다.");
-                }else{
-                     $("#pwCheck").html("");
-                }
-            })
-            $("#pw").on("keyup",function(){
-                var pw = $("#pw").val();
-                var pwRe = $("#pwRe").val();
-
-                if(pw != pwRe){
-                    $("#pwCheck").html("두 비밀번호가 일치하지 않습니다.");
-                }else{
-                     $("#pwCheck").html("");
-                }
-            })
-            $("#withdrawal").on("click",function(){
-                if( $("#pwCheck").html() != ""){
-                    alert("입력하신 두 비밀번호가 일치하지 않습니다. 다시 확인 부탁드립니다.");
-                }else{
-                    if(result){
-                        $.ajax({
-                            url :"pwCheck.",
-                            type:"post",
-                            data:{
-                                pw:$("#pw").val()
-                            },
-                            dataType:"json"
-                        }).done(function(){
-                           //result받아서 true면 confirm으로 한번더 확인 false면 alert으로 비밀번호 불일치 알림
-                        }).fail(function(){
-                            location.href="error.jsp";
-                        })
-                    }
-                }
-
-            })
-        </script>
 </body>
 </html>

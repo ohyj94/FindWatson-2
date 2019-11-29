@@ -46,14 +46,14 @@
         </style>
 </head>
 <body>
-
+<form action="login.jsp" method="post" id=frm>
 <div class="container">
             <div class="row mb-2">
                 <div id="loginBtn" class="col-12 p-1 text-right">
-                    <button id=logout class="btn btn-sm btn-outline-secondary">로그아웃</button>
+                    <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
                 </div>
             </div>
-          
+            </form>
             <div class="row">
                 <div id="title" class="col-12 mb-3 p-1 text-center">
                     <img id="logo" src="imgs/logo.png" class="col-12">
@@ -102,25 +102,90 @@
                 </div>
             </div>
             <!--            -->
- <div class= row>
+  <div class =row>
                         <div class= col-12>
-                            <h2>회원 탈퇴</h2>
-                            <hr>
-                            <br>
+                            <h5>아이디</h5>
+                            ${dto.id}
                         </div>
                     </div>
-                    <div class=row>
+
+                    <div class =row>
+                        <div class= col-12>
+                            <h5>이름</h5>
+                            ${dto.name}
+                        </div>
                         <div class=col-12>
-                            비밀번호 재입력
-                            <input type="text" id=pw><br>
-                            비밀번호 확인
-                            <input type="text" id=pwRe><br>
-                            <form action="${pageContext.request.contextPath}/mypageWithdrawal.member" method="post" id=frm>
-                            <div id=pwCheck></div>
-                            <button id=withdrawal>탈퇴하기</button>
-                            </form>
+                            <div id=nameCheck></div>
                         </div>
                     </div>
+
+                    <div class =row>
+                        <div class= "col-12">
+                            <h5>생년월일</h5>
+                            ${dto.birth}
+                        </div>
+                    </div>
+
+                    <div class =row>
+                        <div class= col-12>
+                            <h5>성별</h5>
+                            ${dto.gender}
+                        </div>
+                    </div>
+
+                    <div class =row>
+                        <div class= col-12>
+                            <h5>본인 확인 이메일</h5>
+                            ${dto.email}
+                        </div>
+                    </div>
+
+                    <div class =row>
+                        <div class= col-12>
+                            <h5>휴대폰 번호</h5>
+                            ${dto.phone}
+                        </div>
+                    </div>
+
+                    <div class=row>
+                        <div class= col-12>
+                            <h5>주소</h5>
+                            ${dto.postcode}
+                            ${dto.address1}
+                            ${dto.address2}
+                        </div>
+                    </div>
+
+                    <div class= row>
+                        <div class=col-12>
+                            <h5>관심 동물</h5>
+                             ${dto.lovePet}
+                        </div>
+                    </div>
+                    <form action="${pageContext.request.contextPath}/InfoModify.member">
+                     <input type=hidden name="" value=${ dto.id}>
+                     <input type=hidden name="" value=${ dto.pw}>
+                     <input type=hidden name="" value=${ dto.name}>
+                     <input type=hidden name="" value=${ dto.birth}>
+                     <input type=hidden name="" value=${ dto.gender}>
+                     <input type=hidden name="" value=${ dto.email}>
+                     <input type=hidden name="" value=${ dto.phone}>
+                     <input type=hidden name="" value=${ dto.postcode}>
+                     <input type=hidden name="" value=${ dto.address1}>
+                     <input type=hidden name="" value=${ dto.address2}>
+                     <input type=hidden name="" value=${ dto.lovePet}>
+                     <input type=hidden name="" value=${ dto.signpath}>
+                                
+            
+                    
+                    <div><button id=modify>정보수정</button></div></form>
+                    
+                    <!--               -->
+                </div><!--우측공간 -->
+            </div>
+            <!--            -->
+            <div class="row">
+                <div id="footer" class="col-12">
 
 
 
@@ -156,51 +221,5 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-        $("#logout").on("click",function(){
-        	location.href="../index.jsp"
-        })
-            $("#pwRe").on("keyup",function(){
-                var pw = $("#pw").val();
-                var pwRe = $("#pwRe").val();
-
-                if(pw != pwRe){
-                    $("#pwCheck").html("두 비밀번호가 일치하지 않습니다.");
-                }else{
-                     $("#pwCheck").html("");
-                }
-            })
-            $("#pw").on("keyup",function(){
-                var pw = $("#pw").val();
-                var pwRe = $("#pwRe").val();
-
-                if(pw != pwRe){
-                    $("#pwCheck").html("두 비밀번호가 일치하지 않습니다.");
-                }else{
-                     $("#pwCheck").html("");
-                }
-            })
-            $("#withdrawal").on("click",function(){
-                if( $("#pwCheck").html() != ""){
-                    alert("입력하신 두 비밀번호가 일치하지 않습니다. 다시 확인 부탁드립니다.");
-                }else{
-                    if(result){
-                        $.ajax({
-                            url :"pwCheck.",
-                            type:"post",
-                            data:{
-                                pw:$("#pw").val()
-                            },
-                            dataType:"json"
-                        }).done(function(){
-                           //result받아서 true면 confirm으로 한번더 확인 false면 alert으로 비밀번호 불일치 알림
-                        }).fail(function(){
-                            location.href="error.jsp";
-                        })
-                    }
-                }
-
-            })
-        </script>
 </body>
 </html>
