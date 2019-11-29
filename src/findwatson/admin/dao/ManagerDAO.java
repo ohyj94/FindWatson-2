@@ -270,12 +270,13 @@ public class ManagerDAO {
 				int seq = rs.getInt(1);
 				String writer = rs.getString(2);
 				String header = rs.getString(3);
-				String title = rs.getString(4);
-				String content = rs.getString(5);
-				String ipAddr = rs.getString(6);
-				int viewCount = rs.getInt(7);
-				Timestamp writeDate = rs.getTimestamp(8);
-				BoardDTO dto = new BoardDTO(seq,writer,header,title,content,ipAddr,viewCount,writeDate);
+				String animalHeader = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String ipAddr = rs.getString(7);
+				int viewCount = rs.getInt(8);
+				Timestamp writeDate = rs.getTimestamp(9);
+				BoardDTO dto = new BoardDTO(seq,writer,header,animalHeader,title,content,ipAddr,viewCount,writeDate);
 				list.add(dto);
 			}
 			return list;
@@ -473,12 +474,13 @@ public class ManagerDAO {
 				int seq = rs.getInt(1);
 				String writer = rs.getString(2);
 				String header = rs.getString(3);
-				String title = rs.getString(4);
-				String content = rs.getString(5);
-				String ipAddr = rs.getString(6);
-				int viewCount = rs.getInt(7);
-				Timestamp writeDate = rs.getTimestamp(8);
-				BoardDTO dto = new BoardDTO(seq,writer,header,title,content,ipAddr,viewCount,writeDate);
+				String animalHeader = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String ipAddr = rs.getString(7);
+				int viewCount = rs.getInt(8);
+				Timestamp writeDate = rs.getTimestamp(9);
+				BoardDTO dto = new BoardDTO(seq,writer,header,animalHeader,title,content,ipAddr,viewCount,writeDate);
 				list.add(dto);
 			}
 			return list;
@@ -500,12 +502,13 @@ public class ManagerDAO {
 					int seq = rs.getInt(1);
 					String writer = rs.getString(2);
 					String header = rs.getString(3);
-					String title = rs.getString(4);
-					String content = rs.getString(5);
-					String ipAddr = rs.getString(6);
-					int viewCount = rs.getInt(7);
-					Timestamp writeDate = rs.getTimestamp(8);
-					BoardDTO dto = new BoardDTO(seq,writer,header,title,content,ipAddr,viewCount,writeDate);
+					String animalHeader = rs.getString(4);
+					String title = rs.getString(5);
+					String content = rs.getString(6);
+					String ipAddr = rs.getString(7);
+					int viewCount = rs.getInt(8);
+					Timestamp writeDate = rs.getTimestamp(9);
+					BoardDTO dto = new BoardDTO(seq,writer,header,animalHeader,title,content,ipAddr,viewCount,writeDate);
 					list.add(dto);
 
 				}
@@ -539,12 +542,13 @@ public class ManagerDAO {
 				int seq = rs.getInt(1);
 				String writer = rs.getString(2);
 				String header = rs.getString(3);
-				String title = rs.getString(4);
-				String content = rs.getString(5);
-				String ipAddr = rs.getString(6);
-				int viewCount = rs.getInt(7);
-				Timestamp writeDate = rs.getTimestamp(8);
-				BoardDTO dto = new BoardDTO(seq,writer,header,title,content,ipAddr,viewCount,writeDate);
+				String animalHeader = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String ipAddr = rs.getString(7);
+				int viewCount = rs.getInt(8);
+				Timestamp writeDate = rs.getTimestamp(9);
+				BoardDTO dto = new BoardDTO(seq,writer,header,animalHeader,title,content,ipAddr,viewCount,writeDate);
 				list.add(dto);
 			}
 			return list;
@@ -566,12 +570,13 @@ public class ManagerDAO {
 					int seq = rs.getInt(1);
 					String writer = rs.getString(2);
 					String header = rs.getString(3);
-					String title = rs.getString(4);
-					String content = rs.getString(5);
-					String ipAddr = rs.getString(6);
-					int viewCount = rs.getInt(7);
-					Timestamp writeDate = rs.getTimestamp(8);
-					BoardDTO dto = new BoardDTO(seq,writer,header,title,content,ipAddr,viewCount,writeDate);
+					String animalHeader = rs.getString(4);
+					String title = rs.getString(5);
+					String content = rs.getString(6);
+					String ipAddr = rs.getString(7);
+					int viewCount = rs.getInt(8);
+					Timestamp writeDate = rs.getTimestamp(9);
+					BoardDTO dto = new BoardDTO(seq,writer,header,animalHeader,title,content,ipAddr,viewCount,writeDate);
 					list.add(dto);
 
 				}
