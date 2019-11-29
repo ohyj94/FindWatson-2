@@ -200,7 +200,7 @@ public class BoardDAO {
 //			return result;
 //		}
 //	}
-	
+
 	private int getTotalBoard() throws Exception{
 		String sql = "select count(*) from board";
 		try(
@@ -255,30 +255,32 @@ public class BoardDAO {
 		return sb.toString();
 	}
 	
-	public List<BoardDTO> selectByPage(int start, int end) throws Exception{
-		String sql = "select * from (select board.*, row_number() over(order by seq desc) rown from board) where rown between ? and ?";
+	//커뮤니티 - 질문 /자유(게시글끊어서 가져오기)
+	public List<BoardDTO> selectByPage(int start, int end, String header) throws Exception{
+		String sql = "select * from (select board.*, row_number() over(order by seq desc) rown from board where header =?) where rown between ? and ?";
 		List<BoardDTO> result = new ArrayList<>();
 		try(
 				Connection con = this.getConnetion();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setInt(1, start);
-			pstat.setInt(2, end);
+			pstat.setString(1, header);
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
 			try(
 					ResultSet rs = pstat.executeQuery();
 					){
 				while(rs.next()) {
 					int boardSeq = rs.getInt(1);
 					String writer = rs.getString(2);
-					String header = rs.getString(3);
-					String Aheader = rs.getString(4);
+					String headerInput = header;
+					String animalHeader = rs.getString(4);
 					String title = rs.getString(5);
 					String content = rs.getString(6);
 					String ipAddr = rs.getString(7);
 					int viewCount = rs.getInt(8);
 					Timestamp writeDate = rs.getTimestamp(9);
 
-					result.add(new BoardDTO(boardSeq, writer, header, Aheader, title, content, ipAddr, viewCount, writeDate));
+					result.add(new BoardDTO(boardSeq, writer, headerInput,animalHeader,title, content, ipAddr, viewCount, writeDate));
 				}
 				return result;
 			}

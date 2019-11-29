@@ -52,7 +52,11 @@
             </div>
             <div class="row">
                 <div id="title" class="col-12 mb-3 p-1 text-center">
+<<<<<<< HEAD
+                    <img id="logo" src="../imgs/logo.png" class="col-12">
+=======
                     <img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12">
+>>>>>>> 4db8f171dbf2a4f5ee0cc2439e809b4c9160d195
                 </div>
             </div>
             <div class="row">
@@ -177,7 +181,11 @@
                         <div id="footer-logo" class="col-12 col-sm-4">
                             <div class="row">
                                 <div class="col">
+<<<<<<< HEAD
+                                    <img id="logo" src="../imgs/logo.png" class="d-none d-sm-block col-12">
+=======
                                     <img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="d-none d-sm-block col-12">
+>>>>>>> 4db8f171dbf2a4f5ee0cc2439e809b4c9160d195
                                 </div>
                             </div>
                         </div>
