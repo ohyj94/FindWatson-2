@@ -284,8 +284,6 @@
         $("#login").on("click",function(){
         	location.href="login.jsp"
         })
-        
-         
             //우편번호
             function sample4_execDaumPostcode() {
                 new daum.Postcode({
