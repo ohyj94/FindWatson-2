@@ -25,7 +25,7 @@
                              buyer_addr : '서울특별시 강남구 삼성동',
                              buyer_postcode : '123-456'
                          }, function(rsp) {
-                         	console.log("rsp.merchant_uid : " + rsp.merchant_uid);
+                         	console.log(rsp);
                          	
                          	if ( rsp.success ) { //여기서 결제 성공
                         		 
@@ -53,14 +53,23 @@
                     			  });
 	
                              } else {//결제 실패
-                                 console.log(rsp);
-                                 var msg = '결제에 실패하였습니다.';
-                                 msg += '에러내용 : ' + rsp.error_msg;
+                            	 $.ajax({
+                            		 url: "${pageContext.request.contextPath}/payComplete.do",
+                     			    method: "post", // POST method
+                     			    dataType: 'json',
+                     			    data: {
+                     		            merchant_uid: rsp.merchant_uid,
+                     		            paid_amount : rsp.paid_amount,
+                     		            success : rsp.success
+                     			      }
+                            	 }).done(function(){
+                            		 var msg = '결제에 실패하였습니다.';
+                                     msg += '에러내용 : ' + rsp.error_msg;
 
-                                 alert(msg);
-                                 location.href = "donate/donateFailView.jsp";
+                                     alert(msg);
+                                     location.href = "donate/donateFailView.jsp";
+                            	 });
                              }
-                        	 
                          });
 	
                 });
