@@ -1,25 +1,27 @@
 package findwatson.board.dto;
 
 public class FilesDTO {
-	private int filesSeq;
+	private int seq;
 	private int boardSeq;
 	private String fileName;
 	private String oriFileName;
+	
 	public FilesDTO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	public FilesDTO(int filesSeq, int boardSeq, String fileName, String oriFileName) {
+	public FilesDTO(int seq, int boardSeq, String fileName, String oriFileName) {
 		super();
-		this.filesSeq = filesSeq;
+		this.seq = seq;
 		this.boardSeq = boardSeq;
 		this.fileName = fileName;
 		this.oriFileName = oriFileName;
 	}
-	public int getFilesSeq() {
-		return filesSeq;
+	public int getSeq() {
+		return seq;
 	}
-	public void setFilesSeq(int filesSeq) {
-		this.filesSeq = filesSeq;
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 	public int getBoardSeq() {
 		return boardSeq;
@@ -39,6 +41,5 @@ public class FilesDTO {
 	public void setOriFileName(String oriFileName) {
 		this.oriFileName = oriFileName;
 	}
-	
 	
 }

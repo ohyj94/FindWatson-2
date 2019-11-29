@@ -17,8 +17,8 @@ public class FilesDAO {
 	private FilesDAO() {
 		bds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 		bds.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
-		bds.setUsername("manager");
-		bds.setPassword("manager");
+		bds.setUsername("watson");
+		bds.setPassword("watson");
 		bds.setInitialSize(30);
 	}
 	private Connection getConnetion() throws Exception{
@@ -31,38 +31,39 @@ public class FilesDAO {
 		return instance;
 	}
 	
-	public List<FilesDTO> getFilesBy(int boardSeq) throws Exception{
-		String sql = "select * from files where boardSeq=?";
-		List<FilesDTO> result = new ArrayList<>();
-		try(
-				Connection con = this.getConnetion();
-				PreparedStatement pstat = con.prepareStatement(sql);
-				){
-			pstat.setInt(1, boardSeq);
-			try(
-					ResultSet rs = pstat.executeQuery();
-					){
-				while(rs.next()) {
-					int filesSeq = rs.getInt(1);
-					
-					String fileName = rs.getString(3);
-					String oriFileName = rs.getString(4);
-					
-					result.add(new FilesDTO(filesSeq, boardSeq, fileName, oriFileName));
-				}
-				return result;
-			}
-		}
-	}
+//	public List<FilesDTO> getFilesBy(int boardSeq) throws Exception{
+//		String sql = "select * from files where boardSeq=?";
+//		List<FilesDTO> result = new ArrayList<>();
+//		try(
+//				Connection con = this.getConnetion();
+//				PreparedStatement pstat = con.prepareStatement(sql);
+//				){
+//			pstat.setInt(1, boardSeq);
+//			try(
+//					ResultSet rs = pstat.executeQuery();
+//					){
+//				while(rs.next()) {
+//					int filesSeq = rs.getInt(1);
+//					
+//					String fileName = rs.getString(3);
+//					String oriFileName = rs.getString(4);
+//					
+//					result.add(new FilesDTO(filesSeq, boardSeq, fileName, oriFileName));
+//				}
+//				return result;
+//			}
+//		}
+//	}
+	
+	//커뮤니티(질문) - 이미지업로드
 	public int insert(FilesDTO dto) throws Exception{
-		String sql = "insert into files values(fileSeq.nextval, ?, ?, ?)";
+		String sql = "insert into commentsPhoto values(commentsPhotoSeq.nextval, null, ?, ?)";
 		try(
 				Connection con = this.getConnetion();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setInt(1, dto.getBoardSeq());
-			pstat.setString(2, dto.getFileName());
-			pstat.setString(3, dto.getOriFileName());
+			pstat.setString(1, dto.getFileName());
+			pstat.setString(2, dto.getOriFileName());
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
