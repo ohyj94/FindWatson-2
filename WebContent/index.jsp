@@ -79,7 +79,7 @@ img {
 							<li class="nav-item"><a class="nav-link" href="#">전문가Q&A</a>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="#">커뮤니티</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">마이페이지</a>
+							<li class="nav-item"><a class="nav-link" href="member/login.jsp">마이페이지</a>
 							</li>
 						</ul>
 					</div>
