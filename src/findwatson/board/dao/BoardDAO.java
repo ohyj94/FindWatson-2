@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
@@ -19,8 +21,8 @@ public class BoardDAO {
 	private BoardDAO() {
 		bds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 		bds.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
-		bds.setUsername("manager");
-		bds.setPassword("manager");
+		bds.setUsername("watson");
+		bds.setPassword("watson");
 		bds.setInitialSize(30);
 	}
 	private Connection getConnetion() throws Exception{
@@ -32,27 +34,28 @@ public class BoardDAO {
 		}
 		return BoardDAO.instance;
 	}
-
 	//글 목록 조회
 	public List<BoardDTO> selectAll() throws Exception{
 		String sql = "select * from board order by seq desc";
-		List<BoardDTO> result = new ArrayList<>();
 		try(
 				Connection con = this.getConnetion();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				ResultSet rs = pstat.executeQuery();
 				){
+
+			List<BoardDTO> result = new ArrayList<>();
 			while(rs.next()) {
 				int boardSeq = rs.getInt(1);
 				String writer = rs.getString(2);
 				String header = rs.getString(3);
-				String title = rs.getString(4);
-				String content = rs.getString(5);
-				String ipAddr = rs.getString(6);
-				int viewCount = rs.getInt(7);
-				Timestamp writeDate = rs.getTimestamp(8);
+				String Aheader = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String ipAddr = rs.getString(7);
+				int viewCount = rs.getInt(8);
+				Timestamp writeDate = rs.getTimestamp(9);
 
-				result.add(new BoardDTO(boardSeq, writer, header, title, content, ipAddr, viewCount, writeDate));
+				result.add(new BoardDTO(boardSeq, writer, header, Aheader, title, content, ipAddr, viewCount, writeDate));
 			}
 			return result;
 		}
@@ -76,13 +79,14 @@ public class BoardDAO {
 					int boardSeq = rs.getInt(1);
 					String writer = rs.getString(2);
 					String header = rs.getString(3);
-					String rtitle = rs.getString(4);	//검색어랑 변수 겹쳐서 db에 입력된 real title
-					String content = rs.getString(5);
-					String ipAddr = rs.getString(6);
-					int viewCount = rs.getInt(7);
-					Timestamp writeDate = rs.getTimestamp(8);
+					String Aheader = rs.getString(4);
+					String rtitle = rs.getString(5); //검색어랑 변수 겹쳐서 db에 입력된 real title
+					String content = rs.getString(6);
+					String ipAddr = rs.getString(7);
+					int viewCount = rs.getInt(8);
+					Timestamp writeDate = rs.getTimestamp(9);
 
-					result.add(new BoardDTO(boardSeq, writer, header, rtitle, content, ipAddr, viewCount, writeDate));
+					result.add(new BoardDTO(boardSeq, writer, header, Aheader, title, content, ipAddr, viewCount, writeDate));
 				}
 			}
 			return result;
@@ -106,13 +110,14 @@ public class BoardDAO {
 					int boardSeq = rs.getInt(1);
 					//String writer = rs.getString(2);
 					String header = rs.getString(3);
-					String title = rs.getString(4);
-					String content = rs.getString(5);
-					String ipAddr = rs.getString(6);
-					int viewCount = rs.getInt(7);
-					Timestamp writeDate = rs.getTimestamp(8);
+					String Aheader = rs.getString(4);
+					String title = rs.getString(5);
+					String content = rs.getString(6);
+					String ipAddr = rs.getString(7);
+					int viewCount = rs.getInt(8);
+					Timestamp writeDate = rs.getTimestamp(9);
 
-					result.add(new BoardDTO(boardSeq, writer, header, title, content, ipAddr, viewCount, writeDate));
+					result.add(new BoardDTO(boardSeq, writer, header, Aheader, title, content, ipAddr, viewCount, writeDate));
 				}
 			}
 			return result;
@@ -135,29 +140,31 @@ public class BoardDAO {
 				int boardSeq = rs.getInt(1);
 				String writer = rs.getString(2);
 				String header = rs.getString(3);
-				String title = rs.getString(4);
-				String content = rs.getString(5);
-				String ipAddr = rs.getString(6);
-				int viewCount = rs.getInt(7);
-				Timestamp writeDate = rs.getTimestamp(8);
+				String Aheader = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String ipAddr = rs.getString(7);
+				int viewCount = rs.getInt(8);
+				Timestamp writeDate = rs.getTimestamp(9);
 
-				return new BoardDTO(boardSeq, writer, header, title, content, ipAddr, viewCount, writeDate);
+				return new BoardDTO(boardSeq, writer, header, Aheader, title, content, ipAddr, viewCount, writeDate);
 			}
 		}
 	}
 	
 	//글쓰기
 	public int insert(BoardDTO dto) throws Exception{
-		String sql = "insert into board values(boardSeq.nextval,?,?,?,?,?,0,sysdate)";
+		String sql = "insert into board values(boardSeq.nextval,?,?,?,?,?,?,0,sysdate)";
 		try(
 				Connection con = this.getConnetion();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setString(1, dto.getWriter());
 			pstat.setString(2, dto.getHeader());
-			pstat.setString(3, dto.getTitle());
-			pstat.setString(4, dto.getContent());
-			pstat.setString(5, dto.getIpAddr());
+			pstat.setString(3, dto.getAnimalHeader());
+			pstat.setString(4, dto.getTitle());
+			pstat.setString(5, dto.getContent());
+			pstat.setString(6, dto.getIpAddr());
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
@@ -178,21 +185,21 @@ public class BoardDAO {
 		}
 	}
 	
-	//글 수정  제목, 내용, 날짜
-	public int update(BoardDTO dto) throws Exception{
-		String sql = "update board set title=?, content=?, writeDate=sysdate where boardSeq=?";
-		try(
-				Connection con = this.getConnetion();
-				PreparedStatement pstat = con.prepareStatement(sql);
-				){
-			pstat.setString(1, dto.getTitle());
-			pstat.setString(2, dto.getContent());
-			pstat.setInt(3, dto.getBoardSeq());
-			int result = pstat.executeUpdate();
-			con.commit();
-			return result;
-		}
-	}
+//	//글 수정  제목, 내용, 날짜
+//	public int update(BoardDTO dto) throws Exception{
+//		String sql = "update board set title=?, content=?, writeDate=sysdate where boardSeq=?";
+//		try(
+//				Connection con = this.getConnetion();
+//				PreparedStatement pstat = con.prepareStatement(sql);
+//				){
+//			pstat.setString(1, dto.getTitle());
+//			pstat.setString(2, dto.getContent());
+//			pstat.setInt(3, dto.getBoardSeq());
+//			int result = pstat.executeUpdate();
+//			con.commit();
+//			return result;
+//		}
+//	}
 	
 	private int getTotalBoard() throws Exception{
 		String sql = "select count(*) from board";
@@ -205,7 +212,7 @@ public class BoardDAO {
 			return rs.getInt(1);
 		}
 	}
-	public String getPageNavi(int current) throws Exception{
+	public String getPageNavi(int current,String category) throws Exception{
 		int recordTotalCount = this.getTotalBoard();
 		int pageTotalCount = 0;
 		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
@@ -235,15 +242,15 @@ public class BoardDAO {
 		StringBuilder sb = new StringBuilder();
 		
 		//이부분 servlet 기능에 따라 수정하기
-		if(needPrev) sb.append("<a href='toBoard.bo?currentPage=" + (startNavi - 1) + "'>< </a>");
+		if(needPrev) sb.append("<a href='"+category+"?cpage=" + (startNavi - 1) + "'>< </a>");
 		
 		for(int i = startNavi; i <= endNavi; i++) {
-			sb.append("<a href='toBoard.bo?currentPage="+ i +"'>");
+			sb.append("<a href='"+category+"?cpage="+ i +"'>");
 			sb.append(i + " ");
 			sb.append("</a>");
 		}
 		
-		if(needNext) sb.append("<a href='toBoard.bo?currentPage=" + (endNavi + 1) + "'>> </a>");
+		if(needNext) sb.append("<a href='"+category+"?cpage=" + (endNavi + 1) + "'>> </a>");
 	
 		return sb.toString();
 	}
@@ -264,13 +271,14 @@ public class BoardDAO {
 					int boardSeq = rs.getInt(1);
 					String writer = rs.getString(2);
 					String header = rs.getString(3);
-					String title = rs.getString(4);
-					String content = rs.getString(5);
-					String ipAddr = rs.getString(6);
-					int viewCount = rs.getInt(7);
-					Timestamp writeDate = rs.getTimestamp(8);
+					String Aheader = rs.getString(4);
+					String title = rs.getString(5);
+					String content = rs.getString(6);
+					String ipAddr = rs.getString(7);
+					int viewCount = rs.getInt(8);
+					Timestamp writeDate = rs.getTimestamp(9);
 
-					result.add(new BoardDTO(boardSeq, writer, header, title, content, ipAddr, viewCount, writeDate));
+					result.add(new BoardDTO(boardSeq, writer, header, Aheader, title, content, ipAddr, viewCount, writeDate));
 				}
 				return result;
 			}
