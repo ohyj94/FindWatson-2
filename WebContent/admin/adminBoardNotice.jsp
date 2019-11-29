@@ -55,7 +55,7 @@
             </div>
             <div class="row">
                 <div id="title" class="col-12 mb-3 p-1 text-center">
-                    <img id="logo" src="imgs/logo.png" class="col-12">
+                    <img id="logo" src="../imgs/logo.png" class="col-12">
                 </div>
             </div>
             <div class="row">
@@ -84,7 +84,7 @@
           게시판관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">전문가Q&A</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminBoardExpert.manager">전문가Q&A</a>
           <a class="dropdown-item" href="#">자유게시판</a>
           <a class="dropdown-item" href="#">질문게시판</a>
           <a class="dropdown-item" href="#">1:1문의</a>
