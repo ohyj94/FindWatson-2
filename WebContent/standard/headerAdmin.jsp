@@ -4,20 +4,12 @@
 
 <div class="row mb-2">
     <div id="loginBtn" class="col-12 p-1 text-right">
-       <c:choose>
-			<c:when test="${loginInfo ==null}">
-				<button class="btn btn-sm btn-outline-secondary">로그인</button>
-				<button class="btn btn-sm btn-outline-secondary">회원가입</button>
-			</c:when>
-			<c:otherwise>
-				<button id=logout class="btn btn-sm btn-outline-secondary">로그아웃</button>
-			</c:otherwise>
-		</c:choose> 
+        <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
     </div>
 </div>
 <div class="row">
     <div id="title" class="col-12 mb-3 p-1 text-center">
-        <img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12">
+        <img id="logo" src="imgs/logo.png" class="col-12">
     </div>
 </div>
 <div class="row">
@@ -31,34 +23,39 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">공지사항</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">병원검색</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">전문가Q&A</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            커뮤니티
+                            병원관리
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">자유게시판</a>
-                            <a class="dropdown-item" href="#">질문게시판</a>
+                            <a class="dropdown-item" href="#">병원정보 등록</a>
+                            <a class="dropdown-item" href="#">병원정보 수정/삭제</a>
+                            <a class="dropdown-item" href="#">병원리뷰</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            마이페이지
+                            게시판관리
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">내 정보</a>
-                            <a class="dropdown-item" href="#">내 후원보기</a>
-                            <a class="dropdown-item" href="#">1 : 1 문의</a>
-                            <a class="dropdown-item" href="#">회원 탈퇴</a>
+                            <a class="dropdown-item" href="#">전문가Q&A</a>
+                            <a class="dropdown-item" href="#">자유게시판</a>
+                            <a class="dropdown-item" href="#">질문게시판</a>
+                            <a class="dropdown-item" href="#">1:1문의게시판</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            회원관리
+                        </a>
+                        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">회원목록조회</a>
+                            <a class="dropdown-item" href="#">차단 IP 조회</a>
+                            <a class="dropdown-item" href="#">회원 통계</a>
                         </div>
                     </li>
                 </ul>
             </div>
         </nav>
     </div>
-</div>
+</div>    
