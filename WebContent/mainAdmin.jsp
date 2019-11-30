@@ -198,6 +198,7 @@ div {
 		$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
 		//질문게시판으로 이동
 		$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
+		
 	</script>
 </body>
 </html>
