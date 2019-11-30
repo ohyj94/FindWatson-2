@@ -1,12 +1,15 @@
 package findwatson.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.JsonObject;
 
 import findwatson.member.dao.MemberDAO;
 import findwatson.member.dto.MemberDTO;
@@ -27,7 +30,7 @@ public class memberController extends HttpServlet {
 		System.out.println(path);
 
 		MemberDAO dao = MemberDAO.getInstance();
-
+		PrintWriter pwriter = response.getWriter();
 
 		if(path.contentEquals("/login.member")) {
 			String id = request.getParameter("id");
@@ -158,6 +161,23 @@ public class memberController extends HttpServlet {
 				e.printStackTrace();
 				response.sendRedirect("error.jsp");
 			}
+		}
+		else if(path.contentEquals("/duplCheck.member")) {
+			try {
+				String id = request.getParameter("id");
+				System.out.println(id);
+				boolean idCheck = dao.idCheck(id);
+				System.out.println(idCheck);
+					JsonObject jobj = new JsonObject();
+					jobj.addProperty("result", idCheck);
+					System.out.println(jobj);
+					pwriter.append(jobj.toString());
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("error.jsp");
+			}
+			
 		}
 	}
 
