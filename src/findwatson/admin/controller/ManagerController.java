@@ -1,6 +1,8 @@
 package findwatson.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,7 @@ import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
 import findwatson.board.dto.BoardDTO;
 import findwatson.configuration.Configuration;
+import findwatson.search.dao.HospitalListDAO;
 
 
 @WebServlet("*.manager")
@@ -27,9 +30,39 @@ public class ManagerController extends HttpServlet {
 		request.setCharacterEncoding("utf8");
 		response.setContentType("text/html; charset=UTF-8");
 		try {
-			if(cmd.contentEquals("병원리스트")) {
-				List<HListDTO> list = dao.hospitalList();
+			if(cmd.contentEquals("/admin/adminBoardHosptList.manager")) {
+			
+				
+				
+				
+				
+				int cpage = 1;
+				String param = request.getParameter("cpage");
+
+				if(param!=null) {
+					cpage = Integer.parseInt(param);	
+				}
+
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);	
+				int end = cpage * Configuration.recordCountPerPage;
+
+				List<HListDTO> list = dao.hosptListByPage(start, end);
+
+				String pageNavi = dao.getHosptListPageNav(cpage);
+
+				request.setAttribute("pageNavi", pageNavi);
 				request.setAttribute("list", list);
+
+				request.getRequestDispatcher("/admin/adminBoardHosptList.jsp").forward(request, response);
+		
+				
+				
+				
+				
+				
+				
+				
+				
 
 
 			}else if(cmd.contentEquals("/admin/adminInsertHospt.manager")) {
@@ -46,9 +79,35 @@ public class ManagerController extends HttpServlet {
 				
 				System.out.println(name + " " +postcode+ " " +address1+ " " +address2+ " " +phone+ " " +homepage+ " " + 
 				medicalAnimal[0]+ " " +medicalAnimal[1]+ " " +openTime[0]+ " " +openTime[1]);
+	
+				String animal = Arrays.toString(medicalAnimal).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
+				System.out.println(animal.contentEquals("null"));
+				if(animal.contentEquals("null")) {
+					animal = "";
+				}
+				System.out.println("animal : " + animal);
 				
-				HListDTO dto = new HListDTO(0,name,postcode,address1,address2,phone,homepage,img,medicalAnimal[0],openTime[0],null,0);
-			}else if(cmd.contentEquals("병원정보수정")) {
+
+				String time = Arrays.toString(openTime).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
+				//System.out.println( time.equals("null"));
+				if(time.contentEquals("null")) {
+					time = "";
+				}
+				System.out.println("time : " + time);
+				
+				HListDTO dto = new HListDTO(0,name,postcode,address1,address2,phone,homepage,img,animal,time,null,0);
+				int result = dao.insertHospital(dto);
+				System.out.println(result);
+				if(result > 0) {
+					System.out.println("db저장 성공");
+					
+				}
+				else {
+					System.out.println("db저장 실패");
+				}
+			}
+			else if(cmd.contentEquals("병원정보수정")) {
+
 
 			}
 			
