@@ -498,7 +498,8 @@ public class AdminDAO {
 		}
 	}
 	
-	public int insert(ExpertDTO dto)throws Exception{
+	//관리자 - 전문가 Q&A에 글작성
+	public int insertToExpert(ExpertDTO dto)throws Exception{
 		String sql = "insert into expert values (expertSeq.nextval,?,?,?,sysdate, 0)";
 		try(
 			Connection con = getConnection();
@@ -512,6 +513,21 @@ public class AdminDAO {
 			return result;
 		}	
 	}
+	//관리자 - 공지에 글작성
+			public int insertToNotice(ExpertDTO dto)throws Exception{
+				String sql = "insert into notice values (noticeSeq.nextval,?,?,sysdate, 0)";
+				try(
+					Connection con = getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+						){
+					pstat.setString(1, dto.getTitle());
+					pstat.setString(2, dto.getContent());
+					int result = pstat.executeUpdate();
+					con.commit();
+					return result;
+				}	
+			}
+	
 	
 	
 }

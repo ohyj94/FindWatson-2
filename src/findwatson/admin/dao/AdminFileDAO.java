@@ -33,15 +33,17 @@ public class AdminFileDAO {
 		return bds.getConnection();
 	}
 	
-	//파일 업로드
-	public int insert(AdminFileDTO dto) throws Exception{
-		String sql = "insert into expertPhoto values(expertPhotoseq.nextval,null,?,?)";
+	//파일 업로드 expert/notice
+	public int insertByTableName(AdminFileDTO dto, String tbName) throws Exception{
+		String seqName = tbName +"Seq.nextval";
+		String sql = "insert into ? values(?,null,?,?)";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setString(1, dto.getFileName());
-			pstat.setString(2, dto.getOriFileName());
+			pstat.setString(1, tbName);
+			pstat.setString(2, dto.getFileName());
+			pstat.setString(3, dto.getOriFileName());
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;

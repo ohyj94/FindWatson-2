@@ -159,6 +159,8 @@ display:none;
 							<div class="col-12 p-1 text-center">
 								<button id="writeBtn" type="button"
 									class="btn btn-sm btn-outline-secondary">작성</button>
+									<button id="returnBtn" type="button"
+									class="btn btn-sm btn-outline-secondary">돌아가기</button>
 							</div>
 						</div>
 					</div>
@@ -246,7 +248,7 @@ display:none;
 		}
 	})
 	
-	//버튼
+	//작성버튼
 	$("#writeBtn").on("click",function(){
 		var title = $("#boardTitle").val(); 
 		var content = $(".note-editable").html();
@@ -262,6 +264,14 @@ display:none;
 				$("#snInput").val(contentReal);
 				$("#frm").submit();
 			}
+		}
+	})
+	
+	//등록하기 버튼
+	$("#returnBtn").on("click",function(){
+		var result = confirm("입력하신 내용은 저장되지 않습니다. 정말 돌아가시겠습니까?");
+		if(result){
+			location.href = 'adminIndex.admin';
 		}
 	})
 	

@@ -126,7 +126,7 @@ public class AdminController extends HttpServlet {
 				String content = request.getParameter("content");
 				System.out.println(content);
 				
-				dao.insert(new ExpertDTO(0, id, title, content, null, 0));
+				dao.insertToExpert(new ExpertDTO(0, id, title, content, null, 0));
 				
 				//익태오빠한테 받아서 수정
 				response.sendRedirect("exportList.admin");
@@ -147,7 +147,7 @@ public class AdminController extends HttpServlet {
 				System.out.println("원래 파일 이름 : " + oriFileName);
 				System.out.println("올린 파일 이름 : " + fileName);
 				
-				fDao.insert(new AdminFileDTO(0, 0, fileName, oriFileName));
+				fDao.insertByTableName(new AdminFileDTO(0, 0, fileName, oriFileName), "expertPhoto");
 				
 				//서버의 이미지 경로
 				String imgPath = "../" + repositoryName + "/" + fileName;
@@ -157,9 +157,40 @@ public class AdminController extends HttpServlet {
 				jObj.addProperty("imgPath", imgPath);
 				pwriter.append(jObj.toString());
 			}else if(cmd.contentEquals("/noticeWrite.admin")) {//공지사항 글쓰기
+				String title = request.getParameter("boardTitle");
+				String content = request.getParameter("content");
+				System.out.println(content);
 				
+				dao.insertToNotice(new ExpertDTO(0, id, title, content, null, 0));
+				
+				//익태오빠한테 받아서 수정
+				response.sendRedirect("noticeList.admin");
 			}else if(cmd.contentEquals("/noticeWriteImgUpload.admin")) {//공지사항 글쓰기 - 이미지 업로드
+				String repositoryName = "noticeImg";
+				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
+				System.out.println(uploadPath);
+				File uploadFilePath = new File(uploadPath);
+				if(!uploadFilePath.exists()) {
+					uploadFilePath.mkdir();
+				}
 				
+				int maxSize = 1024 * 1024 * 100;
+				MultipartRequest multi = new MultipartRequest(request,uploadPath, maxSize,"UTF-8",new DefaultFileRenamePolicy());
+				
+				String fileName = multi.getFilesystemName("noticeImg");
+				String oriFileName = multi.getOriginalFileName("noticeImg");
+				System.out.println("원래 파일 이름 : " + oriFileName);
+				System.out.println("올린 파일 이름 : " + fileName);
+				
+				fDao.insertByTableName(new AdminFileDTO(0, 0, fileName, oriFileName),"noticePhoto");
+				
+				//서버의 이미지 경로
+				String imgPath = "../" + repositoryName + "/" + fileName;
+				System.out.println(imgPath);
+				
+				JsonObject jObj = new JsonObject();
+				jObj.addProperty("imgPath", imgPath);
+				pwriter.append(jObj.toString());
 			}else {
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
