@@ -90,10 +90,10 @@
           마이페이지
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="mypageInfo.jsp">내 정보</a>
-          <a class="dropdown-item" href="mypageDonation.jsp">내 후원보기</a>
-          <a class="dropdown-item" href="mypageOneByOne.jsp">1 : 1 문의</a>
-          <a class="dropdown-item" href="mypageWithdrawal.jsp">회원 탈퇴</a>
+          <a class="dropdown-item" href="member/mypageInfo.jsp">내 정보</a>
+          <a class="dropdown-item" href="member/mypageDonation.jsp">내 후원보기</a>
+          <a class="dropdown-item" href="member/mypageOneByOne.jsp">1 : 1 문의</a>
+          <a class="dropdown-item" href="#">회원 탈퇴</a>
         </div>
         </li>
                             </ul>

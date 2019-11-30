@@ -90,10 +90,10 @@
           마이페이지
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="mypageInfo.jsp">내 정보</a>
-          <a class="dropdown-item" href="mypageDonation.jsp">내 후원보기</a>
-          <a class="dropdown-item" href="mypageOneByOne.jsp">1 : 1 문의</a>
-          <a class="dropdown-item" href="mypageWithdrawal.jsp">회원 탈퇴</a>
+          <a class="dropdown-item" href="member/mypageInfo.jsp">내 정보</a>
+          <a class="dropdown-item" href="member/mypageDonation.jsp">내 후원보기</a>
+          <a class="dropdown-item" href="member/mypageOneByOne.jsp">1 : 1 문의</a>
+          <a class="dropdown-item" href="member/mypageWithdrawal.jsp">회원 탈퇴</a>
         </div>
         </li>
                             </ul>
@@ -102,17 +102,18 @@
                 </div>
             </div>
             <!--            -->
+             <form action="${pageContext.request.contextPath}/mypageModify.member" method="post" id=frm>
  <div class =row>
                         <div class= col-12>
                             <h5>아이디</h5>
-                           ${dto.id}
+                           <input type=text id=id name=id value="${dto.id}" readonly>
                         </div>
                     </div>
 
                     <div class =row>
                         <div class= "col-12 col-md-6">
                             <h5>비밀번호</h5>
-                            <input type=text id = pw>
+                            <input type=text id = pw name=pw>
                         </div>
                         <div class= "col-12 col-md-6">
                             <h5>비밀번호 확인</h5>
@@ -124,7 +125,7 @@
                     <div class =row>
                         <div class= col-12>
                             <h5>이름</h5>
-                            <input type=text id = name>
+                            <input type=text id = name name=name value=${ dto.name}>
                         </div>
                         <div class=col-12>
                             <div id=nameCheck></div>
@@ -134,12 +135,7 @@
                     <div class =row>
                         <div class= "col-12 col-md-5">
                             <h5>생년월일</h5>
-                            <input type=text id = year placeholder="년도">
-                        </div>
-                        <div class= "col-12 col-md-7">
-                            <h5><br></h5>
-                            <input type=text id = month placeholder="월">
-                            <input type=text id = day placeholder="일">
+                            <input type=text id = year name=birth placeholder="yyyymmdd" value=${ dto.birth}>
                         </div>
                     </div>
 
@@ -155,7 +151,7 @@
                     <div class =row>
                         <div class= col-12>
                             <h5>본인 확인 이메일</h5>
-                            <input type=text id = email>
+                            <input type=text id = email name=email value=${ dto.email}>
                         </div>
                         <div class=col-12>
                             <div id=emailCheck></div>
@@ -165,7 +161,7 @@
                     <div class =row>
                         <div class= col-12>
                             <h5>휴대폰 번호</h5>
-                            <input type=text id = phone>
+                            <input type=text id = phone name=phone value=${ dto.phone}>
                         </div>
                         <div class=col-12>
                             <div id=phoneCheck></div>
@@ -178,14 +174,14 @@
                         </div>
                     </div>
                     <div class=row>
-                        <div class=col-4><input type="text" id="postcode" name=postcode placeholder="우편번호" readonly>
+                        <div class=col-4><input type="text" id="postcode" name=postcode placeholder="우편번호" readonly value=${ dto.postcode}>
                             <button id = addressBtn type="button" onclick="sample4_execDaumPostcode()">찾기</button>
                         </div>
                         <div class=col-4>
-                            <input type="text" id="address1" name=address1 placeholder="도로명주소" readonly>
+                            <input type="text" id="address1" name=address1 placeholder="도로명주소" readonly value=${ dto.address1}>
                         </div>
                         <div class=col-4>
-                            <input type = text name = address2 id = address2 placeholder="상세주소">
+                            <input type = text name = address2 id = address2 placeholder="상세주소" value=${ dto.address2}>
                         </div>
                     </div>
 
@@ -195,23 +191,25 @@
                         </div>
                     </div>
                     <div class=row>
-                        <div class=col-3>새<input type=checkbox name=animal value=bird class=animal></div>
-                        <div class=col-3>물고기<input type=checkbox name=animal value=fish class=animal></div>
-                        <div class=col-3>햄스터<input type=checkbox name=animal value=mouse class=animal></div>
-                        <div class=col-3>토끼<input type=checkbox name=animal value=rabbit class=animal></div>
+                        <div class=col-3>새<input type=checkbox name=lovePet value=bird class=animal></div>
+                        <div class=col-3>물고기<input type=checkbox name=lovePet value=fish class=animal></div>
+                        <div class=col-3>햄스터<input type=checkbox name=lovePet value=mouse class=animal></div>
+                        <div class=col-3>토끼<input type=checkbox name=lovePet value=rabbit class=animal></div>
                     </div>
                     <div class=row>
-                        <div class=col-3>고슴도치<input type=checkbox name=animal value=hedgehog class=animal></div>
-                        <div class=col-3>파충류<input type=checkbox name=animal value=reptile class=animal></div>
-                        <div class=col-3>곤충류<input type=checkbox name=animal value=bug class=animal></div>
-                        <div class=col-3>기타<input type=checkbox name=animal value=other class=animal><input type=text name=otherAnimal class=other></div>
+                        <div class=col-3>고슴도치<input type=checkbox name=lovePet value=hedgehog class=animal></div>
+                        <div class=col-3>파충류<input type=checkbox name=lovePet value=reptile class=animal></div>
+                        <div class=col-3>곤충류<input type=checkbox name=lovePet value=bug class=animal></div>
+                        <div class=col-3>기타<input type=checkbox name=lovePet value=other class=animal><input type=text name=otherAnimal class=other></div>
                     </div>
 
 
                     <!--               -->
                     <div class=row>
                     <div class="col-12 center">
-                    <button type=button id=save>정보 수정</button>
+                   
+                    	<button id=save>정보 수정</button>
+                    </form>
                         <button type="button" id=reset>초기화</button>
                     </div>
                     </div>
@@ -236,7 +234,7 @@
                                 <div class="col-6 col-sm-auto"><a href="#">이용약관</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">개인정보취급방침</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">저작권안내</a></div>
-                                <div class="col-12 col-sm-auto"><a href="#">광고및제휴문의</a></div>
+                                <div class="col-12 col-sm-auto"><a href="#">후원하기</a></div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -326,12 +324,9 @@
             })
             
             //정보 수정버튼 클릭
-            $("#save").on("click",function(){
-                var result = confirm("이대로 수정하시겠습니까?");
-                if(result){
-                    $("#memberModify").submit();
-                }
-            })
+          /*   $("#save").on("click",function(){
+                    $("#frm").submit();
+            }) */
             
             //초기화
             $("#reset").on("click",function(){
