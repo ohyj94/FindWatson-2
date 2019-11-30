@@ -32,8 +32,7 @@ public class ManagerController extends HttpServlet {
 				request.setAttribute("list", list);
 
 
-			}
-			else if(cmd.contentEquals("/admin/adminInsertHospt.manager")) {
+			}else if(cmd.contentEquals("/admin/adminInsertHospt.manager")) {
 				System.out.println("병원등록 진입 성공");
 				String name = request.getParameter("name");
 				int postcode = Integer.parseInt(request.getParameter("postcode"));
@@ -49,10 +48,10 @@ public class ManagerController extends HttpServlet {
 				medicalAnimal[0]+ " " +medicalAnimal[1]+ " " +openTime[0]+ " " +openTime[1]);
 				
 				HListDTO dto = new HListDTO(0,name,postcode,address1,address2,phone,homepage,img,medicalAnimal[0],openTime[0],null,0);
-			}
-			else if(cmd.contentEquals("병원정보수정")) {
+			}else if(cmd.contentEquals("병원정보수정")) {
 
 			}
+			
 			//공지사항 네비 적용된 목록
 			else if(cmd.contentEquals("/admin/adminBoardNotice.manager")) {
 				System.out.println("공지사항 진입 성공");
@@ -76,8 +75,7 @@ public class ManagerController extends HttpServlet {
 				request.setAttribute("list", list);
 
 				request.getRequestDispatcher("/admin/adminBoardNotice.jsp").forward(request, response);
-			}
-			else if(cmd.contentEquals("/admin/adminBoardExpert.manager")){
+			}else if(cmd.contentEquals("/admin/adminBoardExpert.manager")){
 				System.out.println("전문가 진입 성공");
 
 
@@ -99,26 +97,21 @@ public class ManagerController extends HttpServlet {
 				request.setAttribute("list", list);
 
 				request.getRequestDispatcher("/admin/adminBoardExpert.jsp").forward(request, response);
-			}
-			else if(cmd.contentEquals("자유게시판 목록")) {
+			}else if(cmd.contentEquals("자유게시판 목록")) {
 				List<BoardDTO> list = dao.fBoardList();
 				request.setAttribute("list", list);
-			}
-			else if(cmd.contentEquals("자유게시판 글 아이디로 찾기")) {
+			}else if(cmd.contentEquals("자유게시판 글 아이디로 찾기")) {
 				String id = request.getParameter("id");
 				List<BoardDTO> list = dao.fBoardById(id);
 				request.setAttribute("list", list);
-			}
-			else if(cmd.contentEquals("질문게시판 목록")) {
+			}else if(cmd.contentEquals("질문게시판 목록")) {
 				List<BoardDTO> list = dao.qBoardList();
 				request.setAttribute("list", list);
-			}
-			else if(cmd.contentEquals("질문게시판 글 아이디로 찾기")) {
+			}else if(cmd.contentEquals("질문게시판 글 아이디로 찾기")) {
 				String id = request.getParameter("id");
 				List<BoardDTO> list = dao.qBoardById(id);
 				request.setAttribute("list", list);
-			}
-			else if(cmd.contentEquals("1:1문의게시판 목록")) {
+			}else if(cmd.contentEquals("1:1문의게시판 목록")) {
 				dao.oneByOneList();
 			}
 

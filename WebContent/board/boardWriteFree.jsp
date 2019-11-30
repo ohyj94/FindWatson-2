@@ -266,7 +266,6 @@ display:none;
 	})
 	
 	</script>
-=======
    <div class="container">
       <div class="row mb-2">
          <div id="loginBtn" class="col-12 text-right">
