@@ -93,7 +93,7 @@
 					</button>
 					<div class="collapse navbar-collapse" id="navbarNav">
 						<ul class="navbar-nav">
-							<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/boardNotice.admin">공지사항</a></li>
+							<li class="nav-item"><a class="nav-link" id=notice>공지사항</a></li>
 							<li class="nav-item dropdown"><a
 								class="nav-link dropdown-toggle" href="#"
 								id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
@@ -110,9 +110,9 @@
 								aria-haspopup="true" aria-expanded="false"> 게시판관리 </a>
 								<div class="dropdown-menu text-center"
 									aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" href="#">전문가Q&A</a> <a
-										class="dropdown-item" href="#">자유게시판</a> <a
-										class="dropdown-item" href="#">질문게시판</a> <a
+									<a class="dropdown-item" id=expert>전문가Q&A</a> <a
+										class="dropdown-item" id=free>자유게시판</a> <a
+										class="dropdown-item" id=question>질문게시판</a> <a
 										class="dropdown-item" href="#">1:1문의</a>
 								</div></li>
 							<li class="nav-item dropdown"><a
@@ -226,10 +226,18 @@
 		</div>
 	</div>
 	<script>
-	//로고 이미지 누르면 홈으로
-	$("#logo").on("click",function(){
-		location.href="${pageContext.request.contextPath}/mainAdmin.jsp";
-	})
+	//각 버튼별 주소이동
+	$("#logo").on("click", function() {
+		location.href = "${pageContext.request.contextPath}/mainAdmin.jsp";
+	});
+	//공지사항으로 이동
+	$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
+	//전문가 Q&A로 이동
+	$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
+	//자유게시판으로 이동
+	$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
+	//질문게시판으로 이동
+	$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
 	
 	//글쓰기 버튼
 	$("#writeBtn").on("click",function(){

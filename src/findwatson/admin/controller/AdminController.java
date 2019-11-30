@@ -23,6 +23,7 @@ import findwatson.admin.dto.BanDTO;
 import findwatson.admin.dto.ExpertDTO;
 import findwatson.admin.dto.NoticeDTO;
 import findwatson.board.dao.BoardDAO;
+import findwatson.board.dto.BoardDTO;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
 
@@ -223,6 +224,38 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("admin/adminBoardNotice.jsp").forward(request, response);
 			
+			}else if(cmd.contentEquals("/boardFree.admin")){//자유게시판 글 출력
+				String pageCategory = "boardFree.bo";
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<BoardDTO> list = BoardDAO.getInstance().selectByPage(start, end, "자유");
+				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory);
+				
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("admin/adminBoardFree.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/boardQuestion.admin")) { //질문게시판 글 출력
+				String pageCategory = "boardQuestion.bo";
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<BoardDTO> list = BoardDAO.getInstance().selectByPage(start, end, "질문");
+				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory);
+				
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("admin/adminBoardQuestion.jsp").forward(request, response);
 			}else {
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
