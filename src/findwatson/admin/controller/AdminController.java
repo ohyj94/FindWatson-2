@@ -111,6 +111,11 @@ public class AdminController extends HttpServlet {
 				List<MemberDTO> list = dao.selectById(id);
 				request.setAttribute("list", list);
 			}
+			//회원 삭제
+			else if(cmd.contentEquals("/admin/adminDeleteMember.admin")) {
+				String id = request.getParameter("id");
+				System.out.println(id + "내일할일 : 이놈 삭제하는메서드 추가");
+			}
 			
 			
 		} catch (Exception e) {

@@ -74,8 +74,8 @@
           병원관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">병원정보 등록</a>
-          <a class="dropdown-item" href="#">병원정보 수정/삭제</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminInsertHospt.jsp">병원정보 등록</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminBoardHosptList.manager">병원정보 수정/삭제</a>
           <a class="dropdown-item" href="#">병원리뷰</a>
         </div>
         </li>
@@ -111,7 +111,7 @@
             <div class="row">
             <div id="article-middle" class="col-12 mt-2">
                 <div class="row mb-3 p-1 text-center">
-                    <h3 id="board-top" class="col-auto col-sm-4 m-0">회원 목록 조회</h3>
+                    <h3 id="board-top" class="col-auto col-sm-4 m-0">차단 IP 조회</h3>
                     <span class="col-auto col-sm-8 mt-2">
                            <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
                     </span>
@@ -119,28 +119,27 @@
             <div class="row line">
                 
                 <div class="col-md-3 d-none d-md-block">
-                    아이디
+                    병원번호
                 </div>
                 <div class="col-md-3 d-none d-md-block">
-           	이름
+           	병원이름
                 </div>
                 <div class="col-md-6 d-none d-md-block">
-            	공란
+                    홈페이지
                 </div>
             </div>
             <!-- 게시글 목록 -->
-            
            <c:forEach items="${list}" var="list">
            <div class="row line">
                 
                 <div class="col-md-3 d-none d-md-block">
-                  ${list.id}
+                    ${list.seq}
                 </div>
                 <div class="col-md-3 d-none d-md-block">
-           			${list.name }
+           			${list.hosptName}
                 </div>
                 <div class="col-md-6 d-none d-md-block">
-                    <a href="${pageContext.request.contextPath}/admin/adminDeleteMember.admin?id=${list.id}">삭제하기</a>
+                    ${list.homepage }
                 </div>
             </div>
             </c:forEach>
