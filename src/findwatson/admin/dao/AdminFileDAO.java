@@ -32,16 +32,16 @@ public class AdminFileDAO {
 	private Connection getConnection() throws Exception{
 		return bds.getConnection();
 	}
+	
 	//파일 업로드
-	public int insertFile(AdminFileDTO dto) throws Exception{
-		String sql = "insert into files values(files_seq.nextval,?,?,?)";
+	public int insert(AdminFileDTO dto) throws Exception{
+		String sql = "insert into expertPhoto values(expertPhotoseq.nextval,null,?,?)";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setInt(1, dto.getArticleSeq());
-			pstat.setString(2, dto.getFileName());
-			pstat.setString(3, dto.getOriFileName());
+			pstat.setString(1, dto.getFileName());
+			pstat.setString(2, dto.getOriFileName());
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;

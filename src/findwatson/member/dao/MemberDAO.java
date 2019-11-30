@@ -104,4 +104,29 @@ public class MemberDAO {
 			
 		}
 	}
+	public int modify
+	(String pw, String name, String birth, String gender, String email, String phone, String postcode, String address1, String address2, 
+			String lovePet, String id)throws Exception {
+		String sql = "update member set pw=?,name=?, birth=?, gender=?, email=?, phone=?, postcode=?, address1=?, address2=?, lovePet=? where id=?";
+		try(Connection con = bds.getConnection();
+		PreparedStatement pstat = con.prepareStatement(sql);){
+			
+			pstat.setString(1,pw);
+			pstat.setString(2, name);
+			pstat.setString(3, birth);
+			pstat.setString(4, gender);
+			pstat.setString(5, email);
+			pstat.setString(6, phone);
+			pstat.setString(7, postcode);
+			pstat.setString(8, address1);
+			pstat.setString(9, address2);
+			pstat.setString(10, lovePet);
+			pstat.setString(11, id);
+			
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	
 }

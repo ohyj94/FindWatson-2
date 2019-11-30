@@ -90,10 +90,10 @@
           마이페이지
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="mypageInfo.jsp">내 정보</a>
-          <a class="dropdown-item" href="mypageDonation.jsp">내 후원보기</a>
-          <a class="dropdown-item" href="mypageOneByOne.jsp">1 : 1 문의</a>
-          <a class="dropdown-item" href="mypageWithdrawal.jsp">회원 탈퇴</a>
+          <a class="dropdown-item" href="#">내 정보</a>
+          <a class="dropdown-item" href="member/mypageDonation.jsp">내 후원보기</a>
+          <a class="dropdown-item" href="member/mypageOneByOne.jsp">1 : 1 문의</a>
+          <a class="dropdown-item" href="member/mypageWithdrawal.jsp">회원 탈퇴</a>
         </div>
         </li>
                             </ul>
@@ -163,18 +163,18 @@
                         </div>
                     </div>
                     <form action="${pageContext.request.contextPath}/InfoModify.member">
-                     <input type=hidden name="" value=${ dto.id}>
-                     <input type=hidden name="" value=${ dto.pw}>
-                     <input type=hidden name="" value=${ dto.name}>
-                     <input type=hidden name="" value=${ dto.birth}>
-                     <input type=hidden name="" value=${ dto.gender}>
-                     <input type=hidden name="" value=${ dto.email}>
-                     <input type=hidden name="" value=${ dto.phone}>
-                     <input type=hidden name="" value=${ dto.postcode}>
-                     <input type=hidden name="" value=${ dto.address1}>
-                     <input type=hidden name="" value=${ dto.address2}>
-                     <input type=hidden name="" value=${ dto.lovePet}>
-                     <input type=hidden name="" value=${ dto.signpath}>
+                     <input type=hidden name="id" value=${ dto.id}>
+                     <input type=hidden name="pw" value=${ dto.pw}>
+                     <input type=hidden name="name" value=${ dto.name}>
+                     <input type=hidden name="birth" value=${ dto.birth}>
+                     <input type=hidden name="gender" value=${ dto.gender}>
+                     <input type=hidden name="email" value=${ dto.email}>
+                     <input type=hidden name="phone" value=${ dto.phone}>
+                     <input type=hidden name="postcode" value=${ dto.postcode}>
+                     <input type=hidden name="address1" value=${ dto.address1}>
+                     <input type=hidden name="address2" value=${ dto.address2}>
+                     <input type=hidden name="lovePet" value=${ dto.lovePet}>
+                     <input type=hidden name="signPath" value=${ dto.signPath}>
                                 
             
                     
@@ -203,7 +203,7 @@
                                 <div class="col-6 col-sm-auto"><a href="#">이용약관</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">개인정보취급방침</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">저작권안내</a></div>
-                                <div class="col-12 col-sm-auto"><a href="#">광고및제휴문의</a></div>
+                                <div class="col-12 col-sm-auto"><a href="#">후원하기</a></div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
