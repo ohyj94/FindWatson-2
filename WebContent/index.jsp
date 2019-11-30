@@ -31,8 +31,7 @@
                     <div id="carouselExampleIndicators"
                          class="carousel slide col-12 mb-3 p-0" data-ride="carousel" style="width: 1000px; margin: auto">
                         <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0"
-                                class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                         </ol>
@@ -47,33 +46,22 @@
                                 <img src="imgs/animal/%EC%95%B5%EB%AC%B4%EC%83%88.jpg" class="imgSize d-block"> 
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators"
-                           role="button" data-slide="prev"> <span
-                                                                  class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-                                                                                                                                      class="sr-only">Previous</span>
-                        </a> <a class="carousel-control-next" href="#carouselExampleIndicators"
-                                role="button" data-slide="next"> <span
-                                                                       class="carousel-control-next-icon" aria-hidden="true"></span> <span
-                                                                                                                                           class="sr-only">Next</span>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+                        <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
                         </a>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                        
-                        
                         		<%-- keyword Search --%>
-						<form class="form-inline"
-							action="${pageContext.request.contextPath}/keywordSearch.s"
-							method=post>
-							<input class="form-control col-10" type="search"
-								placeholder="Search" aria-label="Search" name=keywordSearch>
-							<button id="searchBtn1" class="btn btn-outline-secondary m-auto col-2"
-								type="submit">Search</button>
+						<form class="form-inline" action="${pageContext.request.contextPath}/keywordSearch.s" class="col-12" method=post>
+							<input class="form-control col-10" type="search" placeholder="Search" aria-label="Search" name=keywordSearch>
+							<button id="searchBtn1" class="btn btn-outline-secondary m-auto col-2" type="submit">Search</button>
 						</form>
-						
-						
-                  
-                            
                         </div>
                     </div>
                 </div>
@@ -88,9 +76,9 @@
                             </div>
                             <div class="row line">
                                 <div class="col-12">
-                                    <a href="#">공지</a><br> <a href="#">공지</a><br> <a
-                                                                                     href="#">공지</a><br> <a href="#">공지</a><br> <a
-                                                                                                                                   href="#">공지</a><br>
+                                    <a href="#">공지</a><br> <a href="#">공지</a><br>
+                                    <a href="#">공지</a><br> <a href="#">공지</a><br>
+                                    <a href="#">공지</a><br>
                                 </div>
                             </div>
                         </div>
@@ -103,9 +91,11 @@
                             </div>
                             <div class="row line">
                                 <div class="col-12">
-                                    <a href="#">최신글</a><br> <a href="#">최신글</a><br> <a
-                                                                                       href="#">최신글</a><br> <a href="#">최신글</a><br> <a
-                                                                                                                                       href="#">최신글</a><br>
+                                    <a href="#">최신글</a><br>
+                                    <a href="#">최신글</a><br>
+                                    <a href="#">최신글</a><br>
+                                    <a href="#">최신글</a><br>
+                                    <a href="#">최신글</a><br>
                                 </div>
                             </div>
                         </div>
@@ -116,8 +106,7 @@
                 </div>
                 
                 <%--검색 컨테이너 시작 --%>
-			<form action="${pageContext.request.contextPath}/searchFrom.s"
-				method="post">
+			<form action="${pageContext.request.contextPath}/searchFrom.s" class="col-12" method="post">
                 <div id="article-botton" class="col-12 line mb-3 p-0">
                     <div class="col-12 line">동물병원 상세 검색</div>
                     <div id="area-search" class="col-12">
@@ -172,6 +161,7 @@
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
             <!--            -->
             <jsp:include page="standard/footer.jsp" />
@@ -181,47 +171,30 @@
                 location.href="${pageContext.request.contextPath}/member/login.jsp"
             })
 
-          $("#address1")
-					.on(
-							"click",
-							function() {
-								$
-										.ajax(
-												{
-													url : "${pageContext.request.contextPath}/selectGu.s",
-													type : "post",
-													dataType : "json",
-													data : {
-														city : $(
-																"#address1 option:selected")
-																.val()
-													}
-												})
-										.done(
-												function(result) {
-													$("#address2")
-															.find("option")
-															.remove()
-															.end()
-															.append(
-																	"<option value=''>전체</option>");
+           $("#address1").on("click", function() {
+				$.ajax({
+					url : "${pageContext.request.contextPath}/selectGu.s",
+					type : "post",
+					dataType : "json",
+					data : {
+							city : $("#address1 option:selected").val()
+							}
+					}).done(function(result) {
+						$("#address2").find("option")
+									  .remove()
+									  .end()
+									  .append("<option value=''>전체</option>");
 
-													//배열 개수 만큼 option 추가
-													$
-															.each(
-																	result,
-																	function(i) {
-																		$(
-																				"#address2")
-																				.append(
-																						"<option value='"+result[i]+"'>"
-																								+ result[i]
-																								+ "</option>")
-																	});
-												}).fail(function() {
-											alert("오류 발생");
-										});
-							})
+	             //배열 개수 만큼 option 추가
+						$.each(result,function(i) {
+							$("#address2").append("<option value='"+result[i]+"'>"
+												+ result[i]
+												+"</option>")
+						});
+					}).fail(function(){
+						alert("오류 발생");
+					});
+			})
         </script>
     </body>
 </html>
