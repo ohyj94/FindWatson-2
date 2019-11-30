@@ -497,7 +497,19 @@ public class AdminDAO {
 			}
 		}
 	}
-	
+	//회원목록에서 아이디 삭제
+	public int deleteMember (String id)throws Exception{
+		String sql = "delete from member where id=?";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);	
+				){
+			pstat.setString(1, id);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
 	public int insert(ExpertDTO dto)throws Exception{
 		String sql = "insert into expert values (expertSeq.nextval,?,?,?,sysdate, 0)";
 		try(
