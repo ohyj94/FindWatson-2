@@ -39,10 +39,14 @@ public class MemberDAO {
 				){
 			pstat.setString(1, id);
 			pstat.setString(2, pw);
-			ResultSet rs = pstat.executeQuery();
-			boolean result = rs.next(); 
-			con.commit();
-			return result;
+			try(
+				ResultSet rs = pstat.executeQuery();
+			){
+				boolean result = rs.next(); 
+				return result;
+			}
+			
+			
 		}
 	}
 	public boolean idCheck(String id) throws Exception {
@@ -51,10 +55,14 @@ public class MemberDAO {
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setString(1, id);
-			ResultSet rs = pstat.executeQuery();
+			try(
+				ResultSet rs = pstat.executeQuery();
+			){
 			boolean result = rs.next();
-			con.commit();
 			return result;
+			}
+			
+			
 		}
 	}
 	public int insert(MemberDTO dto)throws Exception{
