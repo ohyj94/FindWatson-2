@@ -86,7 +86,7 @@
                                     <a class="nav-link" href="#">병원검색</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">전문가Q&A</a>
+                                    <a class="nav-link" href="#">전문가Q&amp;A</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">커뮤니티</a>
@@ -114,7 +114,7 @@
                 </div>
                 <div class = "col-6">
                     <div class="row hosIn1">
-                        <div class =col-12 name=hosIntdu>
+                        <div class =col-12>
                            병원 번호 : ${contents.seq}<br> 
                            병원 이름 : ${contents.hosptName}  <br>
              병원 우편번호 : ${contents.postcode}<br>
@@ -137,7 +137,7 @@
             
             <%--상세정보, 지도, 후기--%>
             <div class=row>
-                <div class= col-12 name=hosDetail>
+                <div class= col-12>
                     <br>
                     <div class="btn-group" role="group" aria-label="Basic example">
                         
@@ -149,7 +149,7 @@
             </div>
             
             <div class=row>
-                <div class= col-12 name=hosDetail>
+                <div class= col-12>
                   <br>
                    <h2>상세 정보</h2>
                     <ul class="list-group">

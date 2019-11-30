@@ -21,35 +21,11 @@
 
 		<%--별점 --%>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<link rel="stylesheet" href="../resources/css/mainStyle.css">
 <meta charset="UTF-8">
 
 <style>
-* {
-	box-sizing: border-box;
-}
-
-div {
-		border: 1px solid green;
-}
-
-#logo {
-	width: 500px;
-	height: 100px;
-	margin: auto;
-	background-color: ghostwhite;
-}
-
-#article-img {
-	width: 100%;
-	height: 100px;
-	margin: auto;
-	background-color: ghostwhite;
-}
-
-#footer {
-	height: 100px;
-}
-
 img {
 	width: 500px;
 }
@@ -80,9 +56,7 @@ img {
 #page${cpage}{
 	color : red;
 }
-#logo{
-width:100%;
-}
+
 .checked {
                 color: orange;
             }
@@ -116,46 +90,11 @@ display:none;
 </style>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/reviewWrite.re" method="post" id=reviewSave>
-
+	
 		<div class="container">
-			<div class="row">
-				<div id="loginBtn" class="col-12 text-right">
-					<button class="btn btn-sm btn-outline-secondary">로그인</button>
-				</div>
-			</div>
-			<div class="row">
-				<div id="title" class="col-12 mb-3">
-					<div id="logo">로고이미지</div>
-				</div>
-			</div>
-			<div class="row">
-				<div id="navi" class="col-12 mb-3">
-					<nav class="navbar navbar-expand-lg navbar-light bg-light">
-						<a class="navbar-brand" href="#">Home</a>
-						<button class="navbar-toggler" type="button"
-							data-toggle="collapse" data-target="#navbarNav"
-							aria-controls="navbarNav" aria-expanded="false"
-							aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-						<div class="collapse navbar-collapse" id="navbarNav">
-							<ul class="navbar-nav">
-								<li class="nav-item"><a class="nav-link" href="#">공지사항</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" href="#">병원검색</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" href="#">전문가Q&A</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" href="#">커뮤니티</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" href="#">마이페이지</a>
-								</li>
-							</ul>
-						</div>
-					</nav>
-				</div>
-			</div>
+			<jsp:include page="../standard/header.jsp" />
+			<!--            -->
+			<form action="${pageContext.request.contextPath}/reviewWrite.re" method="post" id=reviewSave>
 			<div class="row">
 				<div class="col-12">
 					<h1>병원 이름</h1>
@@ -277,6 +216,7 @@ display:none;
 			</c:otherwise>
 			</c:choose>
 
+			<!-- 여기 후기 쓰는 부분은 로그인 정보 있어야 뜨게 설정 바람! 비회원 글쓰기 안보이게 -->
 			
 			<div class=row>
 			<div class="col-12 center">
@@ -312,11 +252,11 @@ display:none;
 			</div>
 			</div>
 
-			<div class="row">
-				<div id="footer" class="col-12">푸터</div>
-			</div>
+			<!--            -->
+            <jsp:include page="../standard/footer.jsp" />
+			</form>
 		</div>
-	</form>
+	
 	<script>
 		//리뷰 등록 전 유효성 검사
 		$("#reviewSaveBtn").on("click", function() {

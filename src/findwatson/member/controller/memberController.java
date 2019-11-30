@@ -45,7 +45,7 @@ public class memberController extends HttpServlet {
 					response.sendRedirect("main/index.jsp");
 
 				}else {
-					//로그인 실패시 다시 로그인 화면을 띄워주도록 경로 변경 바람
+					//알림 : 로그인 실패시 다시 로그인 화면을 띄워주도록 경로 변경 바람
 					response.sendRedirect("main/index.jsp");
 
 				}

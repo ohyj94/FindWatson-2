@@ -17,7 +17,7 @@
 <body>
 
 <div class="container">
-            <jsp:include page="../standard/header.jsp" />  
+            <jsp:include page="../standard/headerMember.jsp" />  
             <!--            -->
  <div class= row>
                         <div class= col-12>

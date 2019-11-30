@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!--로그인 기능 연동되면 ${loginInfo == null}일때 로그인이 필요(알림창) 로그인페이지(이동) -->
+<!-- Admin Controller와 Manager Controller 무슨 차이...? -->
+
 <div class="row mb-2">
     <div id="loginBtn" class="col-12 p-1 text-right">
         <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
@@ -28,9 +31,9 @@
                             병원관리
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">병원정보 등록</a>
+                            <a class="dropdown-item" href="../admin/adminInsertHospt.jsp">병원정보 등록</a>
                             <a class="dropdown-item" href="#">병원정보 수정/삭제</a>
-                            <a class="dropdown-item" href="#">병원리뷰</a>
+                            <a class="dropdown-item" href="#">병원리뷰 관리</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
