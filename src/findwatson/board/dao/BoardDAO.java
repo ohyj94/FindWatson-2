@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
+import findwatson.admin.dto.ExpertDTO;
+import findwatson.admin.dto.NoticeDTO;
 import findwatson.board.dto.BoardDTO;
 import findwatson.configuration.Configuration;
 
@@ -287,6 +287,64 @@ public class BoardDAO {
 			
 		}
 	}
+	
+	// 전문가Q&A - (게시글끊어서 가져오기)
+	public List<ExpertDTO> selectByPageExpert(int start, int end) throws Exception{
+		String sql = "select * from (select expert.*, row_number() over(order by seq desc) rown from expert) where rown between ? and ?";
+		List<ExpertDTO> result = new ArrayList<>();
+		try(
+				Connection con = this.getConnetion();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, start);
+			pstat.setInt(2, end);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+				while(rs.next()) {
+					int seq = rs.getInt(1);
+					String writer = rs.getString(2);
+					String title = rs.getString(3);
+					String content = rs.getString(4);
+					Timestamp writeDate = rs.getTimestamp(5);
+					int viewCount = rs.getInt(6);
+
+					result.add(new ExpertDTO(seq, writer, title, content, writeDate, viewCount));
+				}
+				return result;
+			}
+			
+		}
+	}
+	
+	// 공지사항 - (게시글끊어서 가져오기)
+	public List<NoticeDTO> selectByPageNotice(int start, int end) throws Exception{
+		String sql = "select * from (select notice.*, row_number() over(order by seq desc) rown from notice) where rown between ? and ?";
+		List<NoticeDTO> result = new ArrayList<>();
+		try(
+				Connection con = this.getConnetion();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, start);
+			pstat.setInt(2, end);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+				while(rs.next()) {
+					int seq = rs.getInt(1);
+					String title = rs.getString(2);
+					String content = rs.getString(3);
+					Timestamp writeDate = rs.getTimestamp(4);
+					int viewCount = rs.getInt(5);
+
+					result.add(new NoticeDTO(seq, title, content, writeDate, viewCount));
+				}
+				return result;
+			}
+			
+		}
+	}
+	
 	public int increViewCnt(int count, int seq) throws Exception{
 		String sql = "update board set viewCount=?+1 where boardSeq=?";
 		try(

@@ -112,8 +112,8 @@ public class memberController extends HttpServlet {
 			}
 
 		}//정보인포->정보수정으로 이동
-		else if(path.contentEquals("/infoModify.member")) {
-			String id = request.getParameter("id");
+		else if(path.contentEquals("/InfoModify.member")) {
+			try{String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
 			String birth = request.getParameter("birth");
@@ -128,9 +128,37 @@ public class memberController extends HttpServlet {
 			//dto에 담아서 수정페이지로 보내기
 			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,null);
 			request.setAttribute("dto", dto);
+			System.out.println(id);
 			request.getRequestDispatcher("member/mypageModify.jsp").forward(request, response);
+			}catch(Exception e) {
+				response.sendRedirect("error.jsp");
+			}
+			}//정보수정
+		else if(path.contentEquals("/mypageModify.member")) {
+			System.out.println("10");
+			try {String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			String name = request.getParameter("name");
+			String birth = request.getParameter("birth");
+			String gender = request.getParameter("gender");
+			String email = request.getParameter("email");
+			String phone = request.getParameter("phone");
+			String postcode =request.getParameter("postcode");
+			String address1 = request.getParameter("address1");
+			String address2 = request.getParameter("address2");
+			String lovePet = request.getParameter("lovePet");
+			
+		
+			
+			
+			int modify = dao.modify(pw, name, birth, gender, email, phone, postcode, address1, address2, lovePet, id);
+			request.setAttribute("modify", modify);	
+			request.getRequestDispatcher("mypageInfo.member").forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("error.jsp");
+			}
 		}
-
 	}
 
 

@@ -129,16 +129,15 @@
 						<div class="row line">
 			                <div class="col-1 d-none d-md-block">1</div>
 			                <div class="col-md-2 d-none d-md-block">
-			                	${dto.animalHeader}
 			                </div>
 			                <div class="col-8 col-md-5 text-left">
 			                    ${dto.title}
 			                </div>
 			                <!-- 모바일에서만 보이는 div -->
-			                <div class="col-4 d-block d-md-none">${dto.animalHeader}</div>
+			                <div class="col-4 d-block d-md-none"></div>
 			                <!-- 모바일에서만 보이는 div -->
 			                <div class="col-6 col-md-2 text-left">
-			                   	${dto.writer}
+			                   	관리자
 			                </div>
 			                <div class="col-6 col-md-2 text-center">
 			                    ${dto.writeDate}

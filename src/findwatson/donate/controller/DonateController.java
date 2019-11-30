@@ -62,13 +62,14 @@ public class DonateController extends HttpServlet {
 				
 			}else if(cmd.contentEquals("/payComplete.do")) {
 				//결제 성공시 검증
-				
 				String merchant_uid = request.getParameter("merchant_uid");
-				System.out.println("주문아이디" + merchant_uid);
-				int paid_amount = Integer.parseInt(request.getParameter("paid_amount"));
 				String success = request.getParameter("success");
 				
 				if(success.contentEquals("true")) {
+					
+					
+					int paid_amount = Integer.parseInt(request.getParameter("paid_amount"));
+					
 					DonateDAO dao = DonateDAO.getInstance();
 					int result = dao.updatePass(merchant_uid, paid_amount);
 					
@@ -102,7 +103,7 @@ public class DonateController extends HttpServlet {
 					//테이블에서 결제 시도 정보 삭제하기
 					
 					DonateDAO dao = DonateDAO.getInstance();
-					dao.delDonateInfo(merchant_uid);
+					dao.delDonateInfo(merchant_uid);	
 				}
 			}
 			
