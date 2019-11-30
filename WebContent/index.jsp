@@ -56,6 +56,7 @@
             <div class="row mb-2">
                 <div id="loginBtn" class="col-12 p-1 text-right">
                     <button id=login class="btn btn-sm btn-outline-secondary">로그인</button>
+
                 </div>
             </div>
             <div class="row mb-3">
@@ -89,7 +90,8 @@
           <a class="dropdown-item" href="${pageContext.request.contextPath}/boardQuestion.bo">질문게시판</a>
         </div>
         </li>
-<li class="nav-item"><a class="nav-link" href="member/login.jsp">마이페이지</a>
+
+<li class="nav-item"><a class="nav-link" href="member/login.jsp">마이페이지</a>                         
                             </ul>
                         </div>
                     </nav>
