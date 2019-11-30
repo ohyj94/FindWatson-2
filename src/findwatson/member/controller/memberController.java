@@ -42,10 +42,11 @@ public class memberController extends HttpServlet {
 				boolean result = dao.loginOk(id, pw);
 				if(result) {
 					request.getSession().setAttribute("loginInfo",id);
-					response.sendRedirect("main.jsp");
+					response.sendRedirect("main/index.jsp");
 
 				}else {
-					response.sendRedirect("index.jsp");
+					//로그인 실패시 다시 로그인 화면을 띄워주도록 경로 변경 바람
+					response.sendRedirect("main/index.jsp");
 
 				}
 			} catch (Exception e) {
@@ -55,7 +56,7 @@ public class memberController extends HttpServlet {
 		}//로그아웃
 		else if (path.contentEquals("/logout.member")) {
 			request.getSession().removeAttribute("loginInfo");
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("main/index.jsp");
 		}//회원가입
 		else if(path.contentEquals("/signUp.member")) {
 			String id = request.getParameter("id");
@@ -77,9 +78,9 @@ public class memberController extends HttpServlet {
 			try {
 				int signup = dao.insert(dto);
 				if(signup >0) {
-					response.sendRedirect("index.jsp");
+					response.sendRedirect("main/index.jsp");
 				}else {
-					response.sendRedirect("error.jsp");
+					response.sendRedirect("main/error.jsp");
 				}
 
 			} catch (Exception e) {
@@ -95,11 +96,11 @@ public class memberController extends HttpServlet {
 				memberout = dao.delete(id);
 				if(memberout > 0) {
 					request.getSession().invalidate();
-					response.sendRedirect("index.jsp");
+					response.sendRedirect("main/index.jsp");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				response.sendRedirect("error.jsp");
+				response.sendRedirect("main/error.jsp");
 			}
 
 		}//마이페이지
@@ -111,7 +112,7 @@ public class memberController extends HttpServlet {
 				request.getRequestDispatcher("member/mypageInfo.jsp").forward(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
-				response.sendRedirect("error.jsp");
+				response.sendRedirect("main/error.jsp");
 			}
 
 		}//정보인포->정보수정으로 이동
@@ -134,7 +135,7 @@ public class memberController extends HttpServlet {
 			System.out.println(id);
 			request.getRequestDispatcher("member/mypageModify.jsp").forward(request, response);
 			}catch(Exception e) {
-				response.sendRedirect("error.jsp");
+				response.sendRedirect("main/error.jsp");
 			}
 			}//정보수정
 		else if(path.contentEquals("/mypageModify.member")) {
@@ -159,7 +160,7 @@ public class memberController extends HttpServlet {
 			request.getRequestDispatcher("mypageInfo.member").forward(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
-				response.sendRedirect("error.jsp");
+				response.sendRedirect("main/error.jsp");
 			}
 		}
 		else if(path.contentEquals("/duplCheck.member")) {
@@ -175,7 +176,7 @@ public class memberController extends HttpServlet {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-				response.sendRedirect("error.jsp");
+				response.sendRedirect("main/error.jsp");
 			}
 			
 		}

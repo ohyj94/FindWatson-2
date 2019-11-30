@@ -8,118 +8,20 @@
 <title>찾아줘 왓슨!</title>
 
 <%--부트 스트랩 --%>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script
-	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link rel="stylesheet" href="../resources/css/mainStyle.css">
 
-<style>
-* {
-	box-sizing: border-box
-}
-
-div {
-	border: 1px solid black
-}
-
-#logo {
-	width: 500px;
-	height: 100px;
-	margin: auto;
-	background-color: ghostwhite;
-}
-
-#article-img {
-	width: 100%;
-	height: 100px;
-	margin: auto;
-	background-color: ghostwhite;
-}
-
-#footer>div {
-	height: 100%;
-}
-
-#footer-logo>div {
-	height: 100%;
-	background-color: ghostwhite;
-}
-
-#footer-contents {
-	font-size: 8pt;
-}
-
-.nav-item {
-	display: inline-block;
-	width: 100%;
-	text-align: center;
-}
-
-.navbar-nav {
-	width: 100%;
-}
-</style>
 </head>
 <body>
 	<div class="container">
-		<div class="row mb-2">
-			<div id="loginBtn" class="col-12 p-1 text-right">
-				<button id=login class="btn btn-sm btn-outline-secondary">로그인</button>
-			</div>
-		</div>
-		<div class="row">
-			<div id="title" class="col-12 mb-3 p-1 text-center">
-				<img id="logo" src="imgs/logo.png" class="col-12">
-			</div>
-		</div>
-		<div class="row">
-			<div id="navi" class="col-12 mb-3 p-1">
-				<nav class="p-0 navbar navbar-expand-sm navbar-light bg-light">
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#navbarNav" aria-controls="navbarNav"
-						aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarNav">
-						<ul class="navbar-nav">
-							<li class="nav-item"><a class="nav-link" href="#">공지사항</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">병원검색</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">전문가Q&A</a>
-							</li>
-							<li class="nav-item dropdown"><a
-								class="nav-link dropdown-toggle" href="#"
-								id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="false"> 커뮤니티 </a>
-								<div class="dropdown-menu text-center"
-									aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" href="#">자유게시판</a> <a
-										class="dropdown-item" href="#">질문게시판</a>
-								</div></li>
-							<li class="nav-item dropdown"><a
-								class="nav-link dropdown-toggle" href="#"
-								id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="false"> 마이페이지 </a>
-								<div class="dropdown-menu text-center"
-									aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" href="mypageInfo.jsp">내 정보</a> <a
-										class="dropdown-item" href="mypageDonation.jsp">내 후원보기</a> <a
-										class="dropdown-item" href="mypageOneByOne.jsp">1 : 1 문의</a> <a
-										class="dropdown-item" href="mypageWithdrawal.jsp">회원 탈퇴</a>
-								</div></li>
-						</ul>
-					</div>
-				</nav>
-			</div>
-		</div>
+		<jsp:include page="../standard/header.jsp" /> 
 		<!--            -->
-		<form action="../signUp.member" method="post" id=signUp>
+		<form action="${pageContext.request.contextPath}/signUp.member" method="post" id=signUp>
 			<div class=row>
 				<div class=col-12>
 					<h1>회원가입</h1>
@@ -197,18 +99,18 @@ div {
 				</div>
 			</div>
 			<div class=row>
-				<div class=col-4>
+				<div class=col-12>
 					<input type="text" id="postcode" name=postcode placeholder="우편번호"
 						readonly>
 					<button id=addressBtn type="button"
 						onclick="sample4_execDaumPostcode()">찾기</button>
 				</div>
-				<div class=col-4>
-					<input type="text" id="address1" name=address1 placeholder="도로명주소"
+				<div class=col-6>
+					<input type="text" id="address1" class="col-12" name=address1 placeholder="도로명주소"
 						readonly>
 				</div>
-				<div class=col-4>
-					<input type=text name=address2 id=address2 placeholder="상세주소">
+				<div class=col-6>
+					<input type=text name=address2 id=address2 class="col-12" placeholder="상세주소">
 				</div>
 			</div>
 
@@ -218,32 +120,30 @@ div {
 				</div>
 			</div>
 			<div class=row>
-				<div class=col-3>
-					새<input type=checkbox name=lovePet value=bird>
+				<div class="col-4 col-md-3">
+					<input type=checkbox name=lovePet value=bird>새
 				</div>
-				<div class=col-3>
-					물고기<input type=checkbox name=lovePet value=fish>
+				<div class="col-4 col-md-3">
+					<input type=checkbox name=lovePet value=fish>물고기
 				</div>
-				<div class=col-3>
-					햄스터<input type=checkbox name=lovePet value=mouse>
+				<div class="col-4 col-md-3">
+					<input type=checkbox name=lovePet value=mouse>햄스터
 				</div>
-				<div class=col-3>
-					토끼<input type=checkbox name=lovePet value=rabbit>
+				<div class="col-4 col-md-3">
+					<input type=checkbox name=lovePet value=rabbit>토끼
 				</div>
-			</div>
-			<div class=row>
-				<div class=col-3>
-					고슴도치<input type=checkbox name=lovePet value=hedgehog>
+				<div class="col-4 col-md-3">
+					<input type=checkbox name=lovePet value=hedgehog>고슴도치
 				</div>
-				<div class=col-3>
-					파충류<input type=checkbox name=lovePet value=reptile>
+				<div class="col-4 col-md-3">
+					<input type=checkbox name=lovePet value=reptile>파충류
 				</div>
-				<div class=col-3>
-					곤충류<input type=checkbox name=lovePet value=bug>
+				<div class="col-4 col-md-3">
+					<input type=checkbox name=lovePet value=bug>곤충류
 				</div>
-				<div class=col-3>
-					기타<input type=checkbox name=lovePet value=other><input
-						type=text name=otherAnimal>
+				<div class="col-8 col-md-3">
+					<input type=checkbox name=lovePet value=other>기타
+					<input type=text name=otherAnimal  class="col-7">
 				</div>
 			</div>
 
@@ -275,56 +175,10 @@ div {
 				</div>
 			</div>
 		</form>
-		<script>
-			
-		</script>
-
-
-		<div class="row">
-			<div id="footer" class="col-12">
-
-
-
-
+		
 				<!--            -->
-				<div class="row">
-					<div id="footer" class="col-12">
-						<div class="row p-1">
-							<div id="footer-logo" class="col-4">
-								<img id="logo" src="imgs/logo.png"
-									class="d-none d-sm-block col-12">
-							</div>
-							<div id="footer-contents" class="col-8">
-								<div class="row">
-									<div class="col-6 col-sm-auto">
-										<a href="#">회사소개</a>
-									</div>
-									<div class="col-6 col-sm-auto">
-										<a href="#">이용약관</a>
-									</div>
-									<div class="col-6 col-sm-auto">
-										<a href="#">개인정보취급방침</a>
-									</div>
-									<div class="col-6 col-sm-auto">
-										<a href="#">저작권안내</a>
-									</div>
-									<div class="col-12 col-sm-auto">
-										<a href="#">광고및제휴문의</a>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-12">상호명 : 찾아줘 왓슨! | 대표자 : 왓슨 | 사업자등록번호 :
-										100-12-191205</div>
-									<div class="col-12">주소 : 서울 중구 남대문로 120 대일빌딩 3층 F Class
-										대표전화 02-1544-9970</div>
-									<div class="col-12">Copyright(c) 2019 찾아줘 왓슨! All Rights
-										Reserved.</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+				<jsp:include page="../standard/footer.jsp" />
+</div>
 			<script type="text/javascript">
 				$("#login").on("click", function() {
 					location.href = "login.jsp"
