@@ -7,15 +7,22 @@
 <meta charset="UTF-8">
 <title>찾아줘 왓슨!</title>
 <%--부트 스트랩 --%>
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<link
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
 * {
@@ -50,12 +57,14 @@ img {
 </style>
 </head>
 <body>
-<c:choose>
+	<%-- 
+	<c:choose>
     <c:when test="${loginInfo ==null}">
-    <%-- 문법 틀렸으니까 script 붙이기  --%>
+     	문법 틀렸으니까 script 붙이기 
     location.href="${pageContext.request.contextPath}/index.jsp";
     </c:when>
     </c:choose>
+    --%>
 	<div class="container">
 		<div class="row">
 			<div id="loginBtn" class="col-12 text-right">
@@ -83,7 +92,8 @@ img {
 							<li class="nav-item"><a class="nav-link" href="#">전문가Q&A</a>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="#">커뮤니티</a></li>
-							<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/mypageInfo.member">마이페이지</a>
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/mypageInfo.member">마이페이지</a>
 							</li>
 						</ul>
 					</div>
@@ -123,15 +133,17 @@ img {
 				</div>
 				<div class="row">
 					<div class="col-12">
-					
-					<%-- keyword Search --%>
-						<form class="form-inline" action="${pageContext.request.contextPath}/keywordSearch.s" method=post >
+
+						<%-- keyword Search --%>
+						<form class="form-inline"
+							action="${pageContext.request.contextPath}/keywordSearch.s"
+							method=post>
 							<input class="form-control col-10" type="search"
 								placeholder="Search" aria-label="Search" name=keywordSearch>
 							<button class="btn btn-outline-secondary m-auto col-2"
 								type="submit">Search</button>
 						</form>
-					
+
 					</div>
 				</div>
 			</div>
@@ -172,92 +184,120 @@ img {
 					</div>
 				</div>
 			</div>
-			
-			  <%--검색 컨테이너 시작 --%>
-			<form action="${pageContext.request.contextPath}/searchFrom.s" method="post">
-			<div id="article-botton" class="col-12">
-				<div class="col-12 mb-2">동물병원 상세 검색</div>
-				<div id="area-search" class="col-12">
-					<div class="row mb-2">
-						<label class="col-auto">지역별</label>
-						<select name="address1" id="address1" class="col-12 col-sm-3">
-							<option value="null">-시 선택-</option>
-							<option value="서울">서울</option>
-						</select> <select name="address2" id="address2" class="col-12 col-sm-3">
-							<option value="null">-구 선택-</option>
-						</select>
-						<button class="col-auto m-auto btn btn-sm btn-outline-secondary" id=send_btn>검색</button>
-					</div>
-					<div class="row mb-2">
-						<div class="col-12">진료동물</div>
-						<div class="col-3">
-							<input type="checkbox" name=animal value=새>새
+
+			<%--검색 컨테이너 시작 --%>
+			<form action="${pageContext.request.contextPath}/searchFrom.s"
+				method="post">
+				<div id="article-botton" class="col-12">
+					<div class="col-12 mb-2">동물병원 상세 검색</div>
+					<div id="area-search" class="col-12">
+						<div class="row mb-2">
+							<label class="col-auto">지역별</label> <select name="address1"
+								id="address1" class="col-12 col-sm-3">
+								<option value="null">-시 선택-</option>
+								<option value="서울">서울</option>
+							</select> <select name="address2" id="address2" class="col-12 col-sm-3">
+								<option value="null">-구 선택-</option>
+							</select>
+							<button class="col-auto m-auto btn btn-sm btn-outline-secondary"
+								id=send_btn>검색</button>
 						</div>
-						<div class="col-3">
-							<input type="checkbox" name=animal value=물고기>물고기
+						<div class="row mb-2">
+							<div class="col-12">진료동물</div>
+							<div class="col-3">
+								<input type="checkbox" name=animal value=새>새
+							</div>
+							<div class="col-3">
+								<input type="checkbox" name=animal value=물고기>물고기
+							</div>
+							<div class="col-3">
+								<input type="checkbox" name=animal value=햄스터>햄스터
+							</div>
+							<div class="col-3">
+								<input type="checkbox" name=animal value=토끼>토끼
+							</div>
+							<div class="col-3">
+								<input type="checkbox" name=animal value=고슴도치>고슴도치
+							</div>
+							<div class="col-3">
+								<input type="checkbox" name=animal value=파충류>파충류
+							</div>
+							<div class="col-3">
+								<input type="checkbox" name=animal value=곤충류>곤충류
+							</div>
+							<div class="col-3">
+								<input type="checkbox" name=animal value=기타>기타
+							</div>
 						</div>
-						<div class="col-3">
-							<input type="checkbox" name=animal value=햄스터>햄스터
-						</div>
-						<div class="col-3">
-							<input type="checkbox" name=animal value=토끼>토끼
-						</div>
-						<div class="col-3">
-							<input type="checkbox" name=animal value=고슴도치>고슴도치
-						</div>
-						<div class="col-3">
-							<input type="checkbox" name=animal value=파충류>파충류
-						</div>
-						<div class="col-3">
-							<input type="checkbox" name=animal value=곤충류>곤충류
-						</div>
-						<div class="col-3">
-							<input type="checkbox" name=animal value=기타>기타
-						</div>
-					</div>
-					<div class="row mb-2">
-						<div class="col-12">진료시간</div>
-						<div class="col-4">
-							<input type="checkbox" name=time value=주간진료>주간진료
-						</div>
-						<div class="col-4">
-							<input type="checkbox" name=time value=24시간진료>24시간진료
-						</div>
-						<div class="col-4">
-							<input type="checkbox" name=time value=야간응급진료>야간응급진료
+						<div class="row mb-2">
+							<div class="col-12">진료시간</div>
+							<div class="col-4">
+								<input type="checkbox" name=time value=주간진료>주간진료
+							</div>
+							<div class="col-4">
+								<input type="checkbox" name=time value=24시간진료>24시간진료
+							</div>
+							<div class="col-4">
+								<input type="checkbox" name=time value=야간응급진료>야간응급진료
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		
+
 			</form>
-			
-		<div class="row">
-			<div id="footer" class="col-12">푸터</div>
+
+			<div class="row">
+				<div id="footer" class="col-12">푸터</div>
+			</div>
 		</div>
-	</div>
-	<script>
-	 $("#address1").on("click", function(){
-			$.ajax({
-				url : "${pageContext.request.contextPath}/selectGu.s",
-				type : "post",
-				dataType : "json",
-				data : {city : $("#address1 option:selected").val()}
-			}).done(function(result){
-				$("#address2").find("option").remove().end().append("<option value=''>전체</option>");
-				  
-				  //배열 개수 만큼 option 추가
-				   $.each(result, function(i){
-				    $("#address2").append("<option value='"+result[i]+"'>"+result[i]+"</option>")
-				   });  
-			}).fail(function(){
-				alert("오류 발생");
-			});
-		})
-	  $("#logout").on("click",function(){
-	  location.href = "${pageContext.request.contextPath}/logout.member"
-  })
-  
-</script>
+		<script>
+			$("#address1")
+					.on(
+							"click",
+							function() {
+								$
+										.ajax(
+												{
+													url : "${pageContext.request.contextPath}/selectGu.s",
+													type : "post",
+													dataType : "json",
+													data : {
+														city : $(
+																"#address1 option:selected")
+																.val()
+													}
+												})
+										.done(
+												function(result) {
+													$("#address2")
+															.find("option")
+															.remove()
+															.end()
+															.append(
+																	"<option value=''>전체</option>");
+
+													//배열 개수 만큼 option 추가
+													$
+															.each(
+																	result,
+																	function(i) {
+																		$(
+																				"#address2")
+																				.append(
+																						"<option value='"+result[i]+"'>"
+																								+ result[i]
+																								+ "</option>")
+																	});
+												}).fail(function() {
+											alert("오류 발생");
+										});
+							})
+			$("#logout")
+					.on(
+							"click",
+							function() {
+								location.href = "${pageContext.request.contextPath}/logout.member"
+							})
+		</script>
 </body>
 </html>
