@@ -51,8 +51,9 @@ img {
 </head>
 <body>
 <c:choose>
-    <c:when test="${loginInfo ==null} }">
-    location.href="${pageContext.request.contextPath}/index.jsp"
+    <c:when test="${loginInfo ==null}">
+    <%-- 문법 틀렸으니까 script 붙이기  --%>
+    location.href="${pageContext.request.contextPath}/index.jsp";
     </c:when>
     </c:choose>
 	<div class="container">
@@ -122,12 +123,15 @@ img {
 				</div>
 				<div class="row">
 					<div class="col-12">
-						<form class="form-inline">
+					
+					<%-- keyword Search --%>
+						<form class="form-inline" action="${pageContext.request.contextPath}/keywordSearch.s" method=post >
 							<input class="form-control col-10" type="search"
-								placeholder="Search" aria-label="Search">
+								placeholder="Search" aria-label="Search" name=keywordSearch>
 							<button class="btn btn-outline-secondary m-auto col-2"
 								type="submit">Search</button>
 						</form>
+					
 					</div>
 				</div>
 			</div>
