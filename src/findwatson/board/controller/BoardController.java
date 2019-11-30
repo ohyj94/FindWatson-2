@@ -15,11 +15,12 @@ import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import findwatson.admin.dto.ExpertDTO;
+import findwatson.admin.dto.NoticeDTO;
 import findwatson.board.dao.BoardDAO;
 import findwatson.board.dao.FilesDAO;
 import findwatson.board.dto.BoardDTO;
 import findwatson.board.dto.FilesDTO;
-
 import findwatson.configuration.Configuration;
 
 
@@ -91,13 +92,12 @@ public class BoardController extends HttpServlet {
 				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
 				int end = cpage * Configuration.recordCountPerPage;
 				
-				//아직안했으
-				//List<BoardDTO> list = dao.selectAll();
+				List<ExpertDTO> list = dao.selectByPageExpert(start, end);
 				String pageNavi = dao.getPageNavi(cpage,pageCategory);
 				
-				//request.setAttribute("list", list);
+				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
-				request.getRequestDispatcher("board/boardFree.jsp").forward(request, response);
+				request.getRequestDispatcher("board/boardExpert.jsp").forward(request, response);
 				
 			// 공지사항 글 목록 출력
 			} else if(cmd.contentEquals("/boardNotice.bo")) {
@@ -110,13 +110,12 @@ public class BoardController extends HttpServlet {
 				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
 				int end = cpage * Configuration.recordCountPerPage;
 				
-				//아직안했으
-				//List<BoardDTO> list = dao.selectAll();
+				List<NoticeDTO> list = dao.selectByPageNotice(start, end);
 				String pageNavi = dao.getPageNavi(cpage,pageCategory);
 				
-				//request.setAttribute("list", list);
+				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
-				request.getRequestDispatcher("board/boardFree.jsp").forward(request, response);
+				request.getRequestDispatcher("board/boardNotice.jsp").forward(request, response);
 			
 			// 커뮤니티(질문) - 글쓰기
 			} else if(cmd.contentEquals("/communityQuestionWrite.bo")) {

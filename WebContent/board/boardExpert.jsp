@@ -52,11 +52,7 @@
             </div>
             <div class="row">
                 <div id="title" class="col-12 mb-3 p-1 text-center">
-<<<<<<< HEAD
-                    <img id="logo" src="../imgs/logo.png" class="col-12">
-=======
                     <img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12">
->>>>>>> 4db8f171dbf2a4f5ee0cc2439e809b4c9160d195
                 </div>
             </div>
             <div class="row">
@@ -133,13 +129,13 @@
 						<div class="row line">
 			                <div class="col-1 d-none d-md-block">1</div>
 			                <div class="col-md-2 d-none d-md-block">
-			                	${dto.animalHeader}
+			                
 			                </div>
 			                <div class="col-8 col-md-5 text-left">
 			                    ${dto.title}
 			                </div>
 			                <!-- 모바일에서만 보이는 div -->
-			                <div class="col-4 d-block d-md-none">${dto.animalHeader}</div>
+			                <div class="col-4 d-block d-md-none"></div>
 			                <!-- 모바일에서만 보이는 div -->
 			                <div class="col-6 col-md-2 text-left">
 			                   	${dto.writer}
@@ -181,11 +177,7 @@
                         <div id="footer-logo" class="col-12 col-sm-4">
                             <div class="row">
                                 <div class="col">
-<<<<<<< HEAD
-                                    <img id="logo" src="../imgs/logo.png" class="d-none d-sm-block col-12">
-=======
                                     <img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="d-none d-sm-block col-12">
->>>>>>> 4db8f171dbf2a4f5ee0cc2439e809b4c9160d195
                                 </div>
                             </div>
                         </div>
