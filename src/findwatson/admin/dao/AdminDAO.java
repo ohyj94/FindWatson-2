@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import findwatson.admin.dto.BanDTO;
+import findwatson.admin.dto.ExpertDTO;
 import findwatson.admin.utils.Util;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
@@ -496,4 +497,21 @@ public class AdminDAO {
 			}
 		}
 	}
+	
+	public int insert(ExpertDTO dto)throws Exception{
+		String sql = "insert into expert values (expertSeq.nextval,?,?,?,sysdate, 0)";
+		try(
+			Connection con = getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, dto.getWriter());
+			pstat.setString(2, dto.getTitle());
+			pstat.setString(3, dto.getContent());
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}	
+	}
+	
+	
 }

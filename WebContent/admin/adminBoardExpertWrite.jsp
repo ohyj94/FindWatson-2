@@ -16,6 +16,9 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+<%--썸머노트 --%>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <style>
 * {
 	box-sizing: border-box
@@ -61,9 +64,13 @@
 #article, .line {
 	border: 0.5px solid lightgray;
 }
+.noneExist{
+display:none;
+}
 </style>
 </head>
 <body>
+<form action="${pageContext.request.contextPath}/expertWrite.admin" method="post" id=frm>
 	<div class="container">
 		<div class="row mb-2">
 			<div id="loginBtn" class="col-12 text-right">
@@ -133,22 +140,18 @@
 							</span>
 						</div>
 						<div class="row">
-							<div class="col-2 p-1">
-								<select id="category">
-									<option value="">말머리</option>
-									<option value="">뱀</option>
-									<option value="">고슴도치</option>
-									<option value="">앵무새</option>
-								</select>
+							<div class="col-1 p-1">
+								제목 : 
 							</div>
-							<div class="col-10 p-1">
+							<div class="col-11 p-1">
 								<input type="text" class="" id="boardTitle" name="boardTitle">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-12 p-1">
 								<!-- 썸머노트 -->
-								<textarea name="" id="" cols="30" rows="10"></textarea>
+								<textarea id = "summernote"></textarea><br>
+							<textarea id=snInput class=noneExist name=content></textarea>
 								<!-- 썸머노트 -->
 							</div>
 						</div>
@@ -156,10 +159,6 @@
 							<div class="col-12 p-1 text-center">
 								<button id="writeBtn" type="button"
 									class="btn btn-sm btn-outline-secondary">작성</button>
-								<button id="updateBtn" type="button"
-									class="btn btn-sm btn-outline-secondary">수정</button>
-								<button id="deleteBtn" type="button"
-									class="btn btn-sm btn-outline-secondary">삭제</button>
 							</div>
 						</div>
 					</div>
@@ -209,5 +208,63 @@
 			</div>
 		</div>
 	</div>
+	</form>
+	<script>
+	//썸머노트 이미지 업로드
+	$("#summernote").summernote({
+		height : 600,
+		tabsize: 2,
+		callbacks : {
+			onImageUpload : function(files) {
+				var data = new FormData();
+				data.append("expertImg", files[0]);
+
+				$.ajax({
+					url : "${pageContext.request.contextPath}/expertWriteImgUpload.admin",
+					enctype : "multipart/form-data",
+					type : "post",
+					data : data,
+					contentType : false,
+					processData : false,
+					cache : false,
+					dataType : "json"
+				}).done(function(resp) {
+					console.log(resp.imgPath);
+					var p = $("<p></p>");
+					var img = $("<img>");
+					$(img).attr("src", resp.imgPath);
+					p.append(img);
+					$(".note-editable").append(p);
+				}).fail(function(a, b, c) {
+					console.log("fail");
+					console.log(a);
+					console.log(b);
+					console.log(c);
+				});
+
+			}
+		}
+	})
+	
+	//버튼
+	$("#writeBtn").on("click",function(){
+		var title = $("#boardTitle").val(); 
+		var content = $(".note-editable").html();
+		var regex = /<p>.{1}[^b].*?<\/p>/;
+		var result = regex.exec(content);
+		
+		if( (title == "") || (result == null) ){
+			alert("내용을 입력해주세요");
+		}else{
+			var result = confirm("정말 등록 하시겠습니까?");
+			if(result){
+				var contentReal = $(".note-editable").html();
+				$("#snInput").val(contentReal);
+				$("#frm").submit();
+			}
+		}
+	})
+	
+	</script>
 </body>
 </html>
