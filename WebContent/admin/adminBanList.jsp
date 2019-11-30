@@ -84,7 +84,7 @@
           게시판관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">전문가Q&A</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminBoardExpert.manager">전문가Q&A</a>
           <a class="dropdown-item" href="#">자유게시판</a>
           <a class="dropdown-item" href="#">질문게시판</a>
           <a class="dropdown-item" href="#">1:1문의</a>
@@ -129,7 +129,14 @@
                 </div>
             </div>
             <!-- 게시글 목록 -->
-           <c:forEach items="${list}" var="list">
+           <c:choose>
+           <c:when test="${list.size() == 0}">
+           	 <div class="row line">
+           	<div class="col-12" style="text-align: center">표시할 내용이 없습니다.</div>
+           		</div>
+           </c:when>
+           <c:otherwise>
+          		 <c:forEach items="${list}" var="list">
            <div class="row line">
                 
                 <div class="col-md-3 d-none d-md-block">
@@ -143,6 +150,8 @@
                 </div>
             </div>
             </c:forEach>
+           </c:otherwise>
+           </c:choose>
                             <div class="row">
                                 <div class="col-12 text-center">
                                     ${pageNavi}

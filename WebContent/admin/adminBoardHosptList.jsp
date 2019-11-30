@@ -84,7 +84,7 @@
           게시판관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">전문가Q&A</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminBoardExpert.manager">전문가Q&A</a>
           <a class="dropdown-item" href="#">자유게시판</a>
           <a class="dropdown-item" href="#">질문게시판</a>
           <a class="dropdown-item" href="#">1:1문의</a>
