@@ -87,7 +87,7 @@ public class ManagerController extends HttpServlet {
 				}
 				System.out.println("animal : " + animal);
 				
-<<<<<<< HEAD
+
 				String time = Arrays.toString(openTime).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
 				//System.out.println( time.equals("null"));
 				if(time.contentEquals("null")) {
@@ -107,10 +107,7 @@ public class ManagerController extends HttpServlet {
 				}
 			}
 			else if(cmd.contentEquals("병원정보수정")) {
-=======
-				HListDTO dto = new HListDTO(0,name,postcode,address1,address2,phone,homepage,img,medicalAnimal[0],openTime[0],null,0);
-			}else if(cmd.contentEquals("병원정보수정")) {
->>>>>>> e764ec9e96a2ceda0d611834d95072ad125b4f63
+
 
 			}
 			
