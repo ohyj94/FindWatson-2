@@ -100,26 +100,30 @@
                 </div>
             </div>
             <%-- --%>
-            <div class = "row">
+             <div class = "row">
                 <div class = "col-12">
-                    <h1 name=hosName>병원 이름</h1>
-                    <h5 name=mdfDate>정보수정일 2019.01.01 Total.100</h5>
+                    <h1>병원 이름 : ${contents.hosptName}</h1>
+                    <h5>정보수정일 : ${contents.registDate} Total.${contents.viewCount}</h5>
                     <hr>
                 </div>
             </div>
             
             <div class = row>
                 <div class = "col-6">
-                    <img src="../imgs/hospital/김포우리병원계열.jpg" id=hosImg name=hosImg>
+                    <img src="${contents.img}" id=hosImg name=hosImg>
                 </div>
                 <div class = "col-6">
                     <div class="row hosIn1">
                         <div class =col-12 name=hosIntdu>
-                            동해물과 백두산이<br> 
-                            마르고 닳도록 하느님이 <br>
-                            보우하사 우리나라 만세<br>
-                            무궁화 삼천리 화려강산<br>
-                            대한사람 대한으로 길이 보전하리<br>
+                           병원 번호 : ${contents.seq}<br> 
+                           병원 이름 : ${contents.hosptName}  <br>
+             병원 우편번호 : ${contents.postcode}<br>
+                            병원 주소 : ${contents.address1} ${contents.address2}<br>
+                            병원 전화번호 : ${contents.phone}<br>
+                            병원 홈페이지 주소 : ${contents.homepage}<br>
+                            진료 동물 : ${contents.medicalAnimal}<br>
+                            운영 시간 : ${contents.openTime}<br>
+
                         </div>
                     </div> 
                     <div class="row hosIn2">
@@ -130,12 +134,13 @@
                 </div>
             </div>
             
+            
             <%--상세정보, 지도, 후기--%>
             <div class=row>
                 <div class= col-12 name=hosDetail>
                     <br>
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-secondary">상세정보</button>
+                        
                         <button type="button" class="btn btn-secondary">지도</button>
                         <button type="button" class="btn btn-secondary">후기</button>
                     </div>

@@ -19,11 +19,13 @@
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 
+		<%--별점 --%>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta charset="UTF-8">
 
 <style>
 * {
-	box-sizing: border-box
+	box-sizing: border-box;
 }
 
 div {
@@ -81,6 +83,36 @@ img {
 #logo{
 width:100%;
 }
+.checked {
+                color: orange;
+            }
+.starCon{
+display :inline;
+}
+
+.fa-star:hover{
+cursor : pointer;
+}
+#titleReview{
+width:58%;
+}
+#starInputCon{
+width:100px;
+display:inline;
+}
+#sss{
+text-align:right;
+width:150px;
+display:inline;
+position:absolute;
+right:2%;
+}
+#ssss{
+position:relative;
+}
+.noneExist{
+display:none;
+}
 </style>
 </head>
 <body>
@@ -126,8 +158,8 @@ width:100%;
 			</div>
 			<div class="row">
 				<div class="col-12">
-					<h1 name=hosName>병원 이름</h1>
-					<h5 name=mdfDate>정보수정일 2019.01.01 Total.100</h5>
+					<h1>병원 이름</h1>
+					<h5>정보수정일 2019.01.01 Total.100</h5>
 					<hr>
 				</div>
 			</div>
@@ -138,7 +170,7 @@ width:100%;
 				</div>
 				<div class="col-6">
 					<div class="row hosIn1">
-						<div class=col-12 name=hosIntdu>
+						<div class=col-12>
 							동해물과 백두산이<br> 마르고 닳도록 하느님이 <br> 보우하사 우리나라 만세<br>
 							무궁화 삼천리 화려강산<br> 대한사람 대한으로 길이 보전하리<br>
 						</div>
@@ -170,7 +202,9 @@ width:100%;
 
 			<div class=row>
 				<div class=col-12 id=array>
-					<a href="#">좋아요순</a> <a href="#">최신순</a> <a href="#">별점순</a>
+					<a href="hospitalSearchDetail2ByScore.re" id=scoreRange>별점순</a>
+					<a href="hospitalSearchDetail2.re">최신순</a> 
+					<a href="hospitalSearchDetail2ByLike.re" id=defaultRange>좋아요순</a>
 				</div>
 			</div>
 			<c:choose>
@@ -182,9 +216,18 @@ width:100%;
 			</div>
 			</c:when>
 			<c:otherwise>
-			<c:forEach items="${reviewList}" var="dto">
+			<c:forEach items="${reviewList}" var="dto"><%-------------------------------------------------------------------------------------------------- --%>
 			<div class=row>
-				<div class=col-2>${dto.score}</div>
+				<div class=col-2>
+				<div class=starCon>
+            <span class="fa fa-star" id="star1t${dto.seq}" onclick="addt${dto.seq}(this,1)"></span>
+            <span class="fa fa-star" id="star2t${dto.seq}" onclick="addt${dto.seq}(this,2)"></span>
+            <span class="fa fa-star" id="star3t${dto.seq}" onclick="addt${dto.seq}(this,3)"></span>
+            <span class="fa fa-star" id="star4t${dto.seq}" onclick="addt${dto.seq}(this,4)"></span>
+            <span class="fa fa-star" id="star5t${dto.seq}" onclick="addt${dto.seq}(this,5)"></span>
+      
+       				</div>
+				</div>
 				<div class=col-6>
 				<p>
  				 <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse${dto.seq}" aria-expanded="false" 
@@ -196,7 +239,7 @@ width:100%;
 				<div class=col-2>${dto.writeDate}</div>
 				<div class=col-2>
 				${dto.writer} 
-				<button type=button id = like>좋아요</button>
+				<button type=button id="like${dto.seq}">좋아요</button> ${dto.likeCount}
 				</div>
 			</div>
 			
@@ -205,9 +248,35 @@ width:100%;
 			${dto.content}
 			</div>
 			</div>
-			</c:forEach>
+			<script>
+			//별점 - 출력
+             var point = ${dto.score};
+             $("#star"+point+"t${dto.seq}").trigger("click");
+			
+             function addt${dto.seq}(ths,sno){
+                 for (var i=1;i<=5;i++){
+                     var cur=document.getElementById("star"+i+"t" + ${dto.seq});
+                     cur.className="fa fa-star";
+                 }
+                 for (var i=1;i<=sno;i++){
+                     var cur=document.getElementById("star"+i+"t" + ${dto.seq});
+                     if(cur.className=="fa fa-star")
+                     {
+                         cur.className="fa fa-star checked";
+                         $("#rating").val(i);
+                     }
+                 }
+             }
+           //좋아요 기능
+     		$("#like${dto.seq}").on("click",function(){
+     			location.href="likeIncrement.re?seq="+${dto.seq};
+     		}); 
+             
+			</script>
+			</c:forEach><%------------------------------------------------------------------------------------------------------------------------------ --%>
 			</c:otherwise>
 			</c:choose>
+
 			
 			<div class=row>
 			<div class="col-12 center">
@@ -216,15 +285,29 @@ width:100%;
 			</div>
 			
 			<div class=row>
-				<div class=col-12>
+				<div class=col-12 id=ssss>
 					<h2>후기 남기기</h2>
-					제목 : <input type="text" id=titleReview name=title><br>
+					제목 : <input type="text" id=titleReview name=title>
+					
+					<div id = sss>
+					별점 : 
+					<div id=starInputCon>
+            <span class="fa fa-star" id="star1" onclick="add(this,1)"></span>
+            <span class="fa fa-star" id="star2" onclick="add(this,2)"></span>
+            <span class="fa fa-star" id="star3" onclick="add(this,3)"></span>
+            <span class="fa fa-star" id="star4" onclick="add(this,4)"></span>
+            <span class="fa fa-star" id="star5" onclick="add(this,5)"></span>
+            <input type="hidden" id="rating" value="1" name="rating">
+       				</div>
+       				</div>
+					<br>
 
 				</div>
 			</div>
 			<div class=row>
 			<div class="col-12 center">
-					<textarea id="summernote" name=content ></textarea><br>
+					<textarea id="summernote"></textarea><br>
+					<textarea id=snInput class=noneExist name=content></textarea>
 					<button id=reviewSaveBtn type=button>후기 등록</button>
 			</div>
 			</div>
@@ -235,23 +318,28 @@ width:100%;
 		</div>
 	</form>
 	<script>
+		//리뷰 등록 전 유효성 검사
 		$("#reviewSaveBtn").on("click", function() {
 			var title = $("#titleReview").val(); 
 			var content = $(".note-editable").html();
-			console.log(title);
+			var regex = /<p>.{1}[^b].*?<\/p>/;
+			var result = regex.exec(content);
+			console.log(result);
 			console.log(content);
-			
-			if( (title == "") || (content == "") ){
+			if( (title == "") || (result == null) ){
 				alert("내용을 입력해주세요");
 			}else{
 				var result = confirm("정말 등록 하시겠습니까?");
 				if(result){
+					var contentReal = $(".note-editable").html();
+					$("#snInput").val(contentReal);
 					$("#reviewSave").submit();
 				}
 			}
 			
 		})
 
+		//썸머노트 이미지 업로드
 		$("#summernote").summernote({
 			height : 600,
 			tabsize: 2,
@@ -286,6 +374,23 @@ width:100%;
 				}
 			}
 		})
+		//별점 함수 -입력
+		 function add(ths,sno){
+               for (var i=1;i<=5;i++){
+                   var cur=document.getElementById("star"+i)
+                   cur.className="fa fa-star"
+               }
+               for (var i=1;i<=sno;i++){
+                   var cur=document.getElementById("star"+i)
+                   if(cur.className=="fa fa-star")
+                   {
+                       cur.className="fa fa-star checked";
+                       $("#rating").val(i);
+                   }
+               }
+           }
+		
+		
 	</script>
 
 </body>

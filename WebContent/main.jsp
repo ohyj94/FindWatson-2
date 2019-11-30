@@ -51,6 +51,7 @@ img {
 </head>
 <body>
 <c:choose>
+
     <c:when test="${loginInfo ==null} }">
     location.href="${pageContext.request.contextPath}/index.jsp"
     </c:when>
@@ -176,7 +177,7 @@ img {
 				<div id="area-search" class="col-12">
 					<div class="row mb-2">
 						<label class="col-auto">지역별</label>
-						<select name="address" id="address" class="col-12 col-sm-3">
+						<select name="address1" id="address1" class="col-12 col-sm-3">
 							<option value="null">-시 선택-</option>
 							<option value="서울">서울</option>
 						</select> <select name="address2" id="address2" class="col-12 col-sm-3">
@@ -233,12 +234,12 @@ img {
 		</div>
 	</div>
 	<script>
-	 $("#address").on("click", function(){
+	 $("#address1").on("click", function(){
 			$.ajax({
 				url : "${pageContext.request.contextPath}/selectGu.s",
 				type : "post",
 				dataType : "json",
-				data : {city : $("#address option:selected").val()}
+				data : {city : $("#address1 option:selected").val()}
 			}).done(function(result){
 				$("#address2").find("option").remove().end().append("<option value=''>전체</option>");
 				  

@@ -37,17 +37,18 @@ public class ReviewDAO {
 	
 	//리뷰 등록
 	public int insert(ReviewDTO dto)throws Exception{ 
-		String sql = "insert into hosptReview values (hosptReviewSeq.nextval, ?,0,?,?,?,?,sysdate,?,0)";
+		String sql = "insert into hosptReview values (hosptReviewSeq.nextval, ?,?,?,?,?,?,sysdate,?,0)";
 		try(
 				Connection con = getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setInt(1, dto.getHosptListSeq());
-			pstat.setString(2, dto.getTitle());
-			pstat.setString(3, dto.getContent());
-			pstat.setString(4, dto.getHeader()); 
-			pstat.setString(5, dto.getWriter());
-			pstat.setString(6, dto.getIpAddr());
+			pstat.setInt(2, dto.getScore());
+			pstat.setString(3, dto.getTitle());
+			pstat.setString(4, dto.getContent());
+			pstat.setString(5, dto.getHeader()); 
+			pstat.setString(6, dto.getWriter());
+			pstat.setString(7, dto.getIpAddr());
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
@@ -103,8 +104,8 @@ public class ReviewDAO {
 		}	
 	}
 	
-	//페이지당 리뷰 출력 - 인자값 병원 시퀀스, 시작페이지번호 , 끝페이지 번호
-	public List<ReviewDTO> selectByPage(int articleSeqInput, int start, int end) throws Exception{
+	//(디폴트 최신순)페이지당 리뷰 출력 - 인자값 병원 시퀀스, 시작페이지번호 , 끝페이지 번호
+	public List<ReviewDTO> selectByPage(int hosptListSeqInput, int start, int end) throws Exception{
 		String sql = "select * from (select row_number() over (order by seq desc)as rown, hosptreview.* from hosptreview) "
 				+ "where rown between ? and ?  and hosptListSeq = ?";
 		List<ReviewDTO> list = new ArrayList<>();
@@ -114,13 +115,13 @@ public class ReviewDAO {
 				){
 			pstat.setInt(1, start);
 			pstat.setInt(2, end);
-			pstat.setInt(3, articleSeqInput);
+			pstat.setInt(3, hosptListSeqInput);
 			try(
 					ResultSet rs = pstat.executeQuery();
 					){
 				while(rs.next()) {
 					int seq = rs.getInt(2);
-					int articleSeq = articleSeqInput;
+					int hosptListSeq = hosptListSeqInput;
 					int score = rs.getInt(4);
 					String title = rs.getString(5);
 					String content = rs.getString(6);
@@ -130,15 +131,89 @@ public class ReviewDAO {
 					String ipAddr = rs.getString(10);
 					int likeCount = rs.getInt(11);
 					
-					ReviewDTO dto = new ReviewDTO(seq, articleSeq, score, title, content, header, writer,
+					ReviewDTO dto = new ReviewDTO(seq, hosptListSeq, score, title, content, header, writer,
 							writeDate, ipAddr, likeCount);
+//					System.out.println(seq+" : "+hosptListSeq+" : "+ score+" : "+ title+" : "+ content+" : "+ header+" : "+ writer+" : "+
+//							writeDate+" : "+ ipAddr+" : "+ likeCount);
 					list.add(dto);
 				}
 			}
 		}	
 		return list;
 	}
+	
+	//(별점순)페이지당 리뷰 출력 - 인자값 병원 시퀀스, 시작페이지번호 , 끝페이지 번호
+		public List<ReviewDTO> selectByPageByScore(int hosptListSeqInput, int start, int end) throws Exception{
+			String sql = "select * from (select row_number() over (order by score desc, writeDate)as rown, hosptreview.* "
+					+ "from hosptreview where hosptListSeq = ?) where rown between ? and ?";
+			List<ReviewDTO> list = new ArrayList<>();
+			try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				pstat.setInt(1, hosptListSeqInput);
+				pstat.setInt(2, start);
+				pstat.setInt(3, end);
+				try(
+						ResultSet rs = pstat.executeQuery();
+						){
+					while(rs.next()) {
+						int seq = rs.getInt(2);
+						int hosptListSeq = hosptListSeqInput;
+						int score = rs.getInt(4);
+						String title = rs.getString(5);
+						String content = rs.getString(6);
+						String header = rs.getString(7);
+						String writer = rs.getString(8);
+						Timestamp writeDate = rs.getTimestamp(9);
+						String ipAddr = rs.getString(10);
+						int likeCount = rs.getInt(11);
+						
+						ReviewDTO dto = new ReviewDTO(seq, hosptListSeq, score, title, content, header, writer,
+								writeDate, ipAddr, likeCount);
+						list.add(dto);
+					}
+				}
+			}	
+			return list;
+		}
+		//(좋아요순)페이지당 리뷰 출력 - 인자값 병원 시퀀스, 시작페이지번호 , 끝페이지 번호
+				public List<ReviewDTO> selectByPageByLike(int hosptListSeqInput, int start, int end) throws Exception{
+					String sql = "select * from (select row_number() over (order by likeCount desc)as rown, hosptreview.*"
+							+ " from hosptreview ) where rown between ? and ?  and hosptListSeq = ?";
+					List<ReviewDTO> list = new ArrayList<>();
+					try(
+						Connection con = getConnection();
+						PreparedStatement pstat = con.prepareStatement(sql);
+							){
+						pstat.setInt(1, start);
+						pstat.setInt(2, end);
+						pstat.setInt(3, hosptListSeqInput);
+						try(
+								ResultSet rs = pstat.executeQuery();
+								){
+							while(rs.next()) {
+								int seq = rs.getInt(2);
+								int hosptListSeq = hosptListSeqInput;
+								int score = rs.getInt(4);
+								String title = rs.getString(5);
+								String content = rs.getString(6);
+								String header = rs.getString(7);
+								String writer = rs.getString(8);
+								Timestamp writeDate = rs.getTimestamp(9);
+								String ipAddr = rs.getString(10);
+								int likeCount = rs.getInt(11);
+								
+								ReviewDTO dto = new ReviewDTO(seq, hosptListSeq, score, title, content, header, writer,
+										writeDate, ipAddr, likeCount);
+								list.add(dto);
+							}
+						}
+					}	
+					return list;
+				}
 
+		//페이지 네비게이터 출력
 	public String getPageNavi(int currentPage, int hosptReviewSeq)throws Exception{
 		int recordTotalCount = this.getArticleCount(hosptReviewSeq);
 		
@@ -173,6 +248,21 @@ public class ReviewDAO {
 		}
 		
 		return sb.toString();
+	}
+	
+	public int incrementLike(int reviewSeq) throws Exception{
+		String sql = "update hosptReview set likeCount = 1 + (select likeCount from hosptReview "
+				+ "where seq = ?) where seq=?";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql); 
+				){
+			pstat.setInt(1, reviewSeq);
+			pstat.setInt(2, reviewSeq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
 	}
 	
 	

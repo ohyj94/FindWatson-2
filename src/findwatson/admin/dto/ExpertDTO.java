@@ -1,6 +1,7 @@
 package findwatson.admin.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class ExpertDTO {
 	private int seq;
@@ -59,5 +60,14 @@ public class ExpertDTO {
 		this.viewCount = viewCount;
 	}
 	
+	public String getFormedDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+		long date = this.writeDate.getTime();
+		long current_date = System.currentTimeMillis();
+
+		return sdf.format(date);
+
+
+	}
 	
 }

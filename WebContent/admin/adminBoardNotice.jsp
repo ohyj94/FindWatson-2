@@ -55,7 +55,7 @@
             </div>
             <div class="row">
                 <div id="title" class="col-12 mb-3 p-1 text-center">
-                    <img id="logo" src="imgs/logo.png" class="col-12">
+                    <img id="logo" src="../imgs/logo.png" class="col-12">
                 </div>
             </div>
             <div class="row">
@@ -67,7 +67,7 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">공지사항</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/adminBoardNotice.manager">공지사항</a>
                                 </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -84,7 +84,7 @@
           게시판관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">전문가Q&A</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminBoardExpert.manager">전문가Q&A</a>
           <a class="dropdown-item" href="#">자유게시판</a>
           <a class="dropdown-item" href="#">질문게시판</a>
           <a class="dropdown-item" href="#">1:1문의</a>
@@ -95,8 +95,8 @@
           회원관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">회원목록조회</a>
-          <a class="dropdown-item" href="#">차단 IP 조회</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminMemberList.admin">회원목록조회</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminBanList.admin">차단 IP 조회</a>
           <a class="dropdown-item" href="#">회원 통계</a>
         </div>
         </li>
@@ -118,59 +118,35 @@
             </div>
             <div class="row line">
                 <div class="col-1 d-none d-md-block"></div>
-                <div class="col-md-2 d-none d-md-block">
-                    말머리
-                </div>
-                <div class="col-md-5 d-none d-md-block">
+                <div class="col-md-3 d-none d-md-block">
                     제목
                 </div>
-                <div class="col-md-2 d-none d-md-block">
-                    작성자
+                <div class="col-md-3 d-none d-md-block">
+                    내용
                 </div>
-                <div class="col-md-2 d-none d-md-block">
-                    작성날짜
+                <div class="col-md-6 d-none d-md-block">
+                    작성일
                 </div>
+            
             </div>
             <!-- 게시글 목록 -->
-            <div class="row line">
-                <div class="col-1 d-none d-md-block">1</div>
-                <div class="col-md-2 d-none d-md-block">
-                    공지
+           <c:forEach items="${list}" var="list">
+           <div class="row line">
+                
+                <div class="col-md-3 d-none d-md-block">
+                    ${list.title}
                 </div>
-                <div class="col-8 col-md-5 text-left">
-                    아파요...
+                <div class="col-md-3 d-none d-md-block">
+           			${list.content }
                 </div>
-                <!-- 모바일에서만 보이는 div -->
-                <div class="col-4 d-block d-md-none">공지</div>
-                <!-- 모바일에서만 보이는 div -->
-                <div class="col-6 col-md-2 text-left">
-                    관리자
-                </div>
-                <div class="col-6 col-md-2">
-                    2019-11-28
+                <div class="col-md-6 d-none d-md-block">
+                    ${list.formedDate }
                 </div>
             </div>
-            <div class="row line">
-                <div class="col-1 d-none d-md-block">2</div>
-                <div class="col-md-2 d-none d-md-block">
-                    이벤트
-                </div>
-                <div class="col-8 col-md-5 text-left">
-                    나도....
-                </div>
-                <!-- 모바일에서만 보이는 div -->
-                <div class="col-4 d-block d-md-none">이벤트</div>
-                <!-- 모바일에서만 보이는 div -->
-                <div class="col-6 col-md-2 text-left">
-                    관리자
-                </div>
-                <div class="col-6 col-md-2">
-                    2019-11-28
-                </div>
-            </div>     
+            </c:forEach>
                             <div class="row">
                                 <div class="col-12 text-center">
-                                    1 2 3 4 5
+                                    ${pageNavi}
                                 </div>
                             </div>
                             <div class="row mb-2">
