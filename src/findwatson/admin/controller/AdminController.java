@@ -21,6 +21,8 @@ import findwatson.admin.dao.AdminFileDAO;
 import findwatson.admin.dto.AdminFileDTO;
 import findwatson.admin.dto.BanDTO;
 import findwatson.admin.dto.ExpertDTO;
+import findwatson.admin.dto.NoticeDTO;
+import findwatson.board.dao.BoardDAO;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
 
@@ -128,8 +130,7 @@ public class AdminController extends HttpServlet {
 				
 				dao.insertToExpert(new ExpertDTO(0, id, title, content, null, 0));
 				
-				//익태오빠한테 받아서 수정
-				response.sendRedirect("exportList.admin");
+				response.sendRedirect(contextPath + "/boardExpert.admin");
 			}else if(cmd.contentEquals("/expertWriteImgUpload.admin")) {//전문가 Q&A 글쓰기-이미지 업로드
 				String repositoryName = "expertImg";
 				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
@@ -147,7 +148,7 @@ public class AdminController extends HttpServlet {
 				System.out.println("원래 파일 이름 : " + oriFileName);
 				System.out.println("올린 파일 이름 : " + fileName);
 				
-				fDao.insertByTableName(new AdminFileDTO(0, 0, fileName, oriFileName), "expertPhoto");
+				fDao.insertImgToExpert(new AdminFileDTO(0, 0, fileName, oriFileName));
 				
 				//서버의 이미지 경로
 				String imgPath = "../" + repositoryName + "/" + fileName;
@@ -163,8 +164,7 @@ public class AdminController extends HttpServlet {
 				
 				dao.insertToNotice(new ExpertDTO(0, id, title, content, null, 0));
 				
-				//익태오빠한테 받아서 수정
-				response.sendRedirect("noticeList.admin");
+				response.sendRedirect(contextPath + "/boardNotice.admin");
 			}else if(cmd.contentEquals("/noticeWriteImgUpload.admin")) {//공지사항 글쓰기 - 이미지 업로드
 				String repositoryName = "noticeImg";
 				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
@@ -182,7 +182,7 @@ public class AdminController extends HttpServlet {
 				System.out.println("원래 파일 이름 : " + oriFileName);
 				System.out.println("올린 파일 이름 : " + fileName);
 				
-				fDao.insertByTableName(new AdminFileDTO(0, 0, fileName, oriFileName),"noticePhoto");
+				fDao.insertImgToNotice(new AdminFileDTO(0, 0, fileName, oriFileName));
 				
 				//서버의 이미지 경로
 				String imgPath = "../" + repositoryName + "/" + fileName;
@@ -191,6 +191,38 @@ public class AdminController extends HttpServlet {
 				JsonObject jObj = new JsonObject();
 				jObj.addProperty("imgPath", imgPath);
 				pwriter.append(jObj.toString());
+			}else if(cmd.contentEquals("/boardExpert.admin")){// 전문가Q&A 글 목록 출력
+				String pageCategory = "boardExpert.bo";
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				List<ExpertDTO> list = BoardDAO.getInstance().selectByPageExpert(start, end);
+				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory);
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("admin/adminBoardExpert.jsp").forward(request, response);
+				
+			}else if(cmd.contentEquals("/boardNotice.admin")){// 공지사항 글 목록 출력
+				String pageCategory = "boardNotice.bo";
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<NoticeDTO> list = BoardDAO.getInstance().selectByPageNotice(start, end);
+				String pageNavi =  BoardDAO.getInstance().getPageNavi(cpage,pageCategory);
+				
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("admin/adminBoardNotice.jsp").forward(request, response);
+			
 			}else {
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
