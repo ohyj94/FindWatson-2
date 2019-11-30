@@ -11,7 +11,7 @@
         <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="resources/css/donateStyle.css">
+        <link rel="stylesheet" href="resources/css/mainStyle.css">
         <style>
             .imgSize{
                 width: 100%;
@@ -59,12 +59,21 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <form class="form-inline">
-                                <input class="form-control col-10" type="search"
-                                       placeholder="Search" aria-label="Search">
-                                <button id="searchBtn1" class="btn btn-outline-secondary m-auto col-2"
-                                        type="submit">Search</button>
-                            </form>
+                        
+                        
+                        		<%-- keyword Search --%>
+						<form class="form-inline"
+							action="${pageContext.request.contextPath}/keywordSearch.s"
+							method=post>
+							<input class="form-control col-10" type="search"
+								placeholder="Search" aria-label="Search" name=keywordSearch>
+							<button id="searchBtn1" class="btn btn-outline-secondary m-auto col-2"
+								type="submit">Search</button>
+						</form>
+						
+						
+                  
+                            
                         </div>
                     </div>
                 </div>
@@ -105,16 +114,20 @@
                         </div>
                     </div>
                 </div>
+                
+                <%--검색 컨테이너 시작 --%>
+			<form action="${pageContext.request.contextPath}/searchFrom.s"
+				method="post">
                 <div id="article-botton" class="col-12 line mb-3 p-0">
                     <div class="col-12 line">동물병원 상세 검색</div>
                     <div id="area-search" class="col-12">
                         <div class="row line">
-                            <lable class="col-auto align-self-center">지역별</lable>
-                            <select name="zone" id="zone" class="col-12 col-sm-4">
-                                <option value="">-시 선택-</option>
+                            <label class="col-auto align-self-center">지역별</label>
+                            <select name="address1" id="address1" class="col-12 col-sm-4">
+                                <option value="null">-시 선택-</option>
                                 <option value="서울">서울</option>
-                            </select> <select name="zone2" id="zone2" class="col-12 col-sm-4">
-                            <option value="">-구 선택-</option>
+                            </select> <select name="address2" id="address2" class="col-12 col-sm-4">
+                            <option value="null">-구 선택-</option>
                             </select>
                             <button id="searchBtn2" class="col m-0 btn btn-sm btn-outline-secondary">검색</button>
                         </div>
@@ -168,23 +181,47 @@
                 location.href="${pageContext.request.contextPath}/member/login.jsp"
             })
 
-            $("#zone").on("click", function(){
-                $.ajax({
-                    url : "selectGu.s",
-                    type : "post",
-                    dataType : "json",
-                    data : {city : $("#zone option:selected").val()}
-                }).done(function(result){
-                    $("#zone2").find("option").remove().end().append("<option value=''>전체</option>");
+          $("#address1")
+					.on(
+							"click",
+							function() {
+								$
+										.ajax(
+												{
+													url : "${pageContext.request.contextPath}/selectGu.s",
+													type : "post",
+													dataType : "json",
+													data : {
+														city : $(
+																"#address1 option:selected")
+																.val()
+													}
+												})
+										.done(
+												function(result) {
+													$("#address2")
+															.find("option")
+															.remove()
+															.end()
+															.append(
+																	"<option value=''>전체</option>");
 
-                    //배열 개수 만큼 option 추가
-                    $.each(result, function(i){
-                        $("#zone2").append("<option value='"+result[i]+"'>"+result[i]+"</option>")
-                    });  
-                }).fail(function(){
-                    alert("오류 발생");
-                });
-            })
+													//배열 개수 만큼 option 추가
+													$
+															.each(
+																	result,
+																	function(i) {
+																		$(
+																				"#address2")
+																				.append(
+																						"<option value='"+result[i]+"'>"
+																								+ result[i]
+																								+ "</option>")
+																	});
+												}).fail(function() {
+											alert("오류 발생");
+										});
+							})
         </script>
     </body>
 </html>
