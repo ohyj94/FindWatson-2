@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +25,7 @@ import findwatson.search.dao.HospitalListDAO;
 public class SearchController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+
 		response.setContentType("text/html; charset=UTF-8"); 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -37,9 +40,9 @@ public class SearchController extends HttpServlet {
 			HospitalListDAO dao = HospitalListDAO.getInstance();
 			//지역 서울 선택시 해당하는 구 List 보내주기
 			if(cmd.contentEquals("/selectGu.s")) {
-				
+
 				String city = request.getParameter("city");
-				
+				System.out.println(city);
 				List<String> result = dao.selectGu(city);
 
 				response.setContentType("text/html; charset=UTF-8");
@@ -53,11 +56,11 @@ public class SearchController extends HttpServlet {
 				PrintWriter pw = response.getWriter();				
 				pw.append(j.toString());  	
 
-			// 병원 검색 결과 출력
+				// 병원 검색 결과 출력
 			}else if(cmd.contentEquals("/searchFrom.s")) {
-				
+
 				// 검색 결과 받아오는 부분 
-				
+
 				String address1 = request.getParameter("address1");			
 				String address2 = request.getParameter("address2");
 
@@ -72,12 +75,12 @@ public class SearchController extends HttpServlet {
 					address2 = "";
 					System.out.println("3");
 				}else {
-					System.out.println("address 다 안나와");
+					System.out.println("address 1,2 다 들어있는 경우 ");
 				}
 
 				System.out.println("시 : " + address1);
 				System.out.println("구 : " + address2);
-				
+
 				String[] animal_check = request.getParameterValues("animal");
 				String animal = Arrays.toString(animal_check).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
 				System.out.println(animal.contentEquals("null"));
@@ -96,19 +99,19 @@ public class SearchController extends HttpServlet {
 				}
 				System.out.println("time : " + time);
 
-			
+
 				//for(HListDTO list2 : list) {
 				//	System.out.println(list2);}
-				
+
 				// 네비게이터 받아오는 부분 
 				int currentPage =1;
 				String page = request.getParameter("currentPage");
 				if(page != null) {
-				currentPage = Integer.parseInt(page);
-			}
-			int start = currentPage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);
+					currentPage = Integer.parseInt(page);
+				}
+				int start = currentPage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);
 				int end = currentPage * Configuration.recordCountPerPage;
-			
+
 				List<HListDTO> list = new ArrayList<>();
 				list = HospitalListDAO.getInstance().selectByPage("%"+address1+"%", "%"+address2+"%", "%"+animal+"%", "%"+time+"%",start, end);
 				String navi = dao.getPageNavi(currentPage, "%"+address1+"%", "%"+address2+"%", "%"+animal+"%", "%"+time+"%");
@@ -116,25 +119,76 @@ public class SearchController extends HttpServlet {
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/search/hospitalSearchView.jsp").forward(request, response);
 
-			// 병원 이름 클릭하면 상세페이지 
+				// 병원 이름 클릭하면 상세페이지 
 			}else if(cmd.contentEquals("/contents.s")) {
 
 
-					// 내용 전송 
-					int seq = Integer.parseInt(request.getParameter("seq"));
-					System.out.println(seq);
-					HListDTO contents = HospitalListDAO.getInstance().select(seq);
-					//System.out.println(contents.getTitle());
-					//System.out.println(contents.getContents());
-					
-					HospitalListDAO.getInstance().plusss(contents.getViewCount(),seq);
-					request.setAttribute("contents", contents);
+				// 내용 전송 
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				System.out.println(seq);
+				HListDTO contents = HospitalListDAO.getInstance().select(seq);
+				//System.out.println(contents.getTitle());
+				//System.out.println(contents.getContents());
 
-					request.getRequestDispatcher("/search/hospitalSearchDetail_1.jsp").forward(request, response);
-		
-			
+				HospitalListDAO.getInstance().plusss(contents.getViewCount(),seq);
+				request.setAttribute("contents", contents);
+
+				request.getRequestDispatcher("/search/hospitalSearchDetail_1.jsp").forward(request, response);
+
+				// 상단 검색바에서 검색하면 목록 가져오기 
+			}else if(cmd.contentEquals("/keywordSearch.s")) {
+				// 검색어를 가져온다 
+
+				String keyword = request.getParameter("keywordSearch");
+				// 공백으로 나눠서 배열에 담는다 
+				String arr[] = keyword.split(" ");
+			System.out.println("단어의 개수는 " + arr.length + "개 입니다.");
+			for(String arr2 : arr) {
+			System.out.println("단어 : " + arr2);
 			}
-			
+				// 네비게이터 받아오는 부분 
+				int currentPage =1;
+				String page = request.getParameter("currentPage");
+				if(page != null) {
+					currentPage = Integer.parseInt(page);
+				}
+				int start = currentPage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);
+				int end = currentPage * Configuration.recordCountPerPage;
+
+				List<HListDTO> list = new ArrayList<>();
+				List<HListDTO> list2 = new ArrayList<>();
+
+				// 배열의 개수만큼 검색 
+				for(int i=0; i<arr.length; i++) {
+					list = HospitalListDAO.getInstance().selectByPageTotal("%"+arr[i]+"%", start, end);
+					// 배열에서 dto를 하나씩 빼내서 list에 넣는다 
+					for(HListDTO dto : list){
+						list2.add(dto);
+						System.out.println("dto에" + arr[i]+ "를 담았음");
+						for(HListDTO dto2 : list2)
+						System.out.println("담은 병원은 " + dto2.getHosptName());
+					}
+				}
+
+				Set<HListDTO> set = new HashSet<>();
+				for(HListDTO repe : list2){
+					int count = Collections.frequency(list2, repe);
+					System.out.println(count);
+					if(count == arr.length) {
+						set.add(repe);//여기서 중복 병원은 세번씩 들어가니까 list대신 중복 막아주는 set 사용하기
+						System.out.println(repe.getHosptName());
+					}
+				}
+
+				// 3번 중복된 값만 list에 담아 jsp에 보내기 
+				request.setAttribute("list", set);
+				String navi = HospitalListDAO.getInstance().getPageNaviTotal(currentPage, keyword);
+				request.setAttribute("navi", navi);
+
+				request.getRequestDispatcher("/search/hospitalSearchView.jsp").forward(request, response);
+			}
+
+
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -143,7 +197,7 @@ public class SearchController extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+
 		doGet(request, response);
 	}
 

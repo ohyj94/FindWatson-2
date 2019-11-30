@@ -20,11 +20,23 @@
 * {
 	box-sizing: border-box
 }
-/*            div{border: 1px solid black}*/
+
+div {
+	border: 1px solid black
+}
+
 #logo {
 	width: 500px;
 	height: 100px;
 	margin: auto;
+	background-color: ghostwhite;
+}
+
+#article-img {
+	width: 100%;
+	height: 100px;
+	margin: auto;
+	background-color: ghostwhite;
 }
 
 #footer>div {
@@ -33,6 +45,7 @@
 
 #footer-logo>div {
 	height: 100%;
+	background-color: ghostwhite;
 }
 
 #footer-contents {
@@ -49,38 +62,23 @@
 	width: 100%;
 }
 
-#article, .line {
-	border: 0.5px solid lightgray;
-}
-
-#category {
-	width: 100%;
-	height: 100%;
-}
-
-.search-box>* {
-	width: 100%;
-}
-
-.write-box>* {
-	width: 100%;
-}
-
-#article, .line {
-	border: 0.5px solid lightgray;
+.center {
+	text-align: center;
 }
 </style>
 </head>
 <body>
 	<div class="container">
 		<div class="row mb-2">
-			<div id="loginBtn" class="col-12 text-right">
+			<div id="loginBtn" class="col-12 p-1 text-right">
 				<button class="btn btn-sm btn-outline-secondary">로그아웃</button>
 			</div>
 		</div>
 		<div class="row">
 			<div id="title" class="col-12 mb-3 p-1 text-center">
-				<img id="logo" src="imgs/logo.png" class="col-12">
+				<img id="logo"
+					src="${pageContext.request.contextPath}/imgs/logo.png"
+					class="col-12">
 			</div>
 		</div>
 		<div class="row">
@@ -93,8 +91,8 @@
 					</button>
 					<div class="collapse navbar-collapse" id="navbarNav">
 						<ul class="navbar-nav">
-							<li class="nav-item"><a class="nav-link" id=notice>공지사항</a>
-							</li>
+							<li class="nav-item"><a class="nav-link"
+								href="#" id =notice>공지사항</a></li>
 							<li class="nav-item dropdown"><a
 								class="nav-link dropdown-toggle" href="#"
 								id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
@@ -111,10 +109,11 @@
 								aria-haspopup="true" aria-expanded="false"> 게시판관리 </a>
 								<div class="dropdown-menu text-center"
 									aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" id=expert>전문가Q&A</a> <a
-										class="dropdown-item" id=free>자유게시판</a> <a
+									<a class="dropdown-item"
+										id =expert>전문가Q&A</a>
+									<a class="dropdown-item" id=free>자유게시판</a> <a
 										class="dropdown-item" id=question>질문게시판</a> <a
-										class="dropdown-item" href="#">1:1문의</a>
+										class="dropdown-item" href="#">1:1문의게시판</a>
 								</div></li>
 							<li class="nav-item dropdown"><a
 								class="nav-link dropdown-toggle" href="#"
@@ -122,11 +121,9 @@
 								aria-haspopup="true" aria-expanded="false"> 회원관리 </a>
 								<div class="dropdown-menu text-center"
 									aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item"
-										href="${pageContext.request.contextPath}/admin/adminMemberList.admin">회원목록조회</a>
-									<a class="dropdown-item"
-										href="${pageContext.request.contextPath}/admin/adminBanList.admin">차단
-										IP 조회</a> <a class="dropdown-item" href="#">회원 통계</a>
+									<a class="dropdown-item" href="#">회원목록조회</a> <a
+										class="dropdown-item" href="#">차단 IP 조회</a> <a
+										class="dropdown-item" href="#">회원 통계</a>
 								</div></li>
 						</ul>
 					</div>
@@ -134,68 +131,30 @@
 			</div>
 		</div>
 		<!--            -->
-		<div class="row">
-			<div class="col-12 mb-3" id="article">
-				<div class="row">
-					<div id="article-middle" class="col-12 mt-2">
-						<div class="row mb-3 p-1 text-center">
-							<h3 id="board-top" class="col-auto col-sm-4 m-0">공지사항</h3>
-							<span class="col-auto col-sm-8 mt-2"> <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
-							</span>
-						</div>
-						<div class="row line">
-							<div class="col-md-2 d-none d-md-block">글번호</div>
-							<div class="col-md-6 d-none d-md-block">제목</div>
-							<div class="col-md-2 d-none d-md-block">작성일</div>
-							<div class="col-md-2 d-none d-md-block">조회수</div>
-						</div>
-						<!-- 게시글 목록 -->
-						<c:forEach items="${list}" var="list">
-							<div class="row line">
-								<div class="col-md-2 d-none d-md-block">${list.seq}</div>
-								<div class="col-md-6 d-none d-md-block">${list.title}</div>
-								<div class="col-md-2 d-none d-md-block">
-									${list.formedDate}</div>
-								<div class="col-md-2 d-none d-md-block">${list.viewCount}
-								</div>
-							</div>
-						</c:forEach>
-						<div class="row">
-							<div class="col-12 text-center">${pageNavi}</div>
-						</div>
-						<div class="row mb-2">
-							<div class="col-auto col-sm-2 p-1">
-								<select id="category">
-									<option value="">제목</option>
-								</select>
-							</div>
-							<div class="search-box col-auto col-sm-6 p-1">
-								<input type="text" class="" id="search" name="search" value="">
-							</div>
-							<div class="search-box col-auto col-sm-2 p-1">
-								<button class="btn btn-sm btn-outline-secondary">검색</button>
-							</div>
-							<div class="write-box col-auto col-sm-2 text-center p-1">
-								<button class="btn btn-sm btn-outline-secondary" id="writeBtn">작성하기</button>
-							</div>
-						</div>
-					</div>
-				</div>
+		<div class=row>
+			<div class="col-12 center">
+				<h1>
+					<br>
+					<br>
+				</h1>
+				<h1>관리자 계정입니다.</h1>
+				<h3>어서오세요.</h3>
+				<h1>
+					<br>
+					<br>
+				</h1>
 			</div>
 		</div>
 		<!--            -->
 		<div class="row">
 			<div id="footer" class="col-12">
 				<div class="row p-1">
-					<div id="footer-logo" class="col-12 col-sm-4">
-						<div class="row">
-							<div class="col">
-								<img id="logo" src="imgs/logo.png"
-									class="d-none d-sm-block col-12">
-							</div>
-						</div>
+					<div id="footer-logo" class="col-4">
+						<img id="logo"
+							src="${pageContext.request.contextPath}/imgs/logo.png"
+							class="d-none d-sm-block col-12">
 					</div>
-					<div id="footer-contents" class="col-12 col-sm-8">
+					<div id="footer-contents" class="col-8">
 						<div class="row">
 							<div class="col-6 col-sm-auto">
 								<a href="#">회사소개</a>
@@ -227,24 +186,19 @@
 		</div>
 	</div>
 	<script>
-	//각 버튼별 주소이동
-	$("#logo").on("click", function() {
-		location.href = "${pageContext.request.contextPath}/mainAdmin.jsp";
-	});
-	//공지사항으로 이동
-	$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
-	//전문가 Q&A로 이동
-	$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
-	//자유게시판으로 이동
-	$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
-	//질문게시판으로 이동
-	$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
-	//글쓰기 버튼
-	$("#writeBtn").on("click",function() {
-			location.href = "${pageContext.request.contextPath}/admin/adminBoardNoticeWrite.jsp";
-	})
-	
+		//각 버튼별 주소이동
+		$("#logo").on("click", function() {
+			location.href = "${pageContext.request.contextPath}/mainAdmin.jsp";
+		});
+		//공지사항으로 이동
+		$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
+		//전문가 Q&A로 이동
+		$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
+		//자유게시판으로 이동
+		$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
+		//질문게시판으로 이동
+		$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
+		
 	</script>
-
 </body>
 </html>

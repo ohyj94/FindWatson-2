@@ -33,10 +33,9 @@ public class AdminFileDAO {
 		return bds.getConnection();
 	}
 	
-	//파일 업로드
-	public int insert(AdminFileDTO dto) throws Exception{
-		String sql = "insert into expertPhoto values(expertPhotoseq.nextval,null,?,?)";
-		try(
+	//파일 업로드 expert
+	public int insertImgToExpert(AdminFileDTO dto) throws Exception{
+		String sql = "insert into expertPhoto values(expertPhotoSeq.nextval,null,?,?)";try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
@@ -47,6 +46,20 @@ public class AdminFileDAO {
 			return result;
 		}
 	}
+	//파일 업로드 notice
+		public int insertImgToNotice(AdminFileDTO dto) throws Exception{
+			String sql = "insert into noticePhoto values(noticePhotoSeq.nextval,null,?,?)";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				pstat.setString(1, dto.getFileName());
+				pstat.setString(2, dto.getOriFileName());
+				int result = pstat.executeUpdate();
+				con.commit();
+				return result;
+			}
+		}
 	//파일 리스트
 	public List<AdminFileDTO> selectAll() throws Exception{
 		String sql = "select * from files";

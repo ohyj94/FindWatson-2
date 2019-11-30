@@ -103,7 +103,7 @@
                 </div>
                    <div class = row>
                     <div class=col-3>
-                        <select name="address" id="address">
+                        <select name="address1" id="address1">
                        	<option value="null">-시 선택-</option>
 						<option value="서울">서울</option>
                         </select>

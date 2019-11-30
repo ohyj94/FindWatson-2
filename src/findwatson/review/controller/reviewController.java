@@ -42,7 +42,7 @@ public class reviewController extends HttpServlet {
 		int hosptListSeq = 7777; //나중에 글번호 받아서 써야됨
 					
 		
-		if(cmd.contentEquals("/search/imgUpload.re")) {//이미지 업로드
+		if(cmd.contentEquals("/imgUpload.re")) {//이미지 업로드
 			String repositoryName = "reviewImg";
 			String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
 			System.out.println(uploadPath);
@@ -72,7 +72,7 @@ public class reviewController extends HttpServlet {
 			JsonObject jObj = new JsonObject();
 			jObj.addProperty("imgPath", imgPath);
 			pwriter.append(jObj.toString());
-		}else if(cmd.contentEquals("/search/reviewWrite.re")){ //리뷰 등록
+		}else if(cmd.contentEquals("/reviewWrite.re")){ //리뷰 등록
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			System.out.println(content);
@@ -86,7 +86,7 @@ public class reviewController extends HttpServlet {
 				e.printStackTrace();
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
-		}else if(cmd.contentEquals("/search/hospitalSearchDetail2.re")) { //병원 디테일뷰 2 - 디폴트:최신순
+		}else if(cmd.contentEquals("/hospitalSearchDetail2.re")) { //병원 디테일뷰 2 - 디폴트:최신순
 			try {    
 				int cpage = 1;
 				String cpageInput = request.getParameter("cpage");
@@ -108,7 +108,7 @@ public class reviewController extends HttpServlet {
 				e.printStackTrace();
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
-		}else if(cmd.contentEquals("/search/hospitalSearchDetail2ByScore.re")) {//병원 디테일뷰 2 - 별점 순
+		}else if(cmd.contentEquals("/hospitalSearchDetail2ByScore.re")) {//병원 디테일뷰 2 - 별점 순
 			try {    
 				int cpage = 1;
 				String cpageInput = request.getParameter("cpage");
@@ -131,7 +131,7 @@ public class reviewController extends HttpServlet {
 			}
 			
 			
-		}else if(cmd.contentEquals("/search/hospitalSearchDetail2ByLike.re")) {//병원 디테일뷰 2 - 좋아요 순
+		}else if(cmd.contentEquals("/hospitalSearchDetail2ByLike.re")) {//병원 디테일뷰 2 - 좋아요 순
 			try {    
 				int cpage = 1;
 				String cpageInput = request.getParameter("cpage");

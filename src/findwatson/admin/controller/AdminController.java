@@ -21,6 +21,9 @@ import findwatson.admin.dao.AdminFileDAO;
 import findwatson.admin.dto.AdminFileDTO;
 import findwatson.admin.dto.BanDTO;
 import findwatson.admin.dto.ExpertDTO;
+import findwatson.admin.dto.NoticeDTO;
+import findwatson.board.dao.BoardDAO;
+import findwatson.board.dto.BoardDTO;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
 
@@ -126,10 +129,9 @@ public class AdminController extends HttpServlet {
 				String content = request.getParameter("content");
 				System.out.println(content);
 				
-				dao.insert(new ExpertDTO(0, id, title, content, null, 0));
+				dao.insertToExpert(new ExpertDTO(0, id, title, content, null, 0));
 				
-				//익태오빠한테 받아서 수정
-				response.sendRedirect("exportList.admin");
+				response.sendRedirect(contextPath + "/boardExpert.admin");
 			}else if(cmd.contentEquals("/expertWriteImgUpload.admin")) {//전문가 Q&A 글쓰기-이미지 업로드
 				String repositoryName = "expertImg";
 				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
@@ -147,7 +149,7 @@ public class AdminController extends HttpServlet {
 				System.out.println("원래 파일 이름 : " + oriFileName);
 				System.out.println("올린 파일 이름 : " + fileName);
 				
-				fDao.insert(new AdminFileDTO(0, 0, fileName, oriFileName));
+				fDao.insertImgToExpert(new AdminFileDTO(0, 0, fileName, oriFileName));
 				
 				//서버의 이미지 경로
 				String imgPath = "../" + repositoryName + "/" + fileName;
@@ -157,11 +159,103 @@ public class AdminController extends HttpServlet {
 				jObj.addProperty("imgPath", imgPath);
 				pwriter.append(jObj.toString());
 			}else if(cmd.contentEquals("/noticeWrite.admin")) {//공지사항 글쓰기
+				String title = request.getParameter("boardTitle");
+				String content = request.getParameter("content");
+				System.out.println(content);
 				
+				dao.insertToNotice(new ExpertDTO(0, id, title, content, null, 0));
+				
+				response.sendRedirect(contextPath + "/boardNotice.admin");
 			}else if(cmd.contentEquals("/noticeWriteImgUpload.admin")) {//공지사항 글쓰기 - 이미지 업로드
+				String repositoryName = "noticeImg";
+				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
+				System.out.println(uploadPath);
+				File uploadFilePath = new File(uploadPath);
+				if(!uploadFilePath.exists()) {
+					uploadFilePath.mkdir();
+				}
+				int maxSize = 1024 * 1024 * 100;
+				MultipartRequest multi = new MultipartRequest(request,uploadPath, maxSize,"UTF-8",new DefaultFileRenamePolicy());
 				
-			}
-			else if(cmd.contentEquals("/admin/adminDeleteMember.admin")) {//회원 삭제
+				String fileName = multi.getFilesystemName("noticeImg");
+				String oriFileName = multi.getOriginalFileName("noticeImg");
+				System.out.println("원래 파일 이름 : " + oriFileName);
+				System.out.println("올린 파일 이름 : " + fileName);
+				
+				fDao.insertImgToNotice(new AdminFileDTO(0, 0, fileName, oriFileName));
+				
+				//서버의 이미지 경로
+				String imgPath = "../" + repositoryName + "/" + fileName;
+				System.out.println(imgPath);
+				
+				JsonObject jObj = new JsonObject();
+				jObj.addProperty("imgPath", imgPath);
+				pwriter.append(jObj.toString());
+			}else if(cmd.contentEquals("/boardExpert.admin")){// 전문가Q&A 글 목록 출력
+				String pageCategory = "boardExpert.bo";
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				List<ExpertDTO> list = BoardDAO.getInstance().selectByPageExpert(start, end);
+				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory);
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("admin/adminBoardExpert.jsp").forward(request, response);
+				
+			}else if(cmd.contentEquals("/boardNotice.admin")){// 공지사항 글 목록 출력
+				String pageCategory = "boardNotice.bo";
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<NoticeDTO> list = BoardDAO.getInstance().selectByPageNotice(start, end);
+				String pageNavi =  BoardDAO.getInstance().getPageNavi(cpage,pageCategory);
+				
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("admin/adminBoardNotice.jsp").forward(request, response);
+			
+			}else if(cmd.contentEquals("/boardFree.admin")){//자유게시판 글 출력
+				String pageCategory = "boardFree.bo";
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<BoardDTO> list = BoardDAO.getInstance().selectByPage(start, end, "자유");
+				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory);
+				
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("admin/adminBoardFree.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/boardQuestion.admin")) { //질문게시판 글 출력
+				String pageCategory = "boardQuestion.bo";
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<BoardDTO> list = BoardDAO.getInstance().selectByPage(start, end, "질문");
+				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory);
+				
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("admin/adminBoardQuestion.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/admin/adminDeleteMember.admin")) {//회원 삭제
 				String idInput = request.getParameter("id");
 				int result = dao.deleteMember(idInput);
 				if(result > 0) {
@@ -189,7 +283,6 @@ public class AdminController extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		doGet(request, response);
 	}
 
