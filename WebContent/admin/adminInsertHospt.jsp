@@ -74,8 +74,8 @@
           병원관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">병원정보 등록</a>
-          <a class="dropdown-item" href="#">병원정보 수정/삭제</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminInsertHospt.jsp">병원정보 등록</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminBoardHosptList.manager">병원정보 수정/삭제</a>
           <a class="dropdown-item" href="#">병원리뷰</a>
         </div>
         </li>
@@ -131,20 +131,20 @@
                        
                    
                   <div class=col-12>진료과목</div>
-                  <div class=col-12><input type="checkbox" name=medicalAnimal value=새;> 새
-        <input type="checkbox" name=medicalAnimal value=물고기;> 물고기
-        <input type="checkbox" name=medicalAnimal value=햄스터;> 햄스터
-        <input type="checkbox" name=medicalAnimal value=토끼;> 토끼
-        <input type="checkbox" name=medicalAnimal value=고슴도치;> 고슴도치
-        <input type="checkbox" name=medicalAnimal value=파충류;> 파충류
-        <input type="checkbox" name=medicalAnimal value=곤충류;> 곤충류
-        <input type="checkbox" name=medicalAnimal value=기타;> 기타
+                  <div class=col-12><input type="checkbox" name=medicalAnimal value=새> 새
+        <input type="checkbox" name=medicalAnimal value=물고기> 물고기
+        <input type="checkbox" name=medicalAnimal value=햄스터> 햄스터
+        <input type="checkbox" name=medicalAnimal value=토끼> 토끼
+        <input type="checkbox" name=medicalAnimal value=고슴도치> 고슴도치
+        <input type="checkbox" name=medicalAnimal value=파충류> 파충류
+        <input type="checkbox" name=medicalAnimal value=곤충류> 곤충류
+        <input type="checkbox" name=medicalAnimal value=기타> 기타
         </div>
          
          <div class=col-12>진료시간</div>
-                  <div class=col-12><input type="checkbox" name=openTime value=주간진료;> 주간진료
-        <input type="checkbox" name=openTime value=야간응급진료;> 야간응급진료
-        <input type="checkbox" name=openTime value=24시간진료;> 24시간진료
+                  <div class=col-12><input type="checkbox" name=openTime value=주간진료> 주간진료
+        <input type="checkbox" name=openTime value=야간응급진료> 야간응급진료
+        <input type="checkbox" name=openTime value=24시간진료> 24시간진료
         
         </div> 
         <div class=col-12>사진</div>

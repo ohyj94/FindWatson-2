@@ -37,27 +37,116 @@ public class ManagerDAO {
 	private Connection getConnection() throws Exception{
 		return bds.getConnection();
 	}
-	//병원 리스트
-	public List<HListDTO> hospitalList() throws Exception{
-		String sql = "select seq,hosptName from hosptList";
+	
+	//병원목록 10개씩
+	public List<HListDTO> hosptListByPage(int start, int end) throws Exception{
+		String sql = "select * from"
+				+ "(select hosptList.*, row_number() over (order by seq) as rown from hosptList)"
+				+ " where rown between ? and ?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
-				ResultSet rs = pstat.executeQuery();
 				){
-			List<HListDTO> list = new ArrayList<>();
-			while (rs.next()) {
-				int seq = rs.getInt(1);
-				String hosptName = rs.getString(2);
-				HListDTO result = new HListDTO(seq,hosptName);
-				list.add(result);
+			pstat.setInt(1, start);
+			pstat.setInt(2, end);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+				List<HListDTO> result = new ArrayList<>();
+				while(rs.next()) {
+					int seq = rs.getInt(1);
+					String hosptName = rs.getString(2);
+					int postcode = rs.getInt(3);
+					String city = rs.getString(4);
+					String gu = rs.getString(5);
+					String phone = rs.getString(6);
+					String homepage = rs.getString(7);
+					String img = rs.getString(8);
+					String medicalAnimal = rs.getString(9);
+					String openTime = rs.getString(10);
+					Timestamp registDate = rs.getTimestamp(11);
+					int viewCount = rs.getInt(12);
+					HListDTO dto = new HListDTO(seq, hosptName, postcode, city, gu,
+							phone, homepage, img, medicalAnimal, openTime, registDate, viewCount);
+					result.add(dto);
+				}
+				return result;
 			}
-			return list;
 		}
+	}
+	//병원목록 총 글의 개수
+	public int recordHosptListTotalCount () throws Exception {
+		String sql = "select count(seq) from hosptList";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//병원목록 페이지 네비게이터
+	public String getHosptListPageNav(int currentPage) throws Exception {
+		//게시판 내의 총 글의 개수
+		int recordTotalCount = this.recordHosptListTotalCount();
+		//한 페이지에 몇개의 글을 보여줄건지
+		//int recordCountPerPage = 10;
+		//한 페이지에서 몇개의 네비게이터를 보여줄건지
+		//int naviCountPerPage = 10;
+		//총 몇개의 페이지인지
+		int pageTotalCount = 0;
+		if(recordTotalCount % Configuration.recordCountPerPage > 0) {
+			//총 글의 개수를 페이지당 보여줄 개수로 나누었을 때, 나머지가 생기면 총페이지의 개수 +1
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+		}
+
+		//현재 페이지 값이 비정상 값일 때, 조정하는 보안 코드
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		//현재 내가 위치하고 있는 페이지에 따라 네비게이터 시작 페이지 값을 구하는 공식
+		int startNavi = ((currentPage-1) / Configuration.naviCountPerPage) * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + Configuration.naviCountPerPage - 1;
+
+		//페이지 끝값이 비정상 값일 때, 조정하는 보안 코드
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		System.out.println("현재 페이지 번호 : " + currentPage);
+		System.out.println("네비게이터 시작 번호 : " + startNavi);
+		System.out.println("네비게이터 끝 번호 : " + endNavi);
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if(currentPage == 1) {
+			needPrev = false;
+		}
+		if(currentPage == pageTotalCount) {
+			needNext = false;
+		}
+		StringBuilder sb = new StringBuilder();
+
+		if(needPrev) {sb.append("<a href='adminBoardHosptList.manager?cpage="+(currentPage-1)+"'> < </a>");}
+
+		for(int i = startNavi; i <= endNavi;i++) {
+			sb.append("<a href='adminBoardHosptList.manager?cpage="+i+"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+		}
+		if(needNext) {sb.append("<a href='adminBoardHosptList.manager?cpage="+(currentPage+1)+"'> > </a>");}
+		return sb.toString();
 	}
 	//병원 정보 등록
 	public int insertHospital(HListDTO dto) throws Exception{
-		String sql = "insert into hosptList values(hosptListSeq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into hosptList values(hosptListSeq.nextval,?,?,?,?,?,?,?,?,?,sysdate,?)";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -65,14 +154,13 @@ public class ManagerDAO {
 			pstat.setString(1, dto.getHosptName());
 			pstat.setInt(2, dto.getPostcode());
 			pstat.setString(3, dto.getAddress1());
-			pstat.setString(3, dto.getAddress2());
-			pstat.setString(4, dto.getPhone());
-			pstat.setString(5, dto.getHomepage());
+			pstat.setString(4, dto.getAddress2());
+			pstat.setString(5, dto.getPhone());
+			pstat.setString(6, dto.getHomepage());
 			pstat.setString(7, dto.getImg());
 			pstat.setString(8, dto.getMedicalAnimal());
 			pstat.setString(9, dto.getOpenTime());
-			pstat.setTimestamp(10, dto.getRegistDate());
-			pstat.setInt(11, dto.getViewCount());
+			pstat.setInt(10, dto.getViewCount());
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;

@@ -111,7 +111,7 @@
             <div class="row">
             <div id="article-middle" class="col-12 mt-2">
                 <div class="row mb-3 p-1 text-center">
-                    <h3 id="board-top" class="col-auto col-sm-4 m-0">회원 목록 조회</h3>
+                    <h3 id="board-top" class="col-auto col-sm-4 m-0">차단 IP 조회</h3>
                     <span class="col-auto col-sm-8 mt-2">
                            <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
                     </span>
@@ -119,44 +119,30 @@
             <div class="row line">
                 
                 <div class="col-md-3 d-none d-md-block">
-                    아이디
+                    병원번호
                 </div>
                 <div class="col-md-3 d-none d-md-block">
-           	이름
+           	병원이름
                 </div>
                 <div class="col-md-6 d-none d-md-block">
-            	공란
+                    홈페이지
                 </div>
             </div>
             <!-- 게시글 목록 -->
-            
-           
-           <c:choose>
-           <c:when test="${list.size() == 0}">
-           	 <div class="row line">
-           	<div class="col-12" style="text-align: center">표시할 내용이 없습니다.</div>
-           		</div>
-           </c:when>
-           <c:otherwise>
            <c:forEach items="${list}" var="list">
-           	<div class="row line">
+           <div class="row line">
                 
                 <div class="col-md-3 d-none d-md-block">
-                  ${list.id}
+                    ${list.seq}
                 </div>
                 <div class="col-md-3 d-none d-md-block">
-           			${list.name }
+           			${list.hosptName}
                 </div>
                 <div class="col-md-6 d-none d-md-block">
-                    <a href="${pageContext.request.contextPath}/admin/adminDeleteMember.admin?id=${list.id}">삭제하기</a>
+                    ${list.homepage }
                 </div>
             </div>
-            
-                            
             </c:forEach>
-           </c:otherwise>
-           </c:choose>
-            <form action="${pageContext.request.contextPath}/admin/adminSearchMember.admin" method="post">
                             <div class="row">
                                 <div class="col-12 text-center">
                                     ${pageNavi}
@@ -168,7 +154,6 @@
                                         <option value="">제목</option>
                                     </select>
                                 </div>
-                              
                                 <div class="search-box col-auto col-sm-6 p-1">
                                     <input type="text" class="" id="search" name="search" value="">
                                 </div>
@@ -178,19 +163,11 @@
                                 <div class="write-box col-auto col-sm-2 text-center p-1">
                                     <button class="btn btn-sm btn-outline-secondary">작성하기</button>
                                 </div>
-                               
-                                <script>
-        	$('.btn btn-sm btn-outline-secondary').on('click',function(){
-        		$('form').submit();
-        	})
-        </script>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </form>
-                          
             <!--            -->
             <div class="row">
                 <div id="footer" class="col-12">
