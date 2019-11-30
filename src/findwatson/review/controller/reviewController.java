@@ -75,6 +75,7 @@ public class reviewController extends HttpServlet {
 		}else if(cmd.contentEquals("/search/reviewWrite.re")){ //리뷰 등록
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
+			System.out.println(content);
 			int score = Integer.parseInt(request.getParameter("rating"));
 			System.out.println(score);
 			try {

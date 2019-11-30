@@ -54,7 +54,7 @@
             </div>
             <div class="row">
                 <div id="title" class="col-12 mb-3 p-1 text-center">
-                    <img id="logo" src="imgs/logo.png" class="col-12">
+                    <img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12">
                 </div>
             </div>
             <div class="row">
@@ -88,8 +88,8 @@
           마이페이지
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">내 정보 보기</a>
-          <a class="dropdown-item" href="#">내 정보 수정</a>
+          <a class="dropdown-item" href="#">내 정보</a>
+          <a class="dropdown-item" href="#">내 후원보기</a>
           <a class="dropdown-item" href="#">1 : 1 문의</a>
           <a class="dropdown-item" href="#">회원 탈퇴</a>
         </div>
@@ -110,7 +110,7 @@
                 <div id="footer" class="col-12">
                     <div class="row p-1">
                         <div id="footer-logo" class="col-4">
-                            <img id="logo" src="imgs/logo.png" class="d-none d-sm-block col-12">
+                            <img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="d-none d-sm-block col-12">
                         </div>
                         <div id="footer-contents" class="col-8">
                             <div class="row">
@@ -118,7 +118,7 @@
                                 <div class="col-6 col-sm-auto"><a href="#">이용약관</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">개인정보취급방침</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">저작권안내</a></div>
-                                <div class="col-12 col-sm-auto"><a href="#">광고및제휴문의</a></div>
+                                <div class="col-12 col-sm-auto"><a href="#">후원하기</a></div>
                             </div>
                             <div class="row">
                                 <div class="col-12">

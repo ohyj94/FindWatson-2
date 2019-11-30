@@ -1,0 +1,45 @@
+* {
+	box-sizing: border-box
+}
+
+div {
+	border: 1px solid black
+}
+
+#logo {
+	width: 500px;
+	height: 100px;
+	margin: auto;
+}
+
+#article-img {
+	width: 100%;
+	height: 100px;
+	margin: auto;
+}
+
+#footer {
+	
+}
+
+#footer>div {
+	height: 100%;
+}
+
+#footer-logo>div {
+	height: 100%;
+}
+
+#footer-contents {
+	font-size: 8pt;
+}
+
+.nav-item {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+}
+
+.navbar-nav {
+	width: 100%;
+}

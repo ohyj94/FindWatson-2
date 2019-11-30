@@ -67,15 +67,15 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">공지사항</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/adminBoardNotice.manager">공지사항</a>
                                 </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           병원관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">병원정보 등록</a>
-          <a class="dropdown-item" href="#">병원정보 수정/삭제</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminInsertHospt.jsp">병원정보 등록</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminBoardHosptList.manager">병원정보 수정/삭제</a>
           <a class="dropdown-item" href="#">병원리뷰</a>
         </div>
         </li>
@@ -130,20 +130,33 @@
             </div>
             <!-- 게시글 목록 -->
             
+           
+           <c:choose>
+           <c:when test="${list.size() == 0}">
+           	 <div class="row line">
+           	<div class="col-12" style="text-align: center">표시할 내용이 없습니다.</div>
+           		</div>
+           </c:when>
+           <c:otherwise>
            <c:forEach items="${list}" var="list">
-           <div class="row line">
+           	<div class="row line">
                 
                 <div class="col-md-3 d-none d-md-block">
-                    ${list.id}
+                  ${list.id}
                 </div>
                 <div class="col-md-3 d-none d-md-block">
            			${list.name }
                 </div>
                 <div class="col-md-6 d-none d-md-block">
-                    공란
+                    <a href="${pageContext.request.contextPath}/admin/adminDeleteMember.admin?id=${list.id}">삭제하기</a>
                 </div>
             </div>
+            
+                            
             </c:forEach>
+           </c:otherwise>
+           </c:choose>
+            <form action="${pageContext.request.contextPath}/admin/adminSearchMember.admin" method="post">
                             <div class="row">
                                 <div class="col-12 text-center">
                                     ${pageNavi}
@@ -155,6 +168,7 @@
                                         <option value="">제목</option>
                                     </select>
                                 </div>
+                              
                                 <div class="search-box col-auto col-sm-6 p-1">
                                     <input type="text" class="" id="search" name="search" value="">
                                 </div>
@@ -164,11 +178,19 @@
                                 <div class="write-box col-auto col-sm-2 text-center p-1">
                                     <button class="btn btn-sm btn-outline-secondary">작성하기</button>
                                 </div>
+                               
+                                <script>
+        	$('.btn btn-sm btn-outline-secondary').on('click',function(){
+        		$('form').submit();
+        	})
+        </script>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            </form>
+                          
             <!--            -->
             <div class="row">
                 <div id="footer" class="col-12">

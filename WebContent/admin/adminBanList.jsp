@@ -67,15 +67,15 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">공지사항</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/adminBoardNotice.manager">공지사항</a>
                                 </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           병원관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">병원정보 등록</a>
-          <a class="dropdown-item" href="#">병원정보 수정/삭제</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminInsertHospt.jsp">병원정보 등록</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminBoardHosptList.manager">병원정보 수정/삭제</a>
           <a class="dropdown-item" href="#">병원리뷰</a>
         </div>
         </li>

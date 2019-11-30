@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,14 +20,6 @@
                 height: 100px;
                 margin: auto;
                 background-color: ghostwhite;
-            }
-/*
-            #article{
-                height: 600px;
-            }
-*/
-            #article>*{
-                height: 100%;
             }
             #article-img{
                 width:100%;
@@ -51,20 +43,12 @@
             .navbar-nav{
                 width: 100%;
             }
-            #category{width: 100%; height: 100%;}
-            #board-contents{overflow: auto; font-size: 10pt;}
-            .article-navi{width: 100%;}
-            .article-navi>div>ul>li{display: inline-block; width: 100%;}
-            .Anavi{width: 100%;}
-            .search-box>*{width: 100%;}
-            .write-box>*{width: 100%;}
-            #boardTitle{width:100%;}
         </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
             <div class="row mb-2">
-                <div id="loginBtn" class="col-12 text-right">
+                <div id="loginBtn" class="col-12 p-1 text-right">
                     <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
                 </div>
             </div>
@@ -99,50 +83,28 @@
           <a class="dropdown-item" href="#">질문게시판</a>
         </div>
         </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">마이페이지</a>
-                                </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          마이페이지
+        </a>
+        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/mypageInfo.member">내 정보</a>
+          <a class="dropdown-item" href="#">내 후원보기</a>
+          <a class="dropdown-item" href="member/mypageOneByOne.jsp">1 : 1 문의</a>
+          <a class="dropdown-item" href="member/mypageWithdrawal.jsp">회원 탈퇴</a>
+        </div>
+        </li>
                             </ul>
                         </div>
                     </nav>
                 </div>
             </div>
             <!--            -->
-            <div class="row">
-                <div class="col-12" id="article">
-                    <div class="row">
-                        <div id="article-middle" class="col-12 mt-2">
-                           <div class="row mb-3 p-1 text-center">
-                                <h3 id="board-top" class="col-auto col-sm-4 m-0">질문게시판</h3>
-                                <span class="col-auto col-sm-8 mt-2">반려동물에 대해 질문하는 게시판 입니다.</span>
-                            </div>
-                            <div class="row">
-                                <div class="col-2 p-1">
-                                    <select id="category">
-                                        <option value="">말머리</option>
-                                    </select>
-                                </div>
-                                <div class="col-10 p-1">
-<input type="text" class="" id="boardTitle" name="boardTitle">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 p-1">
-                                    <!-- 썸머노트 -->
-<textarea name="" id="" cols="30" rows="10"></textarea>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-12 p-1 text-center">
-<button id="writeBtn" type="button" class="btn btn-sm btn-outline-secondary">작성</button>
-<button id="updateBtn" type="button" class="btn btn-sm btn-outline-secondary">수정</button>
-<button id="deleteBtn" type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+ 
+
+
             <!--            -->
             <div class="row">
                 <div id="footer" class="col-12">
@@ -156,7 +118,7 @@
                                 <div class="col-6 col-sm-auto"><a href="#">이용약관</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">개인정보취급방침</a></div>
                                 <div class="col-6 col-sm-auto"><a href="#">저작권안내</a></div>
-                                <div class="col-12 col-sm-auto"><a href="#">광고및제휴문의</a></div>
+                                <div class="col-12 col-sm-auto"><a href="#">후원하기</a></div>
                             </div>
                             <div class="row">
                                 <div class="col-12">

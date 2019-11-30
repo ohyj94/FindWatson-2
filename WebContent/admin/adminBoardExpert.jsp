@@ -74,8 +74,8 @@
           병원관리
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">병원정보 등록</a>
-          <a class="dropdown-item" href="#">병원정보 수정/삭제</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminInsertHospt.jsp">병원정보 등록</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/adminBoardHosptList.manager">병원정보 수정/삭제</a>
           <a class="dropdown-item" href="#">병원리뷰</a>
         </div>
         </li>
@@ -117,60 +117,53 @@
                     </span>
             </div>
             <div class="row line">
-                <div class="col-1 d-none d-md-block"></div>
+                
                 <div class="col-md-2 d-none d-md-block">
-                    말머리
+                    글번호
                 </div>
-                <div class="col-md-5 d-none d-md-block">
+                <div class="col-md-2 d-none d-md-block">
+           	작성자
+                </div>
+                <div class="col-md-2 d-none d-md-block">
                     제목
                 </div>
                 <div class="col-md-2 d-none d-md-block">
-                    작성자
+                    내용
                 </div>
                 <div class="col-md-2 d-none d-md-block">
-                    작성날짜
+                    작성일
+                </div>
+                <div class="col-md-2 d-none d-md-block">
+                    조회수
                 </div>
             </div>
             <!-- 게시글 목록 -->
-            <div class="row line">
-                <div class="col-1 d-none d-md-block">1</div>
+           <c:forEach items="${list}" var="list">
+           <div class="row line">
+                
                 <div class="col-md-2 d-none d-md-block">
-                    응급처치
+                    ${list.seq}
                 </div>
-                <div class="col-8 col-md-5 text-left">
-                    도마뱀 탈피 도와주는법
+                <div class="col-md-2 d-none d-md-block">
+                    ${list.writer}
                 </div>
-                <!-- 모바일에서만 보이는 div -->
-                <div class="col-4 d-block d-md-none">공지</div>
-                <!-- 모바일에서만 보이는 div -->
-                <div class="col-6 col-md-2 text-left">
-                    관리자
+                <div class="col-md-2 d-none d-md-block">
+                    ${list.title}
                 </div>
-                <div class="col-6 col-md-2">
-                    2019-11-28
+                <div class="col-md-2 d-none d-md-block">
+                    ${list.content}
+                </div>
+                <div class="col-md-2 d-none d-md-block">
+                    ${list.formedDate}
+                </div>
+                <div class="col-md-2 d-none d-md-block">
+                    ${list.viewCount}
                 </div>
             </div>
-            <div class="row line">
-                <div class="col-1 d-none d-md-block">2</div>
-                <div class="col-md-2 d-none d-md-block">
-                    꿀팁
-                </div>
-                <div class="col-8 col-md-5 text-left">
-                    반려동물 스트레스 해소법!
-                </div>
-                <!-- 모바일에서만 보이는 div -->
-                <div class="col-4 d-block d-md-none">이벤트</div>
-                <!-- 모바일에서만 보이는 div -->
-                <div class="col-6 col-md-2 text-left">
-                    관리자
-                </div>
-                <div class="col-6 col-md-2">
-                    2019-11-28
-                </div>
-            </div>    
+            </c:forEach>
                             <div class="row">
                                 <div class="col-12 text-center">
-                                    1 2 3 4 5
+                                    ${pageNavi}
                                 </div>
                             </div>
                             <div class="row mb-2">

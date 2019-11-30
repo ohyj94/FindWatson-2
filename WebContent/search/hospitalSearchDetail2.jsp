@@ -110,6 +110,9 @@ right:2%;
 #ssss{
 position:relative;
 }
+.noneExist{
+display:none;
+}
 </style>
 </head>
 <body>
@@ -303,7 +306,8 @@ position:relative;
 			</div>
 			<div class=row>
 			<div class="col-12 center">
-					<textarea id="summernote" name=content ></textarea><br>
+					<textarea id="summernote"></textarea><br>
+					<textarea id=snInput class=noneExist name=content></textarea>
 					<button id=reviewSaveBtn type=button>후기 등록</button>
 			</div>
 			</div>
@@ -314,6 +318,7 @@ position:relative;
 		</div>
 	</form>
 	<script>
+		//리뷰 등록 전 유효성 검사
 		$("#reviewSaveBtn").on("click", function() {
 			var title = $("#titleReview").val(); 
 			var content = $(".note-editable").html();
@@ -326,12 +331,15 @@ position:relative;
 			}else{
 				var result = confirm("정말 등록 하시겠습니까?");
 				if(result){
+					var contentReal = $(".note-editable").html();
+					$("#snInput").val(contentReal);
 					$("#reviewSave").submit();
 				}
 			}
 			
 		})
 
+		//썸머노트 이미지 업로드
 		$("#summernote").summernote({
 			height : 600,
 			tabsize: 2,
@@ -376,7 +384,7 @@ position:relative;
                    var cur=document.getElementById("star"+i)
                    if(cur.className=="fa fa-star")
                    {
-                       cur.className="fa fa-star checked"
+                       cur.className="fa fa-star checked";
                        $("#rating").val(i);
                    }
                }
