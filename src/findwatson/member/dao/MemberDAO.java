@@ -39,12 +39,31 @@ public class MemberDAO {
 				){
 			pstat.setString(1, id);
 			pstat.setString(2, pw);
-			ResultSet rs = pstat.executeQuery();
-			boolean result = rs.next(); 
-					return result;
+			try(
+				ResultSet rs = pstat.executeQuery();
+			){
+				boolean result = rs.next(); 
+				return result;
+			}
+			
+			
 		}
-
-		
+	}
+	public boolean idCheck(String id) throws Exception {
+		String sql = "select * from member where id=?";
+		try(Connection con = bds.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, id);
+			try(
+				ResultSet rs = pstat.executeQuery();
+			){
+			boolean result = rs.next();
+			return result;
+			}
+			
+			
+		}
 	}
 	public int insert(MemberDTO dto)throws Exception{
 		String sql = "insert into member values (?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
