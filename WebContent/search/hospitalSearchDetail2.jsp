@@ -116,7 +116,7 @@ display:none;
 </style>
 </head>
 <body>
-	<form action="reviewWrite.re" method="post" id=reviewSave>
+	<form action="${pageContext.request.contextPath}/reviewWrite.re" method="post" id=reviewSave>
 
 		<div class="container">
 			<div class="row">
@@ -202,9 +202,9 @@ display:none;
 
 			<div class=row>
 				<div class=col-12 id=array>
-					<a href="hospitalSearchDetail2ByScore.re" id=scoreRange>별점순</a>
-					<a href="hospitalSearchDetail2.re">최신순</a> 
-					<a href="hospitalSearchDetail2ByLike.re" id=defaultRange>좋아요순</a>
+					<a href="${pageContext.request.contextPath}/hospitalSearchDetail2ByScore.re" id=scoreRange>별점순</a>
+					<a href="${pageContext.request.contextPath}/hospitalSearchDetail2.re">최신순</a> 
+					<a href="${pageContext.request.contextPath}/hospitalSearchDetail2ByLike.re" id=defaultRange>좋아요순</a>
 				</div>
 			</div>
 			<c:choose>
@@ -349,7 +349,7 @@ display:none;
 					data.append("reviewImg", files[0]);
 
 					$.ajax({
-						url : "imgUpload.re",
+						url : "${pageContext.request.contextPath}/imgUpload.re",
 						enctype : "multipart/form-data",
 						type : "post",
 						data : data,

@@ -49,10 +49,6 @@
 	width: 100%;
 }
 
-#article, .line {
-	border: 0.5px solid lightgray;
-}
-
 #category {
 	width: 100%;
 	height: 100%;
@@ -80,7 +76,9 @@
 		</div>
 		<div class="row">
 			<div id="title" class="col-12 mb-3 p-1 text-center">
-				<img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12">
+				<img id="logo"
+					src="${pageContext.request.contextPath}/imgs/logo.png"
+					class="col-12">
 			</div>
 		</div>
 		<div class="row">
@@ -93,7 +91,8 @@
 					</button>
 					<div class="collapse navbar-collapse" id="navbarNav">
 						<ul class="navbar-nav">
-							<li class="nav-item"><a class="nav-link" id=notice>공지사항</a></li>
+							<li class="nav-item"><a class="nav-link"
+								id=notice>공지사항</a></li>
 							<li class="nav-item dropdown"><a
 								class="nav-link dropdown-toggle" href="#"
 								id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
@@ -110,10 +109,11 @@
 								aria-haspopup="true" aria-expanded="false"> 게시판관리 </a>
 								<div class="dropdown-menu text-center"
 									aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" id=expert>전문가Q&A</a> <a
-										class="dropdown-item" id=free>자유게시판</a> <a
+									<a class="dropdown-item"
+										id=expert>전문가Q&A</a>
+									<a class="dropdown-item" id=free>자유게시판</a> <a
 										class="dropdown-item" id=question>질문게시판</a> <a
-										class="dropdown-item" href="#">1:1문의</a>
+										class="dropdown-item" href="#">1:1문의게시판</a>
 								</div></li>
 							<li class="nav-item dropdown"><a
 								class="nav-link dropdown-toggle" href="#"
@@ -136,32 +136,40 @@
 				<div class="row">
 					<div id="article-middle" class="col-12 mt-2">
 						<div class="row mb-3 p-1 text-center">
-							<h3 id="board-top" class="col-auto col-sm-4 m-0">전문가 Q&A</h3>
-							<span class="col-auto col-sm-8 mt-2"> <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
-							</span>
+							<h3 id="board-top" class="col-auto col-sm-4 m-0">자유게시판</h3>
+							<span class="col-auto col-sm-8 mt-2">자유롭게 소통하는 공간 입니다.</span>
 						</div>
 						<div class="row line">
-							<div class="col-md-2 d-none d-md-block">글번호</div>
+							<div class="col-1 d-none d-md-block"></div>
+							<div class="col-md-2 d-none d-md-block">말머리</div>
+							<div class="col-md-5 d-none d-md-block">제목</div>
 							<div class="col-md-2 d-none d-md-block">작성자</div>
-							<div class="col-md-4 d-none d-md-block">제목</div>
-							<div class="col-md-2 d-none d-md-block">작성일</div>
-							<div class="col-md-2 d-none d-md-block">조회수</div>
+							<div class="col-md-2 d-none d-md-block">작성날짜</div>
 						</div>
 						<!-- 게시글 목록 -->
-						<c:forEach items="${list}" var="list">
-							<div class="row line">
-								<div class="col-md-2 d-none d-md-block">${list.seq}</div>
-								<div class="col-md-2 d-none d-md-block">${list.writer}</div>
-								<div class="col-md-4 d-none d-md-block">${list.title}</div>
-								<div class="col-md-2 d-none d-md-block">
-									${list.formedDate}</div>
-								<div class="col-md-2 d-none d-md-block">${list.viewCount}
-								</div>
-							</div>
-						</c:forEach>
+						<c:choose>
+							<c:when test="${list.size() == 0}">게시물이 없습니다.</c:when>
+							<c:when test="${list.size() > 0}">
+								<c:forEach items="${list}" var="dto">
+									<div class="row line">
+										<div class="col-1 d-none d-md-block">1</div>
+										<div class="col-md-2 d-none d-md-block">
+											${dto.animalHeader}</div>
+										<div class="col-8 col-md-5 text-left">${dto.title}</div>
+										<!-- 모바일에서만 보이는 div -->
+										<div class="col-4 d-block d-md-none">${dto.animalHeader}</div>
+										<!-- 모바일에서만 보이는 div -->
+										<div class="col-6 col-md-2 text-left">${dto.writer}</div>
+										<div class="col-6 col-md-2 text-center">
+											${dto.writeDate}</div>
+									</div>
+								</c:forEach>
+							</c:when>
+						</c:choose>
 						<div class="row">
 							<div class="col-12 text-center">${pageNavi}</div>
 						</div>
+						<!-- -->
 						<div class="row mb-2">
 							<div class="col-auto col-sm-2 p-1">
 								<select id="category">
@@ -173,9 +181,6 @@
 							</div>
 							<div class="search-box col-auto col-sm-2 p-1">
 								<button class="btn btn-sm btn-outline-secondary">검색</button>
-							</div>
-							<div class="write-box col-auto col-sm-2 text-center p-1">
-								<button class="btn btn-sm btn-outline-secondary" id=writeBtn>작성하기</button>
 							</div>
 						</div>
 					</div>
@@ -189,7 +194,8 @@
 					<div id="footer-logo" class="col-12 col-sm-4">
 						<div class="row">
 							<div class="col">
-								<img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png"
+								<img id="logo"
+									src="${pageContext.request.contextPath}/imgs/logo.png"
 									class="d-none d-sm-block col-12">
 							</div>
 						</div>
@@ -226,6 +232,7 @@
 		</div>
 	</div>
 	<script>
+        	
 	//각 버튼별 주소이동
 	$("#logo").on("click", function() {
 		location.href = "${pageContext.request.contextPath}/mainAdmin.jsp";
@@ -238,13 +245,6 @@
 	$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
 	//질문게시판으로 이동
 	$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
-	
-	//글쓰기 버튼
-	$("#writeBtn").on("click",function(){
-		location.href="${pageContext.request.contextPath}/admin/adminBoardExpertWrite.jsp";
-	})
-	
-	</script>
-
+        </script>
 </body>
 </html>
