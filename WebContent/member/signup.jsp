@@ -11,6 +11,7 @@
         <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
         <style>
             *{box-sizing: border-box}
@@ -140,12 +141,7 @@
                 <div class =row>
                     <div class= "col-12 col-md-6">
                         <h5>생년월일</h5>
-                        <input type=text id = year placeholder="년도" name="birth">
-                    </div>
-                    <div class= "col-12 col-md-6">
-                        <h5><br></h5>
-                        <input type=text id = month placeholder="월" name="birth">
-                        <input type=text id = day placeholder="일" name="birth">
+                        <input type=text id = year placeholder="yyyymmdd" name="birth">
                     </div>
                 </div>
 
