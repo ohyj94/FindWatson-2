@@ -71,7 +71,7 @@ public class AdminController extends HttpServlet {
 					response.sendRedirect("index.jsp");
 				}
 				
-			}else if(cmd.contentEquals("/admin/adminMemberList.admin")) {//회원전체목록
+			}else if(cmd.contentEquals("/adminMemberList.admin")) {//회원전체목록
 				//List<MemberDTO> list = dao.selectAll();
 				//request.setAttribute("list", list);
 				System.out.println("admincontroller 연결 성공");
@@ -97,7 +97,7 @@ public class AdminController extends HttpServlet {
 				
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
 				
-			}else if(cmd.contentEquals("/admin/adminBanList.admin")) {//차단한 ip 목록
+			}else if(cmd.contentEquals("/adminBanList.admin")) {//차단한 ip 목록
 				
 				//List<BanDTO> list = dao.selectBanList();
 				//request.setAttribute("list", list);
