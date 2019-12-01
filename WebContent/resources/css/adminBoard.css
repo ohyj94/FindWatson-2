@@ -43,6 +43,10 @@
 .search-box>* {
 	width: 100%;
 }
+#boardContent{
+	height: 500px;
+}
+
 
 .write-box>* {
 	width: 100%;
@@ -50,4 +54,7 @@
 
 #article, .line {
 	border: 0.5px solid lightgray;
+}
+.right{
+	text-align: right;
 }

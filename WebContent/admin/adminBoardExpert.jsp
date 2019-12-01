@@ -45,7 +45,7 @@
 							<div class="row line">
 								<div class="col-md-2 d-none d-md-block">${list.seq}</div>
 								<div class="col-md-2 d-none d-md-block">${list.writer}</div>
-								<div class="col-md-4 d-none d-md-block">${list.title}</div>
+								<div class="col-md-4 d-none d-md-block"><a href='${pageContext.request.contextPath}/adminExpertDetailView.admin?seq=${list.seq}'>${list.title}</a></div>
 								<div class="col-md-2 d-none d-md-block">
 									${list.formedDate}</div>
 								<div class="col-md-2 d-none d-md-block">${list.viewCount}

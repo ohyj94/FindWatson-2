@@ -42,7 +42,7 @@
 						<c:forEach items="${list}" var="list">
 							<div class="row line">
 								<div class="col-md-2 d-none d-md-block">${list.seq}</div>
-								<div class="col-md-6 d-none d-md-block"><a href=''>${list.title}</a></div>
+								<div class="col-md-6 d-none d-md-block"><a href='${pageContext.request.contextPath}/adminNoticeDetailView.admin?seq=${list.seq}'>${list.title}</a></div>
 								<div class="col-md-2 d-none d-md-block">
 									${list.formedDate}</div>
 								<div class="col-md-2 d-none d-md-block">${list.viewCount}
