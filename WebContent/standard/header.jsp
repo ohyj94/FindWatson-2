@@ -18,7 +18,7 @@
 </div>
 <div class="row">
     <div id="title" class="col-12 p-0 text-center">
-        <a href="../main/index.jsp"><img id="logo" src="../imgs/logo.png" class="col-12 p-0"></a>
+        <a href="/main/index.jsp"><img id="logo" src="/imgs/logo.png" class="col-12 p-0"></a>
     </div>
 </div>
 <div class="row">
