@@ -26,7 +26,7 @@
 </head>
 <body>
     <div class="container">
-            <jsp:include page="${pageContext.request.contextPath}/standard/header.jsp" />   
+            <jsp:include page="../standard/header.jsp" />   
             <!--            -->
             <div class="row">
         <div class="col-12 mb-3" id="article">
