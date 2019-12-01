@@ -148,20 +148,7 @@
                 </div>
             </div>
             
-            <div class=row>
-                <div class= col-12>
-                  <br>
-                   <h2>상세 정보</h2>
-                    <ul class="list-group">
-                        <li class="list-group-item disabled" aria-disabled="true">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Morbi leo risus</li>
-                        <li class="list-group-item">Porta ac consectetur ac</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
-                    <br>
-                </div>
-            </div>
+
             <div class = row>
                 <div class = "col-12">
                 <br>
