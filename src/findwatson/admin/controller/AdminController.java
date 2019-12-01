@@ -133,7 +133,7 @@ public class AdminController extends HttpServlet {
 				response.sendRedirect(contextPath + "/boardExpert.admin");
 			}else if(cmd.contentEquals("/expertWriteImgUpload.admin")) {//전문가 Q&A 글쓰기-이미지 업로드
 				String repositoryName = "expertImg";
-				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
+				String uploadPath = request.getServletContext().getRealPath( "/" + repositoryName);
 				System.out.println(uploadPath);
 				File uploadFilePath = new File(uploadPath);
 				if(!uploadFilePath.exists()) {
@@ -151,7 +151,7 @@ public class AdminController extends HttpServlet {
 				fDao.insertImgToExpert(new AdminFileDTO(0, 0, fileName, oriFileName));
 				
 				//서버의 이미지 경로
-				String imgPath = "../" + repositoryName + "/" + fileName;
+				String imgPath = contextPath + "/" + repositoryName + "/" + fileName;
 				System.out.println(imgPath);
 				
 				JsonObject jObj = new JsonObject();
@@ -184,7 +184,7 @@ public class AdminController extends HttpServlet {
 				fDao.insertImgToNotice(new AdminFileDTO(0, 0, fileName, oriFileName));
 				
 				//서버의 이미지 경로
-				String imgPath = "../" + repositoryName + "/" + fileName;
+				String imgPath = contextPath + "/" + repositoryName + "/" + fileName;
 				System.out.println(imgPath);
 				
 				JsonObject jObj = new JsonObject();
@@ -267,6 +267,20 @@ public class AdminController extends HttpServlet {
 				List<MemberDTO> list = dao.selectById(idInput);
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
+				int noticeSeq = Integer.parseInt(request.getParameter("seq"));
+				NoticeDTO dto = dao.getNoticeBySeq(noticeSeq);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("admin/adminNoticeDetailView.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/adminExpertDetailView.admin")) {//관리자 - 전문가 Q&A에서 글 클릭했을때
+				int expertSeq = Integer.parseInt(request.getParameter("seq"));
+				ExpertDTO dto = dao.getExpertBySeq(expertSeq);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("admin/adminExpertDetailView.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/adminFreeDetailView.admin")) {//관리자 - 자유게시판에서 글 클릭했을때
+				
+			}else if(cmd.contentEquals("/adminQuestionDetailView.admin")) {//관리자 - 질문게시판에서 글 클릭했을때
+				
 			}else {
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
