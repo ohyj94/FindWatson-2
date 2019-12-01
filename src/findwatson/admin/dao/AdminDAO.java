@@ -541,6 +541,17 @@ public class AdminDAO {
 				}	
 			}
 	
-	
+	//관리자 - 통계
+			public int recordMemberGenderTotalCount () throws Exception {
+				String sql = "select count(id) from member";
+				try(
+						Connection con = this.getConnection();
+						PreparedStatement pstat = con.prepareStatement(sql);
+						){
+					ResultSet rs = pstat.executeQuery();
+					rs.next();
+					return rs.getInt(1);
+				}
+			}		
 	
 }

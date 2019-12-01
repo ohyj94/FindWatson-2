@@ -270,6 +270,11 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
 			}
+			else if(cmd.contentEquals("/admin/adminMemberChart.admin")) {
+				System.out.println("회원차트 진입성공");
+				int memberTotalCount = dao.recordMemberListTotalCount();
+				
+			}
 			else {
 				response.sendRedirect(contextPath + "/error.jsp");
 			}

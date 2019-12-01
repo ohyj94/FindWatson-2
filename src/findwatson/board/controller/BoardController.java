@@ -197,11 +197,11 @@ public class BoardController extends HttpServlet {
 			
 			// 등록되지 않은 경로로 입장시
 			} else {
-				response.sendRedirect("error.jsp");
+				response.sendRedirect("main/error.jsp");
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("main/error.jsp");
 		}
 		
 	}

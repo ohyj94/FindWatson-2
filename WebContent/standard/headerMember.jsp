@@ -2,18 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!-- 회원전용 페이지 header : 로그인 정보가 없으면 로그인페이지로 이동. 페이지 조회 불가능하도록 -->
+
+<c:choose>
+			<c:when test="${loginInfo ==null}">
+				<script>
+				alert("로그인이 필요한 페이지입니다.");
+				location.href = "member/login.jsp"
+				</script>
+			</c:when>
+</c:choose>
+		
+		
 <div class="row mb-2">
     <div id="loginBtn" class="col-12 p-1 text-right">
-       <c:choose>
-			<c:when test="${loginInfo ==null}">
-				<button class="btn btn-sm btn-outline-secondary" id="donate">후원하기</button>
-				<button class="btn btn-sm btn-outline-secondary" id="login">로그인</button>
-				<button class="btn btn-sm btn-outline-secondary" id="join">회원가입</button>
-			</c:when>
-			<c:otherwise>
-				<button id=logout class="btn btn-sm btn-outline-secondary">로그아웃</button>
-			</c:otherwise>
-		</c:choose> 
+        <button id=logout class="btn btn-sm btn-outline-secondary">로그아웃</button>
     </div>
 </div>
 <div class="row">

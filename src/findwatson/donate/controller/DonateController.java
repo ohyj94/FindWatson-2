@@ -45,6 +45,8 @@ public class DonateController extends HttpServlet {
 				}
 				System.out.println(userId);
 				String name = request.getParameter("name");
+				
+				//테이블, DTO에 생년월일 빼먹음 수정해
 				String birth = request.getParameter("birth");
 				String phone = request.getParameter("phone");
 				String email = request.getParameter("email");

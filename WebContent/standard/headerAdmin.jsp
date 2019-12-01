@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!--로그인 기능 연동되면 ${loginInfo == null}일때 로그인이 필요(알림창) 로그인페이지(이동) -->
+<!-- Admin Controller와 Manager Controller 무슨 차이...? -->
+
 <div class="row mb-2">
     <div id="loginBtn" class="col-12 p-1 text-right">
         <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
@@ -9,7 +12,7 @@
 </div>
 <div class="row">
     <div id="title" class="col-12 mb-3 p-1 text-center">
-        <img id="logo" src="imgs/logo.png" class="col-12">
+        <a href="../main/mainAdmin.jsp"><img id="logo" src="../imgs/logo.png" class="col-12"></a>
     </div>
 </div>
 <div class="row">
@@ -28,9 +31,9 @@
                             병원관리
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">병원정보 등록</a>
+                            <a class="dropdown-item" href="../admin/adminInsertHospt.jsp">병원정보 등록</a>
                             <a class="dropdown-item" href="#">병원정보 수정/삭제</a>
-                            <a class="dropdown-item" href="#">병원리뷰</a>
+                            <a class="dropdown-item" href="#">병원리뷰 관리</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -38,7 +41,7 @@
                             게시판관리
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">전문가Q&A</a>
+                            <a class="dropdown-item" href="#">전문가Q&amp;A</a>
                             <a class="dropdown-item" href="#">자유게시판</a>
                             <a class="dropdown-item" href="#">질문게시판</a>
                             <a class="dropdown-item" href="#">1:1문의게시판</a>
@@ -59,3 +62,18 @@
         </nav>
     </div>
 </div>    
+
+<script>
+		//각 버튼별 주소이동
+		$("#logo").on("click", function() {
+			location.href = "../main/mainAdmin.jsp";
+		});
+		//공지사항으로 이동
+		$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
+		//전문가 Q&A로 이동
+		$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
+		//자유게시판으로 이동
+		$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
+		//질문게시판으로 이동
+		$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
+</script>
