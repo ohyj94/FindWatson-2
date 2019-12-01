@@ -119,7 +119,7 @@ div {
 									aria-labelledby="navbarDropdownMenuLink">
 									<a class="dropdown-item" id=memberList>회원목록조회</a> <a
 										class="dropdown-item" id=banList>차단 IP 조회</a> <a
-										class="dropdown-item" href="#">회원 통계</a>
+										class="dropdown-item" id=memberCharts>회원 통계</a>
 								</div></li>
 						</ul>
 					</div>
@@ -188,6 +188,8 @@ div {
 		$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");
 		//차단한ip목록조회로 이동
 		$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
+		//회원통계로 이동
+		$("#memberCharts").attr("href", "${pageContext.request.contextPath}/adminMemberChart.admin");
 	</script>
 </body>
 </html>

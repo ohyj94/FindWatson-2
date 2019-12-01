@@ -121,7 +121,7 @@ div {
 									aria-labelledby="navbarDropdownMenuLink">
 									<a class="dropdown-item" id=memberList>회원목록조회</a> <a
 										class="dropdown-item" id=banList>차단 IP 조회</a> <a
-										class="dropdown-item" href="#">회원 통계</a>
+										class="dropdown-item" id="memberCharts">회원 통계</a>
 								</div></li>
 						</ul>
 					</div>
@@ -140,25 +140,31 @@ div {
                     </span>
             </div>
             <!-- 회원 통계 -->
-            	<canvas id="memberChart"></canvas>
+            	 <canvas id="memberChart"></canvas>
             	<script>
             	   var ctx = document.getElementById('memberChart');
             	   var myChart = new Chart(ctx, {
             	       type: 'bar',
             	       data: {
-            	           labels: ['전체 가입자 수', '성별(남)', '성별(여)'],
+            	           labels: ['가입자 수', '성별(남)', '성별(여)'],
             	           datasets: [{
             	               label: '회원 통계',
-            	               data: [29, 19, 10],
+            	               data: [${totalCount}, ${memberMCount}, ${memberWCount}],
             	               backgroundColor: [
             	                   'rgba(255, 99, 132, 0.2)',
             	                   'rgba(54, 162, 235, 0.2)',
-            	                   'rgba(255, 206, 86, 0.2)'         
+            	                   'rgba(255, 206, 86, 0.2)',
+            	                   'rgba(75, 192, 192, 0.2)',
+            	                   'rgba(153, 102, 255, 0.2)',
+            	                   'rgba(255, 159, 64, 0.2)'
             	               ],
             	               borderColor: [
             	                   'rgba(255, 99, 132, 1)',
             	                   'rgba(54, 162, 235, 1)',
-            	                   'rgba(255, 206, 86, 1)'
+            	                   'rgba(255, 206, 86, 1)',
+            	                   'rgba(75, 192, 192, 1)',
+            	                   'rgba(153, 102, 255, 1)',
+            	                   'rgba(255, 159, 64, 1)'
             	               ],
             	               borderWidth: 1
             	           }]
@@ -173,7 +179,7 @@ div {
             	           }
             	       }
             	   });
-            	</script>
+            	   </script>
             <!--        -->
             <!-- 관심동물 -->
             <canvas id="lovePetChart"></canvas>
@@ -185,7 +191,7 @@ div {
             	           labels: ['새', '물고기', '햄스터', '토끼', '고슴도치', '파충류', '곤충류', '기타'],
             	           datasets: [{
             	               label: '관심동물',
-            	               data: [12, 19, 3, 5, 2, 3, 5, 10],
+            	               data: [${bird}, ${fish}, ${hamster}, ${rabbit}, ${dochi}, ${reptile}, ${bug}, ${other}],
             	               backgroundColor: [
             	                   'rgba(255, 99, 132, 0.2)',
             	                   'rgba(54, 162, 235, 0.2)',
@@ -354,6 +360,8 @@ div {
 		$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");
 		//차단한ip목록조회로 이동
 		$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
+		//회원통계로 이동
+		$("#memberCharts").attr("href", "${pageContext.request.contextPath}/adminMemberChart.admin");
 	</script>
 </body>
 </html>

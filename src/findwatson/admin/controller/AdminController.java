@@ -270,9 +270,39 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
 			}
-			else if(cmd.contentEquals("/admin/adminMemberChart.admin")) {
+			else if(cmd.contentEquals("/adminMemberChart.admin")) {//회원통계
 				System.out.println("회원차트 진입성공");
-				int memberTotalCount = dao.recordMemberListTotalCount();
+				//회원정보
+				int totalCount = dao.recordMemberListTotalCount();
+				int memberMCount = dao.recordMemberMTotalCount();
+				int memberWCount = dao.recordMemberWTotalCount();
+				request.setAttribute("totalCount", totalCount);
+				request.setAttribute("memberMCount", memberMCount);
+				request.setAttribute("memberWCount", memberWCount);
+				//관심동물
+				int bird = dao.recordBirdTotalCount();
+				int fish = dao.recordFishTotalCount();
+				int hamster = dao.recordHamsterTotalCount();
+				int rabbit = dao.recordRabbitTotalCount();
+				int dochi = dao.recordDochiTotalCount();
+				int reptile = dao.recordReptileTotalCount();
+				int bug = dao.recordBugTotalCount();
+				int other = dao.recordOtherTotalCount();
+				request.setAttribute("bird", bird);
+				request.setAttribute("fish", fish);
+				request.setAttribute("hamster", hamster);
+				request.setAttribute("rabbit", rabbit);
+				request.setAttribute("dochi", dochi);
+				request.setAttribute("reptile", reptile);
+				request.setAttribute("bug", bug);
+				request.setAttribute("other", other);
+				//가입경로
+				
+				request.getRequestDispatcher("/admin/adminMemberChart.jsp").forward(request, response);
+				
+			}
+			else if(cmd.contentEquals("/adminMemberChart.admin")) {//관심동물통계
+				
 				
 			}
 			else {
