@@ -25,7 +25,7 @@
     <body>
         <div class="container">
             <jsp:include page="../standard/header.jsp" />           
-            <!--            -->
+            <!--    내용시작        -->
             <div class="row">
                 <div id="article-top" class="col-12 mb-3 p-0">
                     <div id="carouselExampleIndicators"
