@@ -127,7 +127,7 @@ public class SearchController extends HttpServlet {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				System.out.println(seq);
 				HListDTO contents = HospitalListDAO.getInstance().select(seq);
-				//System.out.println(contents.getTitle());
+				System.out.println(contents.getHosptName());
 				//System.out.println(contents.getContents());
 
 				HospitalListDAO.getInstance().plusss(contents.getViewCount(),seq);
