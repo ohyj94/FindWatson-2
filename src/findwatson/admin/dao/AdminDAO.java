@@ -11,6 +11,7 @@ import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import findwatson.admin.dto.BanDTO;
 import findwatson.admin.dto.ExpertDTO;
+import findwatson.admin.dto.HListDTO;
 import findwatson.admin.utils.Util;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
@@ -526,21 +527,37 @@ public class AdminDAO {
 		}	
 	}
 	
-	//관리자 - 공지에 글작성
-			public int insertToNotice(ExpertDTO dto)throws Exception{
-				String sql = "insert into notice values (noticeSeq.nextval,?,?,sysdate, 0)";
-				try(
-					Connection con = getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setString(1, dto.getTitle());
-					pstat.setString(2, dto.getContent());
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
-				}	
-			}
+	// 관리자 - 공지에 글작성
+	public int insertToNotice(ExpertDTO dto) throws Exception {
+		String sql = "insert into notice values (noticeSeq.nextval,?,?,sysdate, 0)";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setString(1, dto.getTitle());
+			pstat.setString(2, dto.getContent());
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
 	
+	// 관리자 - 병원정보 등록
+	public int insertHospitalInfo(HListDTO dto) throws Exception {
+		String sql = "insert into hosptList values (hosptListSeq.nextval,?,?,?,?,?,?,?,?,?,sysdate,0)";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setString(1, dto.getHosptName());
+			pstat.setInt(2, dto.getPostcode());
+			pstat.setString(3, dto.getAddress1());
+			pstat.setString(4, dto.getAddress2());
+			pstat.setString(5, dto.getPhone());
+			pstat.setString(6, dto.getHomepage());
+			pstat.setString(7, dto.getImg());
+			pstat.setString(8, dto.getMedicalAnimal());
+			pstat.setString(9, dto.getOpenTime());
+			
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
 	
 	
 }
