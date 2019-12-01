@@ -60,7 +60,7 @@
     <body>
         <div class="container">
             <jsp:include page="../standard/header.jsp" />           
-            <!--            -->
+            <!--    내용시작        -->
             <div class="row">
                 <div id="article-top" class="col-12 mb-5 p-0">
                     <!--여기 이미지  -->
