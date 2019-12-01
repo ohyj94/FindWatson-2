@@ -189,8 +189,6 @@ public class SearchController extends HttpServlet {
 				request.setAttribute("navi", navi);
 
 				request.getRequestDispatcher("/search/hospitalSearchView.jsp").forward(request, response);
-			}else if(cmd.contentEquals("/toDetailSearch.s")) {
-				response.sendRedirect("search/hospitalSearchView.jsp");
 			}
 
 

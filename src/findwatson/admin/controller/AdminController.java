@@ -51,18 +51,17 @@ public class AdminController extends HttpServlet {
 		System.out.println("cmd - " + cmd);
 		try {
 			//관리자 로그인
-			if(cmd.contentEquals("관리자 로그인")) {
+			if(cmd.contentEquals("/login.admin")) {
 				String idInput = request.getParameter("id");
 				String pwInput = request.getParameter("pw");
 				boolean result = dao.adminLogin(idInput, pwInput);
 				
 				if(result) {
 					request.getSession().setAttribute("id", idInput);
-					request.setAttribute("result", result);
-					//request.getRequestDispatcher("관리자 로그인 후 페이지").forward(request, response);
+					response.sendRedirect("main/mainAdmin.jsp");
 				}
 				else {
-					response.sendRedirect("관리자 로그인 실패 페이지");
+					response.sendRedirect("main/error.jsp");
 				}
 			}else if(cmd.contentEquals("관리자 비밀번호 변경")) {//관리자 비밀번호 변경
 				String pw = request.getParameter("pw");

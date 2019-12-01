@@ -44,7 +44,7 @@ public class AdminDAO {
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setString(1, id);
-			pstat.setString(2, Util.encrypt(pw));
+			pstat.setString(2, pw);
 			try(
 					ResultSet rs = pstat.executeQuery();
 					){
