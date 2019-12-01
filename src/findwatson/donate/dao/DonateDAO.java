@@ -45,7 +45,7 @@ public class DonateDAO {
 	}
 
 	public int setDonateInfo(DonateDTO dto) throws Exception{
-		String sql = "insert into donate values(?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into donate values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		try(
 				Connection con = this.getConnection();
@@ -58,11 +58,12 @@ public class DonateDAO {
 			pstat.setInt(5, dto.getRealPayment());
 			pstat.setString(6, dto.getPayMethod());
 			pstat.setString(7, dto.getEmail());
-			pstat.setString(8, dto.getPostcode());
-			pstat.setString(9, dto.getAddr1());
-			pstat.setString(10, dto.getAddr2());
-			pstat.setString(11, dto.getPhone());
-			pstat.setString(12, dto.getValid());
+			pstat.setString(8, dto.getBirth());
+			pstat.setString(9, dto.getPostcode());
+			pstat.setString(10, dto.getAddr1());
+			pstat.setString(11, dto.getAddr2());
+			pstat.setString(12, dto.getPhone());
+			pstat.setString(13, dto.getValid());
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
@@ -157,7 +158,7 @@ public class DonateDAO {
 					String name = rs.getString(3);
 					int realPayment = rs.getInt(5);
 					String payMethod = rs.getString(6);
-					result.add(new DonateDTO(donateId, userId, name, 0, realPayment, payMethod, null, null, null, null, null, null));					
+					result.add(new DonateDTO(donateId, userId, name, 0, realPayment, payMethod, null, null,null, null, null, null, null));					
 				}
 				return result;
 			}
@@ -182,12 +183,13 @@ public class DonateDAO {
 					int realPayment = rs.getInt(5);
 					String payMethod = rs.getString(6);
 					String email = rs.getString(7);
-					String postcode = rs.getString(8);
-					String addr1 = rs.getString(9);
-					String addr2 = rs.getString(10);
-					String phone = rs.getString(11);
-					String valid = rs.getString(12);
-					result.add(new DonateDTO(donateId, userId, name, support, realPayment, payMethod, email, postcode, addr1, addr2, phone, valid));					
+					String birth = rs.getString(8);
+					String postcode = rs.getString(9);
+					String addr1 = rs.getString(10);
+					String addr2 = rs.getString(11);
+					String phone = rs.getString(12);
+					String valid = rs.getString(13);
+					result.add(new DonateDTO(donateId, userId, name, support, realPayment, payMethod, email, birth, postcode, addr1, addr2, phone, valid));					
 				}
 				return result;
 		}
