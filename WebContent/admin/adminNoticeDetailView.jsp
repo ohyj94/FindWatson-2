@@ -20,13 +20,20 @@
 </head>
 <body>
 	<div class=container>
-		<jsp:include page="../standard/headerAdmin.jsp" />
-		<div class="row">
-			<div class="col-12 mb-3" id="article">
-			
-			
+		<jsp:include page="../standard/headerAdmin.jsp"/>
+		<!--  -->
+		<div class=row>
+			<div class=col-12>
+				<h3>공지사항</h3>
+				<h4>${dto.title}</h4>
+				<h5 class=right>${dto.getDate()} &emsp; view.${dto.viewCount}</h5>
+				<hr>
 			</div>
 		</div>
+		<div class=row>
+			<div class=col-12 id=boardContent>${dto.content}</div>
+		</div>
+		<!--  -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
 </body>

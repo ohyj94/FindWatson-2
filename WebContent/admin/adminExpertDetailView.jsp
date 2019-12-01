@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,11 +21,26 @@
 <body>
 	<div class=container>
 		<jsp:include page="../standard/headerAdmin.jsp" />
-		<div class="row">
-			<div class="col-12 mb-3" id="article">
-			
-			</div>
+		<!--  -->
+		<div class=row>
+		<div class=col-12>
+		<h3>전문가 Q&amp;A</h3>
+				<h4>${dto.title}</h4>
 		</div>
+		</div>
+		<div class=row>
+			<div class=col-6>
+				<h5>${dto.writer}</h5>
+			</div>
+			<div class="col-6">
+				<h5 class="right">${dto.getDate()}&emsp;view.${dto.viewCount}</h5>
+			</div>
+			<hr>
+		</div>
+		<div class=row>
+			<div class=col-12 id=boardContent>${dto.content}</div>
+		</div>
+		<!--  -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
 </body>
