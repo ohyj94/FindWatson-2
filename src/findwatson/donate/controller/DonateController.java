@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -114,6 +115,11 @@ public class DonateController extends HttpServlet {
 				request.setAttribute("paid", realPay);
 				request.getRequestDispatcher("donate/donatePassView.jsp").forward(request, response);
 				
+			}else if(cmd.contentEquals("/mypageDonation.do")) {
+				DonateDAO dao = DonateDAO.getInstance();
+				String userId =(String) request.getSession().getAttribute("loginInfo");
+				dao.selectMy(userId);
+				request.getRequestDispatcher("member/mypageDonation.jsp")
 			}
 			
 		}catch(Exception e) {
