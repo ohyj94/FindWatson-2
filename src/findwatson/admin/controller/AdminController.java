@@ -262,15 +262,13 @@ public class AdminController extends HttpServlet {
 					System.out.println("아이디 삭제 성공");
 					response.sendRedirect("adminMemberList.admin");
 				}
-			}
-			else if(cmd.contentEquals("/admin/adminSearchMember.admin")) {//회원목록에서 회원아이디 검색
+			}else if(cmd.contentEquals("/admin/adminSearchMember.admin")) {//회원목록에서 회원아이디 검색
 				System.out.println("회원아이디검색 진입성공");
 				String idInput = request.getParameter("search");
 				List<MemberDTO> list = dao.selectById(idInput);
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
-			}
-			else {
+			}else {
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
 			
