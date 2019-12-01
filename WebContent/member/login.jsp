@@ -17,7 +17,7 @@
 <div class="container">
 <jsp:include page="../standard/header.jsp" />  
             <!--            -->
-            <form action=${pageContext.request.contextPath}/login.member method=post id=frm class="col-12">
+            <form action="${pageContext.request.contextPath}/login.member" method=post id=frm class="col-12">
 			<div class=row>
                 <div class=col-12>
                     <h1>로그인</h1>
@@ -44,7 +44,7 @@
             
             <div class=row>
                 <div class="col-12 con">
-                	<button type="button" id=login>로그인</button>
+                	<button type="button" id=tologin>로그인</button>
                     <button type="button" id=signUp>회원가입</button>
                 </div>
             </div>
@@ -55,10 +55,10 @@
          <script>
             $("#signUp").on("click",function(){
                 location.href="signup.jsp";
-            })
-        $("#login").on("click",function(){
-        	$("#frm").submit();
-        })
+            });
+	        $("#tologin").on("click",function(){
+	        	$("#frm").submit();
+	        });
         
         </script>
 </body>
