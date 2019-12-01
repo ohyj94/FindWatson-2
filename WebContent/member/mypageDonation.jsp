@@ -27,9 +27,14 @@
 			<div class="col-md d-none d-md-block">결제금액</div>
 			<div class="col-md d-none d-md-block">결제방법</div>
 		</div>
-	<c:forEach items="${list}" var="dto">
-	<div>${dto. }</div>
-</c:forEach>
+		<div class="row line">
+			<c:forEach items="${result}" var="dto">
+				<div class="col-md d-none d-md-block">${dto.donateId }</div>
+				<div class="col-md d-none d-md-block">${dto.name }</div>
+				<div class="col-md d-none d-md-block">${dto.support }</div>
+				<div class="col-md d-none d-md-block">${dto.payMethod }</div>
+			</c:forEach>
+		</div>
 
 
 		<!--            -->

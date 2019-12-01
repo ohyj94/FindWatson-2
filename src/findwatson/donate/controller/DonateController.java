@@ -2,19 +2,15 @@ package findwatson.donate.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.Session;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import findwatson.donate.dao.DonateDAO;
 import findwatson.donate.dto.DonateDTO;
@@ -114,11 +110,14 @@ public class DonateController extends HttpServlet {
 				request.setAttribute("paid", realPay);
 				request.getRequestDispatcher("donate/donatePassView.jsp").forward(request, response);
 				
-			}else if(cmd.contentEquals("/mypageDonation.do")) {
+			}//내 후원 보기+
+			else if(cmd.contentEquals("/mypageDonation.do")) {
 				DonateDAO dao = DonateDAO.getInstance();
 				String userId =(String) request.getSession().getAttribute("loginInfo");
-				dao.selectMy(userId);
-				request.getRequestDispatcher("member/mypageDonation.jsp")
+				List<DonateDTO> list = dao.selectMy(userId);
+				System.out.println(list.size());
+				request.setAttribute("result", list);
+				request.getRequestDispatcher("member/mypageDonation.jsp").forward(request, response);;
 			}
 			
 		}catch(Exception e) {
