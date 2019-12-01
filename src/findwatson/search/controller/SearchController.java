@@ -114,7 +114,7 @@ public class SearchController extends HttpServlet {
 
 				List<HListDTO> list = new ArrayList<>();
 				list = HospitalListDAO.getInstance().selectByPage("%"+address1+"%", "%"+address2+"%", "%"+animal+"%", "%"+time+"%",start, end);
-				String navi = dao.getPageNavi(currentPage, "%"+address1+"%", "%"+address2+"%", "%"+animal+"%", "%"+time+"%");
+				String navi = dao.getPageNavi(currentPage, list.size());
 				request.setAttribute("navi", navi);
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/search/hospitalSearchView.jsp").forward(request, response);
@@ -182,7 +182,10 @@ public class SearchController extends HttpServlet {
 
 				// 3번 중복된 값만 list에 담아 jsp에 보내기 
 				request.setAttribute("list", set);
-				String navi = HospitalListDAO.getInstance().getPageNaviTotal(currentPage, keyword);
+				
+				// navi 값 보내기 
+				String navi = HospitalListDAO.getInstance().getPageNaviTotal(currentPage, set.size());
+			System.out.println("이 값이 넘어가야함" + navi);
 				request.setAttribute("navi", navi);
 
 				request.getRequestDispatcher("/search/hospitalSearchView.jsp").forward(request, response);

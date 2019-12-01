@@ -35,58 +35,6 @@ public class HospitalListDAO {
 		return bds.getConnection();
 	}
 
-	// 검색에 따른 목록 내용 반환 
-	public List<HListDTO> selectAll(String input_city, String input_gu, String input_animal, String input_time) throws Exception{
-
-		System.out.println(1);
-		String sql = "select * from hosptList where (address1 like ?) and (address1 like ?) and (medicalAnimal like ?) and (opentime like ?)";
-		try (
-				Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-				){
-
-			pstat.setString(1, input_city);
-			pstat.setString(2, input_gu);
-			pstat.setString(3, input_animal);
-			pstat.setString(4, input_time);
-
-			System.out.println(input_city);
-			System.out.println(input_gu);
-			System.out.println(input_animal);
-			System.out.println(input_time);
-			System.out.println(2);
-			try(
-					ResultSet rs = pstat.executeQuery();
-
-					){
-				List<HListDTO> list = new ArrayList<HListDTO>();
-				System.out.println(5);
-				while(rs.next()) {
-					System.out.println("ggg");
-					int seq = rs.getInt(1);
-					System.out.println(seq);
-					String hosptName = rs.getString(2);
-					int postcode = rs.getInt(3);
-					String city = rs.getString(4);
-					String gu = rs.getString(5);
-					String phone = rs.getString(6);
-					String homepage = rs.getString(7);
-					String img = rs.getString(8);
-					String medicalAnimal = rs.getString(9);
-					String openTime = rs.getString(10);
-					Timestamp registDate = rs.getTimestamp(11);
-					int viewCount = rs.getInt(12);
-					System.out.println(3);
-					HListDTO dto = new HListDTO(seq, hosptName, postcode, city, gu,
-							phone, homepage, img, medicalAnimal, openTime, registDate, viewCount);
-					list.add(dto);
-					System.out.println(4);
-				}
-				System.out.println("dlrjddddd");
-				return list;
-			}	
-		}
-	}
 
 	public List<String> selectGu(String city) throws Exception{
 		String sql = "select gu from gutable where city=?";
@@ -162,10 +110,10 @@ public class HospitalListDAO {
 	}
 
 	// 병원 검색 결과 페이지 네비게이터
-	public String getPageNavi(int currentPage, String input_city, String input_gu, String input_animal, String input_time) throws Exception {
+	public String getPageNavi(int currentPage, int listSize) throws Exception {
 
-		int recordTotalCount = selectAll(input_city, input_gu, input_animal, input_time).size();
-		System.out.println(recordTotalCount);
+		int recordTotalCount = listSize;
+		System.out.println("총 게시물 개수 " + recordTotalCount);
 		int pageTotalCount = 0;
 
 		if(recordTotalCount % Configuration.recordCountPerPage > 0) {
@@ -215,8 +163,9 @@ public class HospitalListDAO {
 		System.out.println("네비게이터 시작 번호 : " + startNavi);
 		System.out.println("네비게이터 끝  페이지 번호 : " + endNavi);
 
+		System.out.println("이것이다 : " + sb.toString());        
 		return sb.toString();
-		//System.out.println(sb.toString());                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+		                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 	}
 
 	// 제목 누르면 글 보여주기 
@@ -272,60 +221,6 @@ public class HospitalListDAO {
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-	// 상단바 검색에 따른 전체 목록 출력
-	public List<HListDTO> selectAllTotal(String keyword) throws Exception{
-
-		System.out.println(1);
-		String sql = "select * from hosptList where (hosptname like ?) or (address1 like ?) or (address2 like ?) "
-				+ "or (medicalanimal like ?) or (opentime like ?)";
-
-		try (
-				Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-				){
-
-			pstat.setString(1, keyword);
-			pstat.setString(2, keyword);
-			pstat.setString(3, keyword);
-			pstat.setString(4, keyword);
-			pstat.setString(5, keyword);
-
-			System.out.println(keyword);
-
-			try(
-					ResultSet rs = pstat.executeQuery();
-
-					){
-				List<HListDTO> list = new ArrayList<HListDTO>();
-				System.out.println(5);
-				while(rs.next()) {
-					System.out.println("rs.next 로 들어왔다! ");
-					int seq = rs.getInt(1);
-					System.out.println(seq);
-					String hosptName = rs.getString(2);
-					int postcode = rs.getInt(3);
-					String city = rs.getString(4);
-					String gu = rs.getString(5);
-					String phone = rs.getString(6);
-					String homepage = rs.getString(7);
-					String img = rs.getString(8);
-					String medicalAnimal = rs.getString(9);
-					String openTime = rs.getString(10);
-					Timestamp registDate = rs.getTimestamp(11);
-					int viewCount = rs.getInt(12);
-					System.out.println(3);
-					HListDTO dto = new HListDTO(seq, hosptName, postcode, city, gu,
-							phone, homepage, img, medicalAnimal, openTime, registDate, viewCount);
-					list.add(dto);
-					System.out.println(4);
-				}
-				System.out.println("selectAllTotal 완료");
-				return list;
-			}	
-		}
-	}
 
 
 	// 검색에 따른 목록을 페이지 수에 맞춰 반환 
@@ -386,10 +281,12 @@ public class HospitalListDAO {
 	}
 
 	// 병원 검색 결과 페이지 네비게이터
-	public String getPageNaviTotal(int currentPage, String keyword) throws Exception {
+	public String getPageNaviTotal(int currentPage, int listSize) throws Exception {
 
-		int recordTotalCount = selectAllTotal(keyword).size();
-		System.out.println(recordTotalCount);
+		int recordTotalCount = listSize;
+		System.out.println("currentPage" + currentPage);
+		System.out.println("listSize" + listSize);
+		System.out.println("recordTotalCount" + recordTotalCount);
 		int pageTotalCount = 0;
 
 		if(recordTotalCount % Configuration.recordCountPerPage > 0) {
@@ -407,6 +304,7 @@ public class HospitalListDAO {
 			currentPage = pageTotalCount;
 		}
 
+		System.out.println(currentPage + " currentPage 값이 나와야한다 ");
 		int startNavi = (currentPage - 1) /  Configuration.naviCountPerPage  * Configuration.naviCountPerPage + 1;
 
 		int endNavi = startNavi + Configuration.naviCountPerPage - 1;
