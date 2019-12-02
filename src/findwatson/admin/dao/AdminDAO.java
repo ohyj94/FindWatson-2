@@ -528,7 +528,6 @@ public class AdminDAO {
 	}
 
 	//관리자 - 공지에 글작성
-	//<<<<<<< HEAD
 	public int insertToNotice(ExpertDTO dto)throws Exception{
 		String sql = "insert into notice values (noticeSeq.nextval,?,?,sysdate, 0)";
 		try(
@@ -664,20 +663,7 @@ public class AdminDAO {
 		}
 	}
 
-	//=======
-	public int insertToNotice(ExpertDTO dto)throws Exception{
-		String sql = "insert into notice values (noticeSeq.nextval,?,?,sysdate, 0)";
-		try(
-				Connection con = getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-				){
-			pstat.setString(1, dto.getTitle());
-			pstat.setString(2, dto.getContent());
-			int result = pstat.executeUpdate();
-			con.commit();
-			return result;
-		}	
-	}
+
 	//공지사항 테이블 시퀀스로 dto가져오기
 	public NoticeDTO getNoticeBySeq(int noticeSeq)throws Exception{
 		String sql = "select * from notice where seq =?";
