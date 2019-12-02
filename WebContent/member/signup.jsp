@@ -39,11 +39,11 @@
 			<div class=row>
 				<div class="col-12 col-md-6">
 					<h5>비밀번호</h5>
-					<input type=text id=pw name="pw">
+					<input type="password" id=pw name="pw">
 				</div>
 				<div class="col-12 col-md-6">
 					<h5>비밀번호 확인</h5>
-					<input type=text id=pwRe name="pwRe">
+					<input type="password" id=pwRe name="pwRe">
 				</div>
 				<div class=col-12 id=pwCheck></div>
 			</div>
@@ -305,6 +305,21 @@
 					
 					if($("#email").val() ==""){
 						alert("이메일을 입력하세요!");
+						return;
+					}
+					
+					if($("#postcode").val() == ""){
+						alert("우편번호를 입력하세요!")
+						return;
+					}
+					
+					if($("#address1").val()==""){
+						alert("주소를 입력해주세요!")
+						return;
+					}
+					
+					if($("address2").val() == ""){
+						alert("주소를 입력해주세요!")
 						return;
 					}
 					
