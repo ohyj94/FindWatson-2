@@ -316,6 +316,13 @@ public class AdminController extends HttpServlet {
 					System.out.println("병원 정보 입력 성공");
 					response.sendRedirect("adminMemberList.admin");
 				}
+			// 병원 정보 수정
+			} else if(cmd.contentEquals("/hosptInfoModify.admin")) {
+				System.out.println("도착");
+				
+				
+				
+				
 			// 1:1 문의 게시글 출력
 			} else if(cmd.contentEquals("/adminOneByOne.admin")) {
 				int cpage = 1;
