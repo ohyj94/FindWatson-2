@@ -61,14 +61,12 @@ public class AdminController extends HttpServlet {
 				String idInput = request.getParameter("id");
 				String pwInput = request.getParameter("pw");
 				boolean result = dao.adminLogin(idInput, pwInput);
-
 				if(result) {
-					request.getSession().setAttribute("adminInfo", idInput);
-					response.sendRedirect("main/indexAdmin.jsp");
+					request.getSession().setAttribute("adminInfo", idInput);					
 				}
-				else {
-					response.sendRedirect("main/error.jsp");
-				}
+				request.setAttribute("result", result);
+				
+				request.getRequestDispatcher("admin/loginResultView.jsp").forward(request, response);;
 			}else if(cmd.contentEquals("/adminPwModify.admin")) {//관리자 비밀번호 변경
 				String oriPw = request.getParameter("oriPw");
 				String newPw = request.getParameter("newPw");
