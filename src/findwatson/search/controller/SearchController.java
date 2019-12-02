@@ -189,6 +189,10 @@ public class SearchController extends HttpServlet {
 				request.setAttribute("navi", navi);
 
 				request.getRequestDispatcher("/search/hospitalSearchView.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/simpleMove.s")) {
+				//같은 페이지인데 메뉴로 이동할때와 검색후 이동할때 경로가 달라 header문제 발생해서 단순 이동도 서블렛 거치게 추가
+				//경로가 같도록 forward사용
+				request.getRequestDispatcher("/search/hospitalSearchView.jsp").forward(request, response);
 			}
 
 
