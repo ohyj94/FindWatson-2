@@ -307,10 +307,6 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("/admin/adminMemberChart.jsp").forward(request, response);
 				
 			}
-			else if(cmd.contentEquals("/adminMemberChart.admin")) {//관심동물통계
-				
-				
-			}
 			
 //=======
 			else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
