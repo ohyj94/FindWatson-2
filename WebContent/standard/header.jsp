@@ -68,7 +68,7 @@
 
 <script>
 $("#login").on("click",function(){
-    location.href="../member/login.jsp";
+    location.href="${pageContext.request.contextPath}/member/login.jsp";
 })
 $("#join").on("click",function(){
     location.href="${pageContext.request.contextPath}/member/signup.jsp";
