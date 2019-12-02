@@ -104,7 +104,7 @@
 			<div class=row>
 				<div class=col-12>
 					<input type="text" id="postcode" name=postcode placeholder="우편번호"
-						readonly>
+						readonly onclick="sample4_execDaumPostcode()">
 					<button id=addressBtn type="button"
 						onclick="sample4_execDaumPostcode()">찾기</button>
 				</div>

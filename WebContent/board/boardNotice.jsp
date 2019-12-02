@@ -33,24 +33,16 @@
                     <div class="row">
                         <div id="article-middle" class="col-12 mt-2">
                            <div class="row mb-3 p-1 text-center">
-                                <h3 id="board-top" class="col-auto col-sm-4 m-0">공지사항</h3>
-                                <span class="col-auto col-sm-8 mt-2"></span>
-                            </div>
-            <div class="row line">
-                <div class="col-1 d-none d-md-block"></div>
-                <div class="col-md-2 d-none d-md-block">
-                    말머리
-                </div>
-                <div class="col-md-5 d-none d-md-block">
-                    제목
-                </div>
-                <div class="col-md-2 d-none d-md-block">
-                    작성자
-                </div>
-                <div class="col-md-2 d-none d-md-block">
-                    작성날짜
-                </div>
-            </div>
+							<h3 id="board-top" class="col-auto col-sm-4 m-0">공지사항</h3>
+							<span class="col-auto col-sm-8 mt-2"> <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
+							</span>
+						</div>
+						<div class="row line">
+							<div class="col-md-2 d-none d-md-block">글번호</div>
+							<div class="col-md-6 d-none d-md-block">제목</div>
+							<div class="col-md-2 d-none d-md-block">작성일</div>
+							<div class="col-md-2 d-none d-md-block">조회수</div>
+						</div>
             <!-- 게시글 목록 -->
 			<c:choose>
 				<c:when test="${list.size() == 0}">게시물이 없습니다.</c:when>
