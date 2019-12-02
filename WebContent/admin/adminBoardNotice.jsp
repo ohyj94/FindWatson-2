@@ -16,63 +16,11 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<style>
-* {
-	box-sizing: border-box
-}
-/*            div{border: 1px solid black}*/
-#logo {
-	width: 500px;
-	height: 100px;
-	margin: auto;
-}
-
-#footer>div {
-	height: 100%;
-}
-
-#footer-logo>div {
-	height: 100%;
-}
-
-#footer-contents {
-	font-size: 8pt;
-}
-
-.nav-item {
-	display: inline-block;
-	width: 100%;
-	text-align: center;
-}
-
-.navbar-nav {
-	width: 100%;
-}
-
-#article, .line {
-	border: 0.5px solid lightgray;
-}
-
-#category {
-	width: 100%;
-	height: 100%;
-}
-
-.search-box>* {
-	width: 100%;
-}
-
-.write-box>* {
-	width: 100%;
-}
-
-#article, .line {
-	border: 0.5px solid lightgray;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 </head>
 <body>
 	<div class="container">
+<<<<<<< HEAD
 		<div class="row mb-2">
     <div id="loginBtn" class="col-12 p-1 text-right">
         <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
@@ -129,6 +77,10 @@
 				</nav>
 			</div>
 		</div>
+=======
+	
+		<jsp:include page="../standard/headerAdmin.jsp" /> 	
+>>>>>>> 777b692b8b23db56023ece9d4b34eb22544f767b
 		<!--            -->
 		<div class="row">
 			<div class="col-12 mb-3" id="article">
@@ -149,7 +101,7 @@
 						<c:forEach items="${list}" var="list">
 							<div class="row line">
 								<div class="col-md-2 d-none d-md-block">${list.seq}</div>
-								<div class="col-md-6 d-none d-md-block">${list.title}</div>
+								<div class="col-md-6 d-none d-md-block"><a href='${pageContext.request.contextPath}/adminNoticeDetailView.admin?seq=${list.seq}'>${list.title}</a></div>
 								<div class="col-md-2 d-none d-md-block">
 									${list.formedDate}</div>
 								<div class="col-md-2 d-none d-md-block">${list.viewCount}
@@ -180,6 +132,7 @@
 			</div>
 		</div>
 		<!--            -->
+<<<<<<< HEAD
 		<div class="row">
     <div id="footer" class="col-12">
         <div class="row p-1">
@@ -227,6 +180,11 @@
 	//차단한ip목록조회로 이동
 	$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
 	//글쓰기 버튼
+=======
+		<jsp:include page="../standard/footer.jsp" />
+	</div>
+	<script>
+>>>>>>> 777b692b8b23db56023ece9d4b34eb22544f767b
 	$("#writeBtn").on("click",function() {
 			location.href = "${pageContext.request.contextPath}/admin/adminBoardNoticeWrite.jsp";
 	})

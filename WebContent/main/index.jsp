@@ -19,7 +19,7 @@
 			position: relative;
 			}
 			#article-logo{
-			background-color: #ffcd9070
+			background-color: #ffcd9030
 			}
 			#article-img{
 			height : 300px;
@@ -29,7 +29,7 @@
 			position: absolute;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			background-color:#1ec8c5;
+			background-color:#1ec8c550;
 			border-radius: 10px;
 			}
 			#searchBtn1{
@@ -39,7 +39,7 @@
 			background-color: #ffcd90;
 			}
 			.prevealCon{
-			border: 1px solid #ffcd9070;
+			border: 1px solid #ffcd9050;
 			}
             #article-botton{
             background-color: #1ec8c5;
@@ -60,7 +60,7 @@
     <body>
         <div class="container">
             <jsp:include page="../standard/header.jsp" />           
-            <!--            -->
+            <!--    내용시작        -->
             <div class="row">
                 <div id="article-top" class="col-12 mb-5 p-0">
                     <!--여기 이미지  -->

@@ -184,6 +184,7 @@ public class HospitalListDAO {
 					int seq = rs.getInt(1);
 					System.out.println(seq);
 					String hosptName = rs.getString(2);
+					System.out.println(hosptName);
 					int postcode = rs.getInt(3);
 					String city = rs.getString(4);
 					String gu = rs.getString(5);
@@ -198,6 +199,7 @@ public class HospitalListDAO {
 					medicalAnimal = (medicalAnimal).replace(";",",");
 					dto = new HListDTO(seq, hosptName, postcode, city, gu,
 							phone, homepage, img, medicalAnimal, openTime, registDate, viewCount);
+					System.out.println("들어갔음");
 				}
 				return dto; 
 			}
@@ -217,6 +219,7 @@ public class HospitalListDAO {
 			pstat.executeUpdate();
 			con.commit();
 		}
+		System.out.println("pllusssss");
 		return 1;
 	}
 

@@ -7,7 +7,7 @@ div {
 	border: 1px solid black
 }
 #loginBtn{
-	background-color: #1ec8c5;
+	background-color: #1ec8c550;
 }
 #logo {
 	width: 100%;
@@ -17,7 +17,7 @@ div {
 }
 
 .navbar, .navbar-nav{
-	background-color: #ffcd90 !important;
+	background-color: #ffcd9050 !important;
 }
 
 #article-img {

@@ -19,59 +19,13 @@
 <%--썸머노트 --%>
       <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
-<style>
-* {
-	box-sizing: border-box
-}
-/*            div{border: 1px solid black}*/
-#logo {
-	width: 500px;
-	height: 100px;
-	margin: auto;
-}
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoardWrite.css">
 
-#footer>div {
-	height: 100%;
-}
-
-#footer-logo>div {
-	height: 100%;
-}
-
-#footer-contents {
-	font-size: 8pt;
-}
-
-.nav-item {
-	display: inline-block;
-	width: 100%;
-	text-align: center;
-}
-
-.navbar-nav {
-	width: 100%;
-}
-
-#category {
-	width: 100%;
-	height: 100%;
-}
-
-#boardTitle {
-	width: 100%;
-}
-
-#article, .line {
-	border: 0.5px solid lightgray;
-}
-.noneExist{
-display:none;
-}
-</style>
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/expertWrite.admin" method="post" id=frm>
 	<div class="container">
+<<<<<<< HEAD
 		<div class="row mb-2">
     <div id="loginBtn" class="col-12 p-1 text-right">
         <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
@@ -129,6 +83,9 @@ display:none;
 				</nav>
 			</div>
 		</div>
+=======
+			<jsp:include page="../standard/headerAdmin.jsp" /> 		
+>>>>>>> 777b692b8b23db56023ece9d4b34eb22544f767b
 		<!--            -->
 		<div class="row">
 			<div class="col-12 mb-3" id="article">
@@ -168,6 +125,7 @@ display:none;
 			</div>
 		</div>
 		<!--            -->
+<<<<<<< HEAD
 		<div class="row">
     <div id="footer" class="col-12">
         <div class="row p-1">
@@ -196,6 +154,9 @@ display:none;
 				</div>
 			</div>
 		</div>
+=======
+		<jsp:include page="../standard/footer.jsp" />
+>>>>>>> 777b692b8b23db56023ece9d4b34eb22544f767b
 	</div>
 	</form>
 	<script>
@@ -258,10 +219,11 @@ display:none;
 	$("#returnBtn").on("click",function(){
 		var result = confirm("입력하신 내용은 저장되지 않습니다. 정말 돌아가시겠습니까?");
 		if(result){
-			location.href = 'adminIndex.admin';
+			location.href = '${pageContext.request.contextPath}/main/mainAdmin.jsp';
 		}
 	})
 	
+<<<<<<< HEAD
 	//각 버튼별 주소이동
 		$("#logo").on("click", function() {
 			location.href = "${pageContext.request.contextPath}/mainAdmin.jsp";
@@ -278,6 +240,9 @@ display:none;
 		$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");
 		//차단한ip목록조회로 이동
 		$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
+=======
+	
+>>>>>>> 777b692b8b23db56023ece9d4b34eb22544f767b
 	</script>
 </body>
 </html>

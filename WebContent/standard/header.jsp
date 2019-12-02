@@ -18,7 +18,7 @@
 </div>
 <div class="row">
     <div id="title" class="col-12 p-0 text-center">
-        <a href="../main/index.jsp"><img id="logo" src="../imgs/logo.png" class="col-12 p-0"></a>
+        <a href="${pageContext.request.contextPath}/main/index.jsp"><img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12 p-0"></a>
     </div>
 </div>
 <div class="row">
@@ -33,18 +33,18 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/boardNotice.bo">공지사항</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/toDetailSearch.s">병원검색</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/search/hospitalSearchView.jsp">병원검색</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/boardExpert.bo">전문가Q&amp;A</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/boardExpert.admin">전문가Q&amp;A</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             커뮤니티
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/boardFree.bo">자유게시판</a>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/boardQuestion.bo">질문게시판</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/boardFree.admin">자유게시판</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/boardQuestion.admin">질문게시판</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -69,7 +69,7 @@ $("#login").on("click",function(){
     location.href="../member/login.jsp"
 })
 $("#join").on("click",function(){
-    location.href="../member/signup.jsp"
+    location.href="${pageContext.request.contextPath}/member/signup.jsp"
 })
 $("#donate").on("click",function(){
     location.href="../donate/donateForm.jsp"
