@@ -208,6 +208,12 @@ public class BoardController extends HttpServlet {
 				
 			}else if(cmd.contentEquals("/freeDetail.bo")) {
 				//자유 게시판 글읽기
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				AdminDAO adao = AdminDAO.getInstance();
+				ExpertDTO dto = adao.getExpertBySeq(seq);
+				request.setAttribute("dto", dto);
+								
+				request.getRequestDispatcher("board/boardFreeDetailView.jsp").forward(request, response);
 				
 			} else {
 				// 등록되지 않은 경로로 입장시

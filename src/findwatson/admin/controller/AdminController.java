@@ -444,7 +444,6 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("admin/adminNoticeDetailView.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/adminExpertDetailView.admin")) {//관리자 - 전문가 Q&A에서 글 클릭했을때
 				int expertSeq = Integer.parseInt(request.getParameter("seq"));
-				dao.increExpertView(expertSeq);
 				ExpertDTO dto = dao.getExpertBySeq(expertSeq);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/adminExpertDetailView.jsp").forward(request, response);
