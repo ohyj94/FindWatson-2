@@ -11,7 +11,8 @@
         <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainStyle.css">
+        <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainStyle.css">
         <style>
             *{box-sizing: border-box}
 /*            div{border: 1px solid black}*/
@@ -55,64 +56,65 @@
             <div class="row">
             <div id="article-middle" class="col-12 mt-2">
                 <div class="row mb-3 p-1 text-center">
-                    <h3 id="board-top" class="col-auto col-sm-4 m-0">회원 목록 조회</h3>
+                    <h3 id="board-top" class="col-auto col-sm-4 m-0">병원 정보 등록</h3>
                     <span class="col-auto col-sm-8 mt-2">
                            <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
                     </span>
-            </div>
-            <div class="row line">
-                
-                <div class="col-md-3 d-none d-md-block">
-                    아이디
-                </div>
-                <div class="col-md-3 d-none d-md-block">
-           	이름
-                </div>
-                <div class="col-md-6 d-none d-md-block">
-            	공란
-                </div>
-            </div>
-            <!-- 게시글 목록 -->
-            
+                    </div>
+           <form action="${pageContext.request.contextPath}/admin/adminInsertHospt.manager" method="post">     
+                    <div class="row line">
+           <div class="col-12">병원이름 <input type="text" id="name" name=name>	</div> <br>
            
-           <c:choose>
-           <c:when test="${list.size() == 0}">
-           	 <div class="row line">
-           	<div class="col-12" style="text-align: center">표시할 내용이 없습니다.</div>
-           		</div>
-           </c:when>
-           <c:otherwise>
-           <c:forEach items="${list}" var="list">
-           	<div class="row line">
+           
+                <div class="col-12">우편번호  <input type="text" id="postcode" name=postcode placeholder="우편번호" readonly>
+                        <button id = addressBtn type="button" onclick="sample4_execDaumPostcode()">찾기</button>
+                    </div>
+                   <div class="col-12">주소1<input type="text" id="address1" name=address1 placeholder="주소1" readonly></div>
+                   <div class="col-12">주소2<input type = text name = address2 id = address2 placeholder="주소2"></div>
+                   <div class="col-12">전화번호<input type=text id=phone name=phone placeholder='전화번호'></div>
+                        <div class="col-12">홈페이지 주소<input type=text id=homepage name=homepage placeholder='홈페이지 주소'></div>
+                       
+                   
+                  <div class=col-12>진료과목</div>
+                  <div class=col-12><input type="checkbox" name=medicalAnimal value=새> 새
+        <input type="checkbox" name=medicalAnimal value=물고기> 물고기
+        <input type="checkbox" name=medicalAnimal value=햄스터> 햄스터
+        <input type="checkbox" name=medicalAnimal value=토끼> 토끼
+        <input type="checkbox" name=medicalAnimal value=고슴도치> 고슴도치
+        <input type="checkbox" name=medicalAnimal value=파충류> 파충류
+        <input type="checkbox" name=medicalAnimal value=곤충류> 곤충류
+        <input type="checkbox" name=medicalAnimal value=기타> 기타
+        </div>
+         
+         <div class=col-12>진료시간</div>
+                  <div class=col-12><input type="checkbox" name=openTime value=주간진료> 주간진료
+        <input type="checkbox" name=openTime value=야간응급진료> 야간응급진료
+        <input type="checkbox" name=openTime value=24시간진료> 24시간진료
+        
+        </div> 
+        <div class=col-12>사진</div>
+        <div class=col-12></div>
+                   
+                   
+                    </div>
+                    
+                  
                 
-                <div class="col-md-3 d-none d-md-block">
-                  ${list.id}
-                </div>
-                <div class="col-md-3 d-none d-md-block">
-           			${list.name }
-                </div>
-                <div class="col-md-6 d-none d-md-block">
-                    <a href="${pageContext.request.contextPath}/admin/adminDeleteMember.admin?id=${list.id}">삭제하기</a>
-                </div>
-            </div>
-            
-                            
-            </c:forEach>
-           </c:otherwise>
-           </c:choose>
-            <form action="${pageContext.request.contextPath}/admin/adminSearchMember.admin" method="post">
-                            <div class="row">
-                                <div class="col-12 text-center">
-                                    ${pageNavi}
-                                </div>
-                            </div>
+           </form>
+           <input type="button" id="insert" value="병원등록">
+           
+           
+           
+           
+           
+           
+           
                             <div class="row mb-2">
                                 <div class="col-auto col-sm-2 p-1">
                                     <select id="category">
                                         <option value="">제목</option>
                                     </select>
                                 </div>
-                              
                                 <div class="search-box col-auto col-sm-6 p-1">
                                     <input type="text" class="" id="search" name="search" value="">
                                 </div>
@@ -122,23 +124,30 @@
                                 <div class="write-box col-auto col-sm-2 text-center p-1">
                                     <button class="btn btn-sm btn-outline-secondary">작성하기</button>
                                 </div>
-                               
-                                <script>
-        	$('.btn btn-sm btn-outline-secondary').on('click',function(){
-        		$('form').submit();
-        	})
-        </script>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </form>
-                          
             <!--            -->
             <jsp:include page="../standard/footer.jsp" />
+        
         <script>
-		//각 버튼별 주소이동
+            //우편번호 찾기
+            function sample4_execDaumPostcode() {
+                new daum.Postcode({
+                    oncomplete: function(data) {
+                        var roadAddr = data.roadAddress; 
+                        document.getElementById('postcode').value = data.zonecode;
+                        document.getElementById("address1").value = roadAddr;
+                    }
+                }).open();
+            }
+            $('#insert').on('click',function(){
+                $('form').submit();
+            })
+            
+           //각 버튼별 주소이동
 		$("#logo").on("click", function() {
 			location.href = "${pageContext.request.contextPath}/mainAdmin.jsp";
 		});
@@ -154,6 +163,6 @@
 		$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");
 		//차단한ip목록조회로 이동
 		$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
-	</script>
+        </script>
 </body>
 </html>

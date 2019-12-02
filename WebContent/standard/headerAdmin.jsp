@@ -52,9 +52,9 @@
                             회원관리
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">회원목록조회</a>
-                            <a class="dropdown-item" href="#">차단 IP 조회</a>
-                            <a class="dropdown-item" href="#">회원 통계</a>
+                            <a class="dropdown-item" id = memberList>회원목록조회</a>
+                            <a class="dropdown-item" id = banList>차단 IP 조회</a>
+                            <a class="dropdown-item" id = memberCharts>회원 통계</a>
                         </div>
                     </li>
                 </ul>
@@ -83,9 +83,11 @@
 		//게시판 관리 - 일대일 문의
 		
 		//회원 관리 - 회원 목록 조회
+		$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");
 		//회원 관리 - 차단 ip 조회
+		$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
 		//회원 관리 - 회원 통계
-		
+		$("#memberCharts").attr("href", "${pageContext.request.contextPath}/adminMemberChart.admin");
  		
 		
 		

@@ -75,7 +75,7 @@ public class AdminController extends HttpServlet {
 					response.sendRedirect("index.jsp");
 				}
 				
-			}else if(cmd.contentEquals("/admin/adminMemberList.admin")) {//회원전체목록
+			}else if(cmd.contentEquals("/adminMemberList.admin")) {//회원전체목록
 				//List<MemberDTO> list = dao.selectAll();
 				//request.setAttribute("list", list);
 				System.out.println("admincontroller 연결 성공");
@@ -101,7 +101,7 @@ public class AdminController extends HttpServlet {
 				
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
 				
-			}else if(cmd.contentEquals("/admin/adminBanList.admin")) {//차단한 ip 목록
+			}else if(cmd.contentEquals("/adminBanList.admin")) {//차단한 ip 목록
 				
 				//List<BanDTO> list = dao.selectBanList();
 				//request.setAttribute("list", list);
@@ -348,6 +348,44 @@ public class AdminController extends HttpServlet {
 				
 				
 			} else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
+
+			}
+			else if(cmd.contentEquals("/adminMemberChart.admin")) {//회원통계
+				System.out.println("회원차트 진입성공");
+				//회원정보
+				int totalCount = dao.recordMemberListTotalCount();
+				int memberMCount = dao.recordMemberMTotalCount();
+				int memberWCount = dao.recordMemberWTotalCount();
+				request.setAttribute("totalCount", totalCount);
+				request.setAttribute("memberMCount", memberMCount);
+				request.setAttribute("memberWCount", memberWCount);
+				//관심동물
+				int bird = dao.recordBirdTotalCount();
+				int fish = dao.recordFishTotalCount();
+				int hamster = dao.recordHamsterTotalCount();
+				int rabbit = dao.recordRabbitTotalCount();
+				int dochi = dao.recordDochiTotalCount();
+				int reptile = dao.recordReptileTotalCount();
+				int bug = dao.recordBugTotalCount();
+				int other = dao.recordOtherTotalCount();
+				request.setAttribute("bird", bird);
+				request.setAttribute("fish", fish);
+				request.setAttribute("hamster", hamster);
+				request.setAttribute("rabbit", rabbit);
+				request.setAttribute("dochi", dochi);
+				request.setAttribute("reptile", reptile);
+				request.setAttribute("bug", bug);
+				request.setAttribute("other", other);
+				//가입경로
+				
+				request.getRequestDispatcher("/admin/adminMemberChart.jsp").forward(request, response);
+				
+			}
+			else if(cmd.contentEquals("/adminMemberChart.admin")) {//관심동물통계
+				
+				
+			}
+			else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
 				int noticeSeq = Integer.parseInt(request.getParameter("seq"));
 				NoticeDTO dto = dao.getNoticeBySeq(noticeSeq);
 				request.setAttribute("dto", dto);

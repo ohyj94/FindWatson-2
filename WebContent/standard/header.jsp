@@ -11,14 +11,16 @@
 				<button class="btn btn-sm btn-outline-secondary" id="join">회원가입</button>
 			</c:when>
 			<c:otherwise>
-				<button id=logout class="btn btn-sm btn-outline-secondary">로그아웃</button>
+				<button class="btn btn-sm btn-outline-secondary" id="donate">후원하기</button>
+				<button class="btn btn-sm btn-outline-secondary" id="logout">로그아웃</button>
 			</c:otherwise>
 		</c:choose> 
     </div>
 </div>
+
 <div class="row">
-    <div id="title" class="col-12 p-0 text-center">
-        <a href="${pageContext.request.contextPath}/main/index.jsp"><img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12 p-0"></a>
+    <div id="title" class="col-12 p-0 mt-3 mb-3 text-center">
+        <a href="${pageContext.request.contextPath}/main/index.jsp"><strong>FIND! WATSON</strong></a>
     </div>
 </div>
 <div class="row">
@@ -33,18 +35,18 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/boardNotice.bo">공지사항</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/search/hospitalSearchView.jsp">병원검색</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/simpleMove.s">병원검색</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/boardExpert.admin">전문가Q&amp;A</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/boardExpert.bo">전문가Q&amp;A</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             커뮤니티
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/boardFree.admin">자유게시판</a>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/boardQuestion.admin">질문게시판</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/boardFree.bo">자유게시판</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/boardQuestion.bo">질문게시판</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -55,7 +57,7 @@
                             <a class="dropdown-item" href="${pageContext.request.contextPath}/mypageInfo.member">내 정보</a>
                             <a class="dropdown-item" href="${pageContext.request.contextPath}/mypageDonation.do">내 후원보기</a>
                             <a class="dropdown-item" href="#">1 : 1 문의</a>
-                            <a class="dropdown-item" href="../member/mypageWithdrawal.jsp">회원 탈퇴</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/mypageWithdrawal.jsp">회원 탈퇴</a>
                         </div>
                     </li>
                 </ul>
@@ -66,12 +68,15 @@
 
 <script>
 $("#login").on("click",function(){
-    location.href="../member/login.jsp"
+    location.href="../member/login.jsp";
 })
 $("#join").on("click",function(){
-    location.href="${pageContext.request.contextPath}/member/signup.jsp"
+    location.href="${pageContext.request.contextPath}/member/signup.jsp";
+})
+$("#logout").on("click", function(){
+	location.href="${pageContext.request.contextPath}/logout.member"
 })
 $("#donate").on("click",function(){
-    location.href="../donate/donateForm.jsp"
+    location.href="${pageContext.request.contextPath}/donate/donateForm.jsp"
 })
 </script>

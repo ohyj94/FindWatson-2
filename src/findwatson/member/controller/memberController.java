@@ -3,6 +3,7 @@ package findwatson.member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,8 +56,8 @@ public class memberController extends HttpServlet {
 
 		}//로그아웃
 		else if (path.contentEquals("/logout.member")) {
-			request.getSession().removeAttribute("loginInfo");
-			response.sendRedirect("main/index.jsp");
+			request.getSession().invalidate();
+			response.sendRedirect("member/logoutView.jsp");
 		}//회원가입
 		else if(path.contentEquals("/signUp.member")) {
 			String id = request.getParameter("id");
@@ -77,12 +78,10 @@ public class memberController extends HttpServlet {
 			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,null);
 			try {
 				int signup = dao.insert(dto);
-				if(signup >0) {
-					response.sendRedirect("main/index.jsp");
-				}else {
-					response.sendRedirect("main/error.jsp");
-				}
-
+				
+				request.setAttribute("result", signup);
+				request.getRequestDispatcher("member/signupResultView.jsp").forward(request, response);
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -92,15 +91,17 @@ public class memberController extends HttpServlet {
 			String id = (String)request.getSession().getAttribute("loginInfo");
 			System.out.println(id);
 			try {
-				int memberout = 0;
-				memberout = dao.delete(id);
+				int memberout = dao.delete(id);
 				if(memberout > 0) {
 					request.getSession().invalidate();
-					response.sendRedirect("main/index.jsp");
 				}
+				
+				request.setAttribute("result", memberout);
+				RequestDispatcher rd = request.getRequestDispatcher("member/memberOutView.jsp");
+				rd.forward(request, response);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
-				response.sendRedirect("main/error.jsp");
 			}
 
 		}//마이페이지
