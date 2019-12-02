@@ -22,7 +22,7 @@
 		<%--별점 --%>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-		<link rel="stylesheet" href="../resources/css/mainStyle.css">
+		<link rel="stylesheet" href="../resources/css/adminBoard.css">
 <meta charset="UTF-8">
 
 <style>
@@ -106,46 +106,40 @@ display:none;
 
 			<div class=row>
 				<div class="col-6">
-					<img src="${imglocation}/${dto.img}" id=hosImg>
+					<img src="${dto.img}" id=hosImg>
 				</div>
 				<div class="col-6">
 					<div class="row hosIn1">
 						<div class=col-12>
-							${dto.postcode}<br>
-							${dto.address1}<br>
-							${dto.address2}<br>
-							${dto.phone}<br>
-							${dto.homepage}
+							우편번호 : ${dto.postcode}<br>
+							상세주소1 : ${dto.address1}<br>
+							상세주소2 : ${dto.address2}<br>
+							연락처 : ${dto.phone}<br>
+							홈페이지 주소 : ${dto.homepage}
 						</div>
 					</div>
 					<div class="row hosIn2">
 						<div class=col-12>
-							<button type="button" class="btn btn-secondary">정보 수정 제안</button>
+							<button type="button" class="btn btn-secondary" id=hosptMdf>정보 수정</button>
+							<button type="button" class="btn btn-secondary" id=hosptRemove>삭제</button>
 						</div>
 					</div>
 				</div>
 			</div>
-
-			<div class=row>
-				<div class=col-12>
-					<br>
-					<div class="btn-group" role="group" aria-label="Basic example">
-						<button type="button" class="btn btn-secondary">상세정보</button>
-						<button type="button" class="btn btn-secondary">지도</button>
-						<button type="button" class="btn btn-secondary">후기</button>
-					</div>
-					<hr>
-				</div>
-			</div>
-		
 			<!--            -->
             <jsp:include page="../standard/footer.jsp" />
 			</form>
 		</div>
-	
 	<script>
-	
+	$("#hosptMdf").on("click",function(){
+		location.href = 'hosptMdf.admin';
+	})
+	$("#hosptRemove").on("click",function(){
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result){
+			location.href = '${pageContext.request.contextPath}/hosptRemove.admin?seq=${dto.seq}';
+		}
+	})
 	</script>
-
 </body>
 </html>

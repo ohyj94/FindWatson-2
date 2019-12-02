@@ -940,4 +940,15 @@ public class AdminDAO {
 			return result;
 		}
 	}
+	//병원 정보 삭제
+	public int deleteHospt(int seq) throws Exception {
+		String sql = "delete from hosptList where seq=?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	
 }

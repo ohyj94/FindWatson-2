@@ -150,7 +150,7 @@ public class BoardController extends HttpServlet {
 		        fDao.insert(new FilesDTO(0, 0, fileName, oriFileName));
 		        
 		        //서버의 이미지 경로
-		        String imgPath = "../" + repositoryName + "/" + fileName;
+		        String imgPath = contextPath + "/" + repositoryName + "/" + fileName;
 		        System.out.println(imgPath);
 		         
 		        JsonObject jObj = new JsonObject();
@@ -188,7 +188,7 @@ public class BoardController extends HttpServlet {
 		        fDao.insert(new FilesDTO(0, 0, fileName, oriFileName));
 
 				// 서버의 이미지 경로
-				String imgPath = "../" + repositoryName + "/" + fileName;
+				String imgPath = contextPath + "/" + repositoryName + "/" + fileName;
 				System.out.println(imgPath);
 
 				JsonObject jObj = new JsonObject();
