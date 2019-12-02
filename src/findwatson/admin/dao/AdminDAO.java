@@ -92,7 +92,8 @@ public class AdminDAO {
 				String lovePet = rs.getString(11);
 				String signPath = rs.getString(12);
 				Timestamp date = rs.getTimestamp(13);
-				MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+				String ipAddr = rs.getString(14);
+				MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 				memberList.add(dto);
 			}
 			return memberList;
@@ -124,7 +125,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -157,7 +159,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -190,7 +193,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -223,7 +227,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -253,10 +258,10 @@ public class AdminDAO {
 					String postcode = rs.getString(8);
 					String address1 = rs.getString(9);
 					String address2 = rs.getString(10);
-
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -264,14 +269,14 @@ public class AdminDAO {
 		}
 	}
 	//차단ip 추가
-	public int banIp(String id, String ip, String reason) throws Exception{
+	public int insertbanIp(String id, String ipAddr, String reason) throws Exception{
 		String sql = "insert into banIp values(?,?,?)";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setString(1, id);
-			pstat.setString(2, ip);
+			pstat.setString(2, ipAddr);
 			pstat.setString(3, reason);
 			int result = pstat.executeUpdate();
 			con.commit();
@@ -492,7 +497,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					result.add(dto);
 				}
 				return result;
@@ -831,5 +837,6 @@ public class AdminDAO {
 					return result;
 				}
 			}
+			
 		
 }

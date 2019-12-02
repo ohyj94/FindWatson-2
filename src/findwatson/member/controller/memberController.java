@@ -2,6 +2,7 @@ package findwatson.member.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,12 +29,13 @@ public class memberController extends HttpServlet {
 		String URI = request.getRequestURI(); 
 		String ctxpath = request.getContextPath(); 
 		String path = URI.substring(ctxpath.length()); 
+		String ipAddr = request.getRemoteAddr();
 		System.out.println(path);
 
 		MemberDAO dao = MemberDAO.getInstance();
 		PrintWriter pwriter = response.getWriter();
 
-		if(path.contentEquals("/login.member")) {
+		if(path.contentEquals("/login.member")) { //로그인
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			System.out.println(id);
@@ -43,8 +45,9 @@ public class memberController extends HttpServlet {
 				boolean result = dao.loginOk(id, pw);
 				if(result) {
 					request.getSession().setAttribute("loginInfo",id);
+					//아이피 주소 membertable에 업데이트
+					dao.updateMemberIp(id, ipAddr);
 					response.sendRedirect("main/index.jsp");
-
 				}else {
 					//알림 : 로그인 실패시 다시 로그인 화면을 띄워주도록 경로 변경 바람
 					response.sendRedirect("main/index.jsp");
@@ -75,7 +78,7 @@ public class memberController extends HttpServlet {
 
 			System.out.println(id);
 
-			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,null);
+			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath, null,"--");
 			try {
 				int signup = dao.insert(dto);
 				
@@ -131,7 +134,7 @@ public class memberController extends HttpServlet {
 			String lovePet = request.getParameter("lovePet");
 			String signPath = request.getParameter("signPath");
 			//dto에 담아서 수정페이지로 보내기
-			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,null);
+			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,null,"--");
 			request.setAttribute("dto", dto);
 			System.out.println(id);
 			request.getRequestDispatcher("member/mypageModify.jsp").forward(request, response);

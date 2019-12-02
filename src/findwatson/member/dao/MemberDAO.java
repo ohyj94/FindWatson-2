@@ -66,7 +66,7 @@ public class MemberDAO {
 		}
 	}
 	public int insert(MemberDTO dto)throws Exception{
-		String sql = "insert into member values (?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
+		String sql = "insert into member values (?,?,?,?,?,?,?,?,?,?,?,?,sysdate,'로그인 시도x')";
 		try(Connection con = bds.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1,dto.getId());
@@ -142,6 +142,20 @@ public class MemberDAO {
 			pstat.setString(10, lovePet);
 			pstat.setString(11, id);
 			
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	//로그인시 아이피 주소 member테이블에 업데이트
+	public int updateMemberIp(String id, String ipAddr)throws Exception{
+		String sql = "update member set ipAddr = ? where id= ?";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, ipAddr);
+			pstat.setString(2, id);
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
