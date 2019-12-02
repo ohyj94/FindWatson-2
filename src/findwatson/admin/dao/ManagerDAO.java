@@ -74,7 +74,7 @@ public class ManagerDAO {
 	//병원목록 10개씩
 	public List<HListDTO> hosptListByPage(int start, int end) throws Exception{
 		String sql = "select * from"
-				+ "(select hosptList.*, row_number() over (order by seq) as rown from hosptList)"
+				+ "(select hosptList.*, row_number() over (order by seq desc) as rown from hosptList)"
 				+ " where rown between ? and ?";
 		try(
 				Connection con = this.getConnection();

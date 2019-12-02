@@ -17,7 +17,6 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="../resources/css/adminBoard.css">
-
 </head>
 <body>
 	<c:choose>
