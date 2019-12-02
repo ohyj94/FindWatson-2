@@ -13,7 +13,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		
 		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../resources/css/mainStyle.css">
+        <link rel="stylesheet" href="resources/css/mainStyle.css">
         
         <style>
             #category{width: 100%; height: 100%;}
@@ -100,7 +100,7 @@
                 </div>
             </div>
             <!--            -->
-            <jsp:include page="${pageContext.request.contextPath}/standard/footer.jsp" />   
+            <jsp:include page="../standard/footer.jsp" />   
         </div>
 </body>
 </html>
