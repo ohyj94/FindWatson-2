@@ -20,7 +20,7 @@
 
 <div class="row">
     <div id="title" class="col-12 p-0 mt-3 mb-3 text-center">
-        <a href="${pageContext.request.contextPath}/main/index.jsp"><strong>FIND! WATSON</strong></a>
+        <a href="${pageContext.request.contextPath}/toMain.main"><strong>FIND! WATSON</strong></a>
     </div>
 </div>
 <div class="row">

@@ -8,7 +8,7 @@
 </head>
 <body>
 	<script>
-	location.href = '${pageContext.request.contextPath}/banIpCheck.member';
+	location.href = '${pageContext.request.contextPath}/toMain.main';
 	</script>
 </body>
 </html>

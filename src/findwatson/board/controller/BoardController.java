@@ -195,8 +195,15 @@ public class BoardController extends HttpServlet {
 				jObj.addProperty("imgPath", imgPath);
 				pwriter.append(jObj.toString());
 			
-			// 등록되지 않은 경로로 입장시
+			
+			}else if(cmd.contentEquals("/noticeDetail.bo")) {
+				//공지사항 글 읽기
+				
+			}else if(cmd.contentEquals("/freeDetail.bo")) {
+				//자유 게시판 글읽기
+				
 			} else {
+				// 등록되지 않은 경로로 입장시
 				response.sendRedirect("main/error.jsp");
 			}
 		} catch(Exception e) {

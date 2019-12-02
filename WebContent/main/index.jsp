@@ -13,13 +13,10 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../resources/css/mainStyle.css">
+        <link rel="stylesheet" href="resources/css/mainStyle.css">
         <style>
 			#article-top{
 			position: relative;
-			}
-			#article-logo{
-			background-color: ;
 			}
 			#article-img{
 			height : 300px;
@@ -36,26 +33,12 @@
 			background-color:#ffffff; 
 			color:#084480;
 			width: 5%;
-			}
-			.prevealTitle{
-			background-color: ;
-			}
-			.prevealCon{
-			border: ;
-			}
-            #article-botton{
-            background-color: ;
-            }
-            #detailSearch{
-            background-color:;
-            }
-            
+			}			           
             .imgSize{
                 width: 100%;
                 height: 300px;
             }
             #searchBtn2{width: 100%;}
-            .line {;}
             label{margin-bottom: 0px;}
         </style>
     </head>
@@ -88,31 +71,57 @@
                             <div class="row line">
                                 <div class="col-6 prevealTitle">공지사항</div>
                                 <div class="col-6">
-                                    <a href="boardNotice.bo">더보기</a>
+                                    <a href="${pageContext.request.contextPath}/boardNotice.bo">더보기</a>
                                 </div>
                             </div>
                             <div class="row line">
                                 <div class="col-12 prevealCon">
-                                    <a href="#">공지</a><br> <a href="#">공지</a><br>
-                                    <a href="#">공지</a><br> <a href="#">공지</a><br>
-                                    <a href="#">공지</a><br>
+                                <c:choose>
+                                	<c:when test="${noticeList.size() == 0 }">
+                                	내용없음
+                                	</c:when>
+                                	<c:otherwise>
+                                	<c:forEach items="${noticeList}" var="dto">
+                                	<a href="${pageContext.request.contextPath}/noticeDetail.bo?seq=${dto.seq}">${dto.title }</a><br>
+                                	</c:forEach>                                	
+                                	</c:otherwise>
+                                </c:choose> 
+                                <c:choose>
+                                	<c:when test="${noticeList.size() < 5 }">
+                                		<c:forEach var="i" begin="1" end="${5- noticeList.size() }" step="1">
+                                		<a href="#">내용없음</a>
+                                		</c:forEach>
+                                	</c:when>
+                                </c:choose>                                   
                                 </div>
                             </div>
                         </div>
                         <div id="article-middle-right" class="col-12 col-md-6 text-center">
                             <div class="row line">
-                                <div class="col-6 prevealTitle">최신글</div>
+                                <div class="col-6 prevealTitle">자유게시판</div>
                                 <div class="col-6">
-                                    <a href="#">더보기</a>
+                                    <a href="${pageContext.request.contextPath}/boardFree.bo">더보기</a>
                                 </div>
                             </div>
                             <div class="row line">
                                 <div class="col-12 prevealCon">
-                                    <a href="#">최신글</a><br>
-                                    <a href="#">최신글</a><br>
-                                    <a href="#">최신글</a><br>
-                                    <a href="#">최신글</a><br>
-                                    <a href="#">최신글</a><br>
+                                <c:choose>
+                                	<c:when test="${freeList.size() == 0 }">
+                                	내용없음
+                                	</c:when>
+                                	<c:otherwise>
+                                	<c:forEach items="${freeList}" var="dto">
+                                	<a href="${pageContext.request.contextPath}/freeDetail.bo?seq=${dto.seq}">[${dto.animalHeader}]&nbsp;${dto.title }</a><br>
+                                	</c:forEach>                                	
+                                	</c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                	<c:when test="${freeList.size() < 5 }">
+                                		<c:forEach var="i" begin="1" end="${5- freeList.size() }" step="1">
+                                		<a href="#">내용없음</a>
+                                		</c:forEach>
+                                	</c:when>
+                                </c:choose>                              
                                 </div>
                             </div>
                         </div>
@@ -127,13 +136,13 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="../imgs/animal/%EB%B1%81%EC%83%88.png" class="imgSize d-block">
+                                <img src="imgs/animal/%EB%B1%81%EC%83%88.png" class="imgSize d-block">
                             </div>
                             <div class="carousel-item">
-                                <img src="../imgs/animal/%EA%B3%A0%EC%8A%B4%EB%8F%84%EC%B9%98.jpg" class="imgSize d-block">
+                                <img src="imgs/animal/%EA%B3%A0%EC%8A%B4%EB%8F%84%EC%B9%98.jpg" class="imgSize d-block">
                             </div>
                             <div class="carousel-item">
-                                <img src="../imgs/animal/%EC%95%B5%EB%AC%B4%EC%83%88.jpg" class="imgSize d-block"> 
+                                <img src="imgs/animal/%EC%95%B5%EB%AC%B4%EC%83%88.jpg" class="imgSize d-block"> 
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -154,7 +163,7 @@
 			
                 <div id="article-botton" class="col-12 p-0">
                 	
-                <form action="${pageContext.request.contextPath}/search/searchFrom.s" class="col-12 p-0" id="detailSearch" method="post">
+                <form action="${pageContext.request.contextPath}/searchFrom.s" class="col-12 p-0" id="detailSearch" method="post">
                     <div class="col-12 line">동물병원 상세 검색</div>
                     <div id="area-search" class="col-12">
                         <div class="row line">
