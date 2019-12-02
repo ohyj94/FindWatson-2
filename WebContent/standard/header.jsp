@@ -76,6 +76,6 @@ $("#logout").on("click", function(){
 	location.href="${pageContext.request.contextPath}/logout.member"
 })
 $("#donate").on("click",function(){
-    location.href="../donate/donateForm.jsp"
+    location.href="${pageContext.request.contextPath}/donate/donateForm.jsp"
 })
 </script>
