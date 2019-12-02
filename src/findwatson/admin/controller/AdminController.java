@@ -3,6 +3,7 @@ package findwatson.admin.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,9 +22,12 @@ import findwatson.admin.dao.AdminFileDAO;
 import findwatson.admin.dto.AdminFileDTO;
 import findwatson.admin.dto.BanDTO;
 import findwatson.admin.dto.ExpertDTO;
+import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
 import findwatson.board.dao.BoardDAO;
+import findwatson.board.dao.ObODAO;
 import findwatson.board.dto.BoardDTO;
+import findwatson.board.dto.ObODTO;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
 
@@ -44,6 +48,7 @@ public class AdminController extends HttpServlet {
 		String id = "test";
 		
 		AdminDAO dao = AdminDAO.getInstance();
+		ObODAO Odao = ObODAO.getInstance();
 		AdminFileDAO fDao = AdminFileDAO.getInstance();
 		PrintWriter pwriter = response.getWriter();
 		
@@ -266,7 +271,88 @@ public class AdminController extends HttpServlet {
 				List<MemberDTO> list = dao.selectById(idInput);
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
+
+			// 병원 정보 입력
+			} else if(cmd.contentEquals("/hosptInfoInsert.admin")) {
+				String repositoryName = "hospitalImg";
+				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
+				
+				File uploadFilePath = new File(uploadPath);
+				if(!uploadFilePath.exists()) {
+					uploadFilePath.mkdir();
+				}
+
+				int maxSize = 1024 * 1024 * 10; // 10MB 용량 제한
+				MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+				
+				String name = multi.getParameter("name");
+				int postcode = Integer.parseInt(multi.getParameter("postcode"));
+				String address1 = multi.getParameter("address1");
+				String address2 = multi.getParameter("address2");
+				String phone = multi.getParameter("phone");
+				String homepage = multi.getParameter("homepage");
+				String[] medicalAnimalArr = multi.getParameterValues("medicalAnimal");
+				String[] openTimeArr = multi.getParameterValues("openTime");
+				String image = multi.getFilesystemName("image");
+				
+				String medicalAnimal = Arrays.toString(medicalAnimalArr).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
+				if(medicalAnimal.contentEquals("null")) {
+					medicalAnimal = "";
+				}
+				System.out.println("animal : " + medicalAnimal);
+				
+				String openTime = Arrays.toString(openTimeArr).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
+				if(openTime.contentEquals("null")) {
+					openTime = "";
+				}
+				System.out.println("animal : " + openTime);
+				
+				//System.out.println(uploadPath);
+				//System.out.println(name+"/"+postcode+"/"+address1+"/"+address2+"/"+phone+"/"+homepage+"/"+medicalAnimal.length+"/"+openTime.length+"/"+image);
+				
+				HListDTO Hdto = new HListDTO(0,name,postcode,address1,address2,phone,homepage,image,medicalAnimal,openTime,null,0);
+				int result = dao.insertHospitalInfo(Hdto);
+				if(result > 0) {
+					System.out.println("병원 정보 입력 성공");
+					response.sendRedirect("adminMemberList.admin");
+				}
+			// 1:1 문의 게시글 출력
+			} else if(cmd.contentEquals("/adminOneByOne.admin")) {
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<ObODTO> list = Odao.ObOByPage(start, end);
+				String pageNavi = Odao.getObOPageNav(cpage);
+				
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("admin/adminBoardObO.jsp").forward(request, response);
+			// 1:1 문의게시판 디테일 뷰
+			} else if(cmd.contentEquals("/adminObODetailView.admin")) {
+				int ObOSeq = Integer.parseInt(request.getParameter("seq"));
+				ObODTO dto = Odao.getObOBySeq(ObOSeq);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("admin/adminObODetailView.jsp").forward(request, response);
+				
+			} else if(cmd.contentEquals("")) {
+				
+				
+				
+				
+				
+				
+			} else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
+
+			}
+			else if(cmd.contentEquals("/adminMemberChart.admin")) {//회원통계
+				
 			}else if(cmd.contentEquals("/adminMemberChart.admin")) {//회원통계
+				
 				System.out.println("회원차트 진입성공");
 				//회원정보
 				int totalCount = dao.recordMemberListTotalCount();
@@ -299,6 +385,9 @@ public class AdminController extends HttpServlet {
 			}else if(cmd.contentEquals("/adminMemberChart.admin")) {//관심동물통계
 				
 				
+			}
+			else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
+
 			}else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
 				int noticeSeq = Integer.parseInt(request.getParameter("seq"));
 				dao.increNoticeView(noticeSeq);
@@ -339,8 +428,6 @@ public class AdminController extends HttpServlet {
 			}else {
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect(contextPath + "/error.jsp");
