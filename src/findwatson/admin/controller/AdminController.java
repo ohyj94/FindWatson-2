@@ -296,7 +296,14 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("bug", bug);
 				request.setAttribute("other", other);
 				//가입경로
-				
+				int directSearch = dao.recordDirectSearchTotalCount();
+				int keywordSearch = dao.recordKeywordSearchTotalCount();
+				int introduce = dao.recordIntroduceTotalCount();
+				int otherSearch = dao.recordOtherSearchTotalCount();
+				request.setAttribute("directSearch", directSearch);
+				request.setAttribute("keywordSearch", keywordSearch);
+				request.setAttribute("introduce", introduce);
+				request.setAttribute("otherSearch", otherSearch);
 				request.getRequestDispatcher("/admin/adminMemberChart.jsp").forward(request, response);
 				
 			}

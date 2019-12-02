@@ -129,8 +129,8 @@ div {
             <canvas id="lovePetChart"></canvas>
             	<script>
             	   var ctx = document.getElementById('lovePetChart');
-            	   var myChart = new Chart(ctx, {
-            	       type: 'bar',
+            	   var myDoughnutChart = new Chart(ctx, {
+            		    type: 'doughnut',
             	       data: {
             	           labels: ['새', '물고기', '햄스터', '토끼', '고슴도치', '파충류', '곤충류', '기타'],
             	           datasets: [{
@@ -171,13 +171,13 @@ div {
             <canvas id="signpathChart"></canvas>
             	<script>
             	   var ctx = document.getElementById('signpathChart');
-            	   var myChart = new Chart(ctx, {
-            	       type: 'bar',
+            	   var myDoughnutChart = new Chart(ctx, {
+            		    type: 'doughnut',
             	       data: {
-            	           labels: ['', '물고기', '햄스터', '토끼'],
+            	           labels: ["'찾아조 왓슨!' 직접검색", "'특수 동물 병원'' 키워드 검색", '지인 소개', '기타'],
             	           datasets: [{
             	               label: '가입 경로',
-            	               data: [12, 19, 3, 5, 2, 3, 5, 10],
+            	               data: [${directSearch}, ${keywordSearch}, ${introduce}, ${otherSearch}],
             	               backgroundColor: [
             	                   'rgba(255, 99, 132, 0.2)',
             	                   'rgba(54, 162, 235, 0.2)',
@@ -213,8 +213,8 @@ div {
             <canvas id="hotChart"></canvas>
             	<script>
             	   var ctx = document.getElementById('hotChart');
-            	   var myChart = new Chart(ctx, {
-            	       type: 'bar',
+            	   var myDoughnutChart = new Chart(ctx, {
+            		    type: 'doughnut',
             	       data: {
             	           labels: ['새', '물고기', '햄스터', '토끼', '고슴도치', '파충류', '곤충류', '기타'],
             	           datasets: [{
@@ -260,24 +260,7 @@ div {
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
 	<script>
-		//각 버튼별 주소이동
-		$("#logo").on("click", function() {
-			location.href = "${pageContext.request.contextPath}/mainAdmin.jsp";
-		});
-		//공지사항으로 이동
-		$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
-		//전문가 Q&A로 이동
-		$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
-		//자유게시판으로 이동
-		$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
-		//질문게시판으로 이동
-		$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
-		//회원목록조회로 이동
-		$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");
-		//차단한ip목록조회로 이동
-		$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
-		//회원통계로 이동
-		$("#memberCharts").attr("href", "${pageContext.request.contextPath}/adminMemberChart.admin");
+		
 	</script>
 </body>
 </html>

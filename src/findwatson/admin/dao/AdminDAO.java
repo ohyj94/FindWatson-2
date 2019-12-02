@@ -662,8 +662,54 @@ public class AdminDAO {
 			return rs.getInt(1);
 		}
 	}
-
-
+	//관리자통계 - 가입경로 직접검색
+	public int recordDirectSearchTotalCount () throws Exception {
+		String sql = "select count(signpath) from member where signpath=' ''찾아조 왓슨!'' 직접검색'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//관리자통계 - 가입경로 키워드검색
+		public int recordKeywordSearchTotalCount () throws Exception {
+			String sql = "select count(signpath) from member where signpath=' ''특수 동물 병원'' 키워드 검색'";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				ResultSet rs = pstat.executeQuery();
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
+		//관리자통계 - 가입경로 지인소개
+		public int recordIntroduceTotalCount () throws Exception {
+			String sql = "select count(signpath) from member where signpath='지인 소개'";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				ResultSet rs = pstat.executeQuery();
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
+		//관리자통계 - 가입경로 기타
+		public int recordOtherSearchTotalCount () throws Exception {
+			String sql = "select count(lovepet) from member where lovepet not in (' ''찾아조 왓슨!'' 직접검색',' ''특수 동물 병원'' 키워드 검색','지인 소개')";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				ResultSet rs = pstat.executeQuery();
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
 	//공지사항 테이블 시퀀스로 dto가져오기
 	public NoticeDTO getNoticeBySeq(int noticeSeq)throws Exception{
 		String sql = "select * from notice where seq =?";
