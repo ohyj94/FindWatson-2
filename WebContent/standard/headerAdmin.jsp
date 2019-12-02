@@ -7,7 +7,8 @@
 
 <div class="row mb-2">
     <div id="loginBtn" class="col-12 p-1 text-right">
-        <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
+    <button class="btn btn-sm btn-outline-secondary" id=pwMdf>비밀번호 변경</button>
+    <button class="btn btn-sm btn-outline-secondary" id=logout>로그아웃</button>
     </div>
 </div>
 <div class="row">
@@ -66,7 +67,7 @@
 <script>
 		//각 버튼별 주소이동
 		//홈
-		$("#home").attr("href", "${pageContext.request.contextPath}/main/mainAdmin.jsp");
+		$("#home").attr("href", "${pageContext.request.contextPath}/main/indexAdmin.jsp");
 		//공지사항
 		$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
 		
@@ -94,5 +95,16 @@
 		$("#memberCharts").attr("href", "${pageContext.request.contextPath}/adminMemberChart.admin");
  		
 		
+		//로그아웃 버튼 누를시
+		$("#logout").on("click",function(){
+			var result = confirm("정말 로그아웃 하시겠습니까?");
+			if(result){
+				location.href='${pageContext.request.contextPath}/logout.admin';
+			}
+		});
+		//비밀번호 변경 누를시
+		$("#pwMdf").on("click",function(){
+			location.href='${pageContext.request.contextPath}/admin/adminPwModify.jsp';
+		});
 		
 </script>

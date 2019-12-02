@@ -45,8 +45,8 @@ public class AdminController extends HttpServlet {
 		String requestURI = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		String cmd = requestURI.substring(contextPath.length());
-		//String id = (String)request.getSession().getAttribute("loginInfo");
-		String id = "test";
+		String id = (String)request.getSession().getAttribute("adminInfo");
+		
 
 		AdminDAO dao = AdminDAO.getInstance();
 		ManagerDAO Mdao = ManagerDAO.getInstance();
@@ -63,18 +63,31 @@ public class AdminController extends HttpServlet {
 				boolean result = dao.adminLogin(idInput, pwInput);
 
 				if(result) {
-					request.getSession().setAttribute("id", idInput);
-					response.sendRedirect("main/mainAdmin.jsp");
+					request.getSession().setAttribute("adminInfo", idInput);
+					response.sendRedirect("main/indexAdmin.jsp");
 				}
 				else {
 					response.sendRedirect("main/error.jsp");
 				}
-			}else if(cmd.contentEquals("관리자 비밀번호 변경")) {//관리자 비밀번호 변경
-				String pw = request.getParameter("pw");
-				int result = dao.adminInfoPwUpdate(id, pw);
-				if(result > 0) {
-					response.sendRedirect("index.jsp");
+			}else if(cmd.contentEquals("/adminPwModify.admin")) {//관리자 비밀번호 변경
+				String oriPw = request.getParameter("oriPw");
+				String newPw = request.getParameter("newPw");
+				System.out.println(oriPw + " : " + newPw);
+				
+				boolean pwCheck = dao.adminPwSameCheck(oriPw); 
+				System.out.println(pwCheck);
+				if(pwCheck) { //기존비밀번호와 일치했을때
+					dao.adminInfoPwUpdate(id, newPw);
+					JsonObject jobj = new JsonObject();
+					jobj.addProperty("result", pwCheck);
+					pwriter.append(jobj.toString());
+				}else { //기존비밀번호와 일치하지 않을때
+					JsonObject jobj = new JsonObject();
+					jobj.addProperty("result", pwCheck);
+					pwriter.append(jobj.toString());
 				}
+			}else if(cmd.contentEquals("/logout.admin")) {//관리자 로그아웃
+				request.getSession().invalidate();
 
 			}else if(cmd.contentEquals("/adminMemberList.admin")) {//회원목록 전체
 				//네비
@@ -461,9 +474,12 @@ public class AdminController extends HttpServlet {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				dao.deleteNotice(seq);
 				response.sendRedirect(contextPath + "/boardNotice.admin");
-			}else {
+			}else if(cmd.contentEquals("/start.admin")) {
+				response.sendRedirect(contextPath + "/main/adminLogin.jsp");
+			}else{
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect(contextPath + "/error.jsp");

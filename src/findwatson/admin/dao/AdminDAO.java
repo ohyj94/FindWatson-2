@@ -60,12 +60,12 @@ public class AdminDAO {
 	}
 	//관리자 비밀번호 변경
 	public int adminInfoPwUpdate(String id, String pw) throws Exception{
-		String sql = "update member set pw=? where id=?";
+		String sql = "update admin set pw=? where id=?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setString(1, Util.encrypt(pw));
+			pstat.setString(1, pw);
 			pstat.setString(2, id);
 			int result = pstat.executeUpdate();
 			con.commit();
@@ -848,9 +848,25 @@ public class AdminDAO {
 						writeDate);
 				return dto;
 			}
+
 		}
 
 	}
+			//관리자 비밀번호 변경 - 기존 비밀번호와 확인
+			public boolean adminPwSameCheck(String oriPwInput) throws Exception{
+				String sql = "select * from admin where pw = ?";
+				try(
+						Connection con = getConnection();
+						PreparedStatement pstat = con.prepareStatement(sql);
+						){
+						pstat.setString(1,oriPwInput);
+						try(
+							ResultSet rs = pstat.executeQuery();
+								){
+							return rs.next();
+						}
+				}
+			}
 
 	// 조회수 늘리기
 	// 공지
