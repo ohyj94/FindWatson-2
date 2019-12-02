@@ -35,7 +35,6 @@ public class AdminController extends HttpServlet {
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		Scanner sc = new Scanner(System.in);
 		
 		String ipAddr = request.getRemoteAddr();
 		String requestURI = request.getRequestURI();
@@ -267,9 +266,7 @@ public class AdminController extends HttpServlet {
 				List<MemberDTO> list = dao.selectById(idInput);
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
-//<<<<<<< HEAD
-			}
-			else if(cmd.contentEquals("/adminMemberChart.admin")) {//회원통계
+			}else if(cmd.contentEquals("/adminMemberChart.admin")) {//회원통계
 				System.out.println("회원차트 진입성공");
 				//회원정보
 				int totalCount = dao.recordMemberListTotalCount();
@@ -299,29 +296,47 @@ public class AdminController extends HttpServlet {
 				
 				request.getRequestDispatcher("/admin/adminMemberChart.jsp").forward(request, response);
 				
-			}
-			else if(cmd.contentEquals("/adminMemberChart.admin")) {//관심동물통계
+			}else if(cmd.contentEquals("/adminMemberChart.admin")) {//관심동물통계
 				
 				
-			}
-			
-//=======
-			else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
+			}else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
 				int noticeSeq = Integer.parseInt(request.getParameter("seq"));
+				dao.increNoticeView(noticeSeq);
 				NoticeDTO dto = dao.getNoticeBySeq(noticeSeq);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/adminNoticeDetailView.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/adminExpertDetailView.admin")) {//관리자 - 전문가 Q&A에서 글 클릭했을때
 				int expertSeq = Integer.parseInt(request.getParameter("seq"));
+				dao.increExpertView(expertSeq);
 				ExpertDTO dto = dao.getExpertBySeq(expertSeq);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/adminExpertDetailView.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/adminFreeDetailView.admin")) {//관리자 - 자유게시판에서 글 클릭했을때
-				
+				int freeSeq = Integer.parseInt(request.getParameter("seq"));
+				dao.increBoardView(freeSeq);
+				BoardDTO dto = dao.getBoardBySeq(freeSeq,"자유");
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("admin/adminFreeDetailView.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/adminQuestionDetailView.admin")) {//관리자 - 질문게시판에서 글 클릭했을때
-				
+				int questionSeq = Integer.parseInt(request.getParameter("seq"));
+				dao.increBoardView(questionSeq);
+				BoardDTO dto = dao.getBoardBySeq(questionSeq,"질문");
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("admin/adminQuestionDetailView.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/boardRemove.admin")) { //커뮤니티게시판 글삭제
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				dao.deleteBoard(seq);
+				response.sendRedirect(contextPath + "/boardQuestion.admin");
+			}else if(cmd.contentEquals("/expertRemove.admin")) {//전문가 게시판 글삭제
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				System.out.println(seq);
+				dao.deleteExpert(seq);
+				response.sendRedirect(contextPath + "/boardExpert.admin");
+			}else if(cmd.contentEquals("/noticeRemove.admin")) {//공지사항 글삭제
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				dao.deleteNotice(seq);
+				response.sendRedirect(contextPath + "/boardNotice.admin");
 			}else {
-//>>>>>>> 777b692b8b23db56023ece9d4b34eb22544f767b
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
 			
