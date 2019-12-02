@@ -92,30 +92,30 @@
 							method="post">
 							<div class="row line">
 								<div class="col-12">
-									병원이름 <input type="text" id="name" name=name>
+								<input type="text" id="name" name=name val =${dto.hosptName}>
 								</div>
 								<br>
 
 
 								<div class="col-12">
-									우편번호 <input type="text" id="postcode" name=postcode
-										placeholder="우편번호" readonly>
+									<input type="text" id="postcode" name=postcode
+										placeholder="우편번호" readonly val =${dto.postCode}>
 									<button id=addressBtn type="button"
 										onclick="sample4_execDaumPostcode()">찾기</button>
 								</div>
 								<div class="col-12">
-									주소1<input type="text" id="address1" name=address1
-										placeholder="주소1" readonly>
+									<input type="text" id="address1" name=address1
+										placeholder="주소1" readonly val =${dto.address1}>
 								</div>
 								<div class="col-12">
-									주소2<input type=text name=address2 id=address2 placeholder="주소2">
+									<input type=text name=address2 id=address2 placeholder="주소2" val =${dto.address2}>
 								</div>
 								<div class="col-12">
-									전화번호<input type=text id=phone name=phone placeholder='전화번호'>
+									<input type=text id=phone name=phone placeholder='전화번호' val =${dto.phone}>
 								</div>
 								<div class="col-12">
-									홈페이지 주소<input type=text id=homepage name=homepage
-										placeholder='홈페이지 주소'>
+									<input type=text id=homepage name=homepage
+										placeholder='홈페이지 주소' val =${dto.homepage}>
 								</div>
 
 

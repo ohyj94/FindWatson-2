@@ -478,8 +478,14 @@ public class AdminController extends HttpServlet {
 			}else if(cmd.contentEquals("/hosptRemove.admin")) { // 병원 정보 삭제
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				dao.deleteHospt(seq);
-				response.sendRedirect("");
-			}else if(cmd.contentEquals("")) {
+				response.sendRedirect("hosptInfoList.admin");
+			}else if(cmd.contentEquals("/hosptModify.admin")) {//병원 정보 수정
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				System.out.println();
+				HListDTO dto = dao.getHListBySeq(seq);
+				System.out.println(dto.getAddress1() );
+				request.setAttribute("dto",dto);
+				request.getRequestDispatcher("adminModifyHospt.jsp").forward(request, response);
 				
 			}else{
 				response.sendRedirect(contextPath + "/error.jsp");
