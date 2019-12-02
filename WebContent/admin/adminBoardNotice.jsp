@@ -87,17 +87,11 @@
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
-
 	<script>
-	
 	//글쓰기 버튼
-
-	
-	$("#writeBtn").on("click",function() {
-			location.href = "${pageContext.request.contextPath}/admin/adminBoardNoticeWrite.jsp";
+	$("#writeBtn").on("click",function(){
+		location.href="${pageContext.request.contextPath}/admin/adminBoardNoticeWrite.jsp";
 	})
-
 	</script>
-
 </body>
 </html>
