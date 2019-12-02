@@ -2,7 +2,7 @@ package findwatson.member.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -180,6 +180,26 @@ public class memberController extends HttpServlet {
 				response.sendRedirect("main/error.jsp");
 			}
 
+		}//아이디찾기
+		else if(path.contentEquals("/idFind.member")) {
+			
+			
+			try {
+				String name = request.getParameter("name");
+				String birth = request.getParameter("birth");
+				String email = request.getParameter("email");
+				int phone = Integer.parseInt(request.getParameter("phone"));
+				boolean list = dao.idFind(name, birth, email, phone);
+				if(list) {
+					request.setAttribute("list", list);
+					request.getRequestDispatcher("member/viewIdFind.jsp").forward(request, response);
+				}else {
+					response.sendRedirect("main/error.jsp");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("main/error.jsp");
+			}
 		}
 	}
 
