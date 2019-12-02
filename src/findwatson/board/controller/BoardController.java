@@ -202,10 +202,12 @@ public class BoardController extends HttpServlet {
 				pwriter.append(jObj.toString());
 
 
-			}else if(cmd.contentEquals("/search.bo")) {
+			// 자유게시판
+			}else if(cmd.contentEquals("/searchFree.bo")) {
 				String category = request.getParameter("category");
-				String keyword = request.getParameter("search");
-
+				String keyword = request.getParameter("keyword");
+				System.out.println("category" + category);
+				System.out.println("keyword" + keyword);
 				// 네비게이터 받아오는 부분 
 				int currentPage =1;
 				String page = request.getParameter("currentPage");
@@ -217,25 +219,48 @@ public class BoardController extends HttpServlet {
 
 				List<BoardDTO> list = new ArrayList<>();
 
-
-
-				// 제목 검색인지 작성자 검색인지 구분
-				//if(category.contentEquals("title")) {
-					list = BoardDAO.getInstance().selectByOption(category, "%"+keyword+"%", start, end);
-				//}else if(category.contentEquals("writer")) {
-				//	list = BoardDAO.getInstance().selectByWriter("%"+keyword+"%", start, end);	
-				//}
+				list = BoardDAO.getInstance().selectByOptionFree(category, keyword, start, end);
 
 				System.out.println("list에" + keyword+ "를 담았음");
 
 				request.setAttribute("list", list);
 
 				// navi 값 보내기 
-				String pageNavi = BoardDAO.getInstance().getPageNaviTotal(currentPage,category, "%" + keyword + "%");
+				String pageNavi = BoardDAO.getInstance().getPageNaviTotalFree(currentPage, category, keyword );
 				System.out.println("이 값이 넘어가야함" + pageNavi);
 				request.setAttribute("pageNavi", pageNavi);
-
+				request.setAttribute("keyword", keyword);
 				request.getRequestDispatcher("/board/boardFree.jsp").forward(request, response);
+
+			// 질문게시판
+			}else if(cmd.contentEquals("/searchOne.bo")) {
+				String category = request.getParameter("category");
+				String keyword = request.getParameter("keyword");
+				System.out.println("category" + category);
+				System.out.println("keyword" + keyword);
+				// 네비게이터 받아오는 부분 
+				int currentPage =1;
+				String page = request.getParameter("currentPage");
+				if(page != null) {
+					currentPage = Integer.parseInt(page);
+				}
+				int start = currentPage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);
+				int end = currentPage * Configuration.recordCountPerPage;
+
+				List<BoardDTO> list = new ArrayList<>();
+
+				list = BoardDAO.getInstance().selectByOptionOne(category, keyword, start, end);
+
+				System.out.println("list에" + keyword+ "를 담았음");
+
+				request.setAttribute("list", list);
+
+				// navi 값 보내기 
+				String pageNavi = BoardDAO.getInstance().getPageNaviTotalOne(currentPage, category, keyword );
+				System.out.println("이 값이 넘어가야함" + pageNavi);
+				request.setAttribute("pageNavi", pageNavi);
+				request.setAttribute("keyword", keyword);
+				request.getRequestDispatcher("/board/boardQuestion.jsp").forward(request, response);
 
 
 

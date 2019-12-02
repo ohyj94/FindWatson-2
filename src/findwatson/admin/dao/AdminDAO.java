@@ -11,7 +11,9 @@ import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import findwatson.admin.dto.BanDTO;
 import findwatson.admin.dto.ExpertDTO;
+import findwatson.admin.dto.NoticeDTO;
 import findwatson.admin.utils.Util;
+import findwatson.board.dto.BoardDTO;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
 
@@ -44,7 +46,7 @@ public class AdminDAO {
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setString(1, id);
-			pstat.setString(2, Util.encrypt(pw));
+			pstat.setString(2, pw);
 			try(
 					ResultSet rs = pstat.executeQuery();
 					){
@@ -511,11 +513,11 @@ public class AdminDAO {
 		}
 	}
 	//관리자 - 전문가 Q&A에 글작성
-		public int insertToExpert(ExpertDTO dto)throws Exception{
+	public int insertToExpert(ExpertDTO dto)throws Exception{
 		String sql = "insert into expert values (expertSeq.nextval,?,?,?,sysdate, 0)";
 		try(
-			Connection con = getConnection();
-			PreparedStatement pstat = con.prepareStatement(sql);
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setString(1, dto.getWriter());
 			pstat.setString(2, dto.getTitle());
@@ -525,22 +527,309 @@ public class AdminDAO {
 			return result;
 		}	
 	}
-	
+
+
 	//관리자 - 공지에 글작성
-			public int insertToNotice(ExpertDTO dto)throws Exception{
-				String sql = "insert into notice values (noticeSeq.nextval,?,?,sysdate, 0)";
+	public int insertToNotice(ExpertDTO dto)throws Exception{
+		String sql = "insert into notice values (noticeSeq.nextval,?,?,sysdate, 0)";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, dto.getTitle());
+			pstat.setString(2, dto.getContent());
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}	
+	}
+
+	//관리자통계 - 남자회원 수
+	public int recordMemberMTotalCount () throws Exception {
+		String sql = "select count(gender) from member where gender='남'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}		
+	//관리자통계 - 여자회원 수
+	public int recordMemberWTotalCount () throws Exception {
+		String sql = "select count(gender) from member where gender='여'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//관리자통계 - 관심동물 새
+	public int recordBirdTotalCount () throws Exception {
+		String sql = "select count(lovepet) from member where lovepet='새'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//관리자통계 - 관심동물 물고기
+	public int recordFishTotalCount () throws Exception {
+		String sql = "select count(lovepet) from member where lovepet='물고기'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//관리자통계 - 관심동물 햄스터
+	public int recordHamsterTotalCount () throws Exception {
+		String sql = "select count(lovepet) from member where lovepet='햄스터'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//관리자통계 - 관심동물 토끼
+	public int recordRabbitTotalCount () throws Exception {
+		String sql = "select count(lovepet) from member where lovepet='토끼'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//관리자통계 - 관심동물 고슴도치
+	public int recordDochiTotalCount () throws Exception {
+		String sql = "select count(lovepet) from member where lovepet='고슴도치'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//관리자통계 - 관심동물 파충류
+	public int recordReptileTotalCount () throws Exception {
+		String sql = "select count(lovepet) from member where lovepet='파충류'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//관리자통계 - 관심동물 곤충류
+	public int recordBugTotalCount () throws Exception {
+		String sql = "select count(lovepet) from member where lovepet='곤충류'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//관리자통계 - 관심동물 기타
+	public int recordOtherTotalCount () throws Exception {
+		String sql = "select count(lovepet) from member where lovepet not in ('새','물고기','햄스터','토끼','고슴도치','파충류','곤충류')";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+
+
+	//공지사항 테이블 시퀀스로 dto가져오기
+	public NoticeDTO getNoticeBySeq(int noticeSeq)throws Exception{
+		String sql = "select * from notice where seq =?";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, noticeSeq);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+				rs.next();
+				int seq = rs.getInt(1);
+				String title = rs.getString(2);
+				String content = rs.getString(3);
+				Timestamp writeDate = rs.getTimestamp(4);
+				int viewCount = rs.getInt(5);
+
+				NoticeDTO dto = new NoticeDTO(seq, title, content, writeDate, viewCount);
+				return dto;
+			}
+		}
+
+	}
+	//전문가 큐엔에이 테이블 시퀀스로 dto가져오기
+	public ExpertDTO getExpertBySeq(int expertSeq)throws Exception{
+		String sql = "select * from expert where seq =?";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, expertSeq);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+				rs.next();
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String title = rs.getString(3);
+				String content = rs.getString(4);
+				Timestamp writeDate = rs.getTimestamp(5);
+				int viewCount = rs.getInt(6);
+
+				ExpertDTO dto = new ExpertDTO(seq, writer, title, content, writeDate, viewCount);
+				return dto;
+			}
+		}
+
+	}
+			
+			//전문가 게시판 시퀀스로 dto가져오기
+			public BoardDTO getBoardBySeq(int expertSeq, String header)throws Exception{
+				String sql = "select * from Board where seq = ? and header = ?";
 				try(
 					Connection con = getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);
 						){
-					pstat.setString(1, dto.getTitle());
-					pstat.setString(2, dto.getContent());
+					pstat.setInt(1, expertSeq);
+					pstat.setString(2, header);
+					try(
+							ResultSet rs = pstat.executeQuery();
+							){
+							rs.next();
+							int seq = rs.getInt(1);
+							String writer = rs.getString(2);
+							String headerInput = header;
+							String animalHeader = rs.getString(4);
+							String title = rs.getString(5);
+							String content = rs.getString(6);
+							String ipAddr = rs.getString(7);
+							int viewCount = rs.getInt(8);
+							Timestamp writeDate = rs.getTimestamp(9);
+							
+							BoardDTO dto = new BoardDTO(seq, writer,headerInput, animalHeader, title, content,ipAddr, viewCount, writeDate);
+							return dto;
+					}
+				}
+				
+			}
+			//조회수 늘리기
+			//공지
+			public int increNoticeView(int seq)throws Exception{
+				String sql = "update notice set viewCount = (select viewCount from notice where seq = ?) + 1 where seq = ?";
+				try(
+						Connection con = getConnection();
+						PreparedStatement pstat = con.prepareStatement(sql);
+						){
+					pstat.setInt(1, seq);
+					pstat.setInt(2, seq);
 					int result = pstat.executeUpdate();
 					con.commit();
 					return result;
-				}	
+				}
+				
 			}
-	
-	
-	
+			//전문가
+			public int increExpertView(int seq)throws Exception{
+				String sql = "update expert set viewCount = (select viewCount from expert where seq = ?) + 1 where seq = ?";
+				try(
+						Connection con = getConnection();
+						PreparedStatement pstat = con.prepareStatement(sql);
+						){
+					pstat.setInt(1, seq);
+					pstat.setInt(2, seq);
+					int result = pstat.executeUpdate();
+					con.commit();
+					return result;
+				}
+				
+			}
+			//커뮤니티
+			public int increBoardView(int seq)throws Exception{
+				String sql = "update board set viewCount = (select viewCount from board where seq = ?) + 1 where seq = ?";
+				try(
+						Connection con = getConnection();
+						PreparedStatement pstat = con.prepareStatement(sql);
+						){
+					pstat.setInt(1, seq);
+					pstat.setInt(2, seq);
+					int result = pstat.executeUpdate();
+					con.commit();
+					return result;
+				}
+				
+			}
+			//게시판 글삭제
+			public int deleteBoard(int seq)throws Exception{
+				String sql = "delete from board where seq=?";
+				try(
+						Connection con = getConnection();
+						PreparedStatement pstat = con.prepareStatement(sql);
+						){
+					pstat.setInt(1, seq);
+					int result = pstat.executeUpdate();
+					con.commit();
+					return result;
+				}
+			}
+			//공지사항 글삭제
+			public int deleteNotice(int seq)throws Exception{
+				String sql = "delete from notice where seq=?";
+				try(
+						Connection con = getConnection();
+						PreparedStatement pstat = con.prepareStatement(sql);
+						){
+					pstat.setInt(1, seq);
+					int result = pstat.executeUpdate();
+					con.commit();
+					return result;
+				}
+			}
+			
+			//전문가 글 삭제
+			public int deleteExpert(int seq)throws Exception{
+				String sql = "delete from expert where seq=?";
+				try(
+						Connection con = getConnection();
+						PreparedStatement pstat = con.prepareStatement(sql);
+						){
+					pstat.setInt(1, seq);
+					int result = pstat.executeUpdate();
+					con.commit();
+					return result;
+				}
+			}
+		
 }

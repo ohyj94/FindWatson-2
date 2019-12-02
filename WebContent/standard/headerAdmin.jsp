@@ -12,7 +12,7 @@
 </div>
 <div class="row">
     <div id="title" class="col-12 mb-3 p-1 text-center">
-        <a href="../main/mainAdmin.jsp"><img id="logo" src="../imgs/logo.png" class="col-12"></a>
+        <a id=home><img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12"></a>
     </div>
 </div>
 <div class="row">
@@ -24,14 +24,14 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">공지사항</a>
+                        <a class="nav-link" id=notice>공지사항</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             병원관리
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="../admin/adminInsertHospt.jsp">병원정보 등록</a>
+                            <a class="dropdown-item" id=hosptInsert>병원정보 등록</a>
                             <a class="dropdown-item" href="#">병원정보 수정/삭제</a>
                             <a class="dropdown-item" href="#">병원리뷰 관리</a>
                         </div>
@@ -41,9 +41,9 @@
                             게시판관리
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">전문가Q&amp;A</a>
-                            <a class="dropdown-item" href="#">자유게시판</a>
-                            <a class="dropdown-item" href="#">질문게시판</a>
+                            <a class="dropdown-item" id = expert>전문가Q&amp;A</a>
+                            <a class="dropdown-item" id = free>자유게시판</a>
+                            <a class="dropdown-item" id = question>질문게시판</a>
                             <a class="dropdown-item" href="#">1:1문의게시판</a>
                         </div>
                     </li>
@@ -52,9 +52,9 @@
                             회원관리
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">회원목록조회</a>
-                            <a class="dropdown-item" href="#">차단 IP 조회</a>
-                            <a class="dropdown-item" href="#">회원 통계</a>
+                            <a class="dropdown-item" id = memberList>회원목록조회</a>
+                            <a class="dropdown-item" id = banList>차단 IP 조회</a>
+                            <a class="dropdown-item" id = memberCharts>회원 통계</a>
                         </div>
                     </li>
                 </ul>
@@ -65,15 +65,30 @@
 
 <script>
 		//각 버튼별 주소이동
-		$("#logo").on("click", function() {
-			location.href = "../main/mainAdmin.jsp";
-		});
-		//공지사항으로 이동
+		//홈
+		$("#home").attr("href", "${pageContext.request.contextPath}/main/mainAdmin.jsp");
+		//공지사항
 		$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
-		//전문가 Q&A로 이동
+		
+		//병원 관리 - 병원정보 등록
+		//병원 관리 - 병원정보 수정/삭제
+		//병원 관리 - 병원리뷰 관리
+		
+		//게시판 관리 - 전문가 Q&A
 		$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
-		//자유게시판으로 이동
+		//게시판 관리 - 자유게시판
 		$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
-		//질문게시판으로 이동
+		//게시판 관리 - 질문게시판
 		$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
+		//게시판 관리 - 일대일 문의
+		
+		//회원 관리 - 회원 목록 조회
+		$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");
+		//회원 관리 - 차단 ip 조회
+		$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
+		//회원 관리 - 회원 통계
+		$("#memberCharts").attr("href", "${pageContext.request.contextPath}/adminMemberChart.admin");
+ 		
+		
+		
 </script>

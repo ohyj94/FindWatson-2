@@ -63,20 +63,26 @@ public class BoardDAO {
 	}
 
 
-		
-		// <카테고리 - 제목별 검색>에 따른 전체 목록 개수 반환 
-		public int selectByList(String column, String keyword) throws Exception{
-
-			String sql = "select *  from board where ? like ? order by seq desc";
-			System.out.println("selectByList에 들어왔음");
+	//// 자유게시판 /////
+	
+		// 카테고리별 검색에 따른 전체 목록 개수 반환 
+		public int selectListSizeFree(String category, String keyword) throws Exception{
+			String sql="sql";
+			
+			if(category.contentEquals("title")) {
+			sql = "select *  from board where (header='자유') and (title like ?) order by seq desc";
+			}else if(category.contentEquals("writer")) {
+				sql = "select *  from board where (header='자유') and (writer like ?) order by seq desc";	
+			}else if(category.contentEquals("animalheader")) {
+				sql = "select *  from board where (header='자유') and (animalheader like ?) order by seq desc";	
+			}
+			
 			try (
 					Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);
 					){
 				System.out.println(keyword);
-				System.out.println(column);
-				pstat.setString(1, column);
-				pstat.setString(2, keyword);
+				pstat.setString(1, "%" + keyword + "%");
 
 				try(
 						ResultSet rs = pstat.executeQuery();
@@ -84,7 +90,7 @@ public class BoardDAO {
 						){
 					List<BoardDTO> list = new ArrayList<BoardDTO>();
 					while(rs.next()) {
-							System.out.println("ggg");
+							
 							int seq = rs.getInt(1);
 							System.out.println(seq);
 							String writer = rs.getString(2);
@@ -96,45 +102,60 @@ public class BoardDAO {
 							String ipAddr = rs.getString(7);
 							int viewCount = rs.getInt(8);
 							Timestamp writeDate = rs.getTimestamp(9);
-							System.out.println(3);
+						
 							BoardDTO dto = new BoardDTO(seq, writer, header, animalHeader, title,
 									content, ipAddr, viewCount, writeDate);
 							list.add(dto);
-							System.out.println("list에 " + list.size()+ "개가 들어있음");
-							System.out.println(4);
+							
+							
 					}
+					System.out.println("list에 " + list.size()+ "개가 들어있음");
 					System.out.println("작성자 검색 DAO 완료");
 					return list.size();
 				}	
 			}
 		}
 
-
+		
 		// 카테고리별 검색에 따른 목록을 페이지 수에 맞춰 반환 
-				public List<BoardDTO> selectByOption(String column, String keyword, int start, int end) throws Exception{
-
-					String sql = "select * from (select board.*, row_number() over (order by seq desc) as rank from board) "
-							+ "where (? like ?) and (rank between ? and ?) order by seq desc";
-
+				public List<BoardDTO> selectByOptionFree(String category, String keyword, int start, int end) throws Exception{
+					String sql = "sql";
+					System.out.println("category" + category);
+					System.out.println("keyword" + keyword);
+					System.out.println("start" + start);
+					System.out.println("end" + end);
+					
+					if(category.contentEquals("title")) {
+					sql = "select * from (select board.*, row_number() over (order by seq desc) as rank from board) "
+							+ "where (header='자유') and (title like ?) and (rank between ? and ?) order by seq desc";
+					}else if(category.contentEquals("writer")) {
+						sql = "select * from (select board.*, row_number() over (order by seq desc) as rank from board) "
+								+ "where (header='자유') and (writer like ?) and (rank between ? and ?) order by seq desc";	
+					}else if(category.contentEquals("animalheader")) {
+						sql = "select * from (select board.*, row_number() over (order by seq desc) as rank from board) "
+								+ "where (header='자유') and (animalheader like ?) and (rank between ? and ?) order by seq desc";
+					}
+					System.out.println("여기도 안오니");
 					try (
 							Connection con = this.getConnection();
 							PreparedStatement pstat = con.prepareStatement(sql);
+							
 							){
 						System.out.println(keyword);
-						pstat.setString(1, column);
-						pstat.setString(2, keyword);
-						pstat.setInt(3, start);
+						pstat.setString(1, "%" + keyword + "%");
+						pstat.setInt(2, start);
 						System.out.println("start" + start);
-						pstat.setInt(4, end);
+						pstat.setInt(3, end);
 						System.out.println("end" + end);
-						System.out.println(2);
+						
 						try(
 								ResultSet rs = pstat.executeQuery();
 
 								){
+							System.out.println("여기도 안오니 3");
 							List<BoardDTO> list = new ArrayList<BoardDTO>();
 							while(rs.next()) {
-									System.out.println("ggg");
+								
 									int seq = rs.getInt(1);
 									System.out.println(seq);
 									String writer = rs.getString(2);
@@ -150,8 +171,7 @@ public class BoardDAO {
 									BoardDTO dto = new BoardDTO(seq, writer, header, animalHeader, title,
 											content, ipAddr, viewCount, writeDate);
 									list.add(dto);
-									System.out.println("list에 " + list.size()+ "개가 들어있음");
-									System.out.println(4);
+									
 							}
 							System.out.println("작성자 검색 DAO 완료");
 							return list;
@@ -160,9 +180,9 @@ public class BoardDAO {
 				}
 
 		// option에 따른 검색 결과 페이지 네비게이터
-		public String getPageNaviTotal(int currentPage, String column,  String keyword) throws Exception {
+		public String getPageNaviTotalFree(int currentPage, String category, String keyword) throws Exception {
 
-			int recordTotalCount = this.selectByList(column, keyword);
+			int recordTotalCount = this.selectListSizeFree(category, keyword);
 			System.out.println("currentPage" + currentPage);
 		
 			System.out.println("recordTotalCount" + recordTotalCount);
@@ -202,15 +222,17 @@ public class BoardDAO {
 			}
 
 			StringBuilder sb = new StringBuilder();
-			if(needPrev) {sb.append("<a href='search.bo?currentPage="+(startNavi - 1)+"'> < </a>");}
+			if(needPrev) {sb.append("<a href='searchFree.bo?currentPage="+(startNavi - 1)+"&keyword="+keyword+"&category="+category+"'> < </a>");}
 			// 값을 서버에서 만들어서 + 붙여서 프론트로 나가는거니까 
 			// 서버에서 이미 앵커태그가 붙어야한다 
 			for(int i = startNavi; i <= endNavi; i++) {
-				sb.append("<a href = 'search.bo?currentPage="+i+"'> ");
+				sb.append("<a href = 'searchFree.bo?currentPage="+i+"&keyword="+keyword+"&category="+category+"'> ");
 				sb.append(i + " ");
 				sb.append("</a>");
 			}
-			if(needNext) {sb.append(">");}
+			if(needNext) sb.append("<a href='searchFree.bo?currentPage=" + (endNavi + 1) + "&keyword="+keyword+"&category="+category+"'> > </a>");
+			
+
 
 			System.out.println("현재 페이지 번호 : " + currentPage);
 			System.out.println("네비게이터 시작 번호 : " + startNavi);
@@ -220,6 +242,184 @@ public class BoardDAO {
 			//System.out.println(sb.toString());                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 		}
 		
+	//// 질문게시판 /////	
+		
+
+		// 카테고리별 검색에 따른 전체 목록 개수 반환 
+		public int selectListSizeOne(String category, String keyword) throws Exception{
+			String sql="sql";
+			
+			if(category.contentEquals("title")) {
+			sql = "select *  from board where (header='질문') and (title like ?) order by seq desc";
+			}else if(category.contentEquals("writer")) {
+				sql = "select *  from board where (header='질문') and (writer like ?) order by seq desc";	
+			}else if(category.contentEquals("animalheader")) {
+				sql = "select *  from board where (header='질문') and (animalheader like ?) order by seq desc";	
+			}
+			
+			try (
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				System.out.println(keyword);
+				pstat.setString(1, "%" + keyword + "%");
+
+				try(
+						ResultSet rs = pstat.executeQuery();
+
+						){
+					List<BoardDTO> list = new ArrayList<BoardDTO>();
+					while(rs.next()) {
+							
+							int seq = rs.getInt(1);
+							
+							String writer = rs.getString(2);
+							String header = rs.getString(3);
+							
+							String animalHeader = rs.getString(4);
+							String title = rs.getString(5);
+							String content = rs.getString(6);
+							String ipAddr = rs.getString(7);
+							int viewCount = rs.getInt(8);
+							Timestamp writeDate = rs.getTimestamp(9);
+						
+							BoardDTO dto = new BoardDTO(seq, writer, header, animalHeader, title,
+									content, ipAddr, viewCount, writeDate);
+							list.add(dto);
+							
+							
+					}
+					System.out.println("list에 " + list.size()+ "개가 들어있음");
+					
+					return list.size();
+				}	
+			}
+		}
+
+		
+		// 카테고리별 검색에 따른 목록을 페이지 수에 맞춰 반환 
+				public List<BoardDTO> selectByOptionOne(String category, String keyword, int start, int end) throws Exception{
+					String sql = "sql";
+					System.out.println("category" + category);
+					System.out.println("keyword" + keyword);
+					System.out.println("start" + start);
+					System.out.println("end" + end);
+					
+					if(category.contentEquals("title")) {
+					sql = "select * from (select board.*, row_number() over (order by seq desc) as rank from board) "
+							+ "where (title like ?) and (rank between ? and ?) and (header='질문') order by seq desc";
+					}else if(category.contentEquals("writer")) {
+						sql = "select * from (select board.*, row_number() over (order by seq desc) as rank from board) "
+								+ "where (writer like ?) and (rank between ? and ?) and (header='질문') order by seq desc";	
+					}else if(category.contentEquals("animalheader")) {
+						sql = "select * from (select board.*, row_number() over (order by seq desc) as rank from board) "
+								+ "where (animalheader like ?) and (rank between ? and ?) and (header='질문') order by seq desc";
+					}
+					
+					
+					try (
+							Connection con = this.getConnection();
+							PreparedStatement pstat = con.prepareStatement(sql);
+							){
+						System.out.println(keyword);
+						pstat.setString(1, "%" + keyword + "%");
+						pstat.setInt(2, start);
+						System.out.println("start" + start);
+						pstat.setInt(3, end);
+						System.out.println("end" + end);
+						
+						try(
+								ResultSet rs = pstat.executeQuery();
+
+								){
+							List<BoardDTO> list = new ArrayList<BoardDTO>();
+							while(rs.next()) {
+									
+									int seq = rs.getInt(1);
+									
+									String writer = rs.getString(2);
+									String header = rs.getString(3);
+									
+									String animalHeader = rs.getString(4);
+									String title = rs.getString(5);
+									String content = rs.getString(6);
+									String ipAddr = rs.getString(7);
+									int viewCount = rs.getInt(8);
+									Timestamp writeDate = rs.getTimestamp(9);
+									
+									BoardDTO dto = new BoardDTO(seq, writer, header, animalHeader, title,
+											content, ipAddr, viewCount, writeDate);
+									list.add(dto);
+									
+							}
+						
+							return list;
+						}	
+					}
+				}
+
+		// option에 따른 검색 결과 페이지 네비게이터
+		public String getPageNaviTotalOne(int currentPage, String category, String keyword) throws Exception {
+
+			int recordTotalCount = this.selectListSizeOne(category, keyword);
+			System.out.println("currentPage" + currentPage);
+		
+			System.out.println("recordTotalCount" + recordTotalCount);
+			int pageTotalCount = 0;
+
+			if(recordTotalCount % Configuration.recordCountPerPage > 0) {
+
+				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+
+			}else{
+				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+			}
+
+			if(currentPage < 1) {
+				currentPage = 1;	
+
+			}else if(currentPage > pageTotalCount) {
+				currentPage = pageTotalCount;
+			}
+
+			System.out.println(currentPage + " currentPage 값이 나와야한다 ");
+			int startNavi = (currentPage - 1) /  Configuration.naviCountPerPage  * Configuration.naviCountPerPage + 1;
+
+			int endNavi = startNavi + Configuration.naviCountPerPage - 1;
+
+			if(endNavi > pageTotalCount) {
+				endNavi = pageTotalCount;
+			}
+			boolean needPrev = true;
+			boolean needNext = true;
+
+			if(startNavi == 1) {
+				needPrev = false;
+			}
+			if(endNavi == pageTotalCount) {
+				needNext = false;
+			}
+
+			StringBuilder sb = new StringBuilder();
+			if(needPrev) {sb.append("<a href='searchOne.bo?currentPage="+(startNavi - 1)+"&keyword="+keyword+"&category="+category+"'> < </a>");}
+			// 값을 서버에서 만들어서 + 붙여서 프론트로 나가는거니까 
+			// 서버에서 이미 앵커태그가 붙어야한다 
+			for(int i = startNavi; i <= endNavi; i++) {
+				sb.append("<a href = 'searchOne.bo?currentPage="+i+"&keyword="+keyword+"&category="+category+"'> ");
+				sb.append(i + " ");
+				sb.append("</a>");
+			}
+			if(needNext) sb.append("<a href='searchOne.bo?currentPage=" + (endNavi + 1) + "&keyword="+keyword+"&category="+category+"'> > </a>");
+			
+
+
+			System.out.println("현재 페이지 번호 : " + currentPage);
+			System.out.println("네비게이터 시작 번호 : " + startNavi);
+			System.out.println("네비게이터 끝  페이지 번호 : " + endNavi);
+
+			return sb.toString();
+			//System.out.println(sb.toString());                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+		}	
 		
 	//글쓰기
 	public int insert(BoardDTO dto) throws Exception{
@@ -286,7 +486,7 @@ public class BoardDAO {
 			
 		}
 	}
-	public String getPageNavi(int current,String category) throws Exception{
+	public String getPageNavi(int current, String category) throws Exception{
 		int recordTotalCount = this.getTotalBoard(category);
 		int pageTotalCount = 0;
 		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
