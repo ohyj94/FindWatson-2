@@ -25,7 +25,9 @@
 <body>
 <form action="${pageContext.request.contextPath}/expertWrite.admin" method="post" id=frm>
 	<div class="container">
+
 			<jsp:include page="../standard/headerAdmin.jsp" /> 		
+
 		<!--            -->
 		<div class="row">
 			<div class="col-12 mb-3" id="article">
@@ -65,7 +67,9 @@
 			</div>
 		</div>
 		<!--            -->
+
 		<jsp:include page="../standard/footer.jsp" />
+
 	</div>
 	</form>
 	<script>
@@ -132,7 +136,24 @@
 		}
 	})
 	
-	
+
+	//각 버튼별 주소이동
+		$("#logo").on("click", function() {
+			location.href = "${pageContext.request.contextPath}/mainAdmin.jsp";
+		});
+		//공지사항으로 이동
+		$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
+		//전문가 Q&A로 이동
+		$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
+		//자유게시판으로 이동
+		$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
+		//질문게시판으로 이동
+		$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
+		//회원목록조회로 이동
+		$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");
+		//차단한ip목록조회로 이동
+		$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
+
 	</script>
 </body>
 </html>
