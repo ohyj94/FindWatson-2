@@ -51,15 +51,12 @@
     <div class="container">
            <jsp:include page="../standard/headerAdmin.jsp" />
             <!--            -->
-            <div class="row">
+      	<div class="row">
         <div class="col-12 mb-3" id="article">
             <div class="row">
             <div id="article-middle" class="col-12 mt-2">
                 <div class="row mb-3 p-1 text-center">
-                    <h3 id="board-top" class="col-auto col-sm-4 m-0">차단 IP 조회</h3>
-                    <span class="col-auto col-sm-8 mt-2">
-                           <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
-                    </span>
+                    <h3 id="board-top" class="col-auto col-sm-4 m-0">병원 리스트</h3>
             </div>
             <div class="row line">
                 
@@ -81,7 +78,7 @@
                     ${list.seq}
                 </div>
                 <div class="col-md-3 d-none d-md-block">
-           			${list.hosptName}
+           			<a id="toPost" href="${pageContext.request.contextPath}/hosptInfoDetailView.admin?seq=${list.seq}">${list.hosptName}</a>
                 </div>
                 <div class="col-md-6 d-none d-md-block">
                     ${list.homepage }
@@ -106,14 +103,19 @@
                                     <button class="btn btn-sm btn-outline-secondary">검색</button>
                                 </div>
                                 <div class="write-box col-auto col-sm-2 text-center p-1">
-                                    <button class="btn btn-sm btn-outline-secondary">작성하기</button>
+                                    <button id="HInsert" class="btn btn-sm btn-outline-secondary">등록하기</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+           	</div>
             <!--            -->
-            <jsp:include page="../standard/footer.jsp" />	
+            <jsp:include page="../standard/footer.jsp" />
+            <script>
+            	$("#HInsert").on("click",function(){
+            		location.href="${pageContext.request.contextPath}/hospitalInsert.admin";
+            	});
+            </script>
 </body>
 </html>
