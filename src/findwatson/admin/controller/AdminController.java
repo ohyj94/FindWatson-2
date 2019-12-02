@@ -293,7 +293,7 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
 
 				// 병원 정보 입력
-			} else if(cmd.contentEquals("/hosptInfoInsert.admin")) {
+			} else if(cmd.contentEquals("/hosptInfoInsert.admin")) { //병원 정보 등록
 				String repositoryName = "hospitalImg";
 				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
 
@@ -313,13 +313,12 @@ public class AdminController extends HttpServlet {
 				String homepage = multi.getParameter("homepage");
 				String[] medicalAnimalArr = multi.getParameterValues("medicalAnimal");
 				String[] openTimeArr = multi.getParameterValues("openTime");
-				String image = multi.getFilesystemName("image");
+				String image = contextPath + "/" + repositoryName + "/" + multi.getFilesystemName("image");
 
 				String medicalAnimal = Arrays.toString(medicalAnimalArr).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
 				if(medicalAnimal.contentEquals("null")) {
 					medicalAnimal = "";
 				}
-				System.out.println("animal : " + medicalAnimal);
 
 				String openTime = Arrays.toString(openTimeArr).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
 				if(openTime.contentEquals("null")) {
@@ -475,6 +474,18 @@ public class AdminController extends HttpServlet {
 				response.sendRedirect(contextPath + "/boardNotice.admin");
 			}else if(cmd.contentEquals("/start.admin")) {
 				response.sendRedirect(contextPath + "/main/adminLogin.jsp");
+			}else if(cmd.contentEquals("/hosptRemove.admin")) { // 병원 정보 삭제
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				dao.deleteHospt(seq);
+				response.sendRedirect("hosptInfoList.admin");
+			}else if(cmd.contentEquals("/hosptModify.admin")) {//병원 정보 수정
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				System.out.println();
+				HListDTO dto = dao.getHListBySeq(seq);
+				System.out.println(dto.getAddress1() );
+				request.setAttribute("dto",dto);
+				request.getRequestDispatcher("adminModifyHospt.jsp").forward(request, response);
+				
 			}else{
 				response.sendRedirect(contextPath + "/error.jsp");
 			}

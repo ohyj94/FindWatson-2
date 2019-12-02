@@ -112,6 +112,7 @@
            	</div>
             <!--            -->
             <jsp:include page="../standard/footer.jsp" />
+            </div>
             <script>
             	$("#HInsert").on("click",function(){
             		location.href="${pageContext.request.contextPath}/hospitalInsert.admin";
