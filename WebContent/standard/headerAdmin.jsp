@@ -32,9 +32,9 @@
                             병원관리
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" id=hosptInsert>병원정보 등록</a>
-                            <a class="dropdown-item" href="#">병원정보 수정/삭제</a>
-                            <a class="dropdown-item" href="#">병원리뷰 관리</a>
+                            <a class="dropdown-item" id="hospitalInsert">병원정보 등록</a>
+                            <a class="dropdown-item" id="hospitalModify">병원정보 수정/삭제</a>
+                            <a class="dropdown-item" id="hospitalReview">병원리뷰 관리</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -45,7 +45,7 @@
                             <a class="dropdown-item" id = expert>전문가Q&amp;A</a>
                             <a class="dropdown-item" id = free>자유게시판</a>
                             <a class="dropdown-item" id = question>질문게시판</a>
-                            <a class="dropdown-item" href="#">1:1문의게시판</a>
+                            <a class="dropdown-item" id = oneByOne>1:1문의게시판</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -72,8 +72,11 @@
 		$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
 		
 		//병원 관리 - 병원정보 등록
+		$("#hospitalInsert").attr("href", "${pageContext.request.contextPath}/admin/adminHosptInsert.jsp");
 		//병원 관리 - 병원정보 수정/삭제
+		$("#hospitalModify").attr("href", "${pageContext.request.contextPath}/hosptInfoList.admin");
 		//병원 관리 - 병원리뷰 관리
+		$("#hospitalReview").attr("href", "${pageContext.request.contextPath}/hosptInfoList.admin");
 		
 		//게시판 관리 - 전문가 Q&A
 		$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
@@ -82,6 +85,7 @@
 		//게시판 관리 - 질문게시판
 		$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
 		//게시판 관리 - 일대일 문의
+		$("#oneByOne").attr("href", "${pageContext.request.contextPath}/adminOneByOne.admin");
 		
 		//회원 관리 - 회원 목록 조회
 		$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");

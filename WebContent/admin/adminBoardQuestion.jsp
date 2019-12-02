@@ -98,5 +98,12 @@
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
+<<<<<<< HEAD
+	<script>
+   
+        </script>
+
+=======
+>>>>>>> fa4b1ce0af7b7fa842d54572eaf0531a43b0f139
 </body>
 </html>

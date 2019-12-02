@@ -89,6 +89,6 @@
             </div>
             <!--            -->
             <jsp:include page="../standard/footer.jsp" /> 	
-       </div>
+</div>
 </body>
 </html>

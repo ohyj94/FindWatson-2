@@ -180,22 +180,6 @@ public class memberController extends HttpServlet {
 				response.sendRedirect("main/error.jsp");
 			}
 
-		}else if(path.contentEquals("/banIpCheck.member")){ //차단된 아아피인지 확인하기
-			try {
-				boolean result = dao.banCheck(ipAddr);
-				if(result){
-					//차단된 아이피인 경우
-					String reason =dao.banReasonByIp(ipAddr);
-					request.setAttribute("reason", reason);
-					System.out.println(reason);
-					request.getRequestDispatcher("main/banIndex.jsp").forward(request, response);
-				}else {
-					//인덱스로
-					response.sendRedirect("main/index.jsp");
-				}
-			}catch(Exception e){
-
-			}
 		}
 	}
 
