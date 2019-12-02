@@ -212,16 +212,16 @@ div {
             	</script>
             <!--        -->
             <!-- 가장 인기있는 게시물 -->
-            <canvas id="hotChart"></canvas>
+            <canvas id="top5Chart"></canvas>
             	<script>
-            	   var ctx = document.getElementById('hotChart');
-            	   var myDoughnutChart = new Chart(ctx, {
-            		    type: 'doughnut',
+            	   var ctx = document.getElementById('top5Chart');
+            	   var myChart = new Chart(ctx, {
+            	       type: 'bar',
             	       data: {
-            	           labels: ['새', '물고기', '햄스터', '토끼', '고슴도치', '파충류', '곤충류', '기타'],
+            	           labels: ['${top5List[0].title}','${top5List[1].title}','${top5List[2].title}','${top5List[3].title}','${top5List[4].title}'],
             	           datasets: [{
-            	               label: '인기있는 게시물',
-            	               data: [12, 19, 3, 5, 2, 3, 5, 10],
+            	               label: '조회수 가장 많은 게시물',
+            	               data: [${top5List[0].viewCount}, ${top5List[1].viewCount}, ${top5List[2].viewCount}, ${top5List[3].viewCount}, ${top5List[4].viewCount}],
             	               backgroundColor: [
             	                   'rgba(255, 99, 132, 0.2)',
             	                   'rgba(54, 162, 235, 0.2)',
