@@ -81,10 +81,10 @@ public class memberController extends HttpServlet {
 			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath, null,"--");
 			try {
 				int signup = dao.insert(dto);
-				
+
 				request.setAttribute("result", signup);
 				request.getRequestDispatcher("member/signupResultView.jsp").forward(request, response);
-				
+
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -98,11 +98,11 @@ public class memberController extends HttpServlet {
 				if(memberout > 0) {
 					request.getSession().invalidate();
 				}
-				
+
 				request.setAttribute("result", memberout);
 				RequestDispatcher rd = request.getRequestDispatcher("member/memberOutView.jsp");
 				rd.forward(request, response);
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -141,7 +141,7 @@ public class memberController extends HttpServlet {
 			}catch(Exception e) {
 				response.sendRedirect("main/error.jsp");
 			}
-			}//정보수정
+		}//정보수정
 		else if(path.contentEquals("/mypageModify.member")) {
 			System.out.println("10");
 			try {String id = request.getParameter("id");
@@ -155,10 +155,7 @@ public class memberController extends HttpServlet {
 			String address1 = request.getParameter("address1");
 			String address2 = request.getParameter("address2");
 			String lovePet = request.getParameter("lovePet");
-			
-		
-			
-			
+
 			int modify = dao.modify(pw, name, birth, gender, email, phone, postcode, address1, address2, lovePet, id);
 			request.setAttribute("modify", modify);	
 			request.getRequestDispatcher("mypageInfo.member").forward(request, response);
@@ -173,16 +170,32 @@ public class memberController extends HttpServlet {
 				System.out.println(id);
 				boolean idCheck = dao.idCheck(id);
 				System.out.println(idCheck);
-					JsonObject jobj = new JsonObject();
-					jobj.addProperty("result", idCheck);
-					System.out.println(jobj);
-					pwriter.append(jobj.toString());
-				
+				JsonObject jobj = new JsonObject();
+				jobj.addProperty("result", idCheck);
+				System.out.println(jobj);
+				pwriter.append(jobj.toString());
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.sendRedirect("main/error.jsp");
 			}
-			
+
+		}else if(path.contentEquals("/banIpCheck.member")){ //차단된 아아피인지 확인하기
+			try {
+				boolean result = dao.banCheck(ipAddr);
+				if(result){
+					//차단된 아이피인 경우
+					String reason =dao.banReasonByIp(ipAddr);
+					request.setAttribute("reason", reason);
+					System.out.println(reason);
+					request.getRequestDispatcher("main/banIndex.jsp").forward(request, response);
+				}else {
+					//인덱스로
+					response.sendRedirect("main/index.jsp");
+				}
+			}catch(Exception e){
+
+			}
 		}
 	}
 
