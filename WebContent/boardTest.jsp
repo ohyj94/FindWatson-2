@@ -17,6 +17,7 @@
 	<button id="toBF" type="button">자유게시판</button>
 	<button id="toBQ" type="button">질문게시판</button>
 	<button id="toBE" type="button">전문가Q&A</button>
+	<button id="toBQbO" type="button">1:1 문의</button>
 	
 	<script>
 		$("#toBN").on("click",function(){
@@ -30,6 +31,9 @@
 		});
 		$("#toBE").on("click",function(){
 			location.href="boardExpert.bo";
+		});
+		$("#toBQbO").on("click",function(){
+			location.href="adminOneByOne.admin";
 		});
 	</script>
 </body>

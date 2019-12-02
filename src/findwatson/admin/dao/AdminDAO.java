@@ -11,8 +11,10 @@ import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import findwatson.admin.dto.BanDTO;
 import findwatson.admin.dto.ExpertDTO;
+import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
 import findwatson.admin.utils.Util;
+import findwatson.board.dto.ObODTO;
 import findwatson.board.dto.BoardDTO;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
@@ -547,8 +549,29 @@ public class AdminDAO {
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
-		}	
+		}
 	}
+	
+	// 관리자 - 병원정보 등록
+	public int insertHospitalInfo(HListDTO dto) throws Exception {
+		String sql = "insert into hosptList values (hosptListSeq.nextval,?,?,?,?,?,?,?,?,?,sysdate,0)";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setString(1, dto.getHosptName());
+			pstat.setInt(2, dto.getPostcode());
+			pstat.setString(3, dto.getAddress1());
+			pstat.setString(4, dto.getAddress2());
+			pstat.setString(5, dto.getPhone());
+			pstat.setString(6, dto.getHomepage());
+			pstat.setString(7, dto.getImg());
+			pstat.setString(8, dto.getMedicalAnimal());
+			pstat.setString(9, dto.getOpenTime());
+			
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	
 
 	//관리자통계 - 남자회원 수
 	public int recordMemberMTotalCount () throws Exception {
@@ -694,19 +717,14 @@ public class AdminDAO {
 				return dto;
 			}
 		}
-
 	}
-	//전문가 큐엔에이 테이블 시퀀스로 dto가져오기
-	public ExpertDTO getExpertBySeq(int expertSeq)throws Exception{
+
+	// 전문가 큐엔에이 테이블 시퀀스로 dto가져오기
+	public ExpertDTO getExpertBySeq(int expertSeq) throws Exception {
 		String sql = "select * from expert where seq =?";
-		try(
-				Connection con = getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-				){
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, expertSeq);
-			try(
-					ResultSet rs = pstat.executeQuery();
-					){
+			try (ResultSet rs = pstat.executeQuery();) {
 				rs.next();
 				int seq = rs.getInt(1);
 				String writer = rs.getString(2);
@@ -719,7 +737,28 @@ public class AdminDAO {
 				return dto;
 			}
 		}
+	}
+	
+	// 1:1 문의게시판 디테일 뷰
+	public ObODTO getObOBySeq(int ObOSeq) throws Exception {
+		String sql = "select * from oneByOne where seq =?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, ObOSeq);
+			try (ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String anserOK = rs.getString(3);
+				String header = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String tiAddr = rs.getString(7);
+				Timestamp writeDate = rs.getTimestamp(8);
 
+				ObODTO dto = new ObODTO(seq, writer, anserOK, header, title, content, tiAddr, writeDate);
+				return dto;
+			}
+		}
 	}
 			
 			//전문가 게시판 시퀀스로 dto가져오기
@@ -837,6 +876,4 @@ public class AdminDAO {
 					return result;
 				}
 			}
-			
-		
 }
