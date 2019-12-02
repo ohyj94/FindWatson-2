@@ -78,12 +78,10 @@ public class memberController extends HttpServlet {
 			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,null);
 			try {
 				int signup = dao.insert(dto);
-				if(signup >0) {
-					response.sendRedirect("main/index.jsp");
-				}else {
-					response.sendRedirect("main/error.jsp");
-				}
-
+				
+				request.setAttribute("result", signup);
+				request.getRequestDispatcher("member/signupResultView.jsp").forward(request, response);
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
