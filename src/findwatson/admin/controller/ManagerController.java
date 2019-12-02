@@ -22,8 +22,6 @@ import findwatson.search.dao.HospitalListDAO;
 
 @WebServlet("*.manager")
 public class ManagerController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cmd = request.getRequestURI().substring(request.getContextPath().length());
 		ManagerDAO dao = ManagerDAO.getInstance();

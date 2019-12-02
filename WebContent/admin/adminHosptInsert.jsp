@@ -113,6 +113,7 @@
 		</div>
 		<!--            -->
 	<jsp:include page="../standard/footer.jsp" />
+	</div>
 	<script>
       //우편번호 찾기
       function sample4_execDaumPostcode() {

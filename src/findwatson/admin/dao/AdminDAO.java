@@ -951,4 +951,42 @@ public class AdminDAO {
 			return result;
 		}
 	}
+	//병원 정보 삭제
+	public int deleteHospt(int seq) throws Exception {
+		String sql = "delete from hosptList where seq=?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	
+	// 병원 정보 뽑기
+		public HListDTO getHListBySeq(int seq) throws Exception {
+			String sql = "select * from hosptList where seq =?";
+			try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+				pstat.setInt(1, seq);
+				try (ResultSet rs = pstat.executeQuery();) {
+					rs.next();
+					int seqInput = rs.getInt(1);
+					String hName = rs.getString(2);
+					int postCode = rs.getInt(3);
+					String address1 = rs.getString(4);
+					String address2 = rs.getString(5);
+					String phone = rs.getString(6);
+					String homePage = rs.getString(7);
+					String img = rs.getString(8);
+					String medicalAnimal = rs.getString(9);
+					String openTime = rs.getString(10);
+					Timestamp registDate = rs.getTimestamp(11);
+					int viewCount = rs.getInt(6);
+
+					HListDTO dto = new HListDTO(seqInput, hName, postCode, address1, address2, phone, homePage,
+							img, medicalAnimal, openTime, registDate, viewCount);
+					return dto;
+				}
+			}
+		}
+	
 }
