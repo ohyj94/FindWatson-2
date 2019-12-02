@@ -12,28 +12,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link rel="stylesheet" href="../resources/css/adminBoard.css">
 <style>
-* {box-sizing: border-box}
 /*div {border: 1px solid black}*/
-#logo {
-	width: 500px;
-	height: 100px;
-	margin: auto;
-}
-#footer>div {height: 100%;}
-#footer-logo>div {height: 100%;}
-#footer-contents {font-size: 8pt;}
-.nav-item {
-	display: inline-block;
-	width: 100%;
-	text-align: center;
-}
-.navbar-nav {width: 100%;}
-#article, .line {border: 0.5px solid lightgray;}
-#category {width: 100%;height: 100%;}
-.search-box>* {width: 100%;}
-.write-box>* {width: 100%;}
-#article, .line {border: 0.5px solid lightgray;}
 #imgCon {width: 300px;height: 300px;}
 #image_preview {display:none;}
 #imgRemove{ color: black;} 
