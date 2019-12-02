@@ -15,7 +15,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainStyle.css">
+	 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 <style>
 * {
 	box-sizing: border-box
@@ -129,8 +129,8 @@ div {
             <canvas id="lovePetChart"></canvas>
             	<script>
             	   var ctx = document.getElementById('lovePetChart');
-            	   var myChart = new Chart(ctx, {
-            	       type: 'bar',
+            	   var myDoughnutChart = new Chart(ctx, {
+            		    type: 'doughnut',
             	       data: {
             	           labels: ['새', '물고기', '햄스터', '토끼', '고슴도치', '파충류', '곤충류', '기타'],
             	           datasets: [{
@@ -142,7 +142,8 @@ div {
             	                   'rgba(255, 206, 86, 0.2)',
             	                   'rgba(75, 192, 192, 0.2)',
             	                   'rgba(153, 102, 255, 0.2)',
-            	                   'rgba(255, 159, 64, 0.2)'
+            	                   'rgba(255, 159, 64, 0.2)',
+            	                   'rgba(50, 168, 82, 0.2)'
             	               ],
             	               borderColor: [
             	                   'rgba(255, 99, 132, 1)',
@@ -150,7 +151,8 @@ div {
             	                   'rgba(255, 206, 86, 1)',
             	                   'rgba(75, 192, 192, 1)',
             	                   'rgba(153, 102, 255, 1)',
-            	                   'rgba(255, 159, 64, 1)'
+            	                   'rgba(255, 159, 64, 1)',
+            	                   'rgba(50, 168, 82, 1)'
             	               ],
             	               borderWidth: 1
             	           }]
@@ -171,13 +173,13 @@ div {
             <canvas id="signpathChart"></canvas>
             	<script>
             	   var ctx = document.getElementById('signpathChart');
-            	   var myChart = new Chart(ctx, {
-            	       type: 'bar',
+            	   var myDoughnutChart = new Chart(ctx, {
+            		    type: 'doughnut',
             	       data: {
-            	           labels: ['', '물고기', '햄스터', '토끼'],
+            	           labels: ["'찾아조 왓슨!' 직접검색", "'특수 동물 병원'' 키워드 검색", '지인 소개', '기타'],
             	           datasets: [{
             	               label: '가입 경로',
-            	               data: [12, 19, 3, 5, 2, 3, 5, 10],
+            	               data: [${directSearch}, ${keywordSearch}, ${introduce}, ${otherSearch}],
             	               backgroundColor: [
             	                   'rgba(255, 99, 132, 0.2)',
             	                   'rgba(54, 162, 235, 0.2)',
@@ -210,16 +212,16 @@ div {
             	</script>
             <!--        -->
             <!-- 가장 인기있는 게시물 -->
-            <canvas id="hotChart"></canvas>
+            <canvas id="top5Chart"></canvas>
             	<script>
-            	   var ctx = document.getElementById('hotChart');
+            	   var ctx = document.getElementById('top5Chart');
             	   var myChart = new Chart(ctx, {
             	       type: 'bar',
             	       data: {
-            	           labels: ['새', '물고기', '햄스터', '토끼', '고슴도치', '파충류', '곤충류', '기타'],
+            	           labels: ['${top5List[0].title}','${top5List[1].title}','${top5List[2].title}','${top5List[3].title}','${top5List[4].title}'],
             	           datasets: [{
-            	               label: '인기있는 게시물',
-            	               data: [12, 19, 3, 5, 2, 3, 5, 10],
+            	               label: '조회수 가장 많은 게시물',
+            	               data: [${top5List[0].viewCount}, ${top5List[1].viewCount}, ${top5List[2].viewCount}, ${top5List[3].viewCount}, ${top5List[4].viewCount}],
             	               backgroundColor: [
             	                   'rgba(255, 99, 132, 0.2)',
             	                   'rgba(54, 162, 235, 0.2)',
@@ -260,24 +262,7 @@ div {
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
 	<script>
-		//각 버튼별 주소이동
-		$("#logo").on("click", function() {
-			location.href = "${pageContext.request.contextPath}/mainAdmin.jsp";
-		});
-		//공지사항으로 이동
-		$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
-		//전문가 Q&A로 이동
-		$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
-		//자유게시판으로 이동
-		$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
-		//질문게시판으로 이동
-		$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
-		//회원목록조회로 이동
-		$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");
-		//차단한ip목록조회로 이동
-		$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
-		//회원통계로 이동
-		$("#memberCharts").attr("href", "${pageContext.request.contextPath}/adminMemberChart.admin");
+		
 	</script>
 </body>
 </html>
