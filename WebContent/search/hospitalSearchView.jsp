@@ -34,7 +34,7 @@
  <%--검색 컨테이너 시작 --%>
 			<div class=row>
                 <div id="article-botton" class="col-12 line mb-3 p-0">
-                <form action="${pageContext.request.contextPath}/searchFrom.s" class="col-12" method="post">
+                <form action="${pageContext.request.contextPath}/searchFrom.s" class="col-12 p-0" method="post">
                     <div class="col-12 line">동물병원 상세 검색</div>
                     <div id="area-search" class="col-12">
                         <div class="row line">
@@ -98,7 +98,7 @@
     <%-- 검색 결과 컨테이너 시작 --%>
             <div class =row>
                 <div class=col-12>
-                    <h1>2(검색된 병원)</h1>
+                    <h1>${list.size() }(검색된 병원)</h1>
                     <hr>
                 </div>
             </div>

@@ -13,195 +13,235 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="../resources/css/mainStyle.css">
+
+<style>
+.tb_box_login {
+text-align:center;
+}
+.tb_box_login p{
+display:inline-block;
+}
+.total{
+text-align:center;
+}
+.btn_area{
+text-align:center;
+}
+</style>
 </head>
 <body>
 	<div class="container">
 		<jsp:include page="../standard/header.jsp" />
 		<!--  후원폼          -->
-		<div class="wrap">
+	<div class="row">
+		<div class="con_top col-12 p-0">
 			<h2 class="tit_sub">후원하기</h2>
 			<p class="txt_sub">동물 소중 어쩌구 저쩌구 설명설명</p>
 		</div>
-		<div class="con_body">
-			<div class="wrap">
+	</div>
+	<div class="row">
 				<!--                여기는 세션정보에 따라 block하기-->
 				<c:choose>
 					<c:when test="${loginInfo ==null}">
-						<div class="tb_box_login">
-							<p>"로그인 후 후원을 하시면 후원조회 및 증빙서류발급이 용이합니다."</p>
-							<a href="${pageContext.request.contextPath}/member/2login.jsp"
-								class="btn02_blue">로그인</a>
+						<div class="tb_box_login col-12 p-0">
+							<div class="col-12 p-0">
+							<p class="col-auto p-0">"로그인 후 후원을 하시면&nbsp;</p><p class="col-auto p-0">후원조회 및 증빙서류발급이 용이합니다."</p>
+							</div>
+							<div class="col-12 p-0">
+							<a href="${pageContext.request.contextPath}/member/2login.jsp" class="btn02_blue col-12">로그인</a>
+							</div>
 						</div>
 					</c:when>
 				</c:choose>
+	</div>
 				<!--            여기서부터 입력폼-->
-				<form action="${pageContext.request.contextPath}/donate.do"
-					method="post">
-					<div class="sponsor_step">
-						<div class="sps_step_t">
+	<div class="row">
+	<form action="${pageContext.request.contextPath}/donate.do" method="post" class="col-12 p-0">
+				<div class="step1 col-12 p-0">
+						<div class="sps_step_t col-12 p-0">
 							<h3 class="tit_step">
-								<span> "STEP" <strong>1</strong>
-								</span> "후원사업 선택"
+								<span> "STEP" <strong>1</strong></span> "후원사업 선택"
 							</h3>
 						</div>
-						<div class="sps_step_c">
-							<table class="tb01">
-								<tbody>
-									<th scope="row">후원금액</th>
-									<td>
-										<div class="checkAmount">
-											<span class="price"> <input type="radio" name="support" value="1004">
-											<label for="sponsor_money01">"1,004원"</label></span>
-											<span class="price"><input type="radio" name="support" value="2000">
-											<label for="sponsor_money02">"2,000원"</label></span>
-											<span class="price"> <input type="radio" name="support" value="5000">
-											<label for="sponsor_money03">"5,000원"</label></span>
-											<span class="price"> <input type="radio" name="support" value="10000">
-											<label for="sponsor_money04">"10,000원"</label></span>
-											<span class="price"> <input type="radio" name="support" value="50000">
-											<label for="sponsor_money05">"50,000원"</label></span>
-											<label for="sponsor_money06"> <input type="radio" name="support" value="etc">
-											<span class="price">기타</span></label> 
-											<label for=""> <input type="text" id="inputPay"></label> <span>원</span>
+						<div class="sps_step_c col-12">			
+							<div class="row line">		
+								<div class="col-12 col-sm-3 p-0">후원금액</div>
+								<div class="col-12 col-sm-9 p-0">
+									<div class="checkAmount col-12">
+										<div class="row">
+											<div class="price col-12 col-md-3"> <input type="radio" name="support" value="1004">
+											<label for="sponsor_money01">"1,004원"</label></div>
+											
+											<div class="price col-12 col-md-3"><input type="radio" name="support" value="2000">
+											<label for="sponsor_money02">"2,000원"</label></div>
+											
+											<div class="price col-12 col-md-3"> <input type="radio" name="support" value="5000">
+											<label for="sponsor_money03">"5,000원"</label></div>
+											
+											<div class="price d-none d-sm-block col-md-3 "></div>
+											
+											<div class="price col-12 col-md-3"> <input type="radio" name="support" value="10000">
+											<label for="sponsor_money04">"10,000원"</label></div>
+											
+											<div class="price col-12 col-md-3"> <input type="radio" name="support" value="50000">
+											<label for="sponsor_money05">"50,000원"</label></div>
+											
+											<div class="price col-12 col-md-5"> <input type="radio" name="support" value="etc">
+											<label for="sponsor_money06">&nbsp;기타 </label>&nbsp;<input type="text" id="inputPay">&nbsp;<span>원</span></div>
 										</div>
-									</td>
-								</tbody>
-								<tfoot>
-									<tr>
-										<td class="total">"총 후원금액" <span id="inputDisplay">스크립트
-												수정하기</span> 원
-										</td>
-									</tr>
-								</tfoot>
-							</table>
-
-						</div>
-
-						<div class="sps_step">
-							<div class="sps_step_t">
+										</div>	
+								</div>
+							</div>
+								<div class="row line">
+										<div class="total col-12">"총 후원금액" <span id="inputDisplay"></span>원</div>
+								</div>
+						</div>	
+					</div>
+						<div class="step2 col-12 p-0">
+							<div class="sps_step_t col-12 p-0">
 								<h3 class="tit_step">
 									<span> "STEP" <strong>2</strong>
 									</span> "후원자 정보"
 								</h3>
 							</div>
-							<div class="sps_step_c">
-								<div class="sec_sps">
+							
+							<div class="sps_step_c col-12">
+								<div class="row">
 									<p class="txt_required">
-										<strong class="required" title="필수입력">*</strong> "표시 입력사항은 모두필수입니다."
+										<strong class="required" title="필수입력">*</strong> "표시 입력사항은 모두 필수입니다."
 									</p>
-									<table class="tb01">
-										<tbody>
-											<tr>
-												<th scope="row"><label for=""> <span id="name_field">후원자명</span>
-												<strong class="required" title="필수입력">*</strong>
-												</label></th>
-												<td><input type="text" id="name" name="name" placeholder="이름을 입력하세요"></td>
-											</tr>
-											<tr>
-												<th scope="row"><label for=""> <span id="birth_field">생년월일</span>
-												<strong class="required" title="필수입력">*</strong>
-												</label></th>
-												<td><input type="text" id="birth" name="birth" placeholder="주민등록번호 앞 6자리"></td>
-											</tr>
-											<tr>
-												<th scope="row"><label for=""> <span id="phone_field">휴대폰</span>
-												<strong class="required" title="필수입력">*</strong>
-												</label></th>
-												<td><input type="text" id="phone" name="phone"></td>
-											</tr>
-											<tr>
-												<th scope="row"><label for=""> <span id="email_field">이메일</span>
-												<strong class="required" title="필수입력">*</strong>
-												</label></th>
-												<td><input type="text" id="email" name="email"></td>
-											</tr>
-											<tr>
-												<th scope="row"><label for=""> <span id="addr_field">주소</span>
-												<strong class="required" title="필수입력">*</strong>
-												</label></th>
-												<td>
-													<div class="wrap_address">
-														<label for="addr_post">
-															<input type="text" id="postcode" name="postcode" onclick="exeDaumPostcode();" readonly>
-														</label>
-														<a href="#" class="btn06" onclick="exeDaumPostcode();">검색</a>
-														<label for="addr_middle">
-															<input type="test" id="addr1" name="addr1" onclick="exeDaumPostcode();" readonly>
-														</label>
-														<label for="addr_last">
-															<input type="text" id="addr2" name="addr2" placeholder="상세주소를 입력해주세요.">
-														</label>
+								</div>
+										<div class="row line">
+											<div class="inputs col-12">
+												<div class="row">
+												<div id="name_field" class="col-12 col-md-2">후원자명<strong class="required" title="필수입력">*</strong></div>
+												<div class="col-12 col-md-5"><input type="text" id="name" name="name" placeholder="이름을 입력하세요"></div>
+												<div class="col-12 col-md-5" id="validName"></div>
+												</div>
+											</div>
+											
+											<div class="inputs col-12">
+											<div class="row">
+												<div id="birth_field" class="col-12 col-md-2">생년월일<strong class="required" title="필수입력">*</strong></div>
+												<div class="col-12 col-md-5"><input type="text" id="birth" name="birth" placeholder="주민등록번호 앞 6자리"></div>
+												<div class="col-12 col-md-5" id="validBirth"></div>
+												</div>
+											</div>
+											
+											<div class="inputs col-12">
+											<div class="row">
+												<div id="phone_field" class="col-12 col-md-2">휴대폰<strong class="required" title="필수입력">*</strong></div>
+												<div class="col-12 col-md-5"><input type="text" id="phone" name="phone"></div>
+												<div class="col-12 col-md-5" id="validPhone"></div>
+											</div>
+											</div>
+											
+											<div class="inputs col-12">
+											<div class="row">
+												<div id="email_field" class="col-12 col-md-2">이메일<strong class="required" title="필수입력">*</strong></div>
+												<div class="col-12 col-md-5"><input type="text" id="email" name="email"></div>
+												<div class="col-12 col-md-5" id="validEmail"></div>
+											</div>
+											</div>
+											
+											<div class="inputs col-12">
+											<div class="row">
+												<div id="addr_field" class="col-12 col-md-2">주소<strong class="required" title="필수입력">*</strong></div>
+													<div class="wrap_address col-12 col-md-10">
+													<div class="row">
+														<div class="col-6 col-sm-4"><input type="text" id="postcode" name="postcode" onclick="exeDaumPostcode();" readonly></div>
+														<div class="col-6 col-sm-4"><input type="button" value="검색" onclick="exeDaumPostcode();"></input></div>
 													</div>
-												
-												</td>
-											</tr>
+													<div class="row">
+													<div class="col-12 col-md-6"><input type="text" id="addr1" name="addr1" onclick="exeDaumPostcode();" readonly></div>
+													<div class="col-12 col-md-6"><input type="text" id="addr2" name="addr2" placeholder="상세주소를 입력해주세요."></div>
+													</div>
+													</div>
+											</div>
+											</div>
 
-											<tr>
-												<th scope="row"><label for=""> <span id="name_field">약관동의</span>
-												<strong class="required" title="필수입력">*</strong>
-												</label></th>
-												<td>
-													<dl class="agree_check">
-														<div class="check_area">
-															<input type="checkbox" id="agree" name="agree"> <label
-																for="agree">"개인정보 수집, 이용목적 및 취급방침"</label>
-															<button type="button" class="btn_detail">+</button>
-															<div class="agree_cont">
-																<div class="agree_cont_style">
+											<div class="inputs col-12">
+											<div class="row">
+												<div id="name_field" class="col-12 col-md-2">약관동의<strong class="required" title="필수입력">*</strong></div>
+												<div class="check_area col-12 col-md-10">
+													<div class="row">
+														<input type="checkbox" id="agree" name="agree"> <label for="agree">&nbsp;"개인정보 수집, 이용목적 및 취급방침"</label>
+														&nbsp;<button type="button" class="btn_detail">+</button>
+													</div>
+													<div class="agree_cont row">
+														<div class="agree_cont_style col-12">
 																	<p class="">수집하는 개인정보의 항목 및 수집방법</p>
 																	<p>개인정보 수집항목</p>
-																</div>
-															</div>
 														</div>
-													</dl>
-												</td>
-											</tr>
-
-										</tbody>
-									</table>
-								</div>
+													</div>
+												</div>										
+											</div>
+										</div>
+										</div>
 							</div>
 						</div>
-							<div class="sps_step_t">
+						
+						<div class="step3 col-12 p-0">
+							<div class="sps_step_t col-12 p-0">
 								<h3 class="tit_step">
 									<span> "STEP" <strong>3</strong>
 									</span> "납입방법 선택"
 								</h3>
 							</div>
-							<div class="sps_step_c">
-								<div class="sec_sps">
-									<h4 class="inblock">"후원금 납입방법"</h4>
-									<p class="inblock">"설명설명"</p>
-									<table class="tb01">
-										<tbody>
-											<tr>
-												<th scope="row">납입방법</th>
-												<td>
-												<div class="payMethodBox">
-												<span> <input type="radio" name="payMethod" id="payMethod1" value="card">
-												<label for="payMethod1">신용카드</label></span>
-												</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
+							<div class="sps_step_c col-12">
+								<div class="row">
+									<h4 class="inblock col-12 col-md-3">"후원금 납입방법"</h4>
+									<p class="inblock col-12 col-md-9">"설명설명"</p>
 								</div>
-								<div class="btn_area">
-									<button type="button" id="donaBtn">후원신청</button>
-								</div>
-							</div>
+								
+									<div class="row line">
+										<div class="col-4 col-md-2">납입방법</div>
+										<div class="payMethodBox col-8 col-md-10">
+											<input type="radio" name="payMethod" id="payMethod1" value="card">
+											<label for="payMethod1">신용카드</label>
+										</div>											
+									</div>							
+							</div>						
 					</div>
+					<div class="btn_area col-12 p-0">
+							<button type="button" id="donaBtn">후원신청</button>
+					</div>
+					
+					<input type="hidden" name="etcPrice" id="etcPrice">
 				</form>
 			</div>
-		</div>
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
 </body>
 <script>
-$("#donaBtn").on("click", function(){
-	$("form").submit();
-})
+
+$('input:radio[name=support]').on("click", function(){
+	var supportVal = $('input:radio[name=support]:checked').val();
+	
+	if(supportVal == 'etc'){
+		$("#inputDisplay").html("");
+		$("#inputPay").on("focusout", function(){
+			var price = $("#inputPay").val();
+			$("#inputDisplay").html(price);
+			$("#etcPrice").val(price);
+			console.log($("#etcPrice").val());
+		})
+	}else{
+		$("#inputDisplay").html(supportVal);
+		$("#etcPrice").val("");
+	}
+});
+
+$(".agree_cont").css("display", "none");
+$(".btn_detail").on("click", function(){
+	var dis = $(".agree_cont").css("display");
+	if(dis == "block"){
+		$(".agree_cont").css("display", "none");
+	}else{
+		$(".agree_cont").css("display", "block");
+	}	
+});
 
 function exeDaumPostcode(){
     new daum.Postcode({
@@ -212,5 +252,110 @@ function exeDaumPostcode(){
         }
     }).open();
 }
+
+//빈칸 검사
+$("#donaBtn").on("click", function(){
+	var support = $('input:radio[name=support]').is(':checked');
+	var agree = $('input:checkbox[name=agree]').is(':checked');
+	var method = $('input:radio[name=payMethod]').is(':checked');
+	
+	if(!support){
+		alert("후원금액을 선택해주세요");
+		return false;
+	}else if($("#name") == ""){
+		alert("이름을 입력해주세요");
+		return false;
+	}else if($("#validName").html() != ""){
+		alert("이름을 다시 확인해주세요");
+		return false;
+	}else if($("#birth").val() == ""){
+		alert("생년월일을 입력해주세요");
+		return false;
+	}else if($("#validBirth").html() != ""){
+		alert("생년월일 양식을 다시 확인해주세요");
+		return false;
+	}else if($("#phone").val() == ""){
+		alert("전화번호를 입력해주세요");
+		return false;
+	}else if($("#validPhone").html() != ""){
+		alert("전화번호를 다시 확인해주세요");
+		return false;		
+	}else if($("#email").val() == ""){
+		alert("메일을 입력해주세요");
+		return false;
+	}else if($("#validEmail").html() != ""){
+		alert("메일주소를 다시 확인해주세요");
+		return false;
+	}else if($("#postcode").val() == ""){
+		alert("주소를 입력해주세요");
+		return false;
+	}else if(!agree){
+		alert("약관을 동의해주세요");
+		return false;
+	}else if(!method){
+		alert("납입방법을 선택해주세요");
+		return false;
+	}else if($("#inputDisplay").html() == ""){
+		alert("후원금액을 입력해주세요")
+		return false;
+	}
+		$("form").submit();
+})
+
+//유효성검사
+$("#name").on("focusout", function(){
+	var regex = /\S+/g;
+	var data = $("#name").val()
+	var result = regex.exec(data);
+	
+	if(data == ""){
+		$("#validName").html("이름을 입력해주세요");
+	}else if(result == null){
+		$("#validName").html("이름엔 공백이 들어갈 수 없습니다");
+	}else{
+		$("#validName").html("");
+	}
+	
+})
+
+$("#birth").on("focusout",function(){
+	var regex = /[0-9]{6}/g;
+	var data = $("#birth").val();
+	var result = regex.exec(data);
+	
+	if(result == null){
+		$("#validBirth").html("생년월일을 다시 확인해주세요");
+	}else{
+		$("#validBirth").html("");
+	}
+})
+
+$("#phone").on("focusout",function(){
+	var regex = /^01\d\d{3,4}\d{4}$/;
+    var text = $("#phone").val();
+    var result = regex.exec(text);
+
+    if(result == null){
+		$("#validPhone").html("전화번호를 다시 확인해주세요");
+    }else{
+    	$("#validPhone").html("");
+    }
+})
+
+$("#email").on("focusout",function(){
+    var regex = /^\w+@[a-z]+(.[a-z]+){1,2}$/;
+    var text = $("#email").val();
+    var result = regex.exec(text);
+
+    if(result == null){
+        $("#validEmail").html("이메일을 다시 확인해주세요");
+    }else{
+    	$("#validEmail").html("");
+    }
+})
+
+
+
+
 </script>
 </html>

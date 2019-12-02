@@ -33,16 +33,22 @@ public class DonateController extends HttpServlet {
 			
 			if(cmd.contentEquals("/donate.do")) {
 				//결제 넘어가기 전에 결제 시도 정보 입력하기
-				int support = Integer.parseInt(request.getParameter("support"));
+				String supportPrice = request.getParameter("support");
+				System.out.println(supportPrice);
+				if(supportPrice.contentEquals("etc")) {
+					supportPrice = request.getParameter("etcPrice");					
+				}	
+				System.out.println(supportPrice);
+				int support = Integer.parseInt(supportPrice);
 				
 				//이 부분 로그인 연동 후 다시 확인하기
-				String userId = (String)request.getSession().getAttribute("userId");
-				if(userId.contentEquals("null")) {
+				String userId = (String)request.getSession().getAttribute("loginInfo");
+				System.out.println(userId);
+				if(userId == null) {
 					userId = "비회원 후원자";
 				}
 				System.out.println(userId);
-				String name = request.getParameter("name");
-				
+				String name = request.getParameter("name");				
 				String birth = request.getParameter("birth");
 				String phone = request.getParameter("phone");
 				String email = request.getParameter("email");
@@ -78,8 +84,8 @@ public class DonateController extends HttpServlet {
 				if(success.contentEquals("true")) {
 					int paid_amount = Integer.parseInt(request.getParameter("paid_amount"));
 					DonateDAO dao = DonateDAO.getInstance();
-					int result = dao.updateRealPay(merchant_uid, paid_amount);
-					result = dao.updateValid(merchant_uid);
+					dao.updateRealPay(merchant_uid, paid_amount);
+					dao.updateValid(merchant_uid);
 
 					
 						PrintWriter pw = response.getWriter();

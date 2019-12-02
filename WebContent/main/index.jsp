@@ -25,7 +25,7 @@
 			height : 300px;
 			}
 			#searchTop{
-			width: 80%;
+			width: 90%;
 			position: absolute;
 			left: 50%;
 			transform: translate(-50%, -50%);
@@ -34,7 +34,8 @@
 			}
 			#searchBtn1{
 			background-color:#ffffff; 
-			font-color:#084480;
+			color:#084480;
+			width: 5%;
 			}
 			.prevealTitle{
 			background-color: ;
@@ -74,8 +75,8 @@
                         	<div class="col-12 p-0">
                         		<%-- keyword Search --%>
 						<form class="form-inline" action="${pageContext.request.contextPath}/keywordSearch.s" class="col-12" method=post>
-							<input class="form-control col-10" type="search" placeholder="Search" aria-label="Search" name=keywordSearch>
-							<button id="searchBtn1" class="btn btn-outline-secondary m-auto col-2" type="submit">Search</button>
+							<input class="form-control col-8 col-sm-10" type="search" placeholder="Search" aria-label="Search" name=keywordSearch>
+							<button id="searchBtn1" class="btn btn-outline-secondary m-auto col-4 col-sm-2" type="submit">Search</button>
 						</form>
 							</div>
                         </div>
@@ -85,8 +86,8 @@
                     <div class="row line">
                         <div id="article-middle-left" class="col-12 col-md-6 text-center">
                             <div class="row line">
-                                <div class="col-auto col-sm-6 prevealTitle">공지사항</div>
-                                <div class="col-auto col-sm-6">
+                                <div class="col-6 prevealTitle">공지사항</div>
+                                <div class="col-6">
                                     <a href="boardNotice.bo">더보기</a>
                                 </div>
                             </div>
@@ -100,8 +101,8 @@
                         </div>
                         <div id="article-middle-right" class="col-12 col-md-6 text-center">
                             <div class="row line">
-                                <div class="col-auto col-sm-6 prevealTitle">최신글</div>
-                                <div class="col-auto col-sm-6">
+                                <div class="col-6 prevealTitle">최신글</div>
+                                <div class="col-6">
                                     <a href="#">더보기</a>
                                 </div>
                             </div>
@@ -151,7 +152,7 @@
                 
                 <%--검색 컨테이너 시작 --%>
 			
-                <div id="article-botton" class="col-12 p-3">
+                <div id="article-botton" class="col-12 p-0">
                 	
                 <form action="${pageContext.request.contextPath}/search/searchFrom.s" class="col-12 p-0" id="detailSearch" method="post">
                     <div class="col-12 line">동물병원 상세 검색</div>

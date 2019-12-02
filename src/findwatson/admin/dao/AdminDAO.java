@@ -10,12 +10,13 @@ import java.util.List;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import findwatson.admin.dto.BanDTO;
+import findwatson.admin.dto.ChartDTO;
 import findwatson.admin.dto.ExpertDTO;
 import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
 import findwatson.admin.utils.Util;
-import findwatson.board.dto.ObODTO;
 import findwatson.board.dto.BoardDTO;
+import findwatson.board.dto.ObODTO;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
 
@@ -94,7 +95,8 @@ public class AdminDAO {
 				String lovePet = rs.getString(11);
 				String signPath = rs.getString(12);
 				Timestamp date = rs.getTimestamp(13);
-				MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+				String ipAddr = rs.getString(14);
+				MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 				memberList.add(dto);
 			}
 			return memberList;
@@ -126,7 +128,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -159,7 +162,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -192,7 +196,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -225,7 +230,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -255,10 +261,10 @@ public class AdminDAO {
 					String postcode = rs.getString(8);
 					String address1 = rs.getString(9);
 					String address2 = rs.getString(10);
-
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -266,14 +272,14 @@ public class AdminDAO {
 		}
 	}
 	//차단ip 추가
-	public int banIp(String id, String ip, String reason) throws Exception{
+	public int insertbanIp(String id, String ipAddr, String reason) throws Exception{
 		String sql = "insert into banIp values(?,?,?)";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setString(1, id);
-			pstat.setString(2, ip);
+			pstat.setString(2, ipAddr);
 			pstat.setString(3, reason);
 			int result = pstat.executeUpdate();
 			con.commit();
@@ -494,7 +500,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					result.add(dto);
 				}
 				return result;
@@ -687,8 +694,72 @@ public class AdminDAO {
 			return rs.getInt(1);
 		}
 	}
-
-
+	//관리자통계 - 가입경로 직접검색
+	public int recordDirectSearchTotalCount () throws Exception {
+		String sql = "select count(signpath) from member where signpath=' ''찾아조 왓슨!'' 직접검색'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//관리자통계 - 가입경로 키워드검색
+		public int recordKeywordSearchTotalCount () throws Exception {
+			String sql = "select count(signpath) from member where signpath=' ''특수 동물 병원'' 키워드 검색'";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				ResultSet rs = pstat.executeQuery();
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
+		//관리자통계 - 가입경로 지인소개
+		public int recordIntroduceTotalCount () throws Exception {
+			String sql = "select count(signpath) from member where signpath='지인 소개'";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				ResultSet rs = pstat.executeQuery();
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
+		//관리자통계 - 가입경로 기타
+		public int recordOtherSearchTotalCount () throws Exception {
+			String sql = "select count(lovepet) from member where lovepet not in (' ''찾아조 왓슨!'' 직접검색',' ''특수 동물 병원'' 키워드 검색','지인 소개')";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				ResultSet rs = pstat.executeQuery();
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
+		//관리자통계 - 인기게시물 top5
+		public List<ChartDTO> recordTop5 () throws Exception {
+			String sql = "select * from (SELECT title,viewcount FROM board union all select title,viewcount from expert order by viewcount desc) where rownum<=5";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				ResultSet rs = pstat.executeQuery();
+				List<ChartDTO> list = new ArrayList<>();
+				while(rs.next()) {
+					String title = rs.getString(1);
+					int viewCount = rs.getInt(2);
+					ChartDTO dto = new ChartDTO (title,viewCount);
+					list.add(dto);
+				}
+				return list;
+			}
+		}
 	//공지사항 테이블 시퀀스로 dto가져오기
 	public NoticeDTO getNoticeBySeq(int noticeSeq)throws Exception{
 		String sql = "select * from notice where seq =?";
