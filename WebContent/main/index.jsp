@@ -11,8 +11,43 @@
         <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../resources/css/mainStyle.css">
         <style>
+			#article-top{
+			position: relative;
+			}
+			#article-logo{
+			background-color: #ffcd9030
+			}
+			#article-img{
+			height : 300px;
+			}
+			#searchTop{
+			width: 80%;
+			position: absolute;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color:#1ec8c550;
+			border-radius: 10px;
+			}
+			#searchBtn1{
+			background-color:#ffcd90; 
+			}
+			.prevealTitle{
+			background-color: #ffcd90;
+			}
+			.prevealCon{
+			border: 1px solid #ffcd9050;
+			}
+            #article-botton{
+            background-color: #1ec8c5;
+            }
+            #detailSearch{
+            background-color: #ffffff;
+            }
+            
             .imgSize{
                 width: 100%;
                 height: 300px;
@@ -25,11 +60,64 @@
     <body>
         <div class="container">
             <jsp:include page="../standard/header.jsp" />           
-            <!--            -->
+            <!--    내용시작        -->
             <div class="row">
-                <div id="article-top" class="col-12 mb-3 p-0">
-                    <div id="carouselExampleIndicators"
-                         class="carousel slide col-12 mb-3 p-0" data-ride="carousel" style="width: 1000px; margin: auto">
+                <div id="article-top" class="col-12 mb-5 p-0">
+                    <!--여기 이미지  -->
+                    <div id="article-logo" class="col-12 p-2 line">
+                            <div id="article-img">이미지</div>
+                    </div>
+                    <!--  -->
+                    
+                        <div class="col-12 p-3" id="searchTop">
+                        	<div class="col-12 p-0">
+                        		<%-- keyword Search --%>
+						<form class="form-inline" action="${pageContext.request.contextPath}/keywordSearch.s" class="col-12" method=post>
+							<input class="form-control col-10" type="search" placeholder="Search" aria-label="Search" name=keywordSearch>
+							<button id="searchBtn1" class="btn btn-outline-secondary m-auto col-2" type="submit">Search</button>
+						</form>
+							</div>
+                        </div>
+                   
+                </div>
+                <div id="article-middle" class="col-12 mb-3">
+                    <div class="row line">
+                        <div id="article-middle-left" class="col-12 col-md-6 text-center">
+                            <div class="row line">
+                                <div class="col-auto col-sm-6 prevealTitle">공지사항</div>
+                                <div class="col-auto col-sm-6">
+                                    <a href="boardNotice.bo">더보기</a>
+                                </div>
+                            </div>
+                            <div class="row line">
+                                <div class="col-12 prevealCon">
+                                    <a href="#">공지</a><br> <a href="#">공지</a><br>
+                                    <a href="#">공지</a><br> <a href="#">공지</a><br>
+                                    <a href="#">공지</a><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="article-middle-right" class="col-12 col-md-6 text-center">
+                            <div class="row line">
+                                <div class="col-auto col-sm-6 prevealTitle">최신글</div>
+                                <div class="col-auto col-sm-6">
+                                    <a href="#">더보기</a>
+                                </div>
+                            </div>
+                            <div class="row line">
+                                <div class="col-12 prevealCon">
+                                    <a href="#">최신글</a><br>
+                                    <a href="#">최신글</a><br>
+                                    <a href="#">최신글</a><br>
+                                    <a href="#">최신글</a><br>
+                                    <a href="#">최신글</a><br>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 여기 캐러셀 -->
+                        
+                        <div id="carouselExampleIndicators"
+                         class="carousel slide col-12 mt-5 mb-5 p-0" data-ride="carousel" style="width: 1000px; margin: auto">
                         <ol class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -55,60 +143,16 @@
                         <span class="sr-only">Next</span>
                         </a>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                        		<%-- keyword Search --%>
-						<form class="form-inline" action="${pageContext.request.contextPath}/keywordSearch.s" class="col-12" method=post>
-							<input class="form-control col-10" type="search" placeholder="Search" aria-label="Search" name=keywordSearch>
-							<button id="searchBtn1" class="btn btn-outline-secondary m-auto col-2" type="submit">Search</button>
-						</form>
-                        </div>
-                    </div>
-                </div>
-                <div id="article-middle" class="col-12 mb-3">
-                    <div class="row line">
-                        <div id="article-middle-left" class="col-6 text-center">
-                            <div class="row line">
-                                <div class="col-auto col-sm-6">공지사항</div>
-                                <div class="col-auto col-sm-6">
-                                    <a href="boardNotice.bo">더보기</a>
-                                </div>
-                            </div>
-                            <div class="row line">
-                                <div class="col-12">
-                                    <a href="#">공지</a><br> <a href="#">공지</a><br>
-                                    <a href="#">공지</a><br> <a href="#">공지</a><br>
-                                    <a href="#">공지</a><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="article-middle-right" class="col-6 text-center">
-                            <div class="row line">
-                                <div class="col-auto col-sm-6">최신글</div>
-                                <div class="col-auto col-sm-6">
-                                    <a href="#">더보기</a>
-                                </div>
-                            </div>
-                            <div class="row line">
-                                <div class="col-12">
-                                    <a href="#">최신글</a><br>
-                                    <a href="#">최신글</a><br>
-                                    <a href="#">최신글</a><br>
-                                    <a href="#">최신글</a><br>
-                                    <a href="#">최신글</a><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="article-logo" class="col-12 p-2 line">
-                            <div id="article-img">이미지</div>
-                        </div>
+                        
+                        <!--  -->
                     </div>
                 </div>
                 
                 <%--검색 컨테이너 시작 --%>
 			
-                <div id="article-botton" class="col-12 line mb-3 p-0">
-                <form action="${pageContext.request.contextPath}/searchFrom.s" class="col-12" method="post">
+                <div id="article-botton" class="col-12 p-3">
+                	
+                <form action="${pageContext.request.contextPath}/search/searchFrom.s" class="col-12 p-0" id="detailSearch" method="post">
                     <div class="col-12 line">동물병원 상세 검색</div>
                     <div id="area-search" class="col-12">
                         <div class="row line">
@@ -165,6 +209,7 @@
                         </div>
                     </div>
                      </form>
+                    
                 </div>
             </div>
             <!--            -->

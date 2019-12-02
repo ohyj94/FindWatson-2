@@ -46,7 +46,6 @@ public class DonateController extends HttpServlet {
 				System.out.println(userId);
 				String name = request.getParameter("name");
 				
-				//테이블, DTO에 생년월일 빼먹음 수정해
 				String birth = request.getParameter("birth");
 				String phone = request.getParameter("phone");
 				String email = request.getParameter("email");
@@ -62,7 +61,7 @@ public class DonateController extends HttpServlet {
 				request.setAttribute("dId", donateId);
 				
 				//결제 전 결제 정보 입력, request에 담기
-				DonateDTO dto = new DonateDTO(donateId, userId, name, support, 0, payMethod, email, postcode, addr1, addr2, phone, "F");
+				DonateDTO dto = new DonateDTO(donateId, userId, name, support, 0, payMethod, email, birth, postcode, addr1, addr2, phone, "F");
 				int result = dao.setDonateInfo(dto);
 				
 				
