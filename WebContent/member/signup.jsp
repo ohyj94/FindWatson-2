@@ -60,8 +60,11 @@
 
 			<div class=row>
 				<div class="col-12 col-md-6">
-					<h5>생년월일</h5>
-					<input type=text id=year placeholder="yyyymmdd" name="birth">
+					<h5>생년월일 (yymmdd)</h5>
+					<input type=text id=year placeholder="yymmdd" name="birth">
+				</div>
+				<div class=col-12>
+					<div id=yearCheck></div>
 				</div>
 			</div>
 
@@ -228,24 +231,43 @@
 								});
 				//비밀번호 확인
 				$("#pw").on("keyup", function() {
-					var pw = $("#pw").val();
-					var pwRe = $("#pwRe").val();
+					var regex = /^[a-zA-Z0-9]{8,12}$/;
+	                var data = $('#pw').val();
+	                var result = regex.exec(data);
+	                if (result != null){
+	                	var pw = $("#pw").val();
+						var pwRe = $("#pwRe").val();
 
-					if (pw == pwRe) {
-						$("#pwCheck").html("<div id=blue>비밀번호 일치</div>");
-					} else {
-						$("#pwCheck").html("<div id=red>비밀번호 불일치</div>");
-					}
+						if (pw == pwRe) {
+							$("#pwCheck").html("<div id=blue>비밀번호 일치</div>");
+						} else {
+							$("#pwCheck").html("<div id=red>비밀번호 불일치</div>");
+						}
+	                }
+	                else if(result == null){
+	                	$("#pwCheck").html("<div id=red>비밀번호는 숫자,영어를 이용해 8-14자로 입력하십시오.</div>");
+	                }
+					
 				})
 				$("#pwRe").on("keyup", function() {
-					var pw = $("#pw").val();
-					var pwRe = $("#pwRe").val();
+					var regex = /^[a-zA-Z0-9]{8,12}$/;
+	                var data = $('#pwRe').val();
+	                var result = regex.exec(data);
+	                if (result != null){
+	                	var pw = $("#pw").val();
+						var pwRe = $("#pwRe").val();
 
-					if (pw == pwRe) {
-						$("#pwCheck").html("<div id=blue>비밀번호 일치</div>");
-					} else {
-						$("#pwCheck").html("<div id=red>비밀번호 불일치</div>");
-					}
+						if (pw == pwRe) {
+							$("#pwCheck").html("<div id=blue>비밀번호 일치</div>");
+						} else {
+							$("#pwCheck").html("<div id=red>비밀번호 불일치</div>");
+						}
+	                }
+	                else if(result == null){
+	                	$("#pwCheck").html("<div id=red>비밀번호는 숫자,영어를 이용해 8-14자로 입력하십시오.</div>");
+	                }
+	                	
+					
 				})
 
 				//이름 확인
@@ -255,11 +277,22 @@
 					var result = regex.exec(name);
 					if (result == null) {
 						$("#nameCheck").html("잘못된 이름 형식입니다.");
-					} else {
-						$("#nameCheck").html("");
+					} else if (result !== null){
+						$("#nameCheck").html("올바른 이름 형식입니다.");
 					}
 				})
-
+				//생년월일 확인
+				$("#year").on("keyup", function() {
+					var regex = /^[0-9]{6}$/gm;
+					var year = $("#year").val();
+					var result = regex.exec(year);
+					if (result == null) {
+						$("#yearCheck").html("잘못된 생년월일 형식입니다.");
+					} else if (result !== null){
+						$("#yearCheck").html("올바른 생년월일 형식입니다.");
+					}
+				})
+				
 				//이메일 확인
 				$("#email").on("keyup", function() {
 					var regex = /^[0-9a-zA-Z]+@[a-z]+(\.[a-z]+){1,2}$/gm;
@@ -268,8 +301,8 @@
 
 					if (result == null) {
 						$("#emailCheck").html("잘못된 이메일 형식입니다.");
-					} else {
-						$("#emailCheck").html("");
+					} else if (result !== null) {
+						$("#emailCheck").html("올바른 이메일 형식입니다.");
 					}
 				})
 
@@ -280,8 +313,8 @@
 					var result = regex.exec(phone);
 					if (result == null) {
 						$("#phoneCheck").html("잘못된 번호 형식입니다.");
-					} else {
-						$("#phoneCheck").html("");
+					} else if(result !== null){
+						$("#phoneCheck").html("올바른 번호 형식입니다.");
 					}
 
 				})
@@ -292,20 +325,119 @@
 						alert("아이디를 입력하세요!");
 						return;
 					}
-					
-					if($("#pw").val() == "" || $("#pwRe").val() == ""){
-						alert("비밀번호를 입력하세요!");
+					if($("#id").val()!==""){
+						var regex = /^[a-z][a-z0-9]{6,13}$/gm;
+						var id = $("#id").val();
+						var result = regex.exec(id);
+
+						if (result != null) {//조건만족하면 바로 DB확인
+							
+						}
+						else{
+							alert("아이디 형식에 맞지않습니다.")
+							return;
+						}
+					}
+					if($("#pw").val() == "" || $("#pwRe").val() == "" || $("#pw").val() !== $("#pwRe").val()){
+						alert("비밀번호를 제대로 입력하세요!");
 						return;
 					}
+					if($("#pw").val()!==""){
+						
+						
+						var regex = /^[a-zA-Z0-9]{8,12}$/;
+		                var data = $('#pw').val();
+		                var result = regex.exec(data);
+		                if (result != null){
+		                	var pw = $("#pw").val();
+							var pwRe = $("#pwRe").val();
+
+							if (pw == pwRe) {
+								
+							} else {
+								alert("비밀번호 불일치");
+								return;
+							}
+		                }
+		                else{
+		                	alert("비밀번호 형식에 맞지않습니다.");
+		                	return;
+		                }
+						
+					}
 					
-					if($("#name").val() ==""){
+					if($("#name").val() =="" ){
 						alert("이름을 입력하세요!");
 						return;
 					}
+					if($("#name").val()!==""){
+						var regex = /^[가-힣]{2,8}$/gm;
+						var name = $("#name").val();
+						var result = regex.exec(name);
+						if (result != null) {
+							
+						}
+						else{
+							alert("이름 형식에 맞지않습니다.")
+							return;
+						}
+					}
 					
+					if($('#year').val() == ""){
+						alert('생년월일을 입력하세요!');
+						return;
+					}
+					
+					if($("#year").val()!==""){
+						var regex = /^[0-9]{6}$/gm;
+						var year = $("#year").val();
+						var result = regex.exec(year);
+						if (result != null) {
+							
+						}
+						else{
+							alert("생년월일 형식에 맞지않습니다.")
+							return;
+						}
+					}
+					
+					if($(':radio[name="gender"]:checked').length < 1){
+						alert('성별을 선택하세요!');
+						return;
+					}
 					if($("#email").val() ==""){
 						alert("이메일을 입력하세요!");
 						return;
+					}
+					
+					if($("#email").val()!==""){
+						var regex = /^[0-9a-zA-Z]+@[a-z]+(\.[a-z]+){1,2}$/gm;
+						var email = $("#email").val();
+						var result = regex.exec(email);
+						if (result != null) {
+							
+						}
+						else{
+							alert("이메일 형식에 맞지않습니다.")
+							return;
+						}
+					}
+					if($("#phone").val() == ""){
+						alert("전화번호를 입력하세요!");
+						return;
+					}
+					
+					if($("#phone").val()!==""){
+						var regex = /^01[0-9]{8,9}$/gm;
+						var phone = $("#phone").val();
+						var result = regex.exec(phone);
+						if (result != null) {
+							
+						}
+						else{
+							alert("전화번호 형식에 맞지않습니다.")
+							return;
+						}
 					}
 					
 					if($("#postcode").val() == ""){
@@ -318,19 +450,16 @@
 						return;
 					}
 					
-					if($("address2").val() == ""){
-						alert("주소를 입력해주세요!")
+					if($("#address2").val() == ""){
+						alert("상세주소를 입력해주세요!")
 						return;
 					}
 					
-					if($("#phone").val() == ""){
-						alert("핸드폰 번호를 입력하세요!");
-						return;
-					}
+				
 					
 					var pet= $("input[name=lovePet]:checked").length;
 					console.log(pet);
-					var count = 0;
+					
 				
 					if(pet < 1){
 						alert("관심 동물을 선택하세요!");

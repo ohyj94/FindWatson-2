@@ -59,6 +59,7 @@
 														})
 									</script>
 						</c:forEach>
+						
 						<div class="row">
 							<div class="col-12 text-center">${pageNavi}</div>
 						</div>
@@ -82,6 +83,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
