@@ -11,7 +11,7 @@
 <body>
 	<script>
 	alert("로그아웃 완료");
-	location.href="${pageContext.request.contextPath}/main/index.jsp";
+	location.href="${pageContext.request.contextPath}/toMain.main";
 	</script>
 </body>
 </html>

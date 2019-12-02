@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import findwatson.admin.dao.AdminDAO;
 import findwatson.admin.dto.ExpertDTO;
 import findwatson.admin.dto.NoticeDTO;
 import findwatson.board.dao.BoardDAO;
@@ -198,6 +199,12 @@ public class BoardController extends HttpServlet {
 			
 			}else if(cmd.contentEquals("/noticeDetail.bo")) {
 				//공지사항 글 읽기
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				AdminDAO adao = AdminDAO.getInstance();
+				NoticeDTO dto = adao.getNoticeBySeq(seq);
+				request.setAttribute("dto", dto);
+								
+				request.getRequestDispatcher("board/boardNoticeDetailView.jsp").forward(request, response);
 				
 			}else if(cmd.contentEquals("/freeDetail.bo")) {
 				//자유 게시판 글읽기
