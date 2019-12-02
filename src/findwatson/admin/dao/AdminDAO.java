@@ -973,7 +973,7 @@ public class AdminDAO {
 					String medicalAnimal = rs.getString(9);
 					String openTime = rs.getString(10);
 					Timestamp registDate = rs.getTimestamp(11);
-					int viewCount = rs.getInt(6);
+					int viewCount = rs.getInt(12);
 
 					HListDTO dto = new HListDTO(seqInput, hName, postCode, address1, address2, phone, homePage,
 							img, medicalAnimal, openTime, registDate, viewCount);
@@ -981,5 +981,6 @@ public class AdminDAO {
 				}
 			}
 		}
+		
 	
 }

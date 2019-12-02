@@ -92,33 +92,31 @@
 							method="post">
 							<div class="row line">
 								<div class="col-12">
-									병원이름 <input type="text" id="name" name=name>
+									 병원이름 : <input type="text" id="name" name=name value=${dto.hosptName}>
 								</div>
 								<br>
 
 
 								<div class="col-12">
-									우편번호 <input type="text" id="postcode" name=postcode
-										placeholder="우편번호" readonly>
+									 우편번호 : <input type="text" id="postcode" name=postcode
+										placeholder="우편번호" readonly value=${dto.postcode}>
 									<button id=addressBtn type="button"
 										onclick="sample4_execDaumPostcode()">찾기</button>
 								</div>
 								<div class="col-12">
-									주소1<input type="text" id="address1" name=address1
-										placeholder="주소1" readonly>
+									상세주소1 : <input type="text" id="address1" name=address1
+										placeholder="주소1" readonly value=${dto.address1}>
 								</div>
 								<div class="col-12">
-									주소2<input type=text name=address2 id=address2 placeholder="주소2">
+									상세주소2 : <input type=text name=address2 id=address2 placeholder="주소2" value=${dto.address2}>
 								</div>
 								<div class="col-12">
-									전화번호<input type=text id=phone name=phone placeholder='전화번호'>
+									연락처 : <input type=text id=phone name=phone placeholder='전화번호' value=${dto.phone}>
 								</div>
 								<div class="col-12">
-									홈페이지 주소<input type=text id=homepage name=homepage
-										placeholder='홈페이지 주소'>
+									링크 : <input type=text id=homepage name=homepage
+										placeholder='홈페이지 주소' value=${dto.homepage}>
 								</div>
-
-
 								<div class=col-12>진료과목</div>
 								<div class=col-12>
 									<input type="checkbox" name=medicalAnimal value=새> 새 <input
@@ -140,21 +138,9 @@
 								</div>
 								<div class=col-12>사진</div>
 								<div class=col-12></div>
-
-
 							</div>
-
-
-
 						</form>
 						<input type="button" id="insert" value="병원등록">
-
-
-
-
-
-
-
 						<div class="row mb-2">
 							<div class="col-auto col-sm-2 p-1">
 								<select id="category">

@@ -88,7 +88,7 @@ public class AdminController extends HttpServlet {
 				}
 			}else if(cmd.contentEquals("/logout.admin")) {//관리자 로그아웃
 				request.getSession().invalidate();
-
+				response.sendRedirect("main/indexAdmin.jsp");
 			}else if(cmd.contentEquals("/adminMemberList.admin")) {//회원목록 전체
 				//네비
 				int cpage = 1;
@@ -477,9 +477,12 @@ public class AdminController extends HttpServlet {
 			}else if(cmd.contentEquals("/hosptRemove.admin")) { // 병원 정보 삭제
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				dao.deleteHospt(seq);
-				response.sendRedirect("");
-			}else if(cmd.contentEquals("")) {
-				
+				response.sendRedirect("hosptInfoList.admin");
+			}else if(cmd.contentEquals("/hosptModify.admin")) {//병원 정보 수정
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				HListDTO dto = dao.getHListBySeq(seq);
+				request.setAttribute("dto",dto);
+				request.getRequestDispatcher("admin/adminModifyHospt.jsp").forward(request, response);
 			}else{
 				response.sendRedirect(contextPath + "/error.jsp");
 			}

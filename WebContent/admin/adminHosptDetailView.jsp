@@ -132,7 +132,7 @@ display:none;
 		</div>
 	<script>
 	$("#hosptMdf").on("click",function(){
-		location.href = 'hosptMdf.admin';
+		location.href = '${pageContext.request.contextPath}/hosptModify.admin?seq=${dto.seq}';
 	})
 	$("#hosptRemove").on("click",function(){
 		var result = confirm("정말 삭제하시겠습니까?");
