@@ -21,7 +21,10 @@
 </head>
 <body>
 	<div class="container">
-		<jsp:include page="../standard/headerAdmin.jsp" />
+
+
+		<jsp:include page="../standard/headerAdmin.jsp" /> 	
+
 		<!--            -->
 		<div class="row">
 			<div class="col-12 mb-3" id="article">
@@ -95,6 +98,5 @@
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
-
 </body>
 </html>

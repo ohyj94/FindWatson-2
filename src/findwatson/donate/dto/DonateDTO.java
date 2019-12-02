@@ -7,7 +7,8 @@ public class DonateDTO {
 	private int support;
 	private int realPayment;
 	private String payMethod;	
-	private String email;	
+	private String email;
+	private String birth;
 	private String postcode;
 	private String addr1;
 	private String addr2;
@@ -17,7 +18,7 @@ public class DonateDTO {
 	public DonateDTO() {}
 
 	public DonateDTO(String donateId, String userId, String name, int support, int realPayment, String payMethod,
-			String email, String postcode, String addr1, String addr2, String phone, String valid) {
+			String email, String birth, String postcode, String addr1, String addr2, String phone, String valid) {
 		super();
 		this.donateId = donateId;
 		this.userId = userId;
@@ -26,6 +27,7 @@ public class DonateDTO {
 		this.realPayment = realPayment;
 		this.payMethod = payMethod;
 		this.email = email;
+		this.birth = birth;
 		this.postcode = postcode;
 		this.addr1 = addr1;
 		this.addr2 = addr2;
@@ -89,6 +91,14 @@ public class DonateDTO {
 		this.email = email;
 	}
 
+	public String getBirth() {
+		return birth;
+	}
+
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+
 	public String getPostcode() {
 		return postcode;
 	}
@@ -128,9 +138,5 @@ public class DonateDTO {
 	public void setValid(String valid) {
 		this.valid = valid;
 	}
-
-	
-
-	
 	
 }

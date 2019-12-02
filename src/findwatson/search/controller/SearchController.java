@@ -114,7 +114,7 @@ public class SearchController extends HttpServlet {
 
 				List<HListDTO> list = new ArrayList<>();
 				list = HospitalListDAO.getInstance().selectByPage("%"+address1+"%", "%"+address2+"%", "%"+animal+"%", "%"+time+"%",start, end);
-				String navi = dao.getPageNavi(currentPage, "%"+address1+"%", "%"+address2+"%", "%"+animal+"%", "%"+time+"%");
+				String navi = dao.getPageNavi(currentPage, list.size());
 				request.setAttribute("navi", navi);
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/search/hospitalSearchView.jsp").forward(request, response);
@@ -127,7 +127,7 @@ public class SearchController extends HttpServlet {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				System.out.println(seq);
 				HListDTO contents = HospitalListDAO.getInstance().select(seq);
-				//System.out.println(contents.getTitle());
+				System.out.println(contents.getHosptName());
 				//System.out.println(contents.getContents());
 
 				HospitalListDAO.getInstance().plusss(contents.getViewCount(),seq);
@@ -182,9 +182,16 @@ public class SearchController extends HttpServlet {
 
 				// 3번 중복된 값만 list에 담아 jsp에 보내기 
 				request.setAttribute("list", set);
-				String navi = HospitalListDAO.getInstance().getPageNaviTotal(currentPage, keyword);
+				
+				// navi 값 보내기 
+				String navi = HospitalListDAO.getInstance().getPageNaviTotal(currentPage, set.size());
+			System.out.println("이 값이 넘어가야함" + navi);
 				request.setAttribute("navi", navi);
 
+				request.getRequestDispatcher("/search/hospitalSearchView.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/simpleMove.s")) {
+				//같은 페이지인데 메뉴로 이동할때와 검색후 이동할때 경로가 달라 header문제 발생해서 단순 이동도 서블렛 거치게 추가
+				//경로가 같도록 forward사용
 				request.getRequestDispatcher("/search/hospitalSearchView.jsp").forward(request, response);
 			}
 

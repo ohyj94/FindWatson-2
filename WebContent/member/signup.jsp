@@ -121,28 +121,28 @@
 			</div>
 			<div class=row>
 				<div class="col-4 col-md-3">
-					<input type=checkbox name=lovePet value=bird>새
+					<input type=radio name=lovePet value=bird>새
 				</div>
 				<div class="col-4 col-md-3">
-					<input type=checkbox name=lovePet value=fish>물고기
+					<input type=radio name=lovePet value=fish>물고기
 				</div>
 				<div class="col-4 col-md-3">
-					<input type=checkbox name=lovePet value=mouse>햄스터
+					<input type=radio name=lovePet value=mouse>햄스터
 				</div>
 				<div class="col-4 col-md-3">
-					<input type=checkbox name=lovePet value=rabbit>토끼
+					<input type=radio name=lovePet value=rabbit>토끼
 				</div>
 				<div class="col-4 col-md-3">
-					<input type=checkbox name=lovePet value=hedgehog>고슴도치
+					<input type=radio name=lovePet value=hedgehog>고슴도치
 				</div>
 				<div class="col-4 col-md-3">
-					<input type=checkbox name=lovePet value=reptile>파충류
+					<input type=radio name=lovePet value=reptile>파충류
 				</div>
 				<div class="col-4 col-md-3">
-					<input type=checkbox name=lovePet value=bug>곤충류
+					<input type=radio name=lovePet value=bug>곤충류
 				</div>
 				<div class="col-8 col-md-3">
-					<input type=checkbox name=lovePet value=other>기타
+					<input type=radio name=lovePet value=other>기타
 					<input type=text name=otherAnimal  class="col-7">
 				</div>
 			</div>

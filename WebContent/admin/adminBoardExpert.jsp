@@ -16,9 +16,6 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
-	
-
-
 </head>
 <body>
 	<div class="container">
@@ -87,14 +84,10 @@
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
 	<script>
-	
-	
-	//글쓰기 버튼
+//글쓰기 버튼
 	$("#writeBtn").on("click",function(){
 		location.href="${pageContext.request.contextPath}/admin/adminBoardExpertWrite.jsp";
 	})
-	
 	</script>
-
 </body>
 </html>

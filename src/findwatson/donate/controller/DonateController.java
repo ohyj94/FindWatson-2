@@ -2,7 +2,7 @@ package findwatson.donate.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import findwatson.donate.dao.DonateDAO;
 import findwatson.donate.dto.DonateDTO;
@@ -46,7 +43,6 @@ public class DonateController extends HttpServlet {
 				System.out.println(userId);
 				String name = request.getParameter("name");
 				
-				//테이블, DTO에 생년월일 빼먹음 수정해
 				String birth = request.getParameter("birth");
 				String phone = request.getParameter("phone");
 				String email = request.getParameter("email");
@@ -62,7 +58,7 @@ public class DonateController extends HttpServlet {
 				request.setAttribute("dId", donateId);
 				
 				//결제 전 결제 정보 입력, request에 담기
-				DonateDTO dto = new DonateDTO(donateId, userId, name, support, 0, payMethod, email, postcode, addr1, addr2, phone, "F");
+				DonateDTO dto = new DonateDTO(donateId, userId, name, support, 0, payMethod, email, birth, postcode, addr1, addr2, phone, "F");
 				int result = dao.setDonateInfo(dto);
 				
 				
@@ -114,6 +110,14 @@ public class DonateController extends HttpServlet {
 				request.setAttribute("paid", realPay);
 				request.getRequestDispatcher("donate/donatePassView.jsp").forward(request, response);
 				
+			}//내 후원 보기+
+			else if(cmd.contentEquals("/mypageDonation.do")) {
+				DonateDAO dao = DonateDAO.getInstance();
+				String userId =(String) request.getSession().getAttribute("loginInfo");
+				List<DonateDTO> list = dao.selectMy(userId);
+				System.out.println(list.size());
+				request.setAttribute("result", list);
+				request.getRequestDispatcher("member/mypageDonation.jsp").forward(request, response);;
 			}
 			
 		}catch(Exception e) {

@@ -20,8 +20,10 @@
 </head>
 <body>
 	<div class="container">
+
 	
 		<jsp:include page="../standard/headerAdmin.jsp" /> 	
+
 		<!--            -->
 		<div class="row">
 			<div class="col-12 mb-3" id="article">
@@ -83,12 +85,5 @@
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
-	<script>
-	$("#writeBtn").on("click",function() {
-			location.href = "${pageContext.request.contextPath}/admin/adminBoardNoticeWrite.jsp";
-	})
-	
-	</script>
-
 </body>
 </html>
