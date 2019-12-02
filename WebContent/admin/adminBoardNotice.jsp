@@ -47,9 +47,17 @@
 								<div class="col-md-6 d-none d-md-block"><a href='${pageContext.request.contextPath}/adminNoticeDetailView.admin?seq=${list.seq}'>${list.title}</a></div>
 								<div class="col-md-2 d-none d-md-block">
 									${list.formedDate}</div>
-								<div class="col-md-2 d-none d-md-block">${list.viewCount}
+								<div class="col-md-2 d-none d-md-block">${list.viewCount}<button type=button id=remove${list.seq}>삭제</button>
 								</div>
 							</div>
+							<script>
+										$("#remove${list.seq}").on("click",function() {
+															var result = confirm("정말 삭제하시겠습니까?");
+															if (result) {
+																location.href = '${pageContext.request.contextPath}/noticeRemove.admin?seq=${list.seq}';
+															}
+														})
+									</script>
 						</c:forEach>
 						<div class="row">
 							<div class="col-12 text-center">${pageNavi}</div>
@@ -77,6 +85,7 @@
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
+<<<<<<< HEAD
 	<script>
 	
 	//글쓰기 버튼
@@ -88,5 +97,7 @@
 
 	</script>
 
+=======
+>>>>>>> fa4b1ce0af7b7fa842d54572eaf0531a43b0f139
 </body>
 </html>
