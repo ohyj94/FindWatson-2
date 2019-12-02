@@ -150,7 +150,7 @@ public class BoardController extends HttpServlet {
 		        fDao.insert(new FilesDTO(0, 0, fileName, oriFileName));
 		        
 		        //서버의 이미지 경로
-		        String imgPath = "../" + repositoryName + "/" + fileName;
+		        String imgPath = contextPath + "/" + repositoryName + "/" + fileName;
 		        System.out.println(imgPath);
 		         
 		        JsonObject jObj = new JsonObject();
@@ -188,15 +188,22 @@ public class BoardController extends HttpServlet {
 		        fDao.insert(new FilesDTO(0, 0, fileName, oriFileName));
 
 				// 서버의 이미지 경로
-				String imgPath = "../" + repositoryName + "/" + fileName;
+				String imgPath = contextPath + "/" + repositoryName + "/" + fileName;
 				System.out.println(imgPath);
 
 				JsonObject jObj = new JsonObject();
 				jObj.addProperty("imgPath", imgPath);
 				pwriter.append(jObj.toString());
 			
-			// 등록되지 않은 경로로 입장시
+			
+			}else if(cmd.contentEquals("/noticeDetail.bo")) {
+				//공지사항 글 읽기
+				
+			}else if(cmd.contentEquals("/freeDetail.bo")) {
+				//자유 게시판 글읽기
+				
 			} else {
+				// 등록되지 않은 경로로 입장시
 				response.sendRedirect("main/error.jsp");
 			}
 		} catch(Exception e) {
