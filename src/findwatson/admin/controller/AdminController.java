@@ -439,7 +439,6 @@ public class AdminController extends HttpServlet {
 			}else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
 
 				int noticeSeq = Integer.parseInt(request.getParameter("seq"));
-				dao.increNoticeView(noticeSeq);
 				NoticeDTO dto = dao.getNoticeBySeq(noticeSeq);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/adminNoticeDetailView.jsp").forward(request, response);
