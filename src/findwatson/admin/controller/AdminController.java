@@ -303,17 +303,9 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("otherSearch", otherSearch);
 				request.getRequestDispatcher("/admin/adminMemberChart.jsp").forward(request, response);
 				
-<<<<<<< HEAD
-			}
-			
-//=======
-			else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
-=======
-			}else if(cmd.contentEquals("/adminMemberChart.admin")) {//관심동물통계
-				
-				
+	
 			}else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
->>>>>>> fa4b1ce0af7b7fa842d54572eaf0531a43b0f139
+
 				int noticeSeq = Integer.parseInt(request.getParameter("seq"));
 				dao.increNoticeView(noticeSeq);
 				NoticeDTO dto = dao.getNoticeBySeq(noticeSeq);
