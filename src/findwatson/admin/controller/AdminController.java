@@ -74,10 +74,7 @@ public class AdminController extends HttpServlet {
 					response.sendRedirect("index.jsp");
 				}
 				
-			}else if(cmd.contentEquals("/adminMemberList.admin")) {//회원전체목록
-				//List<MemberDTO> list = dao.selectAll();
-				//request.setAttribute("list", list);
-				System.out.println("admincontroller 연결 성공");
+			}else if(cmd.contentEquals("/adminMemberList.admin")) {//회원목록 전체
 				//네비
 				int cpage = 1;
 				String param = request.getParameter("cpage");
@@ -258,12 +255,16 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("admin/adminBoardQuestion.jsp").forward(request, response);
-			}else if(cmd.contentEquals("/admin/adminDeleteMember.admin")) {//회원 삭제
+			}else if(cmd.contentEquals("/admin/adminDeleteMember.admin")) {//회원 차단기능
 				String idInput = request.getParameter("id");
+				String ipAddrInput = request.getParameter("ip");
+				String reason = request.getParameter("reason");
+				
+				dao.insertbanIp(idInput, ipAddrInput, reason);
 				int result = dao.deleteMember(idInput);
 				if(result > 0) {
 					System.out.println("아이디 삭제 성공");
-					response.sendRedirect("adminMemberList.admin");
+					response.sendRedirect(contextPath + "/adminMemberList.admin");
 				}
 			}else if(cmd.contentEquals("/admin/adminSearchMember.admin")) {//회원목록에서 회원아이디 검색
 				System.out.println("회원아이디검색 진입성공");
@@ -339,18 +340,6 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/adminObODetailView.jsp").forward(request, response);
 				
-			} else if(cmd.contentEquals("")) {
-				
-				
-				
-				
-				
-				
-			} else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
-
-			}
-			else if(cmd.contentEquals("/adminMemberChart.admin")) {//회원통계
-				
 			}else if(cmd.contentEquals("/adminMemberChart.admin")) {//회원통계
 				
 				System.out.println("회원차트 진입성공");
@@ -381,13 +370,9 @@ public class AdminController extends HttpServlet {
 				//가입경로
 				
 				request.getRequestDispatcher("/admin/adminMemberChart.jsp").forward(request, response);
-				
 			}else if(cmd.contentEquals("/adminMemberChart.admin")) {//관심동물통계
 				
 				
-			}
-			else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
-
 			}else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
 				int noticeSeq = Integer.parseInt(request.getParameter("seq"));
 				dao.increNoticeView(noticeSeq);

@@ -11,40 +11,7 @@
         <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainStyle.css">
-        <style>
-            *{box-sizing: border-box}
-/*            div{border: 1px solid black}*/
-            #logo{
-                width: 500px;
-                height: 100px;
-                margin: auto;
-            }
-            #footer>div{
-                height: 100%;
-            }
-            #footer-logo>div{
-                height: 100%; 
-            }
-            #footer-contents{font-size: 8pt;}
-            .nav-item{
-                display: inline-block;
-                width: 100%;
-                text-align: center;
-            }
-            .navbar-nav{
-                width: 100%;
-            }
-            #article, .line{
-                border: 0.5px solid lightgray;
-            }
-            #category{width: 100%; height: 100%;}
-            .search-box>*{width: 100%;}
-            .write-box>*{width: 100%;}
-            #article, .line{
-                border: 0.5px solid lightgray;
-            }
-        </style>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 </head>
 <body>
     <div class="container">
@@ -92,11 +59,19 @@
            			${list.name }
                 </div>
                 <div class="col-md-6 d-none d-md-block">
-                    <a href="${pageContext.request.contextPath}/admin/adminDeleteMember.admin?id=${list.id}">삭제하기</a>
+                    <a id="banIp${list.id}" href=#>차단</a>
                 </div>
             </div>
-            
-                            
+            <script>
+            	$("#banIp${list.id}").on("click",function(){
+            		var reason = prompt("차단 사유 : ");
+            		if(reason == ""){
+            			alert("차단사유는 필수 입력 사항입니다.")
+            		}else{
+                		location.href="${pageContext.request.contextPath}/admin/adminDeleteMember.admin?id=${list.id}&ip=${list.ipAddr}&reason="+reason;
+            		}
+            	})
+            </script>                
             </c:forEach>
            </c:otherwise>
            </c:choose>
@@ -120,7 +95,6 @@
                                     <button class="btn btn-sm btn-outline-secondary">검색</button>
                                 </div>
                                 <div class="write-box col-auto col-sm-2 text-center p-1">
-                                    <button class="btn btn-sm btn-outline-secondary">작성하기</button>
                                 </div>
                                
                                 <script>
@@ -137,23 +111,7 @@
                           
             <!--            -->
             <jsp:include page="../standard/footer.jsp" />
-        <script>
-		//각 버튼별 주소이동
-		$("#logo").on("click", function() {
-			location.href = "${pageContext.request.contextPath}/mainAdmin.jsp";
-		});
-		//공지사항으로 이동
-		$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
-		//전문가 Q&A로 이동
-		$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
-		//자유게시판으로 이동
-		$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
-		//질문게시판으로 이동
-		$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
-		//회원목록조회로 이동
-		$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");
-		//차단한ip목록조회로 이동
-		$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
-	</script>
+            </div>
+       
 </body>
 </html>

@@ -66,7 +66,7 @@ public class MemberDAO {
 		}
 	}
 	public int insert(MemberDTO dto)throws Exception{
-		String sql = "insert into member values (?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
+		String sql = "insert into member values (?,?,?,?,?,?,?,?,?,?,?,?,sysdate,'로그인x')";
 		try(Connection con = bds.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1,dto.getId());
@@ -147,5 +147,50 @@ public class MemberDAO {
 			return result;
 		}
 	}
+	//로그인시 아이피 주소 member테이블에 업데이트
+	public int updateMemberIp(String id, String ipAddr)throws Exception{
+		String sql = "update member set ipAddr = ? where id= ?";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, ipAddr);
+			pstat.setString(2, id);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
 	
+	//차단목록에 있나 확인하기
+	public boolean banCheck(String ipAddr)throws Exception{
+		String sql ="select * from banIp where ipAddr = ?";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, ipAddr);
+			try(
+				ResultSet rs = pstat.executeQuery();
+					){
+				return rs.next();
+			}
+		}
+	}
+	//아이피로 차단사유 찾기
+	public String banReasonByIp(String ipAddr)throws Exception{
+		String sql ="select reason from banIp where ipAddr =?";
+		try(
+			Connection con = getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, ipAddr);
+			try(
+				ResultSet rs = pstat.executeQuery();
+					){
+				rs.next();
+				return rs.getString(1);
+			}
+		}
+	}
 }
