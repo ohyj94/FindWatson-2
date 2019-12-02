@@ -528,7 +528,7 @@ public class AdminDAO {
 	}
 
 	//관리자 - 공지에 글작성
-<<<<<<< HEAD
+	//<<<<<<< HEAD
 	public int insertToNotice(ExpertDTO dto)throws Exception{
 		String sql = "insert into notice values (noticeSeq.nextval,?,?,sysdate, 0)";
 		try(
@@ -664,70 +664,70 @@ public class AdminDAO {
 		}
 	}
 
-=======
-			public int insertToNotice(ExpertDTO dto)throws Exception{
-				String sql = "insert into notice values (noticeSeq.nextval,?,?,sysdate, 0)";
-				try(
-					Connection con = getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setString(1, dto.getTitle());
-					pstat.setString(2, dto.getContent());
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
-				}	
+	//=======
+	public int insertToNotice(ExpertDTO dto)throws Exception{
+		String sql = "insert into notice values (noticeSeq.nextval,?,?,sysdate, 0)";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, dto.getTitle());
+			pstat.setString(2, dto.getContent());
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}	
+	}
+	//공지사항 테이블 시퀀스로 dto가져오기
+	public NoticeDTO getNoticeBySeq(int noticeSeq)throws Exception{
+		String sql = "select * from notice where seq =?";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, noticeSeq);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+				rs.next();
+				int seq = rs.getInt(1);
+				String title = rs.getString(2);
+				String content = rs.getString(3);
+				Timestamp writeDate = rs.getTimestamp(4);
+				int viewCount = rs.getInt(5);
+
+				NoticeDTO dto = new NoticeDTO(seq, title, content, writeDate, viewCount);
+				return dto;
 			}
-			//공지사항 테이블 시퀀스로 dto가져오기
-			public NoticeDTO getNoticeBySeq(int noticeSeq)throws Exception{
-				String sql = "select * from notice where seq =?";
-				try(
-					Connection con = getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, noticeSeq);
-					try(
-							ResultSet rs = pstat.executeQuery();
-							){
-							rs.next();
-							int seq = rs.getInt(1);
-							String title = rs.getString(2);
-							String content = rs.getString(3);
-							Timestamp writeDate = rs.getTimestamp(4);
-							int viewCount = rs.getInt(5);
-							
-							NoticeDTO dto = new NoticeDTO(seq, title, content, writeDate, viewCount);
-							return dto;
-					}
-				}
-				
+		}
+
+	}
+	//전문가 큐엔에이 테이블 시퀀스로 dto가져오기
+	public ExpertDTO getExpertBySeq(int expertSeq)throws Exception{
+		String sql = "select * from expert where seq =?";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, expertSeq);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+				rs.next();
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String title = rs.getString(3);
+				String content = rs.getString(4);
+				Timestamp writeDate = rs.getTimestamp(5);
+				int viewCount = rs.getInt(6);
+
+				ExpertDTO dto = new ExpertDTO(seq, writer, title, content, writeDate, viewCount);
+				return dto;
 			}
-			//전문가 큐엔에이 테이블 시퀀스로 dto가져오기
-			public ExpertDTO getExpertBySeq(int expertSeq)throws Exception{
-				String sql = "select * from expert where seq =?";
-				try(
-					Connection con = getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, expertSeq);
-					try(
-							ResultSet rs = pstat.executeQuery();
-							){
-							rs.next();
-							int seq = rs.getInt(1);
-							String writer = rs.getString(2);
-							String title = rs.getString(3);
-							String content = rs.getString(4);
-							Timestamp writeDate = rs.getTimestamp(5);
-							int viewCount = rs.getInt(6);
-							
-							ExpertDTO dto = new ExpertDTO(seq, writer, title, content, writeDate, viewCount);
-							return dto;
-					}
-				}
-				
-			}
-	
-	
->>>>>>> 777b692b8b23db56023ece9d4b34eb22544f767b
+		}
+
+	}
+
+
+	//>>>>>>> 777b692b8b23db56023ece9d4b34eb22544f767b
 }

@@ -267,7 +267,7 @@ public class AdminController extends HttpServlet {
 				List<MemberDTO> list = dao.selectById(idInput);
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
-<<<<<<< HEAD
+//<<<<<<< HEAD
 			}
 			else if(cmd.contentEquals("/adminMemberChart.admin")) {//회원통계
 				System.out.println("회원차트 진입성공");
@@ -304,9 +304,9 @@ public class AdminController extends HttpServlet {
 				
 				
 			}
-			else {
-=======
-			}else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
+			
+//=======
+			else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
 				int noticeSeq = Integer.parseInt(request.getParameter("seq"));
 				NoticeDTO dto = dao.getNoticeBySeq(noticeSeq);
 				request.setAttribute("dto", dto);
@@ -321,7 +321,7 @@ public class AdminController extends HttpServlet {
 			}else if(cmd.contentEquals("/adminQuestionDetailView.admin")) {//관리자 - 질문게시판에서 글 클릭했을때
 				
 			}else {
->>>>>>> 777b692b8b23db56023ece9d4b34eb22544f767b
+//>>>>>>> 777b692b8b23db56023ece9d4b34eb22544f767b
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
 			
