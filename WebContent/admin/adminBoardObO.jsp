@@ -74,7 +74,7 @@
                     ${list.header}
                 </div>
                 <div class="col-8 col-md-5 text-left">
-                    ${list.title}
+                    <a id="toPost" href="${pageContext.request.contextPath}/adminObODetailView.admin?seq=${list.seq}">${list.title}</a>
                 </div>
                 <!-- 모바일에서만 보이는 div -->
                 <div class="col-4 d-block d-md-none">${list.header}</div>

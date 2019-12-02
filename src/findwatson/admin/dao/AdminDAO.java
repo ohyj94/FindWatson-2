@@ -14,6 +14,7 @@ import findwatson.admin.dto.ExpertDTO;
 import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
 import findwatson.admin.utils.Util;
+import findwatson.board.dto.ObODTO;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
 
@@ -560,55 +561,66 @@ public class AdminDAO {
 		}
 	}
 	
-			//공지사항 테이블 시퀀스로 dto가져오기
-			public NoticeDTO getNoticeBySeq(int noticeSeq)throws Exception{
-				String sql = "select * from notice where seq =?";
-				try(
-					Connection con = getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, noticeSeq);
-					try(
-							ResultSet rs = pstat.executeQuery();
-							){
-							rs.next();
-							int seq = rs.getInt(1);
-							String title = rs.getString(2);
-							String content = rs.getString(3);
-							Timestamp writeDate = rs.getTimestamp(4);
-							int viewCount = rs.getInt(5);
-							
-							NoticeDTO dto = new NoticeDTO(seq, title, content, writeDate, viewCount);
-							return dto;
-					}
-				}
-				
+	// 공지사항 테이블 시퀀스로 dto가져오기
+	public NoticeDTO getNoticeBySeq(int noticeSeq) throws Exception {
+		String sql = "select * from notice where seq =?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, noticeSeq);
+			try (ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				int seq = rs.getInt(1);
+				String title = rs.getString(2);
+				String content = rs.getString(3);
+				Timestamp writeDate = rs.getTimestamp(4);
+				int viewCount = rs.getInt(5);
+
+				NoticeDTO dto = new NoticeDTO(seq, title, content, writeDate, viewCount);
+				return dto;
 			}
-			//전문가 큐엔에이 테이블 시퀀스로 dto가져오기
-			public ExpertDTO getExpertBySeq(int expertSeq)throws Exception{
-				String sql = "select * from expert where seq =?";
-				try(
-					Connection con = getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, expertSeq);
-					try(
-							ResultSet rs = pstat.executeQuery();
-							){
-							rs.next();
-							int seq = rs.getInt(1);
-							String writer = rs.getString(2);
-							String title = rs.getString(3);
-							String content = rs.getString(4);
-							Timestamp writeDate = rs.getTimestamp(5);
-							int viewCount = rs.getInt(6);
-							
-							ExpertDTO dto = new ExpertDTO(seq, writer, title, content, writeDate, viewCount);
-							return dto;
-					}
-				}
-				
+		}
+	}
+
+	// 전문가 큐엔에이 테이블 시퀀스로 dto가져오기
+	public ExpertDTO getExpertBySeq(int expertSeq) throws Exception {
+		String sql = "select * from expert where seq =?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, expertSeq);
+			try (ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String title = rs.getString(3);
+				String content = rs.getString(4);
+				Timestamp writeDate = rs.getTimestamp(5);
+				int viewCount = rs.getInt(6);
+
+				ExpertDTO dto = new ExpertDTO(seq, writer, title, content, writeDate, viewCount);
+				return dto;
 			}
+		}
+	}
+	
+	// 1:1 문의게시판 디테일 뷰
+	public ObODTO getObOBySeq(int ObOSeq) throws Exception {
+		String sql = "select * from oneByOne where seq =?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, ObOSeq);
+			try (ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String anserOK = rs.getString(3);
+				String header = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String tiAddr = rs.getString(7);
+				Timestamp writeDate = rs.getTimestamp(8);
+
+				ObODTO dto = new ObODTO(seq, writer, anserOK, header, title, content, tiAddr, writeDate);
+				return dto;
+			}
+		}
+	}
 
 	
 	

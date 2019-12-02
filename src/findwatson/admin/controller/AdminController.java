@@ -333,9 +333,19 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("admin/adminBoardObO.jsp").forward(request, response);
+			// 1:1 문의게시판 디테일 뷰
+			} else if(cmd.contentEquals("/adminObODetailView.admin")) {
+				int ObOSeq = Integer.parseInt(request.getParameter("seq"));
+				ObODTO dto = Odao.getObOBySeq(ObOSeq);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("admin/adminObODetailView.jsp").forward(request, response);
+				
 			} else if(cmd.contentEquals("")) {
-					
-			} else if(cmd.contentEquals("")) {
+				
+				
+				
+				
+				
 				
 			} else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
 				int noticeSeq = Integer.parseInt(request.getParameter("seq"));

@@ -140,4 +140,30 @@ public class ObODAO {
 			}
 		}
 	}
+	// 1:1 문의게시판 디테일 뷰
+	public ObODTO getObOBySeq(int ObOSeq) throws Exception {
+		String sql = "select * from oneByOne where seq =?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, ObOSeq);
+			try (ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String anserOK = rs.getString(3);
+				if(anserOK.contentEquals("Y")) {
+					anserOK = "답변완료"; 
+				} else {
+					anserOK = "답변대기중";
+				}
+				String header = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String tiAddr = rs.getString(7);
+				Timestamp writeDate = rs.getTimestamp(8);
+
+				ObODTO dto = new ObODTO(seq, writer, anserOK, header, title, content, tiAddr, writeDate);
+				return dto;
+			}
+		}
+	}
 }
