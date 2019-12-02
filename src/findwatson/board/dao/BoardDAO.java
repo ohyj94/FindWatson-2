@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import findwatson.admin.dto.ExpertDTO;
+
 import findwatson.admin.dto.NoticeDTO;
 import findwatson.board.dto.BoardDTO;
 import findwatson.configuration.Configuration;
@@ -25,7 +26,7 @@ public class BoardDAO {
 		bds.setPassword("watson");
 		bds.setInitialSize(30);
 	}
-	private Connection getConnetion() throws Exception{
+	private Connection getConnection() throws Exception{
 		return bds.getConnection();
 	}	
 	public synchronized static BoardDAO getInstance() {
@@ -38,7 +39,7 @@ public class BoardDAO {
 	public List<BoardDTO> selectAll() throws Exception{
 		String sql = "select * from board order by seq desc";
 		try(
-				Connection con = this.getConnetion();
+				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				ResultSet rs = pstat.executeQuery();
 				){
@@ -61,102 +62,170 @@ public class BoardDAO {
 		}
 	}
 
-	//제목으로 검색하기
-	public List<BoardDTO> selectByTitle(String title) throws Exception{
-		String sql = "select * from board where title like ? order by seq desc";
-		List<BoardDTO> result = new ArrayList<>();
-		try(
-				Connection con = this.getConnetion();
-				PreparedStatement pstat = con.prepareStatement(sql);
 
-				){
-			//완전히 같은 제목이 아니라 키워드 포함이면 검색이 되어야 하므로 % 붙인 값을 set
-			pstat.setString(1, "%"+title+"%");
-			try(
-					ResultSet rs = pstat.executeQuery();
+		
+		// <카테고리 - 제목별 검색>에 따른 전체 목록 개수 반환 
+		public int selectByList(String column, String keyword) throws Exception{
+
+			String sql = "select *  from board where ? like ? order by seq desc";
+			System.out.println("selectByList에 들어왔음");
+			try (
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
 					){
-				while(rs.next()) {
-					int boardSeq = rs.getInt(1);
-					String writer = rs.getString(2);
-					String header = rs.getString(3);
-					String Aheader = rs.getString(4);
-					String rtitle = rs.getString(5); //검색어랑 변수 겹쳐서 db에 입력된 real title
-					String content = rs.getString(6);
-					String ipAddr = rs.getString(7);
-					int viewCount = rs.getInt(8);
-					Timestamp writeDate = rs.getTimestamp(9);
+				System.out.println(keyword);
+				System.out.println(column);
+				pstat.setString(1, column);
+				pstat.setString(2, keyword);
 
-					result.add(new BoardDTO(boardSeq, writer, header, Aheader, title, content, ipAddr, viewCount, writeDate));
+				try(
+						ResultSet rs = pstat.executeQuery();
+
+						){
+					List<BoardDTO> list = new ArrayList<BoardDTO>();
+					while(rs.next()) {
+							System.out.println("ggg");
+							int seq = rs.getInt(1);
+							System.out.println(seq);
+							String writer = rs.getString(2);
+							String header = rs.getString(3);
+							
+							String animalHeader = rs.getString(4);
+							String title = rs.getString(5);
+							String content = rs.getString(6);
+							String ipAddr = rs.getString(7);
+							int viewCount = rs.getInt(8);
+							Timestamp writeDate = rs.getTimestamp(9);
+							System.out.println(3);
+							BoardDTO dto = new BoardDTO(seq, writer, header, animalHeader, title,
+									content, ipAddr, viewCount, writeDate);
+							list.add(dto);
+							System.out.println("list에 " + list.size()+ "개가 들어있음");
+							System.out.println(4);
+					}
+					System.out.println("작성자 검색 DAO 완료");
+					return list.size();
+				}	
+			}
+		}
+
+
+		// 카테고리별 검색에 따른 목록을 페이지 수에 맞춰 반환 
+				public List<BoardDTO> selectByOption(String column, String keyword, int start, int end) throws Exception{
+
+					String sql = "select * from (select board.*, row_number() over (order by seq desc) as rank from board) "
+							+ "where (? like ?) and (rank between ? and ?) order by seq desc";
+
+					try (
+							Connection con = this.getConnection();
+							PreparedStatement pstat = con.prepareStatement(sql);
+							){
+						System.out.println(keyword);
+						pstat.setString(1, column);
+						pstat.setString(2, keyword);
+						pstat.setInt(3, start);
+						System.out.println("start" + start);
+						pstat.setInt(4, end);
+						System.out.println("end" + end);
+						System.out.println(2);
+						try(
+								ResultSet rs = pstat.executeQuery();
+
+								){
+							List<BoardDTO> list = new ArrayList<BoardDTO>();
+							while(rs.next()) {
+									System.out.println("ggg");
+									int seq = rs.getInt(1);
+									System.out.println(seq);
+									String writer = rs.getString(2);
+									String header = rs.getString(3);
+									
+									String animalHeader = rs.getString(4);
+									String title = rs.getString(5);
+									String content = rs.getString(6);
+									String ipAddr = rs.getString(7);
+									int viewCount = rs.getInt(8);
+									Timestamp writeDate = rs.getTimestamp(9);
+									System.out.println(3);
+									BoardDTO dto = new BoardDTO(seq, writer, header, animalHeader, title,
+											content, ipAddr, viewCount, writeDate);
+									list.add(dto);
+									System.out.println("list에 " + list.size()+ "개가 들어있음");
+									System.out.println(4);
+							}
+							System.out.println("작성자 검색 DAO 완료");
+							return list;
+						}	
+					}
 				}
+
+		// option에 따른 검색 결과 페이지 네비게이터
+		public String getPageNaviTotal(int currentPage, String column,  String keyword) throws Exception {
+
+			int recordTotalCount = this.selectByList(column, keyword);
+			System.out.println("currentPage" + currentPage);
+		
+			System.out.println("recordTotalCount" + recordTotalCount);
+			int pageTotalCount = 0;
+
+			if(recordTotalCount % Configuration.recordCountPerPage > 0) {
+
+				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+
+			}else{
+				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
 			}
-			return result;
-		}
-	}
 
-	//글작성자 검색하기
-	public List<BoardDTO> selectByWriter(String writer) throws Exception{
-		String sql = "select * from board where writer=? order by seq desc";
-		List<BoardDTO> result = new ArrayList<>();
-		try(
-				Connection con = this.getConnetion();
-				PreparedStatement pstat = con.prepareStatement(sql);
+			if(currentPage < 1) {
+				currentPage = 1;	
 
-				){
-			pstat.setString(1, writer);
-			try(
-					ResultSet rs = pstat.executeQuery();
-					){
-				while(rs.next()) {
-					int boardSeq = rs.getInt(1);
-					//String writer = rs.getString(2);
-					String header = rs.getString(3);
-					String Aheader = rs.getString(4);
-					String title = rs.getString(5);
-					String content = rs.getString(6);
-					String ipAddr = rs.getString(7);
-					int viewCount = rs.getInt(8);
-					Timestamp writeDate = rs.getTimestamp(9);
-
-					result.add(new BoardDTO(boardSeq, writer, header, Aheader, title, content, ipAddr, viewCount, writeDate));
-				}
+			}else if(currentPage > pageTotalCount) {
+				currentPage = pageTotalCount;
 			}
-			return result;
-		}
-	}
 
-	//글번호로 검색하기(primary key 이므로 검색결과는 한개)
-	public BoardDTO selectBySeq(int seq) throws Exception{
-		String sql = "select * from board where boardSeq=? order by seq desc";
-		try(
-				Connection con = this.getConnetion();
-				PreparedStatement pstat = con.prepareStatement(sql);
+			System.out.println(currentPage + " currentPage 값이 나와야한다 ");
+			int startNavi = (currentPage - 1) /  Configuration.naviCountPerPage  * Configuration.naviCountPerPage + 1;
 
-				){
-			pstat.setInt(1, seq);
-			try(
-					ResultSet rs = pstat.executeQuery();
-					){
-				rs.next();
-				int boardSeq = rs.getInt(1);
-				String writer = rs.getString(2);
-				String header = rs.getString(3);
-				String Aheader = rs.getString(4);
-				String title = rs.getString(5);
-				String content = rs.getString(6);
-				String ipAddr = rs.getString(7);
-				int viewCount = rs.getInt(8);
-				Timestamp writeDate = rs.getTimestamp(9);
+			int endNavi = startNavi + Configuration.naviCountPerPage - 1;
 
-				return new BoardDTO(boardSeq, writer, header, Aheader, title, content, ipAddr, viewCount, writeDate);
+			if(endNavi > pageTotalCount) {
+				endNavi = pageTotalCount;
 			}
+			boolean needPrev = true;
+			boolean needNext = true;
+
+			if(startNavi == 1) {
+				needPrev = false;
+			}
+			if(endNavi == pageTotalCount) {
+				needNext = false;
+			}
+
+			StringBuilder sb = new StringBuilder();
+			if(needPrev) {sb.append("<a href='search.bo?currentPage="+(startNavi - 1)+"'> < </a>");}
+			// 값을 서버에서 만들어서 + 붙여서 프론트로 나가는거니까 
+			// 서버에서 이미 앵커태그가 붙어야한다 
+			for(int i = startNavi; i <= endNavi; i++) {
+				sb.append("<a href = 'search.bo?currentPage="+i+"'> ");
+				sb.append(i + " ");
+				sb.append("</a>");
+			}
+			if(needNext) {sb.append(">");}
+
+			System.out.println("현재 페이지 번호 : " + currentPage);
+			System.out.println("네비게이터 시작 번호 : " + startNavi);
+			System.out.println("네비게이터 끝  페이지 번호 : " + endNavi);
+
+			return sb.toString();
+			//System.out.println(sb.toString());                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 		}
-	}
-	
+		
+		
 	//글쓰기
 	public int insert(BoardDTO dto) throws Exception{
 		String sql = "insert into board values(boardSeq.nextval,?,?,?,?,?,?,0,sysdate)";
 		try(
-				Connection con = this.getConnetion();
+				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setString(1, dto.getWriter());
@@ -175,7 +244,7 @@ public class BoardDAO {
 	public int delete(int seq) throws Exception{
 		String sql = "delete from board where boardSeq=?";
 		try(
-				Connection con = this.getConnetion();
+				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setInt(1, seq);
@@ -201,19 +270,24 @@ public class BoardDAO {
 //		}
 //	}
 
-	private int getTotalBoard() throws Exception{
-		String sql = "select count(*) from board";
+	private int getTotalBoard(String board) throws Exception{
+		String sql = "select count(*) from board where header = ?";
 		try(
-				Connection con = this.getConnetion();
+				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
-				ResultSet rs = pstat.executeQuery();
 				){
-			rs.next();
-			return rs.getInt(1);
+			pstat.setString(1, board);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+				rs.next();
+				return rs.getInt(1);
+			}
+			
 		}
 	}
 	public String getPageNavi(int current,String category) throws Exception{
-		int recordTotalCount = this.getTotalBoard();
+		int recordTotalCount = this.getTotalBoard(category);
 		int pageTotalCount = 0;
 		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
 			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
@@ -260,7 +334,7 @@ public class BoardDAO {
 		String sql = "select * from (select board.*, row_number() over(order by seq desc) rown from board where header =?) where rown between ? and ?";
 		List<BoardDTO> result = new ArrayList<>();
 		try(
-				Connection con = this.getConnetion();
+				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setString(1, header);
@@ -293,7 +367,7 @@ public class BoardDAO {
 		String sql = "select * from (select expert.*, row_number() over(order by seq desc) rown from expert) where rown between ? and ?";
 		List<ExpertDTO> result = new ArrayList<>();
 		try(
-				Connection con = this.getConnetion();
+				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setInt(1, start);
@@ -322,7 +396,7 @@ public class BoardDAO {
 		String sql = "select * from (select notice.*, row_number() over(order by seq desc) rown from notice) where rown between ? and ?";
 		List<NoticeDTO> result = new ArrayList<>();
 		try(
-				Connection con = this.getConnetion();
+				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setInt(1, start);
@@ -348,7 +422,7 @@ public class BoardDAO {
 	public int increViewCnt(int count, int seq) throws Exception{
 		String sql = "update board set viewCount=?+1 where boardSeq=?";
 		try(
-				Connection con = this.getConnetion();
+				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setInt(1, count);
