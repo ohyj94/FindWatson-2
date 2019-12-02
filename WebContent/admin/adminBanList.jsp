@@ -114,7 +114,6 @@
                                     <button class="btn btn-sm btn-outline-secondary">검색</button>
                                 </div>
                                 <div class="write-box col-auto col-sm-2 text-center p-1">
-                                    <button class="btn btn-sm btn-outline-secondary">작성하기</button>
                                 </div>
                             </div>
                         </div>
@@ -123,6 +122,6 @@
             </div>
             <!--            -->
             <jsp:include page="../standard/footer.jsp" /> 	
-        
+
 </body>
 </html>
