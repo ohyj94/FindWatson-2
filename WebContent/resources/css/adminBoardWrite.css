@@ -35,7 +35,9 @@
 	width: 100%;
 	height: 100%;
 }
-
+.noneE{
+	display:none;
+}
 #boardTitle {
 	width: 100%;
 }

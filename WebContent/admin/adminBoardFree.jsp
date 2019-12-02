@@ -47,14 +47,26 @@
 										<div class="col-1 d-none d-md-block">1</div>
 										<div class="col-md-2 d-none d-md-block">
 											${dto.animalHeader}</div>
-										<div class="col-8 col-md-5 text-left">${dto.title}</div>
+										<div class="col-8 col-md-5 text-left">
+										<a href='${pageContext.request.contextPath}/adminFreeDetailView.admin?seq=${dto.seq}'>${dto.title}</a>
+										</div>
 										<!-- 모바일에서만 보이는 div -->
 										<div class="col-4 d-block d-md-none">${dto.animalHeader}</div>
 										<!-- 모바일에서만 보이는 div -->
 										<div class="col-6 col-md-2 text-left">${dto.writer}</div>
 										<div class="col-6 col-md-2 text-center">
-											${dto.writeDate}</div>
+											${dto.getDate()}
+											<button type=button id=remove${dto.seq}>삭제</button>
+											</div>
 									</div>
+									<script>
+										$("#remove${dto.seq}").on("click",function() {
+															var result = confirm("정말 삭제하시겠습니까?");
+															if (result) {
+																location.href = '${pageContext.request.contextPath}/boardRemove.admin?seq=${dto.seq}';
+															}
+														})
+									</script>
 								</c:forEach>
 							</c:when>
 						</c:choose>
