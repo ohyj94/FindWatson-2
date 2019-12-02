@@ -47,9 +47,17 @@
 								<div class="col-md-6 d-none d-md-block"><a href='${pageContext.request.contextPath}/adminNoticeDetailView.admin?seq=${list.seq}'>${list.title}</a></div>
 								<div class="col-md-2 d-none d-md-block">
 									${list.formedDate}</div>
-								<div class="col-md-2 d-none d-md-block">${list.viewCount}
+								<div class="col-md-2 d-none d-md-block">${list.viewCount}<button type=button id=remove${list.seq}>삭제</button>
 								</div>
 							</div>
+							<script>
+										$("#remove${list.seq}").on("click",function() {
+															var result = confirm("정말 삭제하시겠습니까?");
+															if (result) {
+																location.href = '${pageContext.request.contextPath}/noticeRemove.admin?seq=${list.seq}';
+															}
+														})
+									</script>
 						</c:forEach>
 						<div class="row">
 							<div class="col-12 text-center">${pageNavi}</div>
@@ -77,31 +85,5 @@
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
-	<script>
-	//각 버튼별 주소이동
-	$("#logo").on("click", function() {
-		location.href = "${pageContext.request.contextPath}/mainAdmin.jsp";
-	});
-	//공지사항으로 이동
-	$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
-	//전문가 Q&A로 이동
-	$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
-	//자유게시판으로 이동
-	$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
-	//질문게시판으로 이동
-	$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
-	//회원목록조회로 이동
-	$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");
-	//차단한ip목록조회로 이동
-	$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
-	//글쓰기 버튼
-
-	
-	$("#writeBtn").on("click",function() {
-			location.href = "${pageContext.request.contextPath}/admin/adminBoardNoticeWrite.jsp";
-	})
-
-	</script>
-
 </body>
 </html>
