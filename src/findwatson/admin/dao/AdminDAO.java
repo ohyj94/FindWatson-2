@@ -754,120 +754,103 @@ public class AdminDAO {
 			}
 		}
 	}
-			
-			//전문가 게시판 시퀀스로 dto가져오기
-			public BoardDTO getBoardBySeq(int expertSeq, String header)throws Exception{
-				String sql = "select * from Board where seq = ? and header = ?";
-				try(
-					Connection con = getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, expertSeq);
-					pstat.setString(2, header);
-					try(
-							ResultSet rs = pstat.executeQuery();
-							){
-							rs.next();
-							int seq = rs.getInt(1);
-							String writer = rs.getString(2);
-							String headerInput = header;
-							String animalHeader = rs.getString(4);
-							String title = rs.getString(5);
-							String content = rs.getString(6);
-							String ipAddr = rs.getString(7);
-							int viewCount = rs.getInt(8);
-							Timestamp writeDate = rs.getTimestamp(9);
-							
-							BoardDTO dto = new BoardDTO(seq, writer,headerInput, animalHeader, title, content,ipAddr, viewCount, writeDate);
-							return dto;
-					}
-				}
-				
+
+	// 전문가 게시판 시퀀스로 dto가져오기
+	public BoardDTO getBoardBySeq(int expertSeq, String header) throws Exception {
+		String sql = "select * from Board where seq = ? and header = ?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, expertSeq);
+			pstat.setString(2, header);
+			try (ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String headerInput = header;
+				String animalHeader = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String ipAddr = rs.getString(7);
+				int viewCount = rs.getInt(8);
+				Timestamp writeDate = rs.getTimestamp(9);
+
+				BoardDTO dto = new BoardDTO(seq, writer, headerInput, animalHeader, title, content, ipAddr, viewCount,
+						writeDate);
+				return dto;
 			}
-			//조회수 늘리기
-			//공지
-			public int increNoticeView(int seq)throws Exception{
-				String sql = "update notice set viewCount = (select viewCount from notice where seq = ?) + 1 where seq = ?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, seq);
-					pstat.setInt(2, seq);
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
-				}
-				
-			}
-			//전문가
-			public int increExpertView(int seq)throws Exception{
-				String sql = "update expert set viewCount = (select viewCount from expert where seq = ?) + 1 where seq = ?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, seq);
-					pstat.setInt(2, seq);
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
-				}
-				
-			}
-			//커뮤니티
-			public int increBoardView(int seq)throws Exception{
-				String sql = "update board set viewCount = (select viewCount from board where seq = ?) + 1 where seq = ?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, seq);
-					pstat.setInt(2, seq);
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
-				}
-				
-			}
-			//게시판 글삭제
-			public int deleteBoard(int seq)throws Exception{
-				String sql = "delete from board where seq=?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, seq);
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
-				}
-			}
-			//공지사항 글삭제
-			public int deleteNotice(int seq)throws Exception{
-				String sql = "delete from notice where seq=?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, seq);
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
-				}
-			}
-			
-			//전문가 글 삭제
-			public int deleteExpert(int seq)throws Exception{
-				String sql = "delete from expert where seq=?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, seq);
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
-				}
-			}
+		}
+
+	}
+
+	// 조회수 늘리기
+	// 공지
+	public int increNoticeView(int seq) throws Exception {
+		String sql = "update notice set viewCount = (select viewCount from notice where seq = ?) + 1 where seq = ?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			pstat.setInt(2, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+
+	}
+
+	// 전문가
+	public int increExpertView(int seq) throws Exception {
+		String sql = "update expert set viewCount = (select viewCount from expert where seq = ?) + 1 where seq = ?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			pstat.setInt(2, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+
+	}
+
+	// 커뮤니티
+	public int increBoardView(int seq) throws Exception {
+		String sql = "update board set viewCount = (select viewCount from board where seq = ?) + 1 where seq = ?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			pstat.setInt(2, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+
+	}
+
+	// 게시판 글삭제
+	public int deleteBoard(int seq) throws Exception {
+		String sql = "delete from board where seq=?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+
+	// 공지사항 글삭제
+	public int deleteNotice(int seq) throws Exception {
+		String sql = "delete from notice where seq=?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+
+	// 전문가 글 삭제
+	public int deleteExpert(int seq) throws Exception {
+		String sql = "delete from expert where seq=?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
 }

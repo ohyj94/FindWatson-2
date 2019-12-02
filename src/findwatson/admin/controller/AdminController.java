@@ -19,6 +19,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import findwatson.admin.dao.AdminDAO;
 import findwatson.admin.dao.AdminFileDAO;
+import findwatson.admin.dao.ManagerDAO;
 import findwatson.admin.dto.AdminFileDTO;
 import findwatson.admin.dto.BanDTO;
 import findwatson.admin.dto.ExpertDTO;
@@ -48,6 +49,7 @@ public class AdminController extends HttpServlet {
 		String id = "test";
 		
 		AdminDAO dao = AdminDAO.getInstance();
+		ManagerDAO Mdao = ManagerDAO.getInstance();
 		ObODAO Odao = ObODAO.getInstance();
 		AdminFileDAO fDao = AdminFileDAO.getInstance();
 		PrintWriter pwriter = response.getWriter();
@@ -277,6 +279,8 @@ public class AdminController extends HttpServlet {
 				String repositoryName = "hospitalImg";
 				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
 				
+				System.out.println(uploadPath);
+				
 				File uploadFilePath = new File(uploadPath);
 				if(!uploadFilePath.exists()) {
 					uploadFilePath.mkdir();
@@ -314,13 +318,39 @@ public class AdminController extends HttpServlet {
 				int result = dao.insertHospitalInfo(Hdto);
 				if(result > 0) {
 					System.out.println("병원 정보 입력 성공");
-					response.sendRedirect("adminMemberList.admin");
+					response.sendRedirect("hosptInfoList.admin");
 				}
+			// 병원 리스트 출력
+			} else if(cmd.contentEquals("/hosptInfoList.admin")) {
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+				
+				List<HListDTO> list = Mdao.hosptListByPage(start, end);
+				String pageNavi = Mdao.getHosptListPageNav(cpage);
+				
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("admin/adminHosptList.jsp").forward(request, response);
+
+			// 병원 정보 상세
+			} else if(cmd.contentEquals("/hosptInfoDetailView.admin")) {
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				String imglocation = "/FindWatson/hospitalImg";
+				HListDTO dto = Mdao.hosptInfo(seq);
+				
+				request.setAttribute("imglocation", imglocation);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("admin/adminHosptDetailView.jsp").forward(request, response);
 			// 병원 정보 수정
-			} else if(cmd.contentEquals("/hosptInfoModify.admin")) {
+			} else if(cmd.contentEquals("/hosptInfoModify.admin")){
 				System.out.println("도착");
-				
-				
 				
 				
 			// 1:1 문의 게시글 출력

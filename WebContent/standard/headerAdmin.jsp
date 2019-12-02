@@ -71,11 +71,11 @@
 		$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
 		
 		//병원 관리 - 병원정보 등록
-		$("#hospitalInsert").attr("href", "${pageContext.request.contextPath}/admin/adminInsertHospt.jsp");
+		$("#hospitalInsert").attr("href", "${pageContext.request.contextPath}/admin/adminHosptInsert.jsp");
 		//병원 관리 - 병원정보 수정/삭제
-		$("#hospitalModify").attr("href", "${pageContext.request.contextPath}/admin/adminModifyHospt.jsp");
+		$("#hospitalModify").attr("href", "${pageContext.request.contextPath}/hosptInfoList.admin");
 		//병원 관리 - 병원리뷰 관리
-		$("#hospitalReview").attr("href", "${pageContext.request.contextPath}/admin/adminReviewHospt.jsp");
+		$("#hospitalReview").attr("href", "${pageContext.request.contextPath}/hosptInfoList.admin");
 		
 		//게시판 관리 - 전문가 Q&A
 		$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
