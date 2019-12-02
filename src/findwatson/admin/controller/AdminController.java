@@ -135,10 +135,6 @@ public class AdminController extends HttpServlet {
 
 				//
 				request.getRequestDispatcher("/admin/adminBanList.jsp").forward(request, response);
-			}else if(cmd.contentEquals("아이디로 회원 검색")) {//회원목록에서 아이디로 회원 검색
-				List<MemberDTO> list = dao.selectById(id);
-				request.setAttribute("list", list);
-
 			}else if(cmd.contentEquals("/expertWrite.admin")){ //전문가 Q&A 글쓰기
 				String title = request.getParameter("boardTitle");
 				String content = request.getParameter("content");
@@ -238,6 +234,14 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("admin/adminBoardNotice.jsp").forward(request, response);
 
+			}else if(cmd.contentEquals("/admin/adminSearchNotice.admin")) {//공지사항에서 회원아이디 검색
+				System.out.println("공지사항검색 진입성공");
+				String idInput = request.getParameter("search");
+				List<MemberDTO> list = dao.selectById("%"+idInput+"%");
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
+			
+			
 			}else if(cmd.contentEquals("/boardFree.admin")){//자유게시판 글 출력
 				String pageCategory = "boardFree.bo";
 				int cpage = 1;
@@ -430,10 +434,6 @@ public class AdminController extends HttpServlet {
 				List<ChartDTO> top5List = dao.recordTop5();
 				request.setAttribute("top5List", top5List);
 				request.getRequestDispatcher("/admin/adminMemberChart.jsp").forward(request, response);
-
-			}else if(cmd.contentEquals("/adminMemberChart.admin")) {//관심동물통계
-
-
 
 			}else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
 

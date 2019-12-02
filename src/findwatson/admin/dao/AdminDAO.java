@@ -104,7 +104,7 @@ public class AdminDAO {
 	}
 	//아이디로 회원 찾기
 	public List<MemberDTO> selectById (String id) throws Exception{
-		String sql = "select * from member where id = ?";
+		String sql = "select * from member where id like ?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
