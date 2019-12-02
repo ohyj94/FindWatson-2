@@ -19,7 +19,7 @@
 			position: relative;
 			}
 			#article-logo{
-			background-color: #ffcd9030
+			background-color: ;
 			}
 			#article-img{
 			height : 300px;
@@ -29,23 +29,24 @@
 			position: absolute;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			background-color:#1ec8c550;
-			border-radius: 10px;
+			background-color:#084480;
+			border-radius: 3px;
 			}
 			#searchBtn1{
-			background-color:#ffcd90; 
+			background-color:#ffffff; 
+			font-color:#084480;
 			}
 			.prevealTitle{
-			background-color: #ffcd90;
+			background-color: ;
 			}
 			.prevealCon{
-			border: 1px solid #ffcd9050;
+			border: ;
 			}
             #article-botton{
-            background-color: #1ec8c5;
+            background-color: ;
             }
             #detailSearch{
-            background-color: #ffffff;
+            background-color:;
             }
             
             .imgSize{
@@ -53,7 +54,7 @@
                 height: 300px;
             }
             #searchBtn2{width: 100%;}
-            .line {border: 0.5px solid lightgray;}
+            .line {;}
             label{margin-bottom: 0px;}
         </style>
     </head>
@@ -69,7 +70,7 @@
                     </div>
                     <!--  -->
                     
-                        <div class="col-12 p-3" id="searchTop">
+                        <div class="col-12 p-1" id="searchTop">
                         	<div class="col-12 p-0">
                         		<%-- keyword Search --%>
 						<form class="form-inline" action="${pageContext.request.contextPath}/keywordSearch.s" class="col-12" method=post>

@@ -15,23 +15,8 @@
 		
 		
 <div class="row">
-    <div id="loginBtn" class="col-12 p-1 mb-1 text-right">
-       <c:choose>
-			<c:when test="${loginInfo ==null}">
-				<button class="btn btn-sm btn-outline-secondary" id="donate">후원하기</button>
-				<button class="btn btn-sm btn-outline-secondary" id="login">로그인</button>
-				<button class="btn btn-sm btn-outline-secondary" id="join">회원가입</button>
-			</c:when>
-			<c:otherwise>
-				<button class="btn btn-sm btn-outline-secondary" id="donate">후원하기</button>
-				<button class="btn btn-sm btn-outline-secondary" id="logout">로그아웃</button>
-			</c:otherwise>
-		</c:choose> 
-    </div>
-</div>
-<div class="row">
-    <div id="title" class="col-12 p-0 text-center">
-        <a href="${pageContext.request.contextPath}/main/index.jsp"><img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12 p-0"></a>
+    <div id="title" class="col-12 p-0 mt-3 mb-3 text-center">
+        <a href="${pageContext.request.contextPath}/main/index.jsp"><strong>FIND! WATSON</strong></a>
     </div>
 </div>
 <div class="row">
@@ -46,7 +31,7 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/boardNotice.bo">공지사항</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/search/hospitalSearchView.jsp">병원검색</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/simpleMove.s">병원검색</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/boardExpert.bo">전문가Q&amp;A</a>

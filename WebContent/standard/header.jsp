@@ -17,9 +17,10 @@
 		</c:choose> 
     </div>
 </div>
+
 <div class="row">
-    <div id="title" class="col-12 p-0 text-center">
-        <a href="${pageContext.request.contextPath}/main/index.jsp"><img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12 p-0"></a>
+    <div id="title" class="col-12 p-0 mt-3 mb-3 text-center">
+        <a href="${pageContext.request.contextPath}/main/index.jsp"><strong>FIND! WATSON</strong></a>
     </div>
 </div>
 <div class="row">
