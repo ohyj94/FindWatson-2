@@ -21,7 +21,67 @@
 <body>
 <form action="${pageContext.request.contextPath}/noticeWrite.admin" method="post" id=frm>
 	<div class="container">
+<<<<<<< HEAD
+		<div class="row mb-2">
+    <div id="loginBtn" class="col-12 p-1 text-right">
+        <button class="btn btn-sm btn-outline-secondary">로그아웃</button>
+    </div>
+</div>
+<div class="row">
+    <div id="title" class="col-12 mb-3 p-1 text-center">
+        <img id="logo" src="imgs/logo.png" class="col-12">
+    </div>
+</div>
+<div class="row">
+    <div id="navi" class="col-12 mb-3 p-1">
+        <nav class="p-0 navbar navbar-expand-sm navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link"
+								href="#" id =notice>공지사항</a></li>
+							<li class="nav-item dropdown"><a
+								class="nav-link dropdown-toggle" href="#"
+								id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false"> 병원관리 </a>
+								<div class="dropdown-menu text-center"
+									aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" href="#">병원정보 등록</a> <a
+										class="dropdown-item" href="#">병원정보 수정/삭제</a> <a
+										class="dropdown-item" href="#">병원리뷰</a>
+								</div></li>
+							<li class="nav-item dropdown"><a
+								class="nav-link dropdown-toggle" href="#"
+								id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false"> 게시판관리 </a>
+								<div class="dropdown-menu text-center"
+									aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item"
+										id =expert>전문가Q&A</a>
+									<a class="dropdown-item" id=free>자유게시판</a> <a
+										class="dropdown-item" id=question>질문게시판</a> <a
+										class="dropdown-item" href="#">1:1문의게시판</a>
+								</div></li>
+							<li class="nav-item dropdown"><a
+								class="nav-link dropdown-toggle" href="#"
+								id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false"> 회원관리 </a>
+								<div class="dropdown-menu text-center"
+									aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" id=memberList>회원목록조회</a> <a
+										class="dropdown-item" id=banList>차단 IP 조회</a> <a
+										class="dropdown-item" href="#">회원 통계</a>
+								</div></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+
 		<jsp:include page="../standard/headerAdmin.jsp" /> 		
+
 		<!--            -->
 		<div class="row">
 			<div class="col-12 mb-3" id="article">
@@ -61,7 +121,9 @@
 			</div>
 		</div>
 		<!--            -->
+
 		<jsp:include page="../standard/footer.jsp" />
+
 	</div>
 	</form>
 	<script>
@@ -127,6 +189,25 @@
 			location.href = "${pageContext.request.contextPath}/main/mainAdmin.jsp";
 		}
 	})
+
+	
+	//각 버튼별 주소이동
+		$("#logo").on("click", function() {
+			location.href = "${pageContext.request.contextPath}/mainAdmin.jsp";
+		});
+		//공지사항으로 이동
+		$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
+		//전문가 Q&A로 이동
+		$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
+		//자유게시판으로 이동
+		$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.admin");
+		//질문게시판으로 이동
+		$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.admin");
+		//회원목록조회로 이동
+		$("#memberList").attr("href", "${pageContext.request.contextPath}/adminMemberList.admin");
+		//차단한ip목록조회로 이동
+		$("#banList").attr("href", "${pageContext.request.contextPath}/adminBanList.admin");
+
 	</script>
 </body>
 </html>
