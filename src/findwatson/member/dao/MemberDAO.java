@@ -202,8 +202,12 @@ public class MemberDAO {
 			pstat.setString(2, birth);
 			pstat.setString(3, email);
 			pstat.setInt(4, phone);
-			boolean result = pstat.execute(sql);
+			try(ResultSet rs = pstat.executeQuery();){
+				boolean result = rs.next();
+			
 			return result;
+			}
+			
 		}
 		
 	}

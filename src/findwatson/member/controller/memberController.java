@@ -47,11 +47,12 @@ public class memberController extends HttpServlet {
 					request.getSession().setAttribute("loginInfo",id);
 					//아이피 주소 membertable에 업데이트
 					dao.updateMemberIp(id, ipAddr);
-					request.setAttribute("result", result);					
-				}else {					
-					request.setAttribute("result", result);
+					response.sendRedirect("main/index.jsp");
+				}else {
+					//알림 : 로그인 실패시 다시 로그인 화면을 띄워주도록 경로 변경 바람
+					response.sendRedirect("main/index.jsp");
+
 				}
-				request.getRequestDispatcher("member/loginResultView.jsp").forward(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
