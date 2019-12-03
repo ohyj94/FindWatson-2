@@ -49,11 +49,14 @@
 		<c:choose>
 		<c:when test="${loginInfo == dto.writer}">
 		<div class=row>
-			<div class=col-12 id=boardContent><button id=remove>삭제</button></div>
+			<div class=col-12 id=boardContent><button id = modify>수정</button><button id=remove>삭제</button></div>
 		</div>
 		<script>
 		$("#remove").on("click",function(){
 			location.href ='${pageContext.request.contextPath}/boardRemove.bo?seq=${dto.seq}';
+		})
+		$("#modify").on("click", function(){
+			alert("준비중입니다.");
 		})
 		</script>
 		</c:when>

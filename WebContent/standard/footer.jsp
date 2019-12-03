@@ -14,11 +14,11 @@
                     <div class="col-6 col-sm-auto"><a href="#">이용약관</a></div>
                     <div class="col-6 col-sm-auto"><a href="#">개인정보취급방침</a></div>
                     <div class="col-6 col-sm-auto"><a href="#">저작권안내</a></div>
-                    <div class="col-12 col-sm-auto"><a href="#">후원하기</a></div>
+                    <div class="col-12 col-sm-auto"><a href="${pageContext.request.contextPath}/donate/donateForm.jsp">후원하기</a></div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        상호명 : 찾아줘 왓슨! | 대표자 : 왓슨 | 사업자등록번호 : 100-12-191205
+                        상호명 : 찾아줘! 왓슨 | 대표자 : 왓슨 | 사업자등록번호 : 100-12-191205
                     </div>
                     <div class="col-12">
                         주소 : 서울 중구 남대문로 120 대일빌딩 3층 F Class 대표전화 02-1544-9970

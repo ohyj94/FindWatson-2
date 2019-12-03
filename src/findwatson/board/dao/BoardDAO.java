@@ -117,11 +117,6 @@ public class BoardDAO {
 	// 카테고리별 검색에 따른 목록을 페이지 수에 맞춰 반환 
 	public List<BoardDTO> selectByOptionFree(String category, String keyword, int start, int end) throws Exception{
 		String sql = "sql";
-		System.out.println("category" + category);
-		System.out.println("keyword" + keyword);
-		System.out.println("start" + start);
-		System.out.println("end" + end);
-
 		if(category.contentEquals("title")) {
 			sql = "select * from (select board.*, row_number() over (order by seq desc) "
 					+ "as rank from board  where (header='자유') and (title like ?)) where (rank between ? and ?) order by seq desc";
@@ -173,9 +168,7 @@ public class BoardDAO {
 	public String getPageNaviTotalFree(int currentPage, String category, String keyword) throws Exception {
 
 		int recordTotalCount = this.selectListSizeFree(category, keyword);
-		System.out.println("currentPage" + currentPage);
-
-		System.out.println("recordTotalCount" + recordTotalCount);
+	
 		int pageTotalCount = 0;
 
 		if(recordTotalCount % Configuration.recordCountPerPage > 0) {
@@ -221,14 +214,8 @@ public class BoardDAO {
 		}
 		if(needNext) sb.append("<a href='searchFree.bo?currentPage=" + (endNavi + 1) + "&keyword="+keyword+"&category="+category+"'> > </a>");
 
-
-
-		System.out.println("현재 페이지 번호 : " + currentPage);
-		System.out.println("네비게이터 시작 번호 : " + startNavi);
-		System.out.println("네비게이터 끝  페이지 번호 : " + endNavi);
-
 		return sb.toString();
-		//System.out.println(sb.toString());                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 	}
 
 	//// 질문게시판 /////	
@@ -287,11 +274,6 @@ public class BoardDAO {
 	// 카테고리별 검색에 따른 목록을 페이지 수에 맞춰 반환 
 	public List<BoardDTO> selectByOptionOne(String category, String keyword, int start, int end) throws Exception{
 		String sql = "sql";
-		System.out.println("category" + category);
-		System.out.println("keyword" + keyword);
-		System.out.println("start" + start);
-		System.out.println("end" + end);
-
 		if(category.contentEquals("title")) {
 			sql = "select * from (select board.*, row_number() over (order by seq desc) "
 					+ "as rank from board  where (header='질문') and (title like ?)) where (rank between ? and ?) order by seq desc";
@@ -345,9 +327,6 @@ public class BoardDAO {
 	public String getPageNaviTotalOne(int currentPage, String category, String keyword) throws Exception {
 
 		int recordTotalCount = this.selectListSizeOne(category, keyword);
-		System.out.println("currentPage" + currentPage);
-
-		System.out.println("recordTotalCount" + recordTotalCount);
 		int pageTotalCount = 0;
 
 		if(recordTotalCount % Configuration.recordCountPerPage > 0) {
@@ -392,14 +371,8 @@ public class BoardDAO {
 		}
 		if(needNext) sb.append("<a href='searchOne.bo?currentPage=" + (endNavi + 1) + "&keyword="+keyword+"&category="+category+"'> > </a>");
 
-
-
-		System.out.println("현재 페이지 번호 : " + currentPage);
-		System.out.println("네비게이터 시작 번호 : " + startNavi);
-		System.out.println("네비게이터 끝  페이지 번호 : " + endNavi);
-
 		return sb.toString();
-		//System.out.println(sb.toString());                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 	}	
 
 	//글쓰기
@@ -467,10 +440,40 @@ public class BoardDAO {
 
 		}
 	}
-	public String getPageNavi(int current, String category) throws Exception{
-		int recordTotalCount = this.getTotalBoard(category);
+	private int getTotalExpert() throws Exception{
+		String sql = "select count(*) from expert";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	private int getTotalNotice() throws Exception{
+		String sql = "select count(*) from notice";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	
+	public String getPageNavi(int current, String category,String header) throws Exception{
+	int recordTotalCount =0;
+		if(header.contentEquals("전문가")) {
+		recordTotalCount = this.getTotalExpert();
+	}else if(header.contentEquals("공지")) {
+		recordTotalCount = this.getTotalNotice();
+	}else {
+		recordTotalCount = this.getTotalBoard(header);
+	}
 		int pageTotalCount = 0;
-		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
+		if(recordTotalCount % Configuration.recordCountPerPage > 0) {
 			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
 		}else {
 			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
