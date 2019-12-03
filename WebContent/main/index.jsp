@@ -77,19 +77,16 @@
                             <div class="row line">
                                 <div class="col-12 prevealCon">
                                 <c:choose>
-                                	<c:when test="${noticeList.size() == 0 }">
-                                	내용없음
-                                	</c:when>
-                                	<c:otherwise>
+                                	<c:when test="${noticeList.size() > 0 }">
                                 	<c:forEach items="${noticeList}" var="dto">
                                 	<a href="${pageContext.request.contextPath}/noticeDetail.bo?seq=${dto.seq}">${dto.title }</a><br>
-                                	</c:forEach>                                	
-                                	</c:otherwise>
+                                	</c:forEach>
+                                	</c:when>                               	
                                 </c:choose> 
                                 <c:choose>
                                 	<c:when test="${noticeList.size() < 5 }">
                                 		<c:forEach var="i" begin="1" end="${5- noticeList.size() }" step="1">
-                                		<a href="#">내용없음</a>
+                                		<p class="m-0"><a href="#">내용없음</a></p>
                                 		</c:forEach>
                                 	</c:when>
                                 </c:choose>                                   
@@ -106,19 +103,16 @@
                             <div class="row line">
                                 <div class="col-12 prevealCon">
                                 <c:choose>
-                                	<c:when test="${freeList.size() == 0 }">
-                                	내용없음
-                                	</c:when>
-                                	<c:otherwise>
+                                	<c:when test="${freeList.size() > 0 }">
                                 	<c:forEach items="${freeList}" var="dto">
                                 	<a href="${pageContext.request.contextPath}/freeDetail.bo?seq=${dto.seq}">[${dto.animalHeader}]&nbsp;${dto.title }</a><br>
-                                	</c:forEach>                                	
-                                	</c:otherwise>
+                                	</c:forEach> 
+                                	</c:when>                               	
                                 </c:choose>
                                 <c:choose>
                                 	<c:when test="${freeList.size() < 5 }">
                                 		<c:forEach var="i" begin="1" end="${5- freeList.size() }" step="1">
-                                		<a href="#">내용없음</a>
+                                		<p class="m-0"><a href="#">내용없음</a></p>
                                 		</c:forEach>
                                 	</c:when>
                                 </c:choose>                              

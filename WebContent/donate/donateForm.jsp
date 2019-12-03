@@ -87,7 +87,7 @@ text-align:center;
 											<label for="sponsor_money05">"50,000원"</label></div>
 											
 											<div class="price col-12 col-md-5"> <input type="radio" name="support" value="etc">
-											<label for="sponsor_money06">&nbsp;기타 </label>&nbsp;<input type="text" id="inputPay">&nbsp;<span>원</span></div>
+											<label for="sponsor_money06">&nbsp;기타 </label>&nbsp;<input type="text" id="inputPay" disabled>&nbsp;<span>원</span></div>
 										</div>
 										</div>	
 								</div>
@@ -220,14 +220,36 @@ $('input:radio[name=support]').on("click", function(){
 	var supportVal = $('input:radio[name=support]:checked').val();
 	
 	if(supportVal == 'etc'){
-		$("#inputDisplay").html("");
-		$("#inputPay").on("focusout", function(){
+		if($("#inputPay").val() == ""){
+			$("#inputDisplay").html("");
+			$("#inputPay").attr("disabled", false);
+			$("#inputPay").on("focusout", function(){
+				var regex = /[0-9]+/g;
+				var data = $("#inputPay").val();
+				var result = regex.exec(data);
+				
+				if(result != null){
+					var price = $("#inputPay").val();
+					$("#inputDisplay").html(price);
+					$("#etcPrice").val(price);
+					console.log($("#etcPrice").val());
+				}else{
+					alert("숫자만 입력가능합니다. 다시 확인해주세요.");
+					$("#inputPay").val("");
+					
+				}
+			})
+		}else{
+			$("#inputPay").attr("disabled", false);
 			var price = $("#inputPay").val();
-			$("#inputDisplay").html(price);
-			$("#etcPrice").val(price);
-			console.log($("#etcPrice").val());
-		})
+			$("#inputDisplay").html(price);			
+			$("#etcPrice").val(price);	
+		}
+		
+		
+		
 	}else{
+		$("#inputPay").attr("disabled", true);
 		$("#inputDisplay").html(supportVal);
 		$("#etcPrice").val("");
 	}
