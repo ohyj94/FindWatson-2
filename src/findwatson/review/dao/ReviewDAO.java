@@ -214,11 +214,11 @@ public class ReviewDAO {
 				}
 
 		//페이지 네비게이터 출력
-	public String getPageNavi(int currentPage, int hosptReviewSeq)throws Exception{
+	public String getPageNavi(int currentPage, int hosptReviewSeq,int hosptListSeq)throws Exception{
 		int recordTotalCount = this.getArticleCount(hosptReviewSeq);
 		
 		int pageTotalCount  = 0;
-		int adv = recordTotalCount / Configuration.recordCountPerPage;
+		int adv = recordTotalCount % Configuration.recordCountPerPage;
 		
 		if(adv > 0) {
 			pageTotalCount = adv + 1;
@@ -242,7 +242,7 @@ public class ReviewDAO {
 		StringBuilder sb = new StringBuilder();
 		
 		for(int i = startNavi ; i <= endNavi ; i++) {
-			sb.append("<a href='hospitalSearchDetail2.re?cpage="+i+"' id=page"+i+">");
+			sb.append("<a href='hospitalSearchDetail2.re?seq="+hosptListSeq+"&cpage="+i+"' id=page"+i+">");
 			sb.append(i + " ");
 			sb.append("</a>");
 		}
@@ -262,6 +262,22 @@ public class ReviewDAO {
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
+		}
+	}
+	
+	public int getHspSeqByRvSeq(int rvSeq)throws Exception{
+		String sql = "select hosptListSeq from hosptReview where seq=?";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql); 
+				){
+			pstat.setInt(1, rvSeq);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+				rs.next();
+				return rs.getInt(1);
+			}
 		}
 	}
 	

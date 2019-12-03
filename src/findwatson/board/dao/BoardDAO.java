@@ -668,6 +668,19 @@ public class BoardDAO {
 			return result;
 		}
 	}
+	//리뷰삭제
+	public int deleteReview(int seq)throws Exception{
+		String sql = "delete from hosptReview where seq =?";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
 	
 	
 

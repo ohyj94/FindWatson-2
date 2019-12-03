@@ -127,9 +127,9 @@ public class SearchController extends HttpServlet {
 
 				
 			}else if(cmd.contentEquals("/contentsReview.s")){ 
-				// 여기 review controllert 로
+				// 여기 review controllert 로 XXXXX
 				int seq = Integer.parseInt(request.getParameter("seq"));
-			
+
 				HListDTO contents = HospitalListDAO.getInstance().select(seq);
 			
 
