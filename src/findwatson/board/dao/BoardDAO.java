@@ -435,21 +435,22 @@ public class BoardDAO {
 		}
 	}
 
-	//	//글 수정  제목, 내용, 날짜
-	//	public int update(BoardDTO dto) throws Exception{
-	//		String sql = "update board set title=?, content=?, writeDate=sysdate where boardSeq=?";
-	//		try(
-	//				Connection con = this.getConnetion();
-	//				PreparedStatement pstat = con.prepareStatement(sql);
-	//				){
-	//			pstat.setString(1, dto.getTitle());
-	//			pstat.setString(2, dto.getContent());
-	//			pstat.setInt(3, dto.getBoardSeq());
-	//			int result = pstat.executeUpdate();
-	//			con.commit();
-	//			return result;
-	//		}
-	//	}
+		//글 수정  제목, 내용, 날짜
+		public int update(int seq, String title, String content, String animalHeader) throws Exception{
+			String sql = "update board set title=?, content=?,animalHeader =?, writeDate=sysdate where seq=?";
+			try(
+					Connection con = getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				pstat.setString(1, title);
+				pstat.setString(2, content);
+				pstat.setString(3, animalHeader);
+				pstat.setInt(4, seq);
+				int result = pstat.executeUpdate();
+				con.commit();
+				return result;
+			}
+		}
 
 	private int getTotalBoard(String board) throws Exception{
 		String sql = "select count(*) from board where header = ?";

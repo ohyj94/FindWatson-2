@@ -295,13 +295,35 @@ public class BoardController extends HttpServlet {
 				AdminDAO adao = AdminDAO.getInstance();
 				adao.deleteBoard(seq);
 				response.sendRedirect("boardFree.bo");
-			}
-			else {
+			}else if(cmd.contentEquals("/boardModify.bo")) { //게시판 글 수정 눌렀을때 
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				System.out.println(seq);
+				AdminDAO adao = AdminDAO.getInstance();
+				BoardDTO dto = adao.getBoardBySeq2(seq);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("board/boardModify.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/boardModifyProc.bo")) { //게시판 글 수정 프로세스
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				String animalHeader = request.getParameter("animalHeader");
+				String title = request.getParameter("title");
+				String content = request.getParameter("content");
+
+				dao.update(seq, title, content, animalHeader);
+				String header = AdminDAO.getInstance().getBoardBySeq2(seq).getHeader();
+				
+				if(header.contentEquals("자유")) {
+					response.sendRedirect("boardFree.bo");
+				}else{ //질문게시판으로 이동
+					response.sendRedirect("boardQuestion.bo");
+				}
+				
+				
+			}else {
 				// 등록되지 않은 경로로 입장시
 
 				response.sendRedirect("main/error.jsp");
 			}
-		} catch(Exception e) {
+		}catch(Exception e) {
 			System.out.println("아예 에러가 발생해버렸읍니다.");
 
 			e.printStackTrace();

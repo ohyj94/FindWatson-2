@@ -55,8 +55,8 @@
 		$("#remove").on("click",function(){
 			location.href ='${pageContext.request.contextPath}/boardRemove.bo?seq=${dto.seq}';
 		})
-			$("#modify").on("click",function(){
-			//location.href ='${pageContext.request.contextPath}/boardR.bo?seq=${dto.seq}';
+		$("#modify").on("click",function(){
+			location.href ='${pageContext.request.contextPath}/boardModify.bo?seq=${dto.seq}';
 		})
 		</script>
 		</c:when>
