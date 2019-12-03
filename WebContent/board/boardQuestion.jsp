@@ -68,7 +68,7 @@
 									<div class="row line">
 										<div class="col-1 d-none d-md-block">${dto.seq}</div>
 										<div class="col-md-2 d-none d-md-block">${dto.animalHeader}</div>
-										<div class="col-8 col-md-5 text-left">${dto.title}</div>
+										<div class="col-8 col-md-5 text-left"><a  href='${pageContext.request.contextPath}/questionDetail.bo?seq=${dto.seq}'>${dto.title}</a></div>
 										<!-- 모바일에서만 보이는 div -->
 										<div class="col-4 d-block d-md-none">${dto.animalHeader}</div>
 										<!-- 모바일에서만 보이는 div -->
@@ -119,10 +119,7 @@
         		location.href="${pageContext.request.contextPath}/board/boardWriteQuestion.jsp";
         	});
         	
-          	$("select").on("change", function(){
-        		var value = $("select option:selected").val();
-        		alert(value);
-        	})
+       
         </script>
 </body>
 </html>

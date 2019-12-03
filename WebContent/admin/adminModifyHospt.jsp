@@ -18,7 +18,7 @@
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/mainStyle.css">
+	href="../resources/css/mainStyle.css">
 <style>
 * {
 	box-sizing: border-box
@@ -72,6 +72,9 @@
 #article, .line {
 	border: 0.5px solid lightgray;
 }
+.noneExist{
+display:none;
+}
 </style>
 </head>
 <body>
@@ -88,17 +91,18 @@
 							</span>
 						</div>
 						<form
-							action="${pageContext.request.contextPath}/admin/adminInsertHospt.manager"
-							method="post">
+							action="${pageContext.request.contextPath}/hosptInfoModify.admin"
+							method="post" id=frm enctype="multipart/form-data">
 							<div class="row line">
 								<div class="col-12">
-									 병원이름 : <input type="text" id="name" name=name value=${dto.hosptName}>
+									병원이름 : <input type="text" id="name" name=name
+										value=${dto.hosptName}>
 								</div>
 								<br>
 
-
+								<input type=text class=noneExist value=${dto.seq} name=seq>
 								<div class="col-12">
-									 우편번호 : <input type="text" id="postcode" name=postcode
+									우편번호 : <input type="text" id="postcode" name=postcode
 										placeholder="우편번호" readonly value=${dto.postcode}>
 									<button id=addressBtn type="button"
 										onclick="sample4_execDaumPostcode()">찾기</button>
@@ -108,10 +112,12 @@
 										placeholder="주소1" readonly value=${dto.address1}>
 								</div>
 								<div class="col-12">
-									상세주소2 : <input type=text name=address2 id=address2 placeholder="주소2" value=${dto.address2}>
+									상세주소2 : <input type=text name=address2 id=address2
+										placeholder="주소2" value=${dto.address2}>
 								</div>
 								<div class="col-12">
-									연락처 : <input type=text id=phone name=phone placeholder='전화번호' value=${dto.phone}>
+									연락처 : <input type=text id=phone name=phone placeholder='전화번호'
+										value=${dto.phone}>
 								</div>
 								<div class="col-12">
 									링크 : <input type=text id=homepage name=homepage
@@ -136,7 +142,14 @@
 										type="checkbox" name=openTime value=24시간진료> 24시간진료
 
 								</div>
-								<div class=col-12>사진</div>
+								<div class=col-12>
+									<label for="image">사진 : </label> <input type=file id=image
+										name="image">
+									<div id="image_preview" class="text-center">
+										<img src="${dto.img}" class="col-12 mb-2" id="imgCon" /> <br />
+										<a id="imgRemove" href="#">이미지 지우기</a>
+									</div>
+								</div>
 								<div class=col-12></div>
 							</div>
 						</form>
@@ -163,61 +176,94 @@
 		</div>
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
+
 </div>
-		<script>
-            //우편번호 찾기
-            function sample4_execDaumPostcode() {
-                new daum.Postcode({
-                    oncomplete: function(data) {
-                        var roadAddr = data.roadAddress; 
-                        document.getElementById('postcode').value = data.zonecode;
-                        document.getElementById("address1").value = roadAddr;
-                    }
-                }).open();
-            }
-            $('#insert').on('click',function(){
-            	//병원등록 전 빈칸없는지 검사
-          	  if($("#name").val()==""){
-      				alert("병원이름을 입력하세요!");
-      				return;
-      			}
-          	  if($("#postcode").val()==""){
-      				alert("우편번호를 입력하세요!");
-      				return;
-      			}
-          	  if($("#address1").val()==""){
-      				alert("주소를 입력하세요!");
-      				return;
-      			}
-          	  if($("#address2").val()==""){
-      				alert("상세주소를 입력하세요!");
-      				return;
-      			}
-          	  if($("#phone").val()==""){
-      				alert("전화번호를 입력하세요!");
-      				return;
-      			}
-          	  if($("#homepage").val()==""){
-      				alert("홈페이지주소를 입력하세요!");
-      				return;
-      			}
-          	  if($("input[name=medicalAnimal]:checked").length < 1){
-      				alert("진료동물을 선택하세요!");
-      				return;
-      			}
-          	  if($("input[name=openTime]:checked").length < 1){
-      				alert("진료과목을 선택하세요!");
-      				return;
-      			}
-          	  if($("#image").val()==""){
-      				alert("사진을 선택하세요!");
-      				return;
-      			}
-            	
-            	$('form').submit();
-            })
-            
-        
-        </script>
+	<script>
+		//우편번호 찾기
+		function sample4_execDaumPostcode() {
+			new daum.Postcode({
+				oncomplete : function(data) {
+					var roadAddr = data.roadAddress;
+					document.getElementById('postcode').value = data.zonecode;
+					document.getElementById("address1").value = roadAddr;
+				}
+			}).open();
+		}
+		
+		 $('#insert').on('click', function() {
+         	//병원등록 전 빈칸없는지 검사
+         	  if($("#name").val()==""){
+     				alert("병원이름을 입력하세요!");
+     				return;
+     			}
+         	  if($("#postcode").val()==""){
+     				alert("우편번호를 입력하세요!");
+     				return;
+     			}
+         	  if($("#address1").val()==""){
+     				alert("주소를 입력하세요!");
+     				return;
+     			}
+         	  if($("#address2").val()==""){
+     				alert("상세주소를 입력하세요!");
+     				return;
+     			}
+         	  if($("#phone").val()==""){
+     				alert("전화번호를 입력하세요!");
+     				return;
+     			}
+         	  if($("#homepage").val()==""){
+     				alert("홈페이지주소를 입력하세요!");
+     				return;
+     			}
+         	  if($("input[name=medicalAnimal]:checked").length < 1){
+     				alert("진료동물을 선택하세요!");
+     				return;
+     			}
+         	  if($("input[name=openTime]:checked").length < 1){
+     				alert("진료과목을 선택하세요!");
+     				return;
+     			}
+         	  if($("#image").val()==""){
+     				alert("사진을 선택하세요!");
+     				return;
+     			}
+         	  
+         	  $('form').submit();
+           });
+
+		$('#image').on('change', function() {
+
+			ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+
+			//배열에 추출한 확장자가 존재하는지 체크
+			if ($.inArray(ext, [ 'gif', 'png', 'jpg', 'jpeg' ]) == -1) {
+				resetFormElement($(this)); //폼 초기화
+				window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+			} else {
+				file = $('#image').prop("files")[0];
+				blobURL = window.URL.createObjectURL(file);
+				$('#image_preview img').attr('src', blobURL);
+				$('#image_preview').slideDown(); //업로드한 이미지 미리보기 
+				$(this).slideUp(); //파일 양식 감춤
+			}
+		});
+
+		$('#image_preview a').bind('click', function() {
+			resetFormElement($('#image')); //전달한 양식 초기화
+			$('#image').slideDown(); //파일 양식 보여줌
+			$(this).parent().slideUp(); //미리 보기 영역 감춤
+			return false; //기본 이벤트 막음
+		});
+
+		function resetFormElement(e) {
+			e.wrap('<form>').closest('form').get(0).reset();
+			//리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
+			//요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
+			//DOM에서 제공하는 초기화 메서드 reset()을 호출
+			e.unwrap(); //감싼 <form> 태그를 제거
+		}
+	</script>
+
 </body>
 </html>

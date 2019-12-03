@@ -571,6 +571,26 @@ public class AdminDAO {
 			return result;
 		}
 	}
+	// 관리자 - 병원정보 수정
+		public int updateHospitalInfo(HListDTO dto) throws Exception {
+			String sql = "update hosptList set hosptname =?, postCode=?,address1=?,address2=?,phone=?,homepage=?,"
+					+ "img=?,medicalAnimal=?,opentime=?,registdate=sysdate where seq=?";
+			try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+				pstat.setString(1, dto.getHosptName());
+				pstat.setInt(2, dto.getPostcode());
+				pstat.setString(3, dto.getAddress1());
+				pstat.setString(4, dto.getAddress2());
+				pstat.setString(5, dto.getPhone());
+				pstat.setString(6, dto.getHomepage());
+				pstat.setString(7, dto.getImg());
+				pstat.setString(8, dto.getMedicalAnimal());
+				pstat.setString(9, dto.getOpenTime());
+				pstat.setInt(10, dto.getSeq());
+				int result = pstat.executeUpdate();
+				con.commit();
+				return result;
+			}
+		}
 	
 
 	//관리자통계 - 남자회원 수

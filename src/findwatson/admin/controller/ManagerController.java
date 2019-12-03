@@ -1,5 +1,6 @@
 package findwatson.admin.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import findwatson.admin.dao.AdminDAO;
 import findwatson.admin.dao.ManagerDAO;
 import findwatson.admin.dto.ExpertDTO;
 import findwatson.admin.dto.HListDTO;
@@ -23,10 +28,14 @@ import findwatson.search.dao.HospitalListDAO;
 @WebServlet("*.manager")
 public class ManagerController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String cmd = request.getRequestURI().substring(request.getContextPath().length());
-		ManagerDAO dao = ManagerDAO.getInstance();
 		request.setCharacterEncoding("utf8");
+		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+
+		String requestURI = request.getRequestURI();
+		String contextPath = request.getContextPath();
+		String cmd = requestURI.substring(contextPath.length());
+		ManagerDAO dao = ManagerDAO.getInstance();
 		try {
 			if(cmd.contentEquals("/admin/adminBoardHosptList.manager")) {
 			
@@ -64,6 +73,7 @@ public class ManagerController extends HttpServlet {
 
 
 			}else if(cmd.contentEquals("/admin/adminInsertHospt.manager")) {
+				//여기 안씀
 				System.out.println("병원등록 진입 성공");
 				String name = request.getParameter("name");
 				int postcode = Integer.parseInt(request.getParameter("postcode"));
@@ -103,9 +113,48 @@ public class ManagerController extends HttpServlet {
 				else {
 					System.out.println("db저장 실패");
 				}
-			}
-			else if(cmd.contentEquals("병원정보수정")) {
+				
+				//
+				
 
+			}
+			else if(cmd.contentEquals("/adminModifyHospt.manager")) {
+				String repositoryName = "hospitalImg";
+				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
+
+				File uploadFilePath = new File(uploadPath);
+				if(!uploadFilePath.exists()) {
+					uploadFilePath.mkdir();
+				}
+
+				int maxSize = 1024 * 1024 * 10; // 10MB 용량 제한
+				MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+
+				String name = multi.getParameter("name");
+				int postcode = Integer.parseInt(multi.getParameter("postcode"));
+				String address1 = multi.getParameter("address1");
+				String address2 = multi.getParameter("address2");
+				String phone = multi.getParameter("phone");
+				String homepage = multi.getParameter("homepage");
+				String[] medicalAnimalArr = multi.getParameterValues("medicalAnimal");
+				String[] openTimeArr = multi.getParameterValues("openTime");
+				String image = contextPath + "/" + repositoryName + "/" + multi.getFilesystemName("image");
+
+				String medicalAnimal = Arrays.toString(medicalAnimalArr).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
+				if(medicalAnimal.contentEquals("null")) {
+					medicalAnimal = "";
+				}
+
+				String openTime = Arrays.toString(openTimeArr).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
+				if(openTime.contentEquals("null")) {
+					openTime = "";
+				}
+				System.out.println("animal : " + openTime);
+
+				HListDTO Hdto = new HListDTO(0,name,postcode,address1,address2,phone,homepage,image,medicalAnimal,openTime,null,0);
+				AdminDAO.getInstance().updateHospitalInfo(Hdto);
+					System.out.println("병원 정보 입력 성공");
+					response.sendRedirect("hosptInfoList.admin");
 
 			}
 			
