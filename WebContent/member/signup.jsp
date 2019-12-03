@@ -124,29 +124,29 @@
 			</div>
 			<div class=row>
 				<div class="col-4 col-md-3">
-					<input type=radio name=lovePet value=bird>새
+					<input type=radio name=lovePet value=새 class=lovepet>새
 				</div>
 				<div class="col-4 col-md-3">
-					<input type=radio name=lovePet value=fish>물고기
+					<input type=radio name=lovePet value=물고기 class=lovepet>물고기
 				</div>
 				<div class="col-4 col-md-3">
-					<input type=radio name=lovePet value=mouse>햄스터
+					<input type=radio name=lovePet value=햄스터 class=lovepet>햄스터
 				</div>
 				<div class="col-4 col-md-3">
-					<input type=radio name=lovePet value=rabbit>토끼
+					<input type=radio name=lovePet value=토끼 class=lovepet>토끼
 				</div>
 				<div class="col-4 col-md-3">
-					<input type=radio name=lovePet value=hedgehog>고슴도치
+					<input type=radio name=lovePet value=고슴도치 class=lovepet>고슴도치
 				</div>
 				<div class="col-4 col-md-3">
-					<input type=radio name=lovePet value=reptile>파충류
+					<input type=radio name=lovePet value=파충류 class=lovepet>파충류
 				</div>
 				<div class="col-4 col-md-3">
-					<input type=radio name=lovePet value=bug>곤충류
+					<input type=radio name=lovePet value=곤충류 class=lovepet>곤충류
 				</div>
 				<div class="col-8 col-md-3">
-					<input type=radio name=lovePet value=other>기타
-					<input type=text name=otherAnimal  class="col-7">
+					<input type=radio name=lovePet id=otherLovepet>기타
+					<input type=text name=otherAnimal  id=otherAnimal class="col-7" disabled>
 				</div>
 			</div>
 
@@ -157,19 +157,21 @@
 			</div>
 			<div class=row>
 				<div class=col-12>
-					<input type="radio" name=signPath value="path1">'찾아조 왓슨!'
+					<input type="radio" name=signPath value="'찾아조 왓슨!'
+					직접검색" class=signpath>'찾아조 왓슨!'
 					직접검색
 				</div>
 				<div class=col-12>
-					<input type="radio" name=signPath value="path1">'특수 동물 병원'
+					<input type="radio" name=signPath value="'특수 동물 병원'
+					키워드 검색" class=signpath>'특수 동물 병원'
 					키워드 검색
 				</div>
 				<div class=col-12>
-					<input type="radio" name=signPath value="path1">지인 소개
+					<input type="radio" name=signPath value="지인 소개" class=signpath>지인 소개
 				</div>
 				<div class=col-12>
-					<input type="radio" name=signPath value="path1">기타<input
-						type=text name=otherSignPath>
+					<input type="radio" name=signPath id=radioSignpath>기타<input
+						type=text name=otherSignPath id=otherSignpath class="col-7" disabled>
 				</div>
 			</div>
 			<div class=row>
@@ -197,7 +199,23 @@
 								}
 							}).open();
 				}
-
+				// 라디오버튼 클릭시 이벤트 발생
+			    $("#otherLovepet").click(function(){
+			    
+			            $("#otherAnimal").attr("disabled",false);
+			   
+			    });
+				$('.lovepet').click(function(){
+					$("#otherAnimal").attr("disabled",true);
+				})
+				 $("#radioSignpath").click(function(){
+			    
+			            $("#otherSignpath").attr("disabled",false);
+			   
+			    });
+				$('.signpath').click(function(){
+					$("#otherSignpath").attr("disabled",true);
+				})
 				//아이디 확인
 				$("#id").on("keyup",function() {
 									var regex = /^[a-z][a-z0-9]{6,13}$/gm;
@@ -318,6 +336,7 @@
 					}
 
 				})
+	
 				//가입버튼 유효성검사
 				$("#save").on("click", function() {
 					
@@ -472,7 +491,7 @@
 						alert("가입경로를 선택하세요!");
 						return;
 					}
-					
+					if($(""))
 					
 					
 					$("#signUp").submit();

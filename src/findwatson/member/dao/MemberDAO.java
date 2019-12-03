@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
+import findwatson.admin.utils.Util;
 import findwatson.member.dto.MemberDTO;
 
 public class MemberDAO {
@@ -70,7 +71,7 @@ public class MemberDAO {
 		try(Connection con = bds.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1,dto.getId());
-			pstat.setString(2, dto.getPw());
+			pstat.setString(2, Util.encrypt(dto.getPw()));
 			pstat.setString(3, dto.getName());
 			pstat.setString(4, dto.getBirth());
 			pstat.setString(5, dto.getGender());
