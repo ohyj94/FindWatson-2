@@ -14,8 +14,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 </head>
 <body>
-	
-		
 			<div class="container">
 				<jsp:include page="../standard/headerAdmin.jsp" />
 				<!--            -->
@@ -34,6 +32,5 @@
 				<!--            -->
 				<jsp:include page="../standard/footer.jsp" />
 			</div>
-			
 </body>
 </html>
