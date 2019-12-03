@@ -38,8 +38,10 @@ public class memberController extends HttpServlet {
 		if(path.contentEquals("/login.member")) { //로그인
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
-			System.out.println(id);
-			System.out.println(pw);
+
+			String redirectPage = request.getParameter("returnPage");
+			
+			System.out.println(id + ":" + pw + ":" + redirectPage);
 
 			try {
 				boolean result = dao.loginOk(id, pw);
