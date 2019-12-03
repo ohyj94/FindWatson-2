@@ -14,11 +14,11 @@ import findwatson.admin.dto.ChartDTO;
 import findwatson.admin.dto.ExpertDTO;
 import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
-import findwatson.admin.utils.Util;
 import findwatson.board.dto.BoardDTO;
 import findwatson.board.dto.ObODTO;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
+import findwatson.review.dto.ReviewDTO;
 
 public class AdminDAO {
 	private static AdminDAO instance;
@@ -987,5 +987,117 @@ public class AdminDAO {
 				}
 			}
 		}
-	
+		//병원리뷰목록 게시판 내의 총 글의 개수
+		public int recordHosptReviewListTotalCount () throws Exception {
+			String sql = "select count(seq) from hosptReview";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				ResultSet rs = pstat.executeQuery();
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
+		//병원리뷰목록 페이지 네비게이터
+		public String getHosptReviewListPageNav(int currentPage) throws Exception {
+			//게시판 내의 총 글의 개수
+			int recordTotalCount = this.recordHosptReviewListTotalCount();
+			//한 페이지에 몇개의 글을 보여줄건지
+			//int recordCountPerPage = 10;
+			//한 페이지에서 몇개의 네비게이터를 보여줄건지
+			//int naviCountPerPage = 10;
+			//총 몇개의 페이지인지
+			int pageTotalCount = 0;
+			if(recordTotalCount % Configuration.recordCountPerPage > 0) {
+				//총 글의 개수를 페이지당 보여줄 개수로 나누었을 때, 나머지가 생기면 총페이지의 개수 +1
+				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+			}else {
+				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+			}
+
+			//현재 페이지 값이 비정상 값일 때, 조정하는 보안 코드
+			if(currentPage < 1) {
+				currentPage = 1;
+			}else if(currentPage > pageTotalCount) {
+				currentPage = pageTotalCount;
+			}
+
+			//현재 내가 위치하고 있는 페이지에 따라 네비게이터 시작 페이지 값을 구하는 공식
+			int startNavi = ((currentPage-1) / Configuration.naviCountPerPage) * Configuration.naviCountPerPage + 1;
+			int endNavi = startNavi + Configuration.naviCountPerPage - 1;
+
+			//페이지 끝값이 비정상 값일 때, 조정하는 보안 코드
+			if(endNavi > pageTotalCount) {
+				endNavi = pageTotalCount;
+			}
+
+			System.out.println("현재 페이지 번호 : " + currentPage);
+			System.out.println("네비게이터 시작 번호 : " + startNavi);
+			System.out.println("네비게이터 끝 번호 : " + endNavi);
+
+			boolean needPrev = true;
+			boolean needNext = true;
+
+			if(currentPage == 1) {
+				needPrev = false;
+			}
+			if(currentPage == pageTotalCount) {
+				needNext = false;
+			}
+			StringBuilder sb = new StringBuilder();
+
+			if(needPrev) {sb.append("<a href='adminHosptReviewList.admin?cpage="+(currentPage-1)+"'> < </a>");}
+
+			for(int i = startNavi; i <= endNavi;i++) {
+				sb.append("<a href='adminHosptReviewList.admin?cpage="+i+"'>");
+				sb.append(i + " ");
+				sb.append("</a>");
+			}
+			if(needNext) {sb.append("<a href='adminHosptReviewList.admin?cpage="+(currentPage+1)+"'> > </a>");}
+			return sb.toString();
+		}
+		//병원리뷰목록 게시판 목록 10개씩
+		public List<ReviewDTO> hosptReviewListByPage(int start, int end) throws Exception{
+			String sql = "select * from"
+					+ "(select HosptReview.*, row_number() over (order by seq) as rown from HosptReview)"
+					+ " where rown between ? and ?";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				pstat.setInt(1, start);
+				pstat.setInt(2, end);
+				try(
+						ResultSet rs = pstat.executeQuery();
+						){
+					List<ReviewDTO> result = new ArrayList<>();
+					while(rs.next()) {
+						int seq = rs.getInt(1);
+						int hosptListSeq = rs.getInt(2);
+						int score = rs.getInt(3);
+						String title = rs.getString(4);
+						String content = rs.getString(5);
+						String header = rs.getString(6);
+						String writer = rs.getString(7);
+						Timestamp writeDate = rs.getTimestamp(8);
+						String ipAddr = rs.getString(9);
+						int likeCount = rs.getInt(10);
+						ReviewDTO dto = new ReviewDTO(seq,hosptListSeq,score,title,content,header,writer,writeDate,ipAddr,likeCount);
+						result.add(dto);
+					}
+					return result;
+				}
+			}
+		}
+		//병원리뷰 삭제
+		public int deleteHosptReview(int seq) throws Exception {
+			String sql = "delete from hosptReview where seq=?";
+			try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+				pstat.setInt(1, seq);
+				int result = pstat.executeUpdate();
+				con.commit();
+				return result;
+			}
+		}
 }
