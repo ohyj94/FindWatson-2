@@ -13,10 +13,16 @@
 			</c:when>
 </c:choose>
 		
+<div class="row">
+    <div id="loginBtn" class="col-12 p-1 mb-1 text-right">
+       <button class="btn btn-sm btn-outline-secondary" id="donate">후원하기</button>
+		<button class="btn btn-sm btn-outline-secondary" id="logout">로그아웃</button>
+    </div>
+</div>
 		
 <div class="row">
     <div id="title" class="col-12 p-0 mt-3 mb-3 text-center">
-        <a href="${pageContext.request.contextPath}/main/index.jsp"><strong>FIND! WATSON</strong></a>
+        <a href="${pageContext.request.contextPath}/toMain.main"><strong>FIND! WATSON</strong></a>
     </div>
 </div>
 <div class="row">
@@ -64,7 +70,7 @@
 
 <script>
 $("#login").on("click",function(){
-    location.href="../member/login.jsp";
+    location.href="${pageContext.request.contextPath}/member/login.jsp";
 })
 $("#join").on("click",function(){
     location.href="${pageContext.request.contextPath}/member/signup.jsp";

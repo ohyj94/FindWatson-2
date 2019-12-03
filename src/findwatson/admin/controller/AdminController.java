@@ -61,14 +61,12 @@ public class AdminController extends HttpServlet {
 				String idInput = request.getParameter("id");
 				String pwInput = request.getParameter("pw");
 				boolean result = dao.adminLogin(idInput, pwInput);
-
 				if(result) {
-					request.getSession().setAttribute("adminInfo", idInput);
-					response.sendRedirect("main/indexAdmin.jsp");
+					request.getSession().setAttribute("adminInfo", idInput);					
 				}
-				else {
-					response.sendRedirect("main/error.jsp");
-				}
+				request.setAttribute("result", result);
+				
+				request.getRequestDispatcher("admin/loginResultView.jsp").forward(request, response);;
 			}else if(cmd.contentEquals("/adminPwModify.admin")) {//관리자 비밀번호 변경
 				String oriPw = request.getParameter("oriPw");
 				String newPw = request.getParameter("newPw");
@@ -88,7 +86,7 @@ public class AdminController extends HttpServlet {
 				}
 			}else if(cmd.contentEquals("/logout.admin")) {//관리자 로그아웃
 				request.getSession().invalidate();
-
+				response.sendRedirect("main/startAdmin.jsp");
 			}else if(cmd.contentEquals("/adminMemberList.admin")) {//회원목록 전체
 				//네비
 				int cpage = 1;
@@ -443,7 +441,6 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("admin/adminNoticeDetailView.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/adminExpertDetailView.admin")) {//관리자 - 전문가 Q&A에서 글 클릭했을때
 				int expertSeq = Integer.parseInt(request.getParameter("seq"));
-				dao.increExpertView(expertSeq);
 				ExpertDTO dto = dao.getExpertBySeq(expertSeq);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/adminExpertDetailView.jsp").forward(request, response);
@@ -480,12 +477,9 @@ public class AdminController extends HttpServlet {
 				response.sendRedirect("hosptInfoList.admin");
 			}else if(cmd.contentEquals("/hosptModify.admin")) {//병원 정보 수정
 				int seq = Integer.parseInt(request.getParameter("seq"));
-				System.out.println();
 				HListDTO dto = dao.getHListBySeq(seq);
-				System.out.println(dto.getAddress1() );
 				request.setAttribute("dto",dto);
-				request.getRequestDispatcher("adminModifyHospt.jsp").forward(request, response);
-				
+				request.getRequestDispatcher("admin/adminModifyHospt.jsp").forward(request, response);
 			}else{
 				response.sendRedirect(contextPath + "/error.jsp");
 			}

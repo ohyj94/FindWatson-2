@@ -72,5 +72,10 @@
             <!--            -->
             <jsp:include page="../standard/footer.jsp" />   
         </div>
+         <script>
+        	$("#toWriteBtn").on("click",function(){
+        		location.href="${pageContext.request.cotextPath}/board/boardWriteQuestion.jsp";
+        	});
+        </script>
 </body>
 </html>

@@ -52,7 +52,7 @@
 						<div class="row line">
 			                <div class="col-1">${dto.seq }</div>
 			                <div class="col-6 text-left">
-			                <a href='${pageContext.request.contextPath}/noticeDetail.bo?seq=${dto.seq}'>${dto.title}</a>
+			                <a href='${pageContext.request.contextPath}/freeDetail.bo?seq=${dto.seq}'>${dto.title}</a>
 			                </div>
 			                <div class="col-6 d-none d-md-block col-md-2 text-left">${dto.formedDate}</div>
 			                <div class="col-6 d-none d-md-block col-md-1 text-center">${dto.viewCount }</div>
