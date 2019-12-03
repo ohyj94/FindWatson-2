@@ -506,7 +506,7 @@ public class AdminController extends HttpServlet {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				HListDTO dto = dao.getHListBySeq(seq);
 				request.setAttribute("dto",dto);
-				request.getRequestDispatcher("admin/adminModifyHospt.jsp").forward(request, response);
+				request.getRequestDispatcher("admin/adminHosptModify.jsp").forward(request, response);
 			}else{
 				response.sendRedirect(contextPath + "/error.jsp");
 			}

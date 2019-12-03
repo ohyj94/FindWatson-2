@@ -125,7 +125,45 @@
          }).open();
       }
       $('#insert').on('click', function() {
-         $('#frm').submit();
+    	//병원등록 전 빈칸없는지 검사
+    	  if($("#name").val()==""){
+				alert("병원이름을 입력하세요!");
+				return;
+			}
+    	  if($("#postcode").val()==""){
+				alert("우편번호를 입력하세요!");
+				return;
+			}
+    	  if($("#address1").val()==""){
+				alert("주소를 입력하세요!");
+				return;
+			}
+    	  if($("#address2").val()==""){
+				alert("상세주소를 입력하세요!");
+				return;
+			}
+    	  if($("#phone").val()==""){
+				alert("전화번호를 입력하세요!");
+				return;
+			}
+    	  if($("#homepage").val()==""){
+				alert("홈페이지주소를 입력하세요!");
+				return;
+			}
+    	  if($("input[name=medicalAnimal]:checked").length < 1){
+				alert("진료동물을 선택하세요!");
+				return;
+			}
+    	  if($("input[name=openTime]:checked").length < 1){
+				alert("진료과목을 선택하세요!");
+				return;
+			}
+    	  if($("#image").val()==""){
+				alert("사진을 선택하세요!");
+				return;
+			}
+    	  
+    	  $('#frm').submit();
       });
       $('#cancel').on('click', function() {
     	  
