@@ -212,6 +212,7 @@ public class AdminController extends HttpServlet {
 				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
 				int end = cpage * Configuration.recordCountPerPage;
 				List<ExpertDTO> list = BoardDAO.getInstance().selectByPageExpert(start, end);
+
 				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory, "전문가");
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
@@ -228,6 +229,7 @@ public class AdminController extends HttpServlet {
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<NoticeDTO> list = BoardDAO.getInstance().selectByPageNotice(start, end);
+
 				String pageNavi =  BoardDAO.getInstance().getPageNavi(cpage,pageCategory,"공지");
 
 				request.setAttribute("list", list);
