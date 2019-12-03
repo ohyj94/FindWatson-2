@@ -214,6 +214,7 @@ public class ComDAO {
 	      }
 	   }
 	   
+	   
 	   //내가 쓴 가장 최신 댓글
 	    public ComDTO selectNew(int board_num, String writer) throws Exception{
 
