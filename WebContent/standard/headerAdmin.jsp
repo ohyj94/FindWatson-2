@@ -87,7 +87,7 @@
 		//병원 관리 - 병원정보 수정/삭제
 		$("#hospitalModify").attr("href", "${pageContext.request.contextPath}/hosptInfoList.admin");
 		//병원 관리 - 병원리뷰 관리
-		$("#hospitalReview").attr("href", "${pageContext.request.contextPath}/hosptInfoList.admin");
+		$("#hospitalReview").attr("href", "${pageContext.request.contextPath}/adminHosptReviewList.admin");
 		
 		//게시판 관리 - 전문가 Q&A
 		$("#expert").attr("href", "${pageContext.request.contextPath}/boardExpert.admin");
