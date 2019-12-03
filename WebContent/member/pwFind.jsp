@@ -159,7 +159,7 @@
 				}
 				else{
 					alert("아이디 형식에 맞지않습니다.")
-					return ;
+					return false;
 				}
 			}
 			
@@ -176,7 +176,7 @@
 				}
 				else{
 					alert("이름 형식에 맞지않습니다.")
-					return;
+					return false;
 				}
 			}
 			
@@ -193,7 +193,7 @@
 				}
 				else{
 					alert("생년월일 형식에 맞지않습니다.")
-					return;
+					return false;
 				}
 			}
 			
@@ -210,7 +210,7 @@
 				}
 				else{
 					alert("이메일 형식에 맞지않습니다.")
-					return;
+					return false;
 				}
 			}
 			
@@ -227,7 +227,7 @@
 				}
 				else{
 					alert("전화번호 형식에 맞지않습니다.")
-					return;
+					return false;
 				}
 			}
 			
