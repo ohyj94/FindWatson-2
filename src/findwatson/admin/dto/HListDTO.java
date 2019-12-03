@@ -17,6 +17,25 @@ public class HListDTO {
 	private Timestamp registDate;
 	private int viewCount;
 	
+	public String getDate() throws Exception{
+	      long exDate = System.currentTimeMillis();
+	      long processedWrite_date = registDate.getTime();
+	      long sec = (exDate - processedWrite_date)/1000;
+	      int min = (int)(sec/60.0) + 1;
+	      int hour = (int)(sec/360.0) + 1;
+	      
+	      if(sec < 60) {
+	         return sec + "초 전";
+	      }else if(min < 60){
+	         return min + "분 전";
+	      }else if(hour < 24) {
+	         return "오늘";
+	      }else {
+	         SimpleDateFormat sdf = new SimpleDateFormat("yy년 MM월 dd일");
+	         return sdf.format(processedWrite_date);
+	      }
+	   }
+	
 	public HListDTO(int seq, String hosptName, int postcode, String address1, String address2, String phone,
 			String homepage, String img, String medicalAnimal, String openTime, Timestamp registDate, int viewCount) {
 		super();
