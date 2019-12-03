@@ -55,6 +55,8 @@ public class HospitalListDAO {
 		}
 	}
 
+	////// 옵션별 검색 결과 //////
+
 	// 검색에 따른 목록을 페이지 수에 맞춰 반환 
 	public List<HListDTO> selectByPage(String input_city, String input_gu, String input_animal, String input_time, int start, int end) throws Exception{
 
@@ -165,7 +167,7 @@ public class HospitalListDAO {
 
 		System.out.println("이것이다 : " + sb.toString());        
 		return sb.toString();
-		                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+
 	}
 
 	// 제목 누르면 글 보여주기 
@@ -223,16 +225,14 @@ public class HospitalListDAO {
 		return 1;
 	}
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////// 상단 전체 검색창 ////////
 
 
-	// 검색에 따른 목록을 페이지 수에 맞춰 반환 
-	public List<HListDTO> selectByPageTotal(String keyword, int start, int end) throws Exception{
+	// 검색에 따른 전체 목록 개수 반환 
+	public int selectByAllUp(String keyword) throws Exception{
 
-		System.out.println(1);
-		String sql = "select * from (select hosptList.*, row_number() over (order by seq desc) as rank from hosptList) "
-				+ "where (hosptname like ?) or (address1 like ?) or (address2 like ?) or (medicalanimal like ?) "
-				+ "or (opentime like ?) and (rank between ? and ?)";
+		String sql = "select * from board where (hosptname like ?) or (address1 like ?) or (address2 like ?) "
+				+ "or (medicalanimal like ?) or (opentime like ?) ";
 
 		try (
 				Connection con = this.getConnection();
@@ -240,26 +240,19 @@ public class HospitalListDAO {
 				//PreparedStatement pstat = new LoggableStatement(con, sql)
 				){
 			System.out.println(keyword);
-			pstat.setString(1, keyword);
-			pstat.setString(2, keyword);
-			pstat.setString(3, keyword);
-			pstat.setString(4, keyword);
-			pstat.setString(5, keyword);
-			pstat.setInt(6, start);
-			System.out.println("start" + start);
-			pstat.setInt(7, end);
-			System.out.println("end" + end);
-			System.out.println(2);
-			//System.out.println(((LoggableStatement)pstat).getQueryString());
+			pstat.setString(1, "%" + keyword + "%");
+			pstat.setString(2, "%" + keyword + "%");
+			pstat.setString(3, "%" + keyword + "%");
+			pstat.setString(4, "%" + keyword + "%");
+			pstat.setString(5, "%" + keyword + "%");
+	
 			try(
 					ResultSet rs = pstat.executeQuery();
 
 					){
 				List<HListDTO> list = new ArrayList<HListDTO>();
 				while(rs.next()) {
-					System.out.println("ggg");
 					int seq = rs.getInt(1);
-					System.out.println(seq);
 					String hosptName = rs.getString(2);
 					int postcode = rs.getInt(3);
 					String city = rs.getString(4);
@@ -271,7 +264,58 @@ public class HospitalListDAO {
 					String openTime = rs.getString(10);
 					Timestamp registDate = rs.getTimestamp(11);
 					int viewCount = rs.getInt(12);
-					System.out.println(3);
+					HListDTO dto = new HListDTO(seq, hosptName, postcode, city, gu,
+							phone, homepage, img, medicalAnimal, openTime, registDate, viewCount);
+					list.add(dto);
+					System.out.println("selectByAllUp 완료");
+				}
+				return list.size();
+			}	
+		}
+	}
+
+
+	// 검색에 따른 목록을 페이지 수에 맞춰 반환 
+	public List<HListDTO> selectByPageTotal(String keyword, int start, int end) throws Exception{
+
+		String sql = "select * from (select hosptList.*, row_number() over (order by seq desc) as rank from hosptList) "
+				+ "where (hosptname like ?) or (address1 like ?) or (address2 like ?) or (medicalanimal like ?) "
+				+ "or (opentime like ?) and (rank between ? and ?)";
+
+		try (
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				//PreparedStatement pstat = new LoggableStatement(con, sql)
+				){
+			System.out.println(keyword);
+			pstat.setString(1, "%" + keyword + "%");
+			pstat.setString(2, "%" + keyword + "%");
+			pstat.setString(3, "%" + keyword + "%");
+			pstat.setString(4, "%" + keyword + "%");
+			pstat.setString(5, "%" + keyword + "%");
+			pstat.setInt(6, start);
+			System.out.println("start" + start);
+			pstat.setInt(7, end);
+			System.out.println("end" + end);
+			System.out.println(2);
+			try(
+					ResultSet rs = pstat.executeQuery();
+
+					){
+				List<HListDTO> list = new ArrayList<HListDTO>();
+				while(rs.next()) {
+					int seq = rs.getInt(1);
+					String hosptName = rs.getString(2);
+					int postcode = rs.getInt(3);
+					String city = rs.getString(4);
+					String gu = rs.getString(5);
+					String phone = rs.getString(6);
+					String homepage = rs.getString(7);
+					String img = rs.getString(8);
+					String medicalAnimal = rs.getString(9);
+					String openTime = rs.getString(10);
+					Timestamp registDate = rs.getTimestamp(11);
+					int viewCount = rs.getInt(12);
 					HListDTO dto = new HListDTO(seq, hosptName, postcode, city, gu,
 							phone, homepage, img, medicalAnimal, openTime, registDate, viewCount);
 					list.add(dto);
@@ -284,11 +328,11 @@ public class HospitalListDAO {
 	}
 
 	// 병원 검색 결과 페이지 네비게이터
-	public String getPageNaviTotal(int currentPage, int listSize) throws Exception {
+	public String getPageNaviTotal(int currentPage, int size, String keyword) throws Exception {
 
-		int recordTotalCount = listSize;
+		int recordTotalCount = size;
 		System.out.println("currentPage" + currentPage);
-		System.out.println("listSize" + listSize);
+
 		System.out.println("recordTotalCount" + recordTotalCount);
 		int pageTotalCount = 0;
 
@@ -326,15 +370,15 @@ public class HospitalListDAO {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		if(needPrev) {sb.append("<a href='keywordSearch.s?currentPage="+(startNavi - 1)+"'> < </a>");}
+		if(needPrev) {sb.append("<a href='keywordSearch.s?currentPage="+(startNavi - 1)+"&keywordSearch="+keyword+"'> < </a>");}
 		// 값을 서버에서 만들어서 + 붙여서 프론트로 나가는거니까 
 		// 서버에서 이미 앵커태그가 붙어야한다 
 		for(int i = startNavi; i <= endNavi; i++) {
-			sb.append("<a href = 'keywordSearch.s?currentPage="+i+"'> ");
+			sb.append("<a href = 'keywordSearch.s?currentPage="+i+"&keywordSearch="+keyword+"'> ");
 			sb.append(i + " ");
 			sb.append("</a>");
 		}
-		if(needNext) {sb.append(">");}
+		if(needNext) sb.append("<a href='keywordSearch.s?currentPage=" + (endNavi + 1) + "&keywordSearch="+keyword+"'> > </a>");
 
 		System.out.println("현재 페이지 번호 : " + currentPage);
 		System.out.println("네비게이터 시작 번호 : " + startNavi);

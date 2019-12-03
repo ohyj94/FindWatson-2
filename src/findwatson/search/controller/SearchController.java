@@ -56,10 +56,9 @@ public class SearchController extends HttpServlet {
 				PrintWriter pw = response.getWriter();				
 				pw.append(j.toString());  	
 
-				// 병원 검색 결과 출력
+				
 			}else if(cmd.contentEquals("/searchFrom.s")) {
-
-				// 검색 결과 받아오는 부분 
+				// 옵션별 검색 결과 받아오는 부분 
 
 				String address1 = request.getParameter("address1");			
 				String address2 = request.getParameter("address2");
@@ -114,6 +113,8 @@ public class SearchController extends HttpServlet {
 
 				List<HListDTO> list = new ArrayList<>();
 				list = HospitalListDAO.getInstance().selectByPage("%"+address1+"%", "%"+address2+"%", "%"+animal+"%", "%"+time+"%",start, end);
+				
+				// navi 값 보내기 
 				String navi = dao.getPageNavi(currentPage, list.size());
 				request.setAttribute("navi", navi);
 				request.setAttribute("list", list);
@@ -145,6 +146,8 @@ public class SearchController extends HttpServlet {
 				request.setAttribute("contents", contents);
 
 				request.getRequestDispatcher("/search/hospitalSearchDetail2.jsp").forward(request, response);
+			
+				
 			}else if(cmd.contentEquals("/keywordSearch.s")) {
 				// 상단 검색바에서 검색하면 목록 가져오기 
 				// 검색어를 가져온다 
@@ -170,13 +173,12 @@ public class SearchController extends HttpServlet {
 
 				// 배열의 개수만큼 검색 
 				for(int i=0; i<arr.length; i++) {
-					list = HospitalListDAO.getInstance().selectByPageTotal("%"+arr[i]+"%", start, end);
+					list = HospitalListDAO.getInstance().selectByPageTotal(arr[i], start, end);
 					// 배열에서 dto를 하나씩 빼내서 list에 넣는다 
 					for(HListDTO dto : list){
 						list2.add(dto);
 						System.out.println("dto에" + arr[i]+ "를 담았음");
-						for(HListDTO dto2 : list2)
-						System.out.println("담은 병원은 " + dto2.getHosptName());
+				
 					}
 				}
 
@@ -194,7 +196,7 @@ public class SearchController extends HttpServlet {
 				request.setAttribute("list", set);
 				
 				// navi 값 보내기 
-				String navi = HospitalListDAO.getInstance().getPageNaviTotal(currentPage, set.size());
+				String navi = HospitalListDAO.getInstance().getPageNaviTotal(currentPage, set.size(), keyword);
 			System.out.println("이 값이 넘어가야함" + navi);
 				request.setAttribute("navi", navi);
 
