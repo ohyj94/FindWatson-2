@@ -65,10 +65,11 @@ public class BoardController extends HttpServlet {
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<BoardDTO> list = dao.selectByPage(start, end, "자유");
-				String pageNavi = dao.getPageNavi(cpage,pageCategory);
+				String pageNavi = dao.getPageNavi(cpage,pageCategory,"자유");
 
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
+				System.out.println("네비게이터 : "+ pageNavi );
 				request.getRequestDispatcher("board/boardFree.jsp").forward(request, response);
 
 				// 질문게시판 글 목록 출력
@@ -83,7 +84,7 @@ public class BoardController extends HttpServlet {
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<BoardDTO> list = dao.selectByPage(start, end, "질문");
-				String pageNavi = dao.getPageNavi(cpage,pageCategory);
+				String pageNavi = dao.getPageNavi(cpage,pageCategory,"질문");
 
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
@@ -101,7 +102,7 @@ public class BoardController extends HttpServlet {
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<ExpertDTO> list = dao.selectByPageExpert(start, end);
-				String pageNavi = dao.getPageNavi(cpage,pageCategory);
+				String pageNavi = dao.getPageNavi(cpage,pageCategory,"전문가");
 
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
@@ -119,7 +120,7 @@ public class BoardController extends HttpServlet {
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<NoticeDTO> list = dao.selectByPageNotice(start, end);
-				String pageNavi = dao.getPageNavi(cpage,pageCategory);
+				String pageNavi = dao.getPageNavi(cpage,pageCategory,"공지");
 
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);

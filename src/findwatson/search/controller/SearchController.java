@@ -121,8 +121,6 @@ public class SearchController extends HttpServlet {
 
 				// 병원 이름 클릭하면 상세페이지 
 			}else if(cmd.contentEquals("/contents.s")) {
-
-
 				// 내용 전송 
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				System.out.println(seq);
