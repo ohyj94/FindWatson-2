@@ -86,7 +86,7 @@ public class AdminController extends HttpServlet {
 				}
 			}else if(cmd.contentEquals("/logout.admin")) {//관리자 로그아웃
 				request.getSession().invalidate();
-				response.sendRedirect("main/indexAdmin.jsp");
+				response.sendRedirect("main/startAdmin.jsp");
 			}else if(cmd.contentEquals("/adminMemberList.admin")) {//회원목록 전체
 				//네비
 				int cpage = 1;
