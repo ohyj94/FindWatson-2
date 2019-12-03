@@ -189,13 +189,14 @@ public class memberController extends HttpServlet {
 				String birth = request.getParameter("birth");
 				String email = request.getParameter("email");
 				int phone = Integer.parseInt(request.getParameter("phone"));
-				boolean list = dao.idFind(name, birth, email, phone);
-				if(list) {
-					request.setAttribute("list", list);
-					request.getRequestDispatcher("member/viewIdFind.jsp").forward(request, response);
-				}else {
-					response.sendRedirect("main/error.jsp");
-				}
+				String list = dao.idFind(name, birth, email, phone);
+				System.out.println(list);
+//				if(list) {
+//					request.setAttribute("list", list);
+//					request.getRequestDispatcher("member/viewIdFind.jsp").forward(request, response);
+//				}else {
+//					response.sendRedirect("main/error.jsp");
+//				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.sendRedirect("main/error.jsp");

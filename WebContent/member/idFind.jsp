@@ -112,7 +112,7 @@
 		})
 		//생년월일 양식 검사
 		$("#birth").on("keyup",function(){
-			var regex = /^[0-9]{8}/gm;
+			var regex = /^[0-9]{6}/gm;
 			var birth = $("#birth").val();
 			var result = regex.exec(birth);
 			if (result == null){
