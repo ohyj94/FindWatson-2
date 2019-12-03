@@ -393,7 +393,7 @@
 						var regex = /^[가-힣]{2,8}$/gm;
 						var name = $("#name").val();
 						var result = regex.exec(name);
-						if (result != null) {
+						if (result !== null) {
 							
 						}
 						else{
@@ -411,7 +411,7 @@
 						var regex = /^[0-9]{6}$/gm;
 						var year = $("#year").val();
 						var result = regex.exec(year);
-						if (result != null) {
+						if (result !== null) {
 							
 						}
 						else{
@@ -433,7 +433,7 @@
 						var regex = /^[0-9a-zA-Z]+@[a-z]+(\.[a-z]+){1,2}$/gm;
 						var email = $("#email").val();
 						var result = regex.exec(email);
-						if (result != null) {
+						if (result !== null) {
 							
 						}
 						else{
@@ -450,7 +450,7 @@
 						var regex = /^01[0-9]{8,9}$/gm;
 						var phone = $("#phone").val();
 						var result = regex.exec(phone);
-						if (result != null) {
+						if (result !== null) {
 							
 						}
 						else{

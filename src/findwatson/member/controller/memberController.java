@@ -83,7 +83,7 @@ request.setAttribute("result", result);
 			}
 			System.out.println(id);
 
-			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath, null,"--");
+			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath, null,ipAddr);
 			try {
 				int signup = dao.insert(dto);
 
@@ -123,7 +123,21 @@ request.setAttribute("result", result);
 				e.printStackTrace();
 				response.sendRedirect("main/error.jsp");
 			}
-
+		}//1:1문의 글쓰기
+		else if(path.contentEquals("/mypageOneByOne.member")) {
+			String id = (String)request.getSession().getAttribute("loginInfo");
+			try {
+				request.setAttribute("id", id);
+				request.getRequestDispatcher("member/mypageOneByOne.jsp").forward(request, response);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("main/error.jsp");
+			}
+		}else if(path.contentEquals("/onebyoneInsert.member")) {
+			String id = (String)request.getSession().getAttribute("loginInfo");
+			
+			
 		}//정보인포->정보수정으로 이동
 		else if(path.contentEquals("/InfoModify.member")) {
 			try{String id = request.getParameter("id");
