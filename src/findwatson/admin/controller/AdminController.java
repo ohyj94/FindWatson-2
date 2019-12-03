@@ -88,7 +88,7 @@ public class AdminController extends HttpServlet {
 				}
 			}else if(cmd.contentEquals("/logout.admin")) {//관리자 로그아웃
 				request.getSession().invalidate();
-
+				response.sendRedirect("main/indexAdmin.jsp");
 			}else if(cmd.contentEquals("/adminMemberList.admin")) {//회원목록 전체
 				//네비
 				int cpage = 1;
@@ -135,10 +135,6 @@ public class AdminController extends HttpServlet {
 
 				//
 				request.getRequestDispatcher("/admin/adminBanList.jsp").forward(request, response);
-			}else if(cmd.contentEquals("아이디로 회원 검색")) {//회원목록에서 아이디로 회원 검색
-				List<MemberDTO> list = dao.selectById(id);
-				request.setAttribute("list", list);
-
 			}else if(cmd.contentEquals("/expertWrite.admin")){ //전문가 Q&A 글쓰기
 				String title = request.getParameter("boardTitle");
 				String content = request.getParameter("content");
@@ -238,6 +234,14 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("admin/adminBoardNotice.jsp").forward(request, response);
 
+			}else if(cmd.contentEquals("/admin/adminSearchNotice.admin")) {//공지사항에서 회원아이디 검색
+				System.out.println("공지사항검색 진입성공");
+				String idInput = request.getParameter("search");
+				List<MemberDTO> list = dao.selectById("%"+idInput+"%");
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
+			
+			
 			}else if(cmd.contentEquals("/boardFree.admin")){//자유게시판 글 출력
 				String pageCategory = "boardFree.bo";
 				int cpage = 1;
@@ -431,14 +435,9 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("top5List", top5List);
 				request.getRequestDispatcher("/admin/adminMemberChart.jsp").forward(request, response);
 
-			}else if(cmd.contentEquals("/adminMemberChart.admin")) {//관심동물통계
-
-
-
 			}else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
 
 				int noticeSeq = Integer.parseInt(request.getParameter("seq"));
-				dao.increNoticeView(noticeSeq);
 				NoticeDTO dto = dao.getNoticeBySeq(noticeSeq);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/adminNoticeDetailView.jsp").forward(request, response);
@@ -481,12 +480,9 @@ public class AdminController extends HttpServlet {
 				response.sendRedirect("hosptInfoList.admin");
 			}else if(cmd.contentEquals("/hosptModify.admin")) {//병원 정보 수정
 				int seq = Integer.parseInt(request.getParameter("seq"));
-				System.out.println();
 				HListDTO dto = dao.getHListBySeq(seq);
-				System.out.println(dto.getAddress1() );
 				request.setAttribute("dto",dto);
-				request.getRequestDispatcher("adminModifyHospt.jsp").forward(request, response);
-				
+				request.getRequestDispatcher("admin/adminModifyHospt.jsp").forward(request, response);
 			}else{
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
