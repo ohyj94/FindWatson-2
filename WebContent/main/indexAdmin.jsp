@@ -14,35 +14,8 @@
 <link rel="stylesheet" href="../resources/css/adminBoard.css">
 </head>
 <body>
-	<c:choose>
-		<c:when test="${sessionScope.adminInfo == null}">
-			<form action="${pageContext.request.contextPath}/login.admin"
-				method="post">
-				<div class="container">
-					<div class="row mb-2">
-						<div id="loginBtn" class="col-12 p-1 text-right"></div>
-					</div>
-					<div class="row">
-						<div id="title" class="col-12 mb-3 p-1 text-center">
-							<a id=home><img id="logo"
-								src="${pageContext.request.contextPath}/imgs/logo.png"
-								class="col-12"></a>
-						</div>
-					</div>
-					<!--            -->
-					<div class="row">
-						<div class="col-12 mb-3 center" id="article">
-							<input type=text placeholder="아이디를 입력해주세요" name=id><br>
-							<input type=text placeholder="비밀번호를 입력해주세요" name=pw><br>
-							<button>로그인</button>
-						</div>
-					</div>
-					<!--            -->
-					<jsp:include page="../standard/footer.jsp" />
-				</div>
-			</form>
-		</c:when>
-		<c:otherwise>
+	
+		
 			<div class="container">
 				<jsp:include page="../standard/headerAdmin.jsp" />
 				<!--            -->
@@ -61,8 +34,6 @@
 				<!--            -->
 				<jsp:include page="../standard/footer.jsp" />
 			</div>
-		</c:otherwise>
-
-	</c:choose>
+			
 </body>
 </html>
