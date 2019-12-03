@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,14 +18,14 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import findwatson.admin.dao.AdminDAO;
 import findwatson.admin.dto.ExpertDTO;
-import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
 import findwatson.board.dao.BoardDAO;
+import findwatson.board.dao.ComDAO;
 import findwatson.board.dao.FilesDAO;
 import findwatson.board.dto.BoardDTO;
+import findwatson.board.dto.ComDTO;
 import findwatson.board.dto.FilesDTO;
 import findwatson.configuration.Configuration;
-import findwatson.search.dao.HospitalListDAO;
 
 
 @WebServlet("*.bo")
@@ -270,24 +267,37 @@ public class BoardController extends HttpServlet {
 				
 			}else if(cmd.contentEquals("/freeDetail.bo")) {
 				//자유 게시판 글읽기
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
+				int end = cpage * Configuration.recordCountPerPage;
+				
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				AdminDAO adao = AdminDAO.getInstance();
 				BoardDTO dto = adao.getBoardBySeq(seq, "자유");
 				request.setAttribute("dto", dto);
 				request.setAttribute("loginInfo", id);
 				
+				String pageNavi = ComDAO.getInstance().getPageNaviCmt(cpage, seq);
+				List<ComDTO> list = ComDAO.getInstance().selectByPage(seq, start, end);
+				request.setAttribute("pageNavi", pageNavi);
+				request.setAttribute("list", list);
 				request.getRequestDispatcher("board/freeDetailView.jsp").forward(request, response);
 
 				
 			}else if(cmd.contentEquals("/questionDetail.bo")) {
-				//자유 게시판 글읽기
+				//질문 게시판 글읽기
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				AdminDAO adao = AdminDAO.getInstance();
 				BoardDTO dto = adao.getBoardBySeq(seq, "질문");
 				request.setAttribute("dto", dto);
 				request.setAttribute("loginInfo", id);
-				
-				request.getRequestDispatcher("board/questionDetailView.jsp").forward(request, response);
+				List<ComDTO> list = ComDAO.getInstance().selectAll(seq);
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("board/freeDetailView.jsp").forward(request, response);
 				
 			}else if(cmd.contentEquals("/boardRemove.bo")){
 				//게시판 글삭제
@@ -316,6 +326,31 @@ public class BoardController extends HttpServlet {
 				}else{ //질문게시판으로 이동
 					response.sendRedirect("boardQuestion.bo");
 				}
+			}else if(cmd.contentEquals("/expertDetail.bo")) {  //전문가 디테일 뷰
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				AdminDAO adao = AdminDAO.getInstance();
+				ExpertDTO dto = adao.getExpertBySeq(seq);
+				request.setAttribute("dto", dto);
+								
+				request.getRequestDispatcher("board/boardExpertDetailView.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/freeCommentWrite.bo")) { //자유게시판 댓글 작성
+				String comment = request.getParameter("comment");
+				int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
+				ComDTO dto = new ComDTO(0,boardSeq, id, comment,ipAddr,null);
+				ComDAO.getInstance().insert(dto);
+				
+				JsonObject jobj = new JsonObject();
+				jobj.addProperty("writer", dto.getWriter());
+				jobj.addProperty("comment", comment);
+				//jobj.addProperty("date", dto.getDate()); //왜인지 모르겠는데 nullPoint웅앵 뜸..
+				
+				pwriter.append(jobj.toString());
+			}else if(cmd.contentEquals("/freeCommentRemove.bo")) { //자유게시판 댓글 삭제
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				int boardSeq = Integer.parseInt(request.getParameter("brdSeq"));
+				ComDAO.getInstance().delete(seq);
+				
+				response.sendRedirect("freeDetail.bo?seq="+boardSeq);
 			}else {
 				// 등록되지 않은 경로로 입장시
 
