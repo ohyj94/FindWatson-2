@@ -9,7 +9,9 @@
 	height: 100px;
 	margin: auto;
 }
-
+strong{
+	font-size: 28px;
+}
 #footer>div {
 	height: 100%;
 }

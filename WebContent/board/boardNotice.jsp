@@ -74,7 +74,7 @@
         </div>
          <script>
         	$("#toWriteBtn").on("click",function(){
-        		location.href="${pageContext.request.cotextPath}/board/boardWriteQuestion.jsp";
+        		location.href="${pageContext.request.contextPath}/board/boardWriteQuestion.jsp";
         	});
         </script>
 </body>

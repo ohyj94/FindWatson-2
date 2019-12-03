@@ -21,8 +21,9 @@
 
 		<%--별점 --%>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-		<link rel="stylesheet" href="../resources/css/mainStyle.css">
+		
+		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="resources/css/mainStyle.css">
 <meta charset="UTF-8">
 
 <style>
@@ -97,21 +98,25 @@ display:none;
 			<form action="${pageContext.request.contextPath}/reviewWrite.re" method="post" id=reviewSave>
 			<div class="row">
 				<div class="col-12">
-					<h1>병원 이름</h1>
-					<h5>정보수정일 2019.01.01 Total.100</h5>
+					<h1>${contents.hosptName}</h1>
+					<h6>정보수정일 : ${contents.registDate}</h6>
 					<hr>
 				</div>
 			</div>
 
 			<div class=row>
-				<div class="col-6">
-					<img src="../imgs/hospital/김포우리병원계열.jpg" id=hosImg>
+				<div class="col-12 col-md-6">
+					<img src="${contents.img}" id=hosImg name=hosImg>
 				</div>
-				<div class="col-6">
+				<div class="col-12 col-md-6">
 					<div class="row hosIn1">
 						<div class=col-12>
-							동해물과 백두산이<br> 마르고 닳도록 하느님이 <br> 보우하사 우리나라 만세<br>
-							무궁화 삼천리 화려강산<br> 대한사람 대한으로 길이 보전하리<br>
+							<p><label class = title>병원 이름</label>${contents.hosptName}</p>
+                                    <p><label class = title>주소</label>${contents.address1} ${contents.address2}</p>
+                                    <p><label class = title>전화번호</label>${contents.phone}</p>
+                                    <p><label class = title>홈페이지</label>${contents.homepage}</p>
+                                    <p><label class = title>진료 동물</label>${contents.medicalAnimal}</p>
+                                    <p><label class = title>운영 시간</label>${contents.openTime}</p>
 						</div>
 					</div>
 					<div class="row hosIn2">
@@ -121,18 +126,24 @@ display:none;
 					</div>
 				</div>
 			</div>
-
+			<div class = row>
+                        <div class = col>
+                            <label>Total. </label> ${contents.viewCount}
+                        </div>
+            </div>
+			
+			<%--지도, 후기--%>
 			<div class=row>
 				<div class=col-12>
 					<br>
 					<div class="btn-group" role="group" aria-label="Basic example">
-						<button type="button" class="btn btn-secondary">상세정보</button>
-						<button type="button" class="btn btn-secondary">지도</button>
-						<button type="button" class="btn btn-secondary">후기</button>
+						<button type="button" class="btn btn-secondary" id=btnMap>지도</button>
+                        <button type="button" class="btn btn-secondary" id=btnReview>후기</button>
 					</div>
 					<hr>
 				</div>
 			</div>
+			
 			<div class=row>
 				<div class=col-12>
 					<h2>후기</h2>
@@ -146,14 +157,17 @@ display:none;
 					<a href="${pageContext.request.contextPath}/hospitalSearchDetail2ByLike.re" id=defaultRange>좋아요순</a>
 				</div>
 			</div>
-			<c:choose>
-			<c:when test="${list.size() == 0}">
+			
+			
+			<c:choose>			
+			<c:when test="${reviewList.size() == 0}">
 			<div class=row>
 			<div class=col-12>
 			게시글이 존재하지 않습니다.
 			</div>
 			</div>
 			</c:when>
+			
 			<c:otherwise>
 			<c:forEach items="${reviewList}" var="dto"><%-------------------------------------------------------------------------------------------------- --%>
 			<div class=row>
@@ -216,7 +230,9 @@ display:none;
 			</c:otherwise>
 			</c:choose>
 
-			<!-- 여기 후기 쓰는 부분은 로그인 정보 있어야 뜨게 설정 바람! 비회원 글쓰기 안보이게 -->
+			<!-- 여기 후기 쓰는 부분은 로그인 정보 있어야 뜸 -->
+			<c:choose>
+			<c:when test="${loginInfo != null }">
 			
 			<div class=row>
 			<div class="col-12 center">
@@ -251,7 +267,10 @@ display:none;
 					<button id=reviewSaveBtn type=button>후기 등록</button>
 			</div>
 			</div>
-
+			
+			</c:when>
+			</c:choose>
+			
 			<!--            -->
             <jsp:include page="../standard/footer.jsp" />
 			</form>
@@ -329,6 +348,18 @@ display:none;
                    }
                }
            }
+		
+		 //버튼
+        //1. 정보수정제안
+        
+        //2. 지도
+        $("#btnMap").on("click", function(){
+        	location.href="${pageContext.request.contextPath}/contents.s?seq=${contents.seq}";
+        })
+        //3. 후기
+        $("#btnReview").on("click", function(){
+        	location.href="${pageContext.request.contextPath}/hospitalSearchDetail2.re?seq=${contents.seq}";
+        })
 		
 		
 	</script>
