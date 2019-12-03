@@ -74,8 +74,15 @@ public class memberController extends HttpServlet {
 			String address1 = request.getParameter("address1");
 			String address2 = request.getParameter("address2");
 			String lovePet = request.getParameter("lovePet");
+			if(lovePet.contentEquals("on")) {
+				lovePet = request.getParameter("otherAnimal");
+				System.out.println("기타 관심동물-------"+lovePet);
+			}
 			String signPath = request.getParameter("signPath");
-
+			if(signPath.contentEquals("on")) {
+				signPath = request.getParameter("otherSignPath");
+				System.out.println("기타 가입경로----------"+signPath);
+			}
 			System.out.println(id);
 
 			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath, null,"--");
