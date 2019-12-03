@@ -440,10 +440,40 @@ public class BoardDAO {
 
 		}
 	}
-	public String getPageNavi(int current, String category) throws Exception{
-		int recordTotalCount = this.getTotalBoard(category);
+	private int getTotalExpert() throws Exception{
+		String sql = "select count(*) from expert";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	private int getTotalNotice() throws Exception{
+		String sql = "select count(*) from notice";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	
+	public String getPageNavi(int current, String category,String header) throws Exception{
+	int recordTotalCount =0;
+		if(header.contentEquals("전문가")) {
+		recordTotalCount = this.getTotalExpert();
+	}else if(header.contentEquals("공지")) {
+		recordTotalCount = this.getTotalNotice();
+	}else {
+		recordTotalCount = this.getTotalBoard(header);
+	}
 		int pageTotalCount = 0;
-		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
+		if(recordTotalCount % Configuration.recordCountPerPage > 0) {
 			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
 		}else {
 			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;

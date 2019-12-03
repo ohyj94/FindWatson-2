@@ -71,14 +71,17 @@
 					</div>
 				</div>
 		
+
 		<script>
 		$("#remove").on("click",function(){
 			location.href ='${pageContext.request.contextPath}/boardRemove.bo?seq=${dto.seq}';
 		})
+
 		
 		$("#modify").on("click", function(){
 		alert("준비중입니다.");
 	})
+
 		</script>
 		
 			</c:when>
