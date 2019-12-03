@@ -175,5 +175,12 @@ public class HListDTO {
 				+ openTime).hashCode();
 	}
 	
+	public String getFormedDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		long registDate = this.registDate.getTime();		
+		
+		return sdf.format(registDate);		
+	}
+	
 	
 }

@@ -127,7 +127,13 @@ red
 .center {
 	text-align: center;
 }
+#likeImg{
+width:20px;
+}
+.shield { pointer-events: none; }
+
 </style>
+
 </head>
 <body>
 
@@ -278,6 +284,7 @@ red
 						</c:choose>
 
 						<script>
+
 			//별점 - 출력
              var point = ${dto.score};
              $("#star"+point+"t${dto.seq}").trigger("click");
@@ -296,6 +303,9 @@ red
                      }
                  }
              }
+             
+           
+             
            //좋아요 기능
      		$("#like${dto.seq}").on("click",function(){
      			location.href="likeIncrement.re?reviewSeq="+${dto.seq};

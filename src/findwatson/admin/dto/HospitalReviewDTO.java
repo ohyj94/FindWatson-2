@@ -134,5 +134,11 @@ public class HospitalReviewDTO {
 		this.likeCount = likeCount;
 	}
 
+	public String getFormedDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		long writeDate = this.writeDate.getTime();		
+		
+		return sdf.format(writeDate);		
+	}
 	
 }
