@@ -12,16 +12,24 @@
 <c:choose>
 		<c:when test="${result == true }">
 			<script>
-				alert("로그인 성공");
-				location.href = "${pageContext.request.contextPath}/toMain.main";
+				alert("로그인 성공");	
+				var redirectPage = "${redirectPage}";
+				
+				if(redirectPage != null){
+					$(location).attr("href", redirectPage);
+				}else{
+					location.href = "${pageContext.request.contextPath}/toMain.main";
+				}
+				
 			</script>
 		</c:when>
+		
 		<c:otherwise>
 			<script>
 				alert("로그인 실패. 아이디 혹은 패스워드를 확인해주세요.");
 				location.href = "${pageContext.request.contextPath}/member/login.jsp";
 			</script>
 		</c:otherwise>
-	</c:choose>
+</c:choose>
 </body>
 </html>
