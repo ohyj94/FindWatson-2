@@ -20,7 +20,7 @@
 
 <div class="row">
     <div id="title" class="col-12 p-0 mt-3 mb-3 text-center">
-        <a href="${pageContext.request.contextPath}/main/index.jsp"><strong>FIND! WATSON</strong></a>
+        <a href="${pageContext.request.contextPath}/toMain.main"><strong>FIND! WATSON</strong></a>
     </div>
 </div>
 <div class="row">
@@ -68,7 +68,7 @@
 
 <script>
 $("#login").on("click",function(){
-    location.href="../member/login.jsp";
+    location.href="${pageContext.request.contextPath}/member/login.jsp";
 })
 $("#join").on("click",function(){
     location.href="${pageContext.request.contextPath}/member/signup.jsp";
@@ -79,4 +79,5 @@ $("#logout").on("click", function(){
 $("#donate").on("click",function(){
     location.href="${pageContext.request.contextPath}/donate/donateForm.jsp"
 })
+
 </script>

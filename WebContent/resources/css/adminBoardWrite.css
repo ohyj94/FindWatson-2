@@ -1,6 +1,7 @@
 
 * {
-	box-sizing: border-box
+	box-sizing: border-box;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 /*            div{border: 1px solid black}*/
 #logo {
@@ -47,4 +48,7 @@
 }
 .noneExist{
 display:none;
+}
+.center{
+	text-align: center;
 }

@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import findwatson.admin.dao.AdminDAO;
 import findwatson.admin.dto.ExpertDTO;
 import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
@@ -46,9 +47,10 @@ public class BoardController extends HttpServlet {
 		String cmd = requestURI.substring(contextPath.length());
 		System.out.println("컨트롤러 : " + cmd);
 
-		//String id = (String)request.getSession().getAttribute("loginInfo");
-		String id = "test"; // 테스트
-		String ipAddr = request.getRemoteAddr();
+	 
+	    String id = (String)request.getSession().getAttribute("loginInfo");
+	    String ipAddr = request.getRemoteAddr();
+	    
 
 		try {
 			// 자유게시판 글 목록 출력
@@ -140,30 +142,31 @@ public class BoardController extends HttpServlet {
 				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
 				System.out.println(uploadPath);
 
-				File uploadFilePath = new File(uploadPath);
-				if(!uploadFilePath.exists()) {
-					uploadFilePath.mkdir();
-				}
+		        File uploadFilePath = new File(uploadPath);
+		        if(!uploadFilePath.exists()) {
+		           uploadFilePath.mkdir();
+		        }
+		         
+		        int maxSize = 1024 * 1024 * 100;
+		        MultipartRequest multi = new MultipartRequest(request,uploadPath, maxSize,"UTF-8",new DefaultFileRenamePolicy());
+		         
+		        String fileName = multi.getFilesystemName("comQuestionImg");
+		        String oriFileName = multi.getOriginalFileName("comQuestionImg");
+		        System.out.println("원래 파일 이름 : " + oriFileName);
+		        System.out.println("올린 파일 이름 : " + fileName);
+				
+		        fDao.insert(new FilesDTO(0, 0, fileName, oriFileName));
+		        
+		        //서버의 이미지 경로
+		        String imgPath = contextPath + "/" + repositoryName + "/" + fileName;
+		        System.out.println(imgPath);
+		         
+		        JsonObject jObj = new JsonObject();
+		        jObj.addProperty("imgPath", imgPath);
+		        pwriter.append(jObj.toString());
+		        
+		    // 커뮤니티(자유) - 글쓰기
 
-				int maxSize = 1024 * 1024 * 100;
-				MultipartRequest multi = new MultipartRequest(request,uploadPath, maxSize,"UTF-8",new DefaultFileRenamePolicy());
-
-				String fileName = multi.getFilesystemName("comQuestionImg");
-				String oriFileName = multi.getOriginalFileName("comQuestionImg");
-				System.out.println("원래 파일 이름 : " + oriFileName);
-				System.out.println("올린 파일 이름 : " + fileName);
-
-				fDao.insert(new FilesDTO(0, 0, fileName, oriFileName));
-
-				//서버의 이미지 경로
-				String imgPath = "../" + repositoryName + "/" + fileName;
-				System.out.println(imgPath);
-
-				JsonObject jObj = new JsonObject();
-				jObj.addProperty("imgPath", imgPath);
-				pwriter.append(jObj.toString());
-
-				// 커뮤니티(자유) - 글쓰기
 			} else if(cmd.contentEquals("/communityFreeWrite.bo")) {
 				String header = request.getParameter("header");
 				String animalHeader = request.getParameter("animalHeader");
@@ -194,7 +197,7 @@ public class BoardController extends HttpServlet {
 				fDao.insert(new FilesDTO(0, 0, fileName, oriFileName));
 
 				// 서버의 이미지 경로
-				String imgPath = "../" + repositoryName + "/" + fileName;
+				String imgPath = contextPath + "/" + repositoryName + "/" + fileName;
 				System.out.println(imgPath);
 
 				JsonObject jObj = new JsonObject();
@@ -254,9 +257,47 @@ public class BoardController extends HttpServlet {
 
 
 
+			
+			}else if(cmd.contentEquals("/noticeDetail.bo")) {
+				//공지사항 글 읽기
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				AdminDAO adao = AdminDAO.getInstance();
+				NoticeDTO dto = adao.getNoticeBySeq(seq);
+				request.setAttribute("dto", dto);
+								
+				request.getRequestDispatcher("board/boardNoticeDetailView.jsp").forward(request, response);
+				
+			}else if(cmd.contentEquals("/freeDetail.bo")) {
+				//자유 게시판 글읽기
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				AdminDAO adao = AdminDAO.getInstance();
+				BoardDTO dto = adao.getBoardBySeq(seq, "자유");
+				request.setAttribute("dto", dto);
+				request.setAttribute("loginInfo", id);
+				
+				request.getRequestDispatcher("board/freeDetailView.jsp").forward(request, response);
+
+				
+			}else if(cmd.contentEquals("/questionDetail.bo")) {
+				//자유 게시판 글읽기
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				AdminDAO adao = AdminDAO.getInstance();
+				BoardDTO dto = adao.getBoardBySeq(seq, "질문");
+				request.setAttribute("dto", dto);
+				request.setAttribute("loginInfo", id);
+				
+				request.getRequestDispatcher("board/questionDetailView.jsp").forward(request, response);
+				
+			}else if(cmd.contentEquals("/boardRemove.bo")){
+				//게시판 글삭제
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				AdminDAO adao = AdminDAO.getInstance();
+				adao.deleteBoard(seq);
+				response.sendRedirect("boardFree.bo");
+			}
+			else {
 				// 등록되지 않은 경로로 입장시
-			} else {
-				System.out.println("등록되지 않은 경로로 입장");
+
 				response.sendRedirect("main/error.jsp");
 			}
 		} catch(Exception e) {

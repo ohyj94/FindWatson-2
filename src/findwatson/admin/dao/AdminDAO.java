@@ -10,10 +10,13 @@ import java.util.List;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import findwatson.admin.dto.BanDTO;
+import findwatson.admin.dto.ChartDTO;
 import findwatson.admin.dto.ExpertDTO;
+import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
 import findwatson.admin.utils.Util;
 import findwatson.board.dto.BoardDTO;
+import findwatson.board.dto.ObODTO;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
 
@@ -57,12 +60,12 @@ public class AdminDAO {
 	}
 	//관리자 비밀번호 변경
 	public int adminInfoPwUpdate(String id, String pw) throws Exception{
-		String sql = "update member set pw=? where id=?";
+		String sql = "update admin set pw=? where id=?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setString(1, Util.encrypt(pw));
+			pstat.setString(1, pw);
 			pstat.setString(2, id);
 			int result = pstat.executeUpdate();
 			con.commit();
@@ -92,7 +95,8 @@ public class AdminDAO {
 				String lovePet = rs.getString(11);
 				String signPath = rs.getString(12);
 				Timestamp date = rs.getTimestamp(13);
-				MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+				String ipAddr = rs.getString(14);
+				MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 				memberList.add(dto);
 			}
 			return memberList;
@@ -100,7 +104,7 @@ public class AdminDAO {
 	}
 	//아이디로 회원 찾기
 	public List<MemberDTO> selectById (String id) throws Exception{
-		String sql = "select * from member where id = ?";
+		String sql = "select * from member where id like ?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -124,7 +128,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -157,7 +162,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -190,7 +196,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -223,7 +230,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -253,10 +261,10 @@ public class AdminDAO {
 					String postcode = rs.getString(8);
 					String address1 = rs.getString(9);
 					String address2 = rs.getString(10);
-
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					memberList.add(dto);
 				}
 				return memberList;
@@ -264,14 +272,14 @@ public class AdminDAO {
 		}
 	}
 	//차단ip 추가
-	public int banIp(String id, String ip, String reason) throws Exception{
+	public int insertbanIp(String id, String ipAddr, String reason) throws Exception{
 		String sql = "insert into banIp values(?,?,?)";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setString(1, id);
-			pstat.setString(2, ip);
+			pstat.setString(2, ipAddr);
 			pstat.setString(3, reason);
 			int result = pstat.executeUpdate();
 			con.commit();
@@ -492,7 +500,8 @@ public class AdminDAO {
 					String lovePet = rs.getString(11);
 					String signPath = rs.getString(12);
 					Timestamp date = rs.getTimestamp(13);
-					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date);
+					String ipAddr = rs.getString(14);
+					MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath,date,ipAddr);
 					result.add(dto);
 				}
 				return result;
@@ -541,8 +550,28 @@ public class AdminDAO {
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
-		}	
+		}
 	}
+	
+	// 관리자 - 병원정보 등록
+	public int insertHospitalInfo(HListDTO dto) throws Exception {
+		String sql = "insert into hosptList values (hosptListSeq.nextval,?,?,?,?,?,?,?,?,?,sysdate,0)";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setString(1, dto.getHosptName());
+			pstat.setInt(2, dto.getPostcode());
+			pstat.setString(3, dto.getAddress1());
+			pstat.setString(4, dto.getAddress2());
+			pstat.setString(5, dto.getPhone());
+			pstat.setString(6, dto.getHomepage());
+			pstat.setString(7, dto.getImg());
+			pstat.setString(8, dto.getMedicalAnimal());
+			pstat.setString(9, dto.getOpenTime());
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	
 
 	//관리자통계 - 남자회원 수
 	public int recordMemberMTotalCount () throws Exception {
@@ -664,8 +693,72 @@ public class AdminDAO {
 			return rs.getInt(1);
 		}
 	}
-
-
+	//관리자통계 - 가입경로 직접검색
+	public int recordDirectSearchTotalCount () throws Exception {
+		String sql = "select count(signpath) from member where signpath=' ''찾아조 왓슨!'' 직접검색'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	//관리자통계 - 가입경로 키워드검색
+		public int recordKeywordSearchTotalCount () throws Exception {
+			String sql = "select count(signpath) from member where signpath=' ''특수 동물 병원'' 키워드 검색'";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				ResultSet rs = pstat.executeQuery();
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
+		//관리자통계 - 가입경로 지인소개
+		public int recordIntroduceTotalCount () throws Exception {
+			String sql = "select count(signpath) from member where signpath='지인 소개'";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				ResultSet rs = pstat.executeQuery();
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
+		//관리자통계 - 가입경로 기타
+		public int recordOtherSearchTotalCount () throws Exception {
+			String sql = "select count(lovepet) from member where lovepet not in (' ''찾아조 왓슨!'' 직접검색',' ''특수 동물 병원'' 키워드 검색','지인 소개')";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				ResultSet rs = pstat.executeQuery();
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
+		//관리자통계 - 인기게시물 top5
+		public List<ChartDTO> recordTop5 () throws Exception {
+			String sql = "select * from (SELECT title,viewcount FROM board union all select title,viewcount from expert order by viewcount desc) where rownum<=5";
+			try(
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					){
+				ResultSet rs = pstat.executeQuery();
+				List<ChartDTO> list = new ArrayList<>();
+				while(rs.next()) {
+					String title = rs.getString(1);
+					int viewCount = rs.getInt(2);
+					ChartDTO dto = new ChartDTO (title,viewCount);
+					list.add(dto);
+				}
+				return list;
+			}
+		}
 	//공지사항 테이블 시퀀스로 dto가져오기
 	public NoticeDTO getNoticeBySeq(int noticeSeq)throws Exception{
 		String sql = "select * from notice where seq =?";
@@ -683,24 +776,37 @@ public class AdminDAO {
 				String content = rs.getString(3);
 				Timestamp writeDate = rs.getTimestamp(4);
 				int viewCount = rs.getInt(5);
+				viewCount = increNoticeView(viewCount, seq);
 
 				NoticeDTO dto = new NoticeDTO(seq, title, content, writeDate, viewCount);
 				return dto;
 			}
 		}
-
 	}
-	//전문가 큐엔에이 테이블 시퀀스로 dto가져오기
-	public ExpertDTO getExpertBySeq(int expertSeq)throws Exception{
+
+	// 조회수 늘리기
+		// 공지
+		public int increNoticeView(int count, int seq) throws Exception {
+			String sql = "update notice set viewCount = ?+ 1 where seq = ?";
+			try (
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);)
+			{
+				pstat.setInt(1, count);
+				pstat.setInt(2, seq);
+				pstat.executeUpdate();
+				con.commit();
+				return count+1;
+			}
+
+		}
+	
+	// 전문가 큐엔에이 테이블 시퀀스로 dto가져오기
+	public ExpertDTO getExpertBySeq(int expertSeq) throws Exception {
 		String sql = "select * from expert where seq =?";
-		try(
-				Connection con = getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-				){
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, expertSeq);
-			try(
-					ResultSet rs = pstat.executeQuery();
-					){
+			try (ResultSet rs = pstat.executeQuery();) {
 				rs.next();
 				int seq = rs.getInt(1);
 				String writer = rs.getString(2);
@@ -708,128 +814,178 @@ public class AdminDAO {
 				String content = rs.getString(4);
 				Timestamp writeDate = rs.getTimestamp(5);
 				int viewCount = rs.getInt(6);
-
+				viewCount = increExpertView(viewCount, seq);
+						
 				ExpertDTO dto = new ExpertDTO(seq, writer, title, content, writeDate, viewCount);
 				return dto;
 			}
 		}
+	}
+	
+	// 전문가 조회수
+	public int increExpertView(int count, int seq) throws Exception {
+		String sql = "update expert set viewCount = ?+ 1 where seq = ?";
+		try (
+				Connection con = getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				) {
+			pstat.setInt(1, count);
+			pstat.setInt(2, seq);
+			pstat.executeUpdate();
+			con.commit();
+			return count+1;
+		}
 
 	}
-			
-			//전문가 게시판 시퀀스로 dto가져오기
-			public BoardDTO getBoardBySeq(int expertSeq, String header)throws Exception{
-				String sql = "select * from Board where seq = ? and header = ?";
+	
+	// 1:1 문의게시판 디테일 뷰
+	public ObODTO getObOBySeq(int ObOSeq) throws Exception {
+		String sql = "select * from oneByOne where seq =?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, ObOSeq);
+			try (ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String anserOK = rs.getString(3);
+				String header = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String tiAddr = rs.getString(7);
+				Timestamp writeDate = rs.getTimestamp(8);
+
+				ObODTO dto = new ObODTO(seq, writer, anserOK, header, title, content, tiAddr, writeDate);
+				return dto;
+			}
+		}
+	}
+
+	// 전문가 게시판 시퀀스로 dto가져오기
+	public BoardDTO getBoardBySeq(int expertSeq, String header) throws Exception {
+		String sql = "select * from Board where seq = ? and header = ?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, expertSeq);
+			pstat.setString(2, header);
+			try (ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String headerInput = header;
+				String animalHeader = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String ipAddr = rs.getString(7);
+				int viewCount = rs.getInt(8);
+				Timestamp writeDate = rs.getTimestamp(9);
+
+				BoardDTO dto = new BoardDTO(seq, writer, headerInput, animalHeader, title, content, ipAddr, viewCount,
+						writeDate);
+				return dto;
+			}
+
+		}
+
+	}
+			//관리자 비밀번호 변경 - 기존 비밀번호와 확인
+			public boolean adminPwSameCheck(String oriPwInput) throws Exception{
+				String sql = "select * from admin where pw = ?";
 				try(
-					Connection con = getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
+						Connection con = getConnection();
+						PreparedStatement pstat = con.prepareStatement(sql);
 						){
-					pstat.setInt(1, expertSeq);
-					pstat.setString(2, header);
-					try(
+						pstat.setString(1,oriPwInput);
+						try(
 							ResultSet rs = pstat.executeQuery();
-							){
-							rs.next();
-							int seq = rs.getInt(1);
-							String writer = rs.getString(2);
-							String headerInput = header;
-							String animalHeader = rs.getString(4);
-							String title = rs.getString(5);
-							String content = rs.getString(6);
-							String ipAddr = rs.getString(7);
-							int viewCount = rs.getInt(8);
-							Timestamp writeDate = rs.getTimestamp(9);
-							
-							BoardDTO dto = new BoardDTO(seq, writer,headerInput, animalHeader, title, content,ipAddr, viewCount, writeDate);
-							return dto;
-					}
-				}
-				
-			}
-			//조회수 늘리기
-			//공지
-			public int increNoticeView(int seq)throws Exception{
-				String sql = "update notice set viewCount = (select viewCount from notice where seq = ?) + 1 where seq = ?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, seq);
-					pstat.setInt(2, seq);
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
-				}
-				
-			}
-			//전문가
-			public int increExpertView(int seq)throws Exception{
-				String sql = "update expert set viewCount = (select viewCount from expert where seq = ?) + 1 where seq = ?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, seq);
-					pstat.setInt(2, seq);
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
-				}
-				
-			}
-			//커뮤니티
-			public int increBoardView(int seq)throws Exception{
-				String sql = "update board set viewCount = (select viewCount from board where seq = ?) + 1 where seq = ?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, seq);
-					pstat.setInt(2, seq);
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
-				}
-				
-			}
-			//게시판 글삭제
-			public int deleteBoard(int seq)throws Exception{
-				String sql = "delete from board where seq=?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, seq);
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
+								){
+							return rs.next();
+						}
 				}
 			}
-			//공지사항 글삭제
-			public int deleteNotice(int seq)throws Exception{
-				String sql = "delete from notice where seq=?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, seq);
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
+
+
+
+
+	// 커뮤니티
+	public int increBoardView(int seq) throws Exception {
+		String sql = "update board set viewCount = (select viewCount from board where seq = ?) + 1 where seq = ?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			pstat.setInt(2, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+
+	}
+
+	// 게시판 글삭제
+	public int deleteBoard(int seq) throws Exception {
+		String sql = "delete from board where seq=?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+
+	// 공지사항 글삭제
+	public int deleteNotice(int seq) throws Exception {
+		String sql = "delete from notice where seq=?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+
+	// 전문가 글 삭제
+	public int deleteExpert(int seq) throws Exception {
+		String sql = "delete from expert where seq=?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	//병원 정보 삭제
+	public int deleteHospt(int seq) throws Exception {
+		String sql = "delete from hosptList where seq=?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	
+	// 병원 정보 뽑기
+		public HListDTO getHListBySeq(int seq) throws Exception {
+			String sql = "select * from hosptList where seq =?";
+			try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+				pstat.setInt(1, seq);
+				try (ResultSet rs = pstat.executeQuery();) {
+					rs.next();
+					int seqInput = rs.getInt(1);
+					String hName = rs.getString(2);
+					int postCode = rs.getInt(3);
+					String address1 = rs.getString(4);
+					String address2 = rs.getString(5);
+					String phone = rs.getString(6);
+					String homePage = rs.getString(7);
+					String img = rs.getString(8);
+					String medicalAnimal = rs.getString(9);
+					String openTime = rs.getString(10);
+					Timestamp registDate = rs.getTimestamp(11);
+					int viewCount = rs.getInt(12);
+
+					HListDTO dto = new HListDTO(seqInput, hName, postCode, address1, address2, phone, homePage,
+							img, medicalAnimal, openTime, registDate, viewCount);
+					return dto;
 				}
 			}
-			
-			//전문가 글 삭제
-			public int deleteExpert(int seq)throws Exception{
-				String sql = "delete from expert where seq=?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-					pstat.setInt(1, seq);
-					int result = pstat.executeUpdate();
-					con.commit();
-					return result;
-				}
-			}
-		
+		}
+	
 }

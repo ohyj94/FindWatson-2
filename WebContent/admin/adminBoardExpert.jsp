@@ -82,7 +82,6 @@
 		</div>
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
-	</div>
 	<script>
 //글쓰기 버튼
 	$("#writeBtn").on("click",function(){

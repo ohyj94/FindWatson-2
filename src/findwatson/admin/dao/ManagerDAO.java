@@ -38,10 +38,43 @@ public class ManagerDAO {
 		return bds.getConnection();
 	}
 	
+	// 병원 상세 정보
+	public HListDTO hosptInfo(int num)  throws Exception{
+		String sql = "select * from hosptList where seq=?";
+		try ( Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){ 
+			pstat.setInt(1,num);
+			try(ResultSet rs = pstat.executeQuery();){
+
+				HListDTO dto = null;
+				if(rs.next()) {
+					int seq = rs.getInt(1);
+					String hosptName = rs.getString(2);
+					int postcode = rs.getInt(3);
+					String city = rs.getString(4);
+					String gu = rs.getString(5);
+					String phone = rs.getString(6);
+					String homepage = rs.getString(7);
+					String img = rs.getString(8);
+					String medicalAnimal = rs.getString(9);
+					String openTime = rs.getString(10);
+					Timestamp registDate = rs.getTimestamp(11);
+					int viewCount = rs.getInt(12);
+
+					medicalAnimal = (medicalAnimal).replace(";",",");
+					dto = new HListDTO(seq, hosptName, postcode, city, gu,
+							phone, homepage, img, medicalAnimal, openTime, registDate, viewCount);
+				}
+				return dto; 
+			}
+		}
+	}
+	
 	//병원목록 10개씩
 	public List<HListDTO> hosptListByPage(int start, int end) throws Exception{
 		String sql = "select * from"
-				+ "(select hosptList.*, row_number() over (order by seq) as rown from hosptList)"
+				+ "(select hosptList.*, row_number() over (order by seq desc) as rown from hosptList)"
 				+ " where rown between ? and ?";
 		try(
 				Connection con = this.getConnection();
@@ -134,14 +167,14 @@ public class ManagerDAO {
 		}
 		StringBuilder sb = new StringBuilder();
 
-		if(needPrev) {sb.append("<a href='adminBoardHosptList.manager?cpage="+(currentPage-1)+"'> < </a>");}
+		if(needPrev) {sb.append("<a href='hosptInfoList.admin?cpage="+(currentPage-1)+"'> < </a>");}
 
 		for(int i = startNavi; i <= endNavi;i++) {
-			sb.append("<a href='adminBoardHosptList.manager?cpage="+i+"'>");
+			sb.append("<a href='hosptInfoList.admin?cpage="+i+"'>");
 			sb.append(i + " ");
 			sb.append("</a>");
 		}
-		if(needNext) {sb.append("<a href='adminBoardHosptList.manager?cpage="+(currentPage+1)+"'> > </a>");}
+		if(needNext) {sb.append("<a href='hosptInfoList.admin?cpage="+(currentPage+1)+"'> > </a>");}
 		return sb.toString();
 	}
 	//병원 정보 등록

@@ -613,6 +613,59 @@ public class BoardDAO {
 			return count + 1;
 		}
 	}
+	
+	//메인에 나오는 공지 5개
+	public List<NoticeDTO> getMainNotice() throws Exception{
+		String sql = "select * from (select notice.*, row_number() over(order by seq desc) rown from notice)\r\n" + 
+				"where rown <= 5 order by seq desc";
+		List<NoticeDTO> result = new ArrayList<>();
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			while(rs.next()) {
+				
+				int seq = rs.getInt(1);
+				String title = rs.getString(2);
+				String content = rs.getString(3);
+				Timestamp writeDate = rs.getTimestamp(4);
+				int viewCount = rs.getInt(5);
+				
+				result.add(new NoticeDTO(seq, title, content, writeDate, viewCount));
+			}
+			return result;
+		}
+	}
+	//메인에 나오는 자유게시판 5개
+	public List<BoardDTO> getMainFree() throws Exception{
+		String sql = "select * from (select board.*, row_number() over(order by seq desc) rown from board)\r\n" + 
+				"where rown <= 5 and header='자유' order by seq desc";
+		
+		List<BoardDTO> result = new ArrayList<>();
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			while(rs.next()) {
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String header = rs.getString(3);
+				String animalHeader = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String ipAddr = rs.getString(7);
+				int viewCount = rs.getInt(8);
+				Timestamp writeDate = rs.getTimestamp(9);
+				
+				result.add(new BoardDTO(seq, writer, header, animalHeader, title, content, ipAddr, viewCount, writeDate));
+			}
+			return result;
+		}
+	}
+	
+	
 
 
 }

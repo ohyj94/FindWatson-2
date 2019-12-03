@@ -12,11 +12,23 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="../resources/css/mainStyle.css">
+		
+		<style>
+		.inputs input{
+		position: relative;
+		left: 50%;
+		transform:translateX(-50%);
+		}
+		.btns{
+		text-align:center;
+		}
+		</style>
 </head>
 <body>
 <div class="container">
 <jsp:include page="../standard/header.jsp" />  
             <!--            -->
+   			<div class="row">
             <form action="${pageContext.request.contextPath}/login.member" method=post id=frm class="col-12">
 			<div class=row>
                 <div class=col-12>
@@ -24,9 +36,9 @@
                     <hr>
                 </div>
             </div>
-
+	
             <div class=row>
-                <div class="col-12 con">
+                <div class="col-12 con inputs">
                   
                     <input type=text id=id name="id">
                     <br>
@@ -36,19 +48,20 @@
             </div>
             
             <div class=row>
-                <div class="col-12 con">
-                  <a href="#">아이디 찾기</a> / 
+                <div class="col-12 con btns">
+                  <a href="idFind.jsp">아이디 찾기</a> / 
                   <a href="#">비밀번호 찾기</a>  
                 </div>
             </div>
             
             <div class=row>
-                <div class="col-12 con">
+                <div class="col-12 con btns">
                 	<button type="button" id=tologin>로그인</button>
                     <button type="button" id=signUp>회원가입</button>
                 </div>
             </div>
             </form>
+            </div>
             <!--            -->
 			<jsp:include page="../standard/footer.jsp" />
         </div>

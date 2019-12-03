@@ -63,7 +63,7 @@
 			                	${dto.animalHeader}
 			                </div>
 			                <div class="col-8 col-md-5 text-left">
-			                    ${dto.title}
+			                 <a href='${pageContext.request.contextPath}/freeDetail.bo?seq=${dto.seq}'>${dto.title}</a> 
 			                </div>
 			                <!-- 모바일에서만 보이는 div -->
 			                <div class="col-4 d-block d-md-none">${dto.animalHeader}</div>
@@ -75,6 +75,7 @@
 			                    ${dto.writeDate}
 			                </div>
 			            </div>
+			            
 					</c:forEach>
 				</c:when>	            
 			</c:choose>          
