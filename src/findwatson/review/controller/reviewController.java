@@ -15,11 +15,13 @@ import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import findwatson.admin.dto.HListDTO;
 import findwatson.configuration.Configuration;
 import findwatson.review.dao.ReviewDAO;
 import findwatson.review.dao.ReviewFileDAO;
 import findwatson.review.dto.ReviewDTO;
 import findwatson.review.dto.ReviewFileDTO;
+import findwatson.search.dao.HospitalListDAO;
 
 @WebServlet("*.re")
 public class reviewController extends HttpServlet {
@@ -88,6 +90,15 @@ public class reviewController extends HttpServlet {
 			}
 		}else if(cmd.contentEquals("/hospitalSearchDetail2.re")) { //병원 디테일뷰 2 - 디폴트:최신순
 			try {    
+				//디테일뷰 상단 병원 정보
+				
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				HListDTO contents = HospitalListDAO.getInstance().select(seq);
+
+				HospitalListDAO.getInstance().plusss(contents.getViewCount(),seq);
+				request.setAttribute("contents", contents);
+				
+				//하단 리뷰 리스트
 				int cpage = 1;
 				String cpageInput = request.getParameter("cpage");
 				if(cpageInput != null) {
@@ -103,7 +114,8 @@ public class reviewController extends HttpServlet {
 				
 				List<ReviewDTO> reviewList = dao.selectByPage(hosptListSeq, startRecord, endRecord);
 				request.setAttribute("reviewList", reviewList);
-				request.getRequestDispatcher("hospitalSearchDetail2.jsp").forward(request, response);
+				
+				request.getRequestDispatcher("/search/hospitalSearchDetail2.jsp").forward(request, response);
 			}catch(Exception e) {
 				e.printStackTrace();
 				response.sendRedirect(contextPath + "/error.jsp");

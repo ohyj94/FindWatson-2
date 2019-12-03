@@ -133,8 +133,20 @@ public class SearchController extends HttpServlet {
 
 				request.getRequestDispatcher("/search/hospitalSearchDetail_1.jsp").forward(request, response);
 
-				// 상단 검색바에서 검색하면 목록 가져오기 
+				
+			}else if(cmd.contentEquals("/contentsReview.s")){ 
+				// 여기 review controllert 로
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				System.out.println(seq);
+				HListDTO contents = HospitalListDAO.getInstance().select(seq);
+				System.out.println(contents.getHosptName());
+
+				HospitalListDAO.getInstance().plusss(contents.getViewCount(),seq);
+				request.setAttribute("contents", contents);
+
+				request.getRequestDispatcher("/search/hospitalSearchDetail2.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/keywordSearch.s")) {
+				// 상단 검색바에서 검색하면 목록 가져오기 
 				// 검색어를 가져온다 
 
 				String keyword = request.getParameter("keywordSearch");

@@ -41,16 +41,16 @@ public class memberController extends HttpServlet {
 
 			try {
 				boolean result = dao.loginOk(id, pw);
+				
 				if(result) {
 					request.getSession().setAttribute("loginInfo",id);
 					//아이피 주소 membertable에 업데이트
-					dao.updateMemberIp(id, ipAddr);
-					response.sendRedirect("main/index.jsp");
-				}else {
-					//알림 : 로그인 실패시 다시 로그인 화면을 띄워주도록 경로 변경 바람
-					response.sendRedirect("main/index.jsp");
-
+					dao.updateMemberIp(id, ipAddr);					
 				}
+request.setAttribute("result", result);
+				
+				request.getRequestDispatcher("member/loginResultView.jsp").forward(request, response);;
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -72,8 +72,15 @@ public class memberController extends HttpServlet {
 			String address1 = request.getParameter("address1");
 			String address2 = request.getParameter("address2");
 			String lovePet = request.getParameter("lovePet");
+			if(lovePet.contentEquals("on")) {
+				lovePet = request.getParameter("otherAnimal");
+				System.out.println("기타 관심동물-------"+lovePet);
+			}
 			String signPath = request.getParameter("signPath");
-
+			if(signPath.contentEquals("on")) {
+				signPath = request.getParameter("otherSignPath");
+				System.out.println("기타 가입경로----------"+signPath);
+			}
 			System.out.println(id);
 
 			MemberDTO dto = new MemberDTO(id,pw,name,birth,gender,email,phone,postcode,address1,address2,lovePet,signPath, null,"--");

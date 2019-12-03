@@ -8,7 +8,7 @@
 		<c:when test="${adminInfo == null}">
 			<script>
 			alert("로그인이 필요합니다.");
-			location.href = "${pageContext.request.contextPath}/main/startAdmin";
+			location.href = "${pageContext.request.contextPath}/main/startAdmin.jsp";
 			</script>
 		</c:when>
 	</c:choose>
