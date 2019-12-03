@@ -146,7 +146,7 @@ public class SearchController extends HttpServlet {
 				String keyword = request.getParameter("keywordSearch");
 				// 공백으로 나눠서 배열에 담는다 
 				String arr[] = keyword.split(" ");
-		
+		 
 				// 네비게이터 받아오는 부분 
 				int currentPage =1;
 				String page = request.getParameter("currentPage");
