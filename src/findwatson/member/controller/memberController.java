@@ -38,23 +38,23 @@ public class memberController extends HttpServlet {
 		if(path.contentEquals("/login.member")) { //로그인
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
+
 			String redirectPage = request.getParameter("returnPage");
+			
+			System.out.println(id + ":" + pw + ":" + redirectPage);
+
 			try {
 				boolean result = dao.loginOk(id, pw);
 				
 				if(result) {
-					if(redirectPage != null) {
-						request.setAttribute("redirectPage", redirectPage);
-						
-					}
 					request.getSession().setAttribute("loginInfo",id);
 					//아이피 주소 membertable에 업데이트
-					dao.updateMemberIp(id, ipAddr);
+					dao.updateMemberIp(id, ipAddr);					
 				}
+request.setAttribute("result", result);
 				
-				request.setAttribute("result", result);
-				request.getRequestDispatcher("member/loginResultView.jsp").forward(request, response);
-					
+				request.getRequestDispatcher("member/loginResultView.jsp").forward(request, response);;
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -199,12 +199,50 @@ public class memberController extends HttpServlet {
 				String email = request.getParameter("email");
 				int phone = Integer.parseInt(request.getParameter("phone"));
 				boolean list = dao.idFind(name, birth, email, phone);
+				System.out.println(list);
 				if(list) {
-					request.setAttribute("list", list);
+					String id = dao.idFindGet(name, birth, email, phone);
+					request.setAttribute("id", id);
+					System.out.println(id);
 					request.getRequestDispatcher("member/viewIdFind.jsp").forward(request, response);
 				}else {
 					response.sendRedirect("main/error.jsp");
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("main/error.jsp");
+			}
+		}//비밀번호찾기
+		else if (path.contentEquals("/pwFind.member")) {
+			try {
+				String name = request.getParameter("name");
+				String id = request.getParameter("id");
+				String birth = request.getParameter("birth");
+				String email = request.getParameter("email");
+				int phone = Integer.parseInt(request.getParameter("phone"));
+				boolean list = dao.pwFind(name, id, birth, email, phone);
+				if(list) {
+					request.getRequestDispatcher("member/viewPwFind.jsp").forward(request, response);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("main/error.jsp");
+			}
+		}//비밀번호 변경
+		else if (path.contentEquals("/viewPwFind.member")) {
+			try {
+				String id = request.getParameter("id");
+				String pw = request.getParameter("pw");
+				System.out.println("아무거나");
+				int list = dao.pwFindGet(id, pw);
+				if(list > 0) {
+					request.getRequestDispatcher("member/login.jsp").forward(request, response);
+				}
+				else {
+					System.out.println("DB에 없는 정보");
+					response.sendRedirect("/FindWatson/member/noPwFind.jsp");
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.sendRedirect("main/error.jsp");

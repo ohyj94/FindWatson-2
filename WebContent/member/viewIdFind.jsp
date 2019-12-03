@@ -16,14 +16,12 @@
         <link rel="stylesheet" href="resources/css/mainStyle.css">
 
 </head>
-<body>
-<div class="container">
-<jsp:include page="../standard/headerMember.jsp" />  
+		 <jsp:include page="../standard/header.jsp" />  
 <!--            -->
   			<div class =row>
                         <div class= col-12>
                             <h5>아이디</h5>
-                            ${list.id}
+                            ${id}
                         </div>
                     </div>
 
