@@ -119,10 +119,7 @@
         		location.href="${pageContext.request.contextPath}/board/boardWriteQuestion.jsp";
         	});
         	
-          	$("select").on("change", function(){
-        		var value = $("select option:selected").val();
-        		alert(value);
-        	})
+       
         </script>
 </body>
 </html>
