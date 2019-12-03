@@ -92,41 +92,18 @@
 							method="post">
 							<div class="row line">
 								<div class="col-12">
-<<<<<<< HEAD
-								<input type="text" id="name" name=name val =${dto.hosptName}>
-=======
 									 병원이름 : <input type="text" id="name" name=name value=${dto.hosptName}>
->>>>>>> temp
 								</div>
 								<br>
 
 
 								<div class="col-12">
-<<<<<<< HEAD
-									<input type="text" id="postcode" name=postcode
-										placeholder="우편번호" readonly val =${dto.postCode}>
-=======
 									 우편번호 : <input type="text" id="postcode" name=postcode
 										placeholder="우편번호" readonly value=${dto.postcode}>
->>>>>>> temp
 									<button id=addressBtn type="button"
 										onclick="sample4_execDaumPostcode()">찾기</button>
 								</div>
 								<div class="col-12">
-<<<<<<< HEAD
-									<input type="text" id="address1" name=address1
-										placeholder="주소1" readonly val =${dto.address1}>
-								</div>
-								<div class="col-12">
-									<input type=text name=address2 id=address2 placeholder="주소2" val =${dto.address2}>
-								</div>
-								<div class="col-12">
-									<input type=text id=phone name=phone placeholder='전화번호' val =${dto.phone}>
-								</div>
-								<div class="col-12">
-									<input type=text id=homepage name=homepage
-										placeholder='홈페이지 주소' val =${dto.homepage}>
-=======
 									상세주소1 : <input type="text" id="address1" name=address1
 										placeholder="주소1" readonly value=${dto.address1}>
 								</div>
@@ -139,7 +116,6 @@
 								<div class="col-12">
 									링크 : <input type=text id=homepage name=homepage
 										placeholder='홈페이지 주소' value=${dto.homepage}>
->>>>>>> temp
 								</div>
 								<div class=col-12>진료과목</div>
 								<div class=col-12>
