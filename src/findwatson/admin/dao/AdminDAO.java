@@ -566,7 +566,6 @@ public class AdminDAO {
 			pstat.setString(7, dto.getImg());
 			pstat.setString(8, dto.getMedicalAnimal());
 			pstat.setString(9, dto.getOpenTime());
-			
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
@@ -980,7 +979,7 @@ public class AdminDAO {
 					String medicalAnimal = rs.getString(9);
 					String openTime = rs.getString(10);
 					Timestamp registDate = rs.getTimestamp(11);
-					int viewCount = rs.getInt(6);
+					int viewCount = rs.getInt(12);
 
 					HListDTO dto = new HListDTO(seqInput, hName, postCode, address1, address2, phone, homePage,
 							img, medicalAnimal, openTime, registDate, viewCount);
