@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,14 +18,14 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import findwatson.admin.dao.AdminDAO;
 import findwatson.admin.dto.ExpertDTO;
-import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
 import findwatson.board.dao.BoardDAO;
+import findwatson.board.dao.ComDAO;
 import findwatson.board.dao.FilesDAO;
 import findwatson.board.dto.BoardDTO;
+import findwatson.board.dto.ComDTO;
 import findwatson.board.dto.FilesDTO;
 import findwatson.configuration.Configuration;
-import findwatson.search.dao.HospitalListDAO;
 
 
 @WebServlet("*.bo")
@@ -275,19 +272,21 @@ public class BoardController extends HttpServlet {
 				BoardDTO dto = adao.getBoardBySeq(seq, "자유");
 				request.setAttribute("dto", dto);
 				request.setAttribute("loginInfo", id);
-				
+				List<ComDTO> list = ComDAO.getInstance().selectAll(seq);
+				request.setAttribute("list", list);
 				request.getRequestDispatcher("board/freeDetailView.jsp").forward(request, response);
 
 				
 			}else if(cmd.contentEquals("/questionDetail.bo")) {
-				//자유 게시판 글읽기
+				//질문 게시판 글읽기
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				AdminDAO adao = AdminDAO.getInstance();
 				BoardDTO dto = adao.getBoardBySeq(seq, "질문");
 				request.setAttribute("dto", dto);
 				request.setAttribute("loginInfo", id);
-				
-				request.getRequestDispatcher("board/questionDetailView.jsp").forward(request, response);
+				List<ComDTO> list = ComDAO.getInstance().selectAll(seq);
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("board/freeDetailView.jsp").forward(request, response);
 				
 			}else if(cmd.contentEquals("/boardRemove.bo")){
 				//게시판 글삭제

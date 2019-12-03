@@ -83,6 +83,16 @@
 		
 			</c:when>
 		</c:choose>
+		
+		<div class=row>
+		<div class=col-6>작성자</div>
+		<div class="col-6 right">날짜</div>
+		</div>
+		<div class=row>
+		<div class=col-12>
+			내용
+		</div>
+		</div>
 		<!--  -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
