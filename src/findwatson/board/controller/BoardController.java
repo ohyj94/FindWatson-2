@@ -267,12 +267,23 @@ public class BoardController extends HttpServlet {
 				
 			}else if(cmd.contentEquals("/freeDetail.bo")) {
 				//자유 게시판 글읽기
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
+				int end = cpage * Configuration.recordCountPerPage;
+				
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				AdminDAO adao = AdminDAO.getInstance();
 				BoardDTO dto = adao.getBoardBySeq(seq, "자유");
 				request.setAttribute("dto", dto);
 				request.setAttribute("loginInfo", id);
-				List<ComDTO> list = ComDAO.getInstance().selectAll(seq);
+				
+				String pageNavi = ComDAO.getInstance().getPageNaviCmt(cpage, seq);
+				List<ComDTO> list = ComDAO.getInstance().selectByPage(seq, start, end);
+				request.setAttribute("pageNavi", pageNavi);
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("board/freeDetailView.jsp").forward(request, response);
 

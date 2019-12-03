@@ -107,7 +107,10 @@
 		<div class=row>
 			<div class=col-12 id=cmtCon></div>
 		</div>
-
+		
+		<div class=row>
+		<div class="col-12 center">${pageNavi}</div>
+		</div>
 
 
 		<div class=row>

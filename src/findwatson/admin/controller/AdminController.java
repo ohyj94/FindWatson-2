@@ -210,7 +210,7 @@ public class AdminController extends HttpServlet {
 				if(page != null) {
 					cpage = Integer.parseInt(request.getParameter("cpage"));
 				}
-				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
 				int end = cpage * Configuration.recordCountPerPage;
 				List<ExpertDTO> list = BoardDAO.getInstance().selectByPageExpert(start, end);
 
@@ -226,7 +226,7 @@ public class AdminController extends HttpServlet {
 				if(page != null) {
 					cpage = Integer.parseInt(request.getParameter("cpage"));
 				}
-				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<NoticeDTO> list = BoardDAO.getInstance().selectByPageNotice(start, end);
@@ -252,7 +252,7 @@ public class AdminController extends HttpServlet {
 				if(page != null) {
 					cpage = Integer.parseInt(request.getParameter("cpage"));
 				}
-				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<BoardDTO> list = BoardDAO.getInstance().selectByPage(start, end, "자유");
@@ -268,7 +268,7 @@ public class AdminController extends HttpServlet {
 				if(page != null) {
 					cpage = Integer.parseInt(request.getParameter("cpage"));
 				}
-				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<BoardDTO> list = BoardDAO.getInstance().selectByPage(start, end, "질문");
@@ -448,7 +448,7 @@ public class AdminController extends HttpServlet {
 					cpage = Integer.parseInt(request.getParameter("cpage"));
 				}
 
-				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<HListDTO> list = Mdao.hosptListByPage(start, end);
@@ -510,7 +510,7 @@ public class AdminController extends HttpServlet {
 				if(page != null) {
 					cpage = Integer.parseInt(request.getParameter("cpage"));
 				}
-				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<ObODTO> list = Odao.ObOByPage(start, end);
