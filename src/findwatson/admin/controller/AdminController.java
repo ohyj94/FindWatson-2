@@ -616,6 +616,25 @@ public class AdminController extends HttpServlet {
 				HListDTO dto = dao.getHListBySeq(seq);
 				request.setAttribute("dto",dto);
 				request.getRequestDispatcher("admin/adminModifyHospt.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/noticeModify.admin")) { //공지 수정 폼으로 이동
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				NoticeDTO dto = dao.getNoticeBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("admin/noticeModify.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/noticeModifyProc.admin")) { //공지 수정 프로세스
+				String title = request.getParameter("boardTitle");
+				String content = request.getParameter("content");
+				int seq= Integer.parseInt(request.getParameter("seq"));
+				
+				System.out.println(content);
+
+				//dao.updateToNotice(new NoticeDTO(seq, title, content, null, 0));
+
+				response.sendRedirect(contextPath + "/boardNotice.admin");
+			}else if(cmd.contentEquals("")) {
+				
+			}else if(cmd.contentEquals("")) {
+				
 			}else{
 				response.sendRedirect(contextPath + "/error.jsp");
 			}

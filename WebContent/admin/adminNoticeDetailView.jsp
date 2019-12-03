@@ -39,7 +39,7 @@
 	</div>
 	<script>
 	$("#modify").on("click", function(){
-		alert("준비중입니다");
+		location.href = '${pageContext.request.contextPath}/noticeModify.admin?seq=${dto.seq}';
 	})
 	$("#delete").on("click", function(){
 		var result = confirm("정말 삭제하시겠습니까?");

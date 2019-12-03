@@ -1145,4 +1145,9 @@ public class AdminDAO {
 				return result;
 			}
 		}
+
+		//공지 수정
+//		public int updateNotice(int seq)throws Exception{
+//			String sql = "update notice set "
+//		}
 }
