@@ -67,7 +67,7 @@ public class AdminController extends HttpServlet {
 				}
 				request.setAttribute("result", result);
 				
-				request.getRequestDispatcher("admin/loginResultView.jsp").forward(request, response);;
+				request.getRequestDispatcher("admin/loginResultView.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/adminPwModify.admin")) {//관리자 비밀번호 변경
 				String oriPw = request.getParameter("oriPw");
 				String newPw = request.getParameter("newPw");

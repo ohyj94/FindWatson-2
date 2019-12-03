@@ -38,11 +38,11 @@
 							</span>
 						</div>
 						<div class="row">
-							<div class="col-md-1 d-none d-md-block">글번호</div>
+							<div class="col-md-1 d-none d-md-block p-0">글번호</div>
 							<div class="col-md-6 d-none d-md-block">제목</div>
 							<div class="col-md-2 d-none d-md-block">글쓴이</div>
 							<div class="col-md-2 d-none d-md-block">작성일</div>
-							<div class="col-md-1 d-none d-md-block">조회수</div>
+							<div class="col-md-1 d-none d-md-block p-0">조회수</div>
 						</div>
             <!-- 게시글 목록 -->
 			<c:choose>
@@ -51,9 +51,10 @@
 					<c:forEach items="${list}" var="dto">
 						<div class="row line">
 			                <div class="col-1">${dto.seq }</div>
-			                <div class="col-6 text-left">
+			                <div class="col-10 col-md-6 text-left">
 			                <a href='${pageContext.request.contextPath}/freeDetail.bo?seq=${dto.seq}'>${dto.title}</a>
 			                </div>
+			                <div class="col-6 d-none d-md-block col-md-2 text-left">${dto.writer}</div>
 			                <div class="col-6 d-none d-md-block col-md-2 text-left">${dto.formedDate}</div>
 			                <div class="col-6 d-none d-md-block col-md-1 text-center">${dto.viewCount }</div>
 			            </div>

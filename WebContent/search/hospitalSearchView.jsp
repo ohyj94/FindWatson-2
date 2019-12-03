@@ -118,7 +118,7 @@
                     <img src = "${hospital.img}" id =hImg >
                 </div>
                 <div class = col-8>
-                     <a href="contents.s?seq=${hospital.seq}">${hospital.hosptName}</a>
+                     <a href="${pageContext.request.contextPath}/contents.s?seq=${hospital.seq}">${hospital.hosptName}</a>
                   
                     <ul>
                         <li>순서 : "${hospital.seq}"</li>
