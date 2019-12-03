@@ -88,7 +88,13 @@ position:relative;
 .noneExist{
 display:none;
 }
+#likeImg{
+width:20px;
+}
+.shield { pointer-events: none; }
+
 </style>
+
 </head>
 <body>
 	
@@ -171,28 +177,30 @@ display:none;
 			<c:otherwise>
 			<c:forEach items="${reviewList}" var="dto"><%-------------------------------------------------------------------------------------------------- --%>
 			<div class=row>
-				<div class=col-2>
-				<div class=starCon>
+				<div class="col-4 col-md-2 p-0">		
+				<div class="starCon shield">
             <span class="fa fa-star" id="star1t${dto.seq}" onclick="addt${dto.seq}(this,1)"></span>
             <span class="fa fa-star" id="star2t${dto.seq}" onclick="addt${dto.seq}(this,2)"></span>
             <span class="fa fa-star" id="star3t${dto.seq}" onclick="addt${dto.seq}(this,3)"></span>
             <span class="fa fa-star" id="star4t${dto.seq}" onclick="addt${dto.seq}(this,4)"></span>
             <span class="fa fa-star" id="star5t${dto.seq}" onclick="addt${dto.seq}(this,5)"></span>
-      
-       				</div>
+      			</div>
 				</div>
-				<div class=col-6>
-				<p>
+				<div class="col-6 col-sm-5 col-md-4 col-lg-5">
+				<p class="m-0">
  				 <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse${dto.seq}" aria-expanded="false" 
  				 aria-controls="collapseExample">
 				${dto.title}
 				</button>
 				</p>
 				</div>
-				<div class=col-2>${dto.writeDate}</div>
-				<div class=col-2>
-				${dto.writer} 
-				<button type=button id="like${dto.seq}">좋아요</button> ${dto.likeCount}
+				<div class="col-3 col-md-2 d-none d-md-block">${dto.formedDate}</div>
+				<div class="col-2 d-none d-md-block">${dto.writer} </div>
+				<div class="col-1 col-sm-2 col-lg-1">
+				<div class="row">
+				<div class="col-6 p-0"><button type=button id="like${dto.seq}" class="p-0"><img src="imgs/like.png" id="likeImg"></button></div>
+				<div class="col-6 d-none d-sm-block">${dto.likeCount}</div>
+				</div>
 				</div>
 			</div>
 			
@@ -220,6 +228,9 @@ display:none;
                      }
                  }
              }
+             
+           
+             
            //좋아요 기능
      		$("#like${dto.seq}").on("click",function(){
      			location.href="likeIncrement.re?reviewSeq="+${dto.seq}+"&boardSeq="+${contents.seq};

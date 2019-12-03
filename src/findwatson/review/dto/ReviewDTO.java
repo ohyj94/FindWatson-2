@@ -1,6 +1,7 @@
 package findwatson.review.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class ReviewDTO {
 	private int seq;
@@ -114,6 +115,12 @@ public class ReviewDTO {
 		this.likeCount = likeCount;
 	}
 	
+	public String getFormedDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		long writeDate = this.writeDate.getTime();		
+		
+		return sdf.format(writeDate);		
+	}
 
 	
 }

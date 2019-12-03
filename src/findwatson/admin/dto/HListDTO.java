@@ -1,6 +1,7 @@
 package findwatson.admin.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class HListDTO {
 	private int seq;
@@ -153,6 +154,13 @@ public class HListDTO {
 		return (hosptName + postcode + address1 + 
 				address2 + phone + homepage + img + medicalAnimal
 				+ openTime).hashCode();
+	}
+	
+	public String getFormedDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		long registDate = this.registDate.getTime();		
+		
+		return sdf.format(registDate);		
 	}
 	
 	
