@@ -38,19 +38,23 @@ public class memberController extends HttpServlet {
 		if(path.contentEquals("/login.member")) { //로그인
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
-
+			String redirectPage = request.getParameter("returnPage");
 			try {
 				boolean result = dao.loginOk(id, pw);
 				
 				if(result) {
+					if(redirectPage != null) {
+						request.setAttribute("redirectPage", redirectPage);
+						
+					}
 					request.getSession().setAttribute("loginInfo",id);
 					//아이피 주소 membertable에 업데이트
-					dao.updateMemberIp(id, ipAddr);					
+					dao.updateMemberIp(id, ipAddr);
 				}
-request.setAttribute("result", result);
 				
-				request.getRequestDispatcher("member/loginResultView.jsp").forward(request, response);;
-				
+				request.setAttribute("result", result);
+				request.getRequestDispatcher("member/loginResultView.jsp").forward(request, response);
+					
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
