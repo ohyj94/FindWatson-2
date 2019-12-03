@@ -616,6 +616,31 @@ public class AdminController extends HttpServlet {
 				HListDTO dto = dao.getHListBySeq(seq);
 				request.setAttribute("dto",dto);
 				request.getRequestDispatcher("admin/adminModifyHospt.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/noticeModify.admin")) { //공지 수정 폼으로 이동
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				NoticeDTO dto = dao.getNoticeBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("admin/noticeModify.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/noticeModifyProc.admin")) { //공지 수정 프로세스
+				String title = request.getParameter("boardTitle");
+				String content = request.getParameter("content");
+				int seq= Integer.parseInt(request.getParameter("seq"));
+				
+				System.out.println(content);
+				dao.updateNotice(seq, title, content);
+				response.sendRedirect(contextPath + "/adminNoticeDetailView.admin?seq="+seq);
+			}else if(cmd.contentEquals("/expertModify.admin")) {//전문가 Q&A 수정 폼으로 이동
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				ExpertDTO dto = dao.getExpertBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("admin/expertModify.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/expertModifyProc.admin")) {//전문가 Q&A 수정 프로세스
+				String title = request.getParameter("boardTitle");
+				String content = request.getParameter("content");
+				int seq= Integer.parseInt(request.getParameter("seq"));
+				
+				dao.updateExpert(seq, title, content);
+				response.sendRedirect(contextPath + "/adminExpertDetailView.admin?seq="+seq);
 			}else{
 				response.sendRedirect(contextPath + "/error.jsp");
 			}

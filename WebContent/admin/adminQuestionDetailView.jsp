@@ -15,8 +15,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 </head>
 <body>
 	<div class=container>

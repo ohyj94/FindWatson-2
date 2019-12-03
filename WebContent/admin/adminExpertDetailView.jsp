@@ -38,10 +38,26 @@
 			<hr>
 		</div>
 		<div class=row>
-			<div class=col-12 id=boardContent>${dto.content}</div>
+			<div class=col-12 id=boardContent>${dto.content}<br></div>
 		</div>
+		<div class=row>
+			<button type="button" id="modify">수정</button>
+			<button type="button" id="delete">삭제</button>
+		</div>
+		<!--  -->
 		<!--  -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
+	<script>
+	$("#modify").on("click", function(){
+		location.href = '${pageContext.request.contextPath}/expertModify.admin?seq=${dto.seq}';
+	})
+	$("#delete").on("click", function(){
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result){
+			location.href = '${pageContext.request.contextPath}/expertRemove.admin?seq=${dto.seq}';
+		}	
+	})
+	</script>
 </body>
 </html>

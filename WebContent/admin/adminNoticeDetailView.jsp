@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		<div class=row>
-			<div class=col-12 id=boardContent>${dto.content}</div>
+			<div class=col-12 id=boardContent>${dto.content}<br></div>
 		</div>
 		
 		<div class=row>
@@ -39,7 +39,7 @@
 	</div>
 	<script>
 	$("#modify").on("click", function(){
-		alert("준비중입니다");
+		location.href = '${pageContext.request.contextPath}/noticeModify.admin?seq=${dto.seq}';
 	})
 	$("#delete").on("click", function(){
 		var result = confirm("정말 삭제하시겠습니까?");
