@@ -60,6 +60,8 @@
                     <button type="button" id=signUp>회원가입</button>
                 </div>
             </div>
+            
+            <input type=hidden name=returnPage id=returnPage value="">
             </form>
             </div>
             <!--            -->
@@ -70,6 +72,8 @@
                 location.href="signup.jsp";
             });
 	        $("#tologin").on("click",function(){
+	        	var referrer =  document.referrer;
+	        	$("#returnPage").val(referrer);
 	        	$("#frm").submit();
 	        });
         

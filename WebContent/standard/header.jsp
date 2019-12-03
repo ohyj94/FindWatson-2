@@ -65,7 +65,6 @@
         </nav>
     </div>
 </div>
-
 <script>
 $("#login").on("click",function(){
     location.href="${pageContext.request.contextPath}/member/login.jsp";

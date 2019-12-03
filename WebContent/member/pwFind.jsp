@@ -147,7 +147,7 @@
 		$("#find").on("click",function(){
 			if($("#id").val()==""){
 				alert("아이디를 입력하세요!")
-				return;
+				return false;
 			}
 			if($("#id").val()!==""){
 				var regex = /^[a-z][a-z0-9]{6,13}$/gm;
@@ -159,13 +159,13 @@
 				}
 				else{
 					alert("아이디 형식에 맞지않습니다.")
-					return;
+					return ;
 				}
 			}
 			
 			if($("#name").val()==""){
 				alert("이름을 입력하세요!")
-				return;
+				return false;
 			}
 			if($("#name").val()!==""){
 				var regex = /^[가-힣]{2,8}$/gm;
@@ -182,7 +182,7 @@
 			
 			if($("#birth").val()==""){
 				alert("생년월일을 입력하세요!")
-				return;
+				return false;
 			}
 			if($("#birth").val()!==""){
 				var regex = /^[0-9]{6}$/gm;
@@ -199,7 +199,7 @@
 			
 			if($("#email").val()==""){
 				alert("이메일을 입력하세요!")
-				return;
+				return false;
 			}
 			if($("#email").val()!==""){
 				var regex = /^[0-9a-zA-Z]+@[a-z]+(\.[a-z]+){1,2}$/gm;
@@ -216,7 +216,7 @@
 			
 			if($("#phone").val()==""){
 				alert("핸드폰번호를 입력하세요!")
-				return;
+				return false;
 			}
 			if($("#phone").val()!==""){
 				var regex = /^01[0-9]{8,9}$/gm;

@@ -243,7 +243,7 @@ request.setAttribute("result", result);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-				response.sendRedirect("/FindWatson/member/noPwFind.jsp");
+				response.sendRedirect("main/error.jsp");
 			}
 		}
 	}
