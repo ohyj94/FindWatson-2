@@ -212,7 +212,7 @@ public class AdminController extends HttpServlet {
 				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
 				int end = cpage * Configuration.recordCountPerPage;
 				List<ExpertDTO> list = BoardDAO.getInstance().selectByPageExpert(start, end);
-				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory);
+				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory, "전문가");
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("admin/adminBoardExpert.jsp").forward(request, response);
@@ -228,7 +228,7 @@ public class AdminController extends HttpServlet {
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<NoticeDTO> list = BoardDAO.getInstance().selectByPageNotice(start, end);
-				String pageNavi =  BoardDAO.getInstance().getPageNavi(cpage,pageCategory);
+				String pageNavi =  BoardDAO.getInstance().getPageNavi(cpage,pageCategory,"공지");
 
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
@@ -253,7 +253,7 @@ public class AdminController extends HttpServlet {
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<BoardDTO> list = BoardDAO.getInstance().selectByPage(start, end, "자유");
-				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory);
+				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory,"자유");
 
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
@@ -269,7 +269,7 @@ public class AdminController extends HttpServlet {
 				int end = cpage * Configuration.recordCountPerPage;
 
 				List<BoardDTO> list = BoardDAO.getInstance().selectByPage(start, end, "질문");
-				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory);
+				String pageNavi = BoardDAO.getInstance().getPageNavi(cpage,pageCategory,"질문");
 
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
