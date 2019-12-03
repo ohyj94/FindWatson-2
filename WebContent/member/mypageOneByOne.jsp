@@ -15,9 +15,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="resources/css/mainStyle.css">
 
-<style>
-	
-</style>
+
 </head>
 <body>
 <div class="container">
@@ -40,7 +38,7 @@
                     <div class =row>
                         <div class= col-12>
                             <h5>내용</h5>
-                            <input type="textarea" name=content height=1000px;>
+                            <input type="textarea" name=content>
                         </div>
                         
                     </div>
