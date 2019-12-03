@@ -51,14 +51,14 @@ display:none;
                      <div class="col-2 p-1">
                      <input class=noneExist name=header value=자유>
                         <select name="animalHeader">
-                           <option value="bird">새</option>
-                           <option value="fish">물고기</option>
-                           <option value="ham">햄스터</option>
-                           <option value="rabbit">토끼</option>
-                           <option value="dochi">고슴도치</option>
-                           <option value="reptile">파충류</option>
-                           <option value="bug">곤충류</option>
-                           <option value="other">기타</option>
+                           <option value="새">새</option>
+                           <option value="물고기">물고기</option>
+                           <option value="햄스터">햄스터</option>
+                           <option value="토끼">토끼</option>
+                           <option value="고슴도치">고슴도치</option>
+                           <option value="파충류">파충류</option>
+                           <option value="곤충류">곤충류</option>
+                           <option value="기타">기타</option>
                         </select>
                      </div>
                      <div class="col-10 p-1">
