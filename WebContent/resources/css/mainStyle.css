@@ -42,7 +42,6 @@ strong{
 #footer-contents {
 	font-size: 8pt;
 }
-
 .nav-item {
 	display: inline-block;
 	width: 100%;
@@ -57,4 +56,11 @@ display:none;
 }
 .right{
 	text-align: right;
+}
+#cmt{
+	width:100%;
+	height: 100%;
+}
+.center{
+	text-align: center;
 }

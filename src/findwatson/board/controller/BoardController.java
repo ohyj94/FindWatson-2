@@ -315,6 +315,25 @@ public class BoardController extends HttpServlet {
 				}else{ //질문게시판으로 이동
 					response.sendRedirect("boardQuestion.bo");
 				}
+			}else if(cmd.contentEquals("/expertDetail.bo")) {  //전문가 디테일 뷰
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				AdminDAO adao = AdminDAO.getInstance();
+				ExpertDTO dto = adao.getExpertBySeq(seq);
+				request.setAttribute("dto", dto);
+								
+				request.getRequestDispatcher("board/boardExpertDetailView.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/freeCommentWrite.bo")) { //자유게시판 댓글 작성
+				String comment = request.getParameter("comment");
+				int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
+				ComDTO dto = new ComDTO(0,boardSeq, id, comment,ipAddr,null);
+				ComDAO.getInstance().insert(dto);
+				
+				JsonObject jobj = new JsonObject();
+				jobj.addProperty("writer", dto.getWriter());
+				jobj.addProperty("comment", comment);
+				//jobj.addProperty("date", dto.getDate()); //왜인지 모르겠는데 nullPoint웅앵 뜸..
+				
+				pwriter.append(jobj.toString());
 			}else {
 				// 등록되지 않은 경로로 입장시
 

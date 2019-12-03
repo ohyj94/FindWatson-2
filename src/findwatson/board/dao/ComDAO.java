@@ -17,8 +17,8 @@ public class ComDAO {
 	private ComDAO() {
 		bds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 		bds.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
-		bds.setUsername("manager");
-		bds.setPassword("manager");
+		bds.setUsername("watson");
+		bds.setPassword("watson");
 		bds.setInitialSize(30);
 	}
 	private Connection getConnetion() throws Exception{
@@ -32,7 +32,7 @@ public class ComDAO {
 	}
 	
 	  public List<ComDTO> selectAll(int boardSeq) throws Exception{
-	      String sql = "select * from comments wehre boardSeq=?";
+	      String sql = "select * from comments where boardSeq=?";
 	      List<ComDTO> result = new ArrayList<>();
 	      try(
 	            Connection con = this.getConnetion();
