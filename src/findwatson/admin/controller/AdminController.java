@@ -32,6 +32,7 @@ import findwatson.board.dto.BoardDTO;
 import findwatson.board.dto.ObODTO;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
+import findwatson.review.dto.ReviewDTO;
 
 @WebServlet("*.admin")
 public class AdminController extends HttpServlet {
@@ -471,8 +472,37 @@ public class AdminController extends HttpServlet {
 			} else if(cmd.contentEquals("/hosptInfoModify.admin")){
 				System.out.println("도착");
 
+				
+			// 병원 리뷰 네비 적용된 리스트 출력
+			} else if(cmd.contentEquals("/adminHosptReviewList.admin")) {
+				int cpage = 1;
+				String param = request.getParameter("cpage");
 
+				if(param!=null) {
+					cpage = Integer.parseInt(param);	
+				}
+
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);	
+				int end = cpage * Configuration.recordCountPerPage;
+
+				List<ReviewDTO> list = dao.hosptReviewListByPage(start, end);
+
+				String pageNavi = dao.getHosptReviewListPageNav(cpage);
+
+				request.setAttribute("pageNavi", pageNavi);
+				request.setAttribute("list", list);
+
+				//
+				request.getRequestDispatcher("/admin/adminHosptReviewList.jsp").forward(request, response);
+				
+			//병원 리뷰 삭제	
+			}else if (cmd.contentEquals("/memberReviewRemove.admin")) {
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				dao.deleteHosptReview(seq);
+				response.sendRedirect(contextPath + "/adminHosptReviewList.admin");
+	
 				// 1:1 문의 게시글 출력
+
 			} else if(cmd.contentEquals("/adminOneByOne.admin")) {
 
 				int cpage = 1;
