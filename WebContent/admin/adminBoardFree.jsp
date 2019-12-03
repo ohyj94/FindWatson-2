@@ -46,7 +46,7 @@
 							<c:when test="${list.size() > 0}">
 								<c:forEach items="${list}" var="dto">
 									<div class="row line">
-										<div class="col-1 d-none d-md-block">1</div>
+										<div class="col-1 d-none d-md-block">${dto.seq}</div>
 										<div class="col-md-2 d-none d-md-block">
 											${dto.animalHeader}</div>
 										<div class="col-8 col-md-5 text-left">
@@ -75,26 +75,34 @@
 						<div class="row">
 							<div class="col-12 text-center">${pageNavi}</div>
 						</div>
-						<!-- -->
+						
+						<!-- 게시물 검색 -->
+						<form action="${pageContext.request.contextPath}/searchFree.admin" method="post">
+						
 						<div class="row mb-2">
 							<div class="col-auto col-sm-2 p-1">
-								<select id="category">
-									<option value="">제목</option>
+								<select id="category" name="category">
+									<option value="title">제목</option>
+										<option value="writer">작성자</option>
+										<option value="animalheader">동물 분류</option>
 								</select>
 							</div>
 							<div class="search-box col-auto col-sm-6 p-1">
-								<input type="text" class="" id="search" name="search" value="">
+								<input type="text" class="" id="search" name="keyword">
 							</div>
 							<div class="search-box col-auto col-sm-2 p-1">
 								<button class="btn btn-sm btn-outline-secondary">검색</button>
 							</div>
 						</div>
+						
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
+
 	</div>
 </body>
 </html>

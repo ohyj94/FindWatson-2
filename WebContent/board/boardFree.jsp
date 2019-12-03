@@ -124,10 +124,7 @@
         		location.href="${pageContext.request.contextPath}/board/boardWriteFree.jsp";
         	});
         	
-        	$("select").on("change", function(){
-        		var value = $("select option:selected").val();
-        		alert(value);
-        	})
+        
         </script>
 </body>
 </html>

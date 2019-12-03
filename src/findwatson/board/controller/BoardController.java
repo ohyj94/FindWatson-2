@@ -302,9 +302,7 @@ public class BoardController extends HttpServlet {
 				response.sendRedirect("main/error.jsp");
 			}
 		} catch(Exception e) {
-			System.out.println("아예 에러가 발생해버렸읍니다.");
-
-			e.printStackTrace();
+					e.printStackTrace();
 			response.sendRedirect("main/error.jsp");
 		}
 
