@@ -316,8 +316,6 @@ public class BoardController extends HttpServlet {
 				}else{ //질문게시판으로 이동
 					response.sendRedirect("boardQuestion.bo");
 				}
-				
-				
 			}else {
 				// 등록되지 않은 경로로 입장시
 
