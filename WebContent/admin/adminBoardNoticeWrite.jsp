@@ -24,7 +24,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/adminBoardWrite.css">
+	href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 </head>
 <body>
 	<form action="${pageContext.request.contextPath}/noticeWrite.admin"

@@ -22,7 +22,7 @@
 		<%--별점 --%>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-		<link rel="stylesheet" href="../resources/css/adminBoard.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 <meta charset="UTF-8">
 
 <style>

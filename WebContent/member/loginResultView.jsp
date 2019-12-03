@@ -16,7 +16,12 @@
 				var redirectPage = "${redirectPage}";
 				
 				if(redirectPage != null){
-					$(location).attr("href", redirectPage);
+					if(redirectPage == "http://localhost:8080/FindWatson/signUp.member"){
+						location.href = "${pageContext.request.contextPath}/toMain.main";
+					}else{
+						$(location).attr("href", redirectPage);
+					}
+					
 				}else{
 					location.href = "${pageContext.request.contextPath}/toMain.main";
 				}

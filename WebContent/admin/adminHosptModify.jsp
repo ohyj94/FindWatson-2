@@ -12,7 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<link rel="stylesheet" href="../resources/css/adminBoard.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 <style>
 /*div {border: 1px solid black}*/
 #imgCon {width: 300px;height: 300px;}
