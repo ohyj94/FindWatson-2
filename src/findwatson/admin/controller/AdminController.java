@@ -334,8 +334,54 @@ public class AdminController extends HttpServlet {
 					response.sendRedirect("hosptInfoList.admin");
 				}
 
-			// 병원 리스트 출력
-			} else if(cmd.contentEquals("/hosptInfoList.admin")) {
+			
+			}else if(cmd.contentEquals("/hosptInfoModify.admin")) {//병원 정보 수정
+				String repositoryName = "hospitalImgModify";
+				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
+
+				File uploadFilePath = new File(uploadPath);
+				if(!uploadFilePath.exists()) {
+					uploadFilePath.mkdir();
+				}
+
+				int maxSize = 1024 * 1024 * 10; // 10MB 용량 제한
+				MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+
+				String name = multi.getParameter("name");
+				int postcode = Integer.parseInt(multi.getParameter("postcode"));
+				int seq = Integer.parseInt(multi.getParameter("seq"));
+				HListDTO dto = dao.getHListBySeq(seq);
+				String address1 = multi.getParameter("address1");
+				String address2 = multi.getParameter("address2");
+				String phone = multi.getParameter("phone");
+				String homepage = multi.getParameter("homepage");
+				String[] medicalAnimalArr = multi.getParameterValues("medicalAnimal");
+				String[] openTimeArr = multi.getParameterValues("openTime");
+				String image = contextPath + "/" + repositoryName + "/" + multi.getFilesystemName("image");
+
+				String medicalAnimal = Arrays.toString(medicalAnimalArr).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
+				if(medicalAnimal.contentEquals("null")) {
+					medicalAnimal = "";
+				}
+
+				String openTime = Arrays.toString(openTimeArr).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
+				if(openTime.contentEquals("null")) {
+					openTime = "";
+				}
+				System.out.println("animal : " + openTime);
+
+				//System.out.println(uploadPath);
+				//System.out.println(name+"/"+postcode+"/"+address1+"/"+address2+"/"+phone+"/"+homepage+"/"+medicalAnimal.length+"/"+openTime.length+"/"+image);
+
+				HListDTO Hdto = new HListDTO(seq,name,postcode,address1,address2,phone,homepage,image,medicalAnimal,openTime,null,dto.getViewCount());
+				int result = dao.updateHospitalInfo(Hdto);
+				if(result > 0) {
+					System.out.println("병원 정보 입력 성공");
+					response.sendRedirect("hosptInfoList.admin");
+				}
+
+			
+			}else if(cmd.contentEquals("/hosptInfoList.admin")) {// 병원 리스트 출력
 				int cpage = 1;
 				String page = request.getParameter("cpage");
 				
@@ -362,13 +408,7 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("imglocation", imglocation);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/adminHosptDetailView.jsp").forward(request, response);
-			// 병원 정보 수정
-			} else if(cmd.contentEquals("/hosptInfoModify.admin")){
-				System.out.println("도착");
-				
-				
-			// 1:1 문의 게시글 출력
-			} else if(cmd.contentEquals("/adminOneByOne.admin")) {
+			}else if(cmd.contentEquals("/adminOneByOne.admin")) {
 				int cpage = 1;
 				String page = request.getParameter("cpage");
 				if(page != null) {
