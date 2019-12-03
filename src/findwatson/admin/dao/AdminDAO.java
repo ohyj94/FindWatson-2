@@ -1145,7 +1145,37 @@ public class AdminDAO {
 		}
 
 		//공지 수정
-//		public int updateNotice(int seq)throws Exception{
-//			String sql = "update notice set "
-//		}
+		public int updateNotice(int seq, String title, String content)throws Exception{
+			String sql = "update notice set title =?, content =? where seq = ?";
+					try(
+							Connection con = getConnection(); 
+							PreparedStatement pstat = con.prepareStatement(sql);
+							){
+						pstat.setString(1, title);
+						pstat.setString(2, content);
+						pstat.setInt(3, seq);
+						
+						int result = pstat.executeUpdate();
+						con.commit();
+						return result;
+							
+					}
+		}
+		//전문가 수정
+				public int updateExpert(int seq, String title, String content)throws Exception{
+					String sql = "update expert set title =?, content =? where seq = ?";
+							try(
+									Connection con = getConnection(); 
+									PreparedStatement pstat = con.prepareStatement(sql);
+									){
+								pstat.setString(1, title);
+								pstat.setString(2, content);
+								pstat.setInt(3, seq);
+								
+								int result = pstat.executeUpdate();
+								con.commit();
+								return result;
+									
+							}
+				}
 }

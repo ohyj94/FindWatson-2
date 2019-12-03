@@ -23,8 +23,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/adminBoardWrite.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 <style>
 .noneExist{
 display:none;
@@ -57,7 +56,7 @@ display:none;
 							<div class="row">
 								<div class="col-12 p-1">
 									<!-- 썸머노트 -->
-									<textarea id="summernote" value=${dto.content}></textarea>
+									<textarea id="summernote" >${dto.content}</textarea>
 									<br>
 									<textarea id=snInput class=noneExist name=content></textarea>
 									<!-- 썸머노트 -->
@@ -124,6 +123,9 @@ display:none;
 		var content = $(".note-editable").html();
 		var regex = /<p>.{1}[^b].*?<\/p>/;
 		var result = regex.exec(content);
+		
+		console.log(title);
+		console.log(result);
 		
 		if( (title == "") || (result == null) ){
 			alert("내용을 입력해주세요");
