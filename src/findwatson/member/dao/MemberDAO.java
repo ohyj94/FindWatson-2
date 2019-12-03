@@ -41,13 +41,13 @@ public class MemberDAO {
 			pstat.setString(1, id);
 			pstat.setString(2, pw);
 			try(
-				ResultSet rs = pstat.executeQuery();
-			){
+					ResultSet rs = pstat.executeQuery();
+					){
 				boolean result = rs.next(); 
 				return result;
 			}
-			
-			
+
+
 		}
 	}
 	public boolean idCheck(String id) throws Exception {
@@ -57,13 +57,13 @@ public class MemberDAO {
 				){
 			pstat.setString(1, id);
 			try(
-				ResultSet rs = pstat.executeQuery();
-			){
-			boolean result = rs.next();
-			return result;
+					ResultSet rs = pstat.executeQuery();
+					){
+				boolean result = rs.next();
+				return result;
 			}
-			
-			
+
+
 		}
 	}
 	public int insert(MemberDTO dto)throws Exception{
@@ -121,7 +121,7 @@ public class MemberDAO {
 				}
 				return dto;
 			}
-			
+
 		}
 	}
 	public int modify
@@ -129,8 +129,8 @@ public class MemberDAO {
 			String lovePet, String id)throws Exception {
 		String sql = "update member set pw=?,name=?, birth=?, gender=?, email=?, phone=?, postcode=?, address1=?, address2=?, lovePet=? where id=?";
 		try(Connection con = bds.getConnection();
-		PreparedStatement pstat = con.prepareStatement(sql);){
-			
+				PreparedStatement pstat = con.prepareStatement(sql);){
+
 			pstat.setString(1,pw);
 			pstat.setString(2, name);
 			pstat.setString(3, birth);
@@ -142,7 +142,7 @@ public class MemberDAO {
 			pstat.setString(9, address2);
 			pstat.setString(10, lovePet);
 			pstat.setString(11, id);
-			
+
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
@@ -162,7 +162,7 @@ public class MemberDAO {
 			return result;
 		}
 	}
-	
+
 	//차단목록에 있나 확인하기
 	public boolean banCheck(String ipAddr)throws Exception{
 		String sql ="select * from banIp where ipAddr = ?";
@@ -172,7 +172,7 @@ public class MemberDAO {
 				){
 			pstat.setString(1, ipAddr);
 			try(
-				ResultSet rs = pstat.executeQuery();
+					ResultSet rs = pstat.executeQuery();
 					){
 				return rs.next();
 			}
@@ -182,12 +182,12 @@ public class MemberDAO {
 	public String banReasonByIp(String ipAddr)throws Exception{
 		String sql ="select reason from banIp where ipAddr =?";
 		try(
-			Connection con = getConnection();
-			PreparedStatement pstat = con.prepareStatement(sql);
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setString(1, ipAddr);
 			try(
-				ResultSet rs = pstat.executeQuery();
+					ResultSet rs = pstat.executeQuery();
 					){
 				rs.next();
 				return rs.getString(1);
@@ -205,27 +205,56 @@ public class MemberDAO {
 			pstat.setInt(4, phone);
 			try(ResultSet rs = pstat.executeQuery();){
 				boolean result = rs.next();
-			
-			return result;
+
+				return result;
 			}
-			
+
 		}
-		
+
 	}//id찾기-id가지고오기
 	public String idFindGet(String name, String birth, String email, int phone) throws Exception{
 		String sql = "select id from member where name=? and birth=? and email=? and phone=?";
 		try(Connection con = bds.getConnection();
-			PreparedStatement pstat = con.prepareStatement(sql);){
+				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, name);
 			pstat.setString(2, birth);
 			pstat.setString(3, email);
 			pstat.setInt(4, phone);
 			try(ResultSet rs = pstat.executeQuery();){
-						rs.next();
-			return rs.getString(1);
+				rs.next();
+				return rs.getString(1);
 			}
+
+		}
+
+	}
+	//비밀번호찾기
+	public boolean pwFind(String name, String id, String birth, String email, int phone)throws Exception{
+		String sql = "select pw from member where name=? and id=? and birth=? and email=? and phone=?";
+		try(Connection con = bds.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, name);
+			pstat.setString(2 ,id);
+			pstat.setString(3, birth);
+			pstat.setString(4, email);
+			pstat.setInt(5, phone);
+			try(ResultSet rs = pstat.executeQuery();){
+				boolean result = rs.next();
+				return result;
+			}
+		}
+	}
+	//비밀번호찾기-pw가지고오기
+	public int pwFindGet(String id, String pw)throws Exception{
+		String sql = "update member set pw=? where id=?";
+		try(Connection con = bds.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1 ,pw);
+			pstat.setString(2, id);
+				int result = pstat.executeUpdate();
+				con.commit();
+				return result;
 			
 		}
-		
 	}
 }

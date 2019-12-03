@@ -210,6 +210,41 @@ request.setAttribute("result", result);
 				e.printStackTrace();
 				response.sendRedirect("main/error.jsp");
 			}
+		}//비밀번호찾기
+		else if (path.contentEquals("/pwFind.member")) {
+			try {
+				String name = request.getParameter("name");
+				String id = request.getParameter("id");
+				String birth = request.getParameter("birth");
+				String email = request.getParameter("email");
+				int phone = Integer.parseInt(request.getParameter("phone"));
+				boolean list = dao.pwFind(name, id, birth, email, phone);
+				if(list) {
+					request.getRequestDispatcher("member/viewPwFind.jsp").forward(request, response);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("main/error.jsp");
+			}
+		}//비밀번호 변경
+		else if (path.contentEquals("/viewPwFind.member")) {
+			try {
+				String id = request.getParameter("id");
+				String pw = request.getParameter("pw");
+				System.out.println("아무거나");
+				int list = dao.pwFindGet(id, pw);
+				if(list > 0) {
+					request.getRequestDispatcher("member/login.jsp").forward(request, response);
+				}
+				else {
+					System.out.println("DB에 없는 정보");
+					response.sendRedirect("/FindWatson/member/noPwFind.jsp");
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("/FindWatson/member/noPwFind.jsp");
+			}
 		}
 	}
 
