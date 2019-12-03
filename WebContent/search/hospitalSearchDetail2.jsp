@@ -95,7 +95,7 @@ display:none;
 		<div class="container">
 			<jsp:include page="../standard/header.jsp" />
 			<!--            -->
-			<form action="${pageContext.request.contextPath}/reviewWrite.re" method="post" id=reviewSave>
+			<form action="${pageContext.request.contextPath}/reviewWrite.re?seq=${contents.seq}" method="post" id=reviewSave>
 			<div class="row">
 				<div class="col-12">
 					<h1>${contents.hosptName}</h1>
@@ -152,9 +152,9 @@ display:none;
 
 			<div class=row>
 				<div class=col-12 id=array>
-					<a href="${pageContext.request.contextPath}/hospitalSearchDetail2ByScore.re" id=scoreRange>별점순</a>
-					<a href="${pageContext.request.contextPath}/hospitalSearchDetail2.re">최신순</a> 
-					<a href="${pageContext.request.contextPath}/hospitalSearchDetail2ByLike.re" id=defaultRange>좋아요순</a>
+					<a href="${pageContext.request.contextPath}/hospitalSearchDetail2ByScore.re?seq=${contents.seq}" id=scoreRange>별점순</a>
+					<a href="${pageContext.request.contextPath}/hospitalSearchDetail2.re?seq=${contents.seq}">최신순</a> 
+					<a href="${pageContext.request.contextPath}/hospitalSearchDetail2ByLike.re?seq=${contents.seq}" id=defaultRange>좋아요순</a>
 				</div>
 			</div>
 			
@@ -308,7 +308,7 @@ display:none;
 					data.append("reviewImg", files[0]);
 
 					$.ajax({
-						url : "${pageContext.request.contextPath}/imgUpload.re",
+						url : "${pageContext.request.contextPath}/imgUpload.re?seq=${contents.seq}",
 						enctype : "multipart/form-data",
 						type : "post",
 						data : data,
