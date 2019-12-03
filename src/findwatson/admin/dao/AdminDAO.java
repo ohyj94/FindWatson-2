@@ -948,8 +948,6 @@ public class AdminDAO {
 			}
 
 
-
-
 	// 커뮤니티
 	public int increBoardView(int seq) throws Exception {
 		String sql = "update board set viewCount = (select viewCount from board where seq = ?) + 1 where seq = ?";
