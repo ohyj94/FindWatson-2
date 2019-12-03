@@ -79,4 +79,5 @@ $("#logout").on("click", function(){
 $("#donate").on("click",function(){
     location.href="${pageContext.request.contextPath}/donate/donateForm.jsp"
 })
+
 </script>

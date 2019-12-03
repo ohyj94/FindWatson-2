@@ -41,8 +41,7 @@ public class BoardController extends HttpServlet {
 		String cmd = requestURI.substring(contextPath.length());
 		System.out.println("컨트롤러 : " + cmd);
 	 
-	    //String id = (String)request.getSession().getAttribute("loginInfo");
-	    String id = "test"; // 테스트
+	    String id = (String)request.getSession().getAttribute("loginInfo");
 	    String ipAddr = request.getRemoteAddr();
 	    
 		try {
@@ -208,8 +207,32 @@ public class BoardController extends HttpServlet {
 				
 			}else if(cmd.contentEquals("/freeDetail.bo")) {
 				//자유 게시판 글읽기
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				AdminDAO adao = AdminDAO.getInstance();
+				BoardDTO dto = adao.getBoardBySeq(seq, "자유");
+				request.setAttribute("dto", dto);
+				request.setAttribute("loginInfo", id);
 				
-			} else {
+				request.getRequestDispatcher("board/freeDetailView.jsp").forward(request, response);
+				
+			}else if(cmd.contentEquals("/questionDetail.bo")) {
+				//자유 게시판 글읽기
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				AdminDAO adao = AdminDAO.getInstance();
+				BoardDTO dto = adao.getBoardBySeq(seq, "질문");
+				request.setAttribute("dto", dto);
+				request.setAttribute("loginInfo", id);
+				
+				request.getRequestDispatcher("board/questionDetailView.jsp").forward(request, response);
+				
+			}else if(cmd.contentEquals("/boardRemove.bo")){
+				//게시판 글삭제
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				AdminDAO adao = AdminDAO.getInstance();
+				adao.deleteBoard(seq);
+				response.sendRedirect("boardFree.bo");
+			}
+			else {
 				// 등록되지 않은 경로로 입장시
 				response.sendRedirect("main/error.jsp");
 			}
