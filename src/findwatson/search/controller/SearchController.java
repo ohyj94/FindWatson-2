@@ -159,7 +159,7 @@ public class SearchController extends HttpServlet {
 				List<HListDTO> list = new ArrayList<>();
 				List<HListDTO> list2 = new ArrayList<>();
 
-				// 배열의 개수만큼 검색 
+				// 배열의 개수만큼 검색한다
 				for(int i=0; i<arr.length; i++) {
 					list = HospitalListDAO.getInstance().selectByPageTotal(arr[i], start, end);
 					// 배열에서 dto를 하나씩 빼내서 list에 넣는다 
