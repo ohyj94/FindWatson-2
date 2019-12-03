@@ -3,6 +3,7 @@ package findwatson.admin.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class AdminController extends HttpServlet {
 		String contextPath = request.getContextPath();
 		String cmd = requestURI.substring(contextPath.length());
 		String id = (String)request.getSession().getAttribute("adminInfo");
-		
+
 
 		AdminDAO dao = AdminDAO.getInstance();
 		ManagerDAO Mdao = ManagerDAO.getInstance();
@@ -65,13 +66,13 @@ public class AdminController extends HttpServlet {
 					request.getSession().setAttribute("adminInfo", idInput);					
 				}
 				request.setAttribute("result", result);
-				
+
 				request.getRequestDispatcher("admin/loginResultView.jsp").forward(request, response);;
 			}else if(cmd.contentEquals("/adminPwModify.admin")) {//관리자 비밀번호 변경
 				String oriPw = request.getParameter("oriPw");
 				String newPw = request.getParameter("newPw");
 				System.out.println(oriPw + " : " + newPw);
-				
+
 				boolean pwCheck = dao.adminPwSameCheck(oriPw); 
 				System.out.println(pwCheck);
 				if(pwCheck) { //기존비밀번호와 일치했을때
@@ -238,8 +239,8 @@ public class AdminController extends HttpServlet {
 				List<MemberDTO> list = dao.selectById("%"+idInput+"%");
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
-			
-			
+
+
 			}else if(cmd.contentEquals("/boardFree.admin")){//자유게시판 글 출력
 				String pageCategory = "boardFree.bo";
 				int cpage = 1;
@@ -272,6 +273,59 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("admin/adminBoardQuestion.jsp").forward(request, response);
+
+				// 자유게시판 카테고리별 
+			}else if(cmd.contentEquals("/searchFree.admin")) {
+				String category = request.getParameter("category");
+				String keyword = request.getParameter("keyword");
+				// 네비게이터 받아오는 부분 
+				int currentPage =1;
+				String page = request.getParameter("currentPage");
+				if(page != null) {
+					currentPage = Integer.parseInt(page);
+				}
+				int start = currentPage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);
+				int end = currentPage * Configuration.recordCountPerPage;
+
+				List<BoardDTO> list = new ArrayList<>();
+
+				list = BoardDAO.getInstance().selectByOptionFree(category, keyword, start, end);
+
+				request.setAttribute("list", list);
+
+				// navi 값 보내기 
+				String pageNavi = BoardDAO.getInstance().getPageNaviTotalFree(currentPage, category, keyword );
+				request.setAttribute("pageNavi", pageNavi);
+				request.setAttribute("keyword", keyword);
+				request.getRequestDispatcher("/admin/adminBoardFree.jsp").forward(request, response);
+
+				// 질문게시판
+			}else if(cmd.contentEquals("/searchOne.admin")) {
+				String category = request.getParameter("category");
+				String keyword = request.getParameter("keyword");
+				// 네비게이터 받아오는 부분 
+				int currentPage =1;
+				String page = request.getParameter("currentPage");
+				if(page != null) {
+					currentPage = Integer.parseInt(page);
+				}
+				int start = currentPage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);
+				int end = currentPage * Configuration.recordCountPerPage;
+
+				List<BoardDTO> list = new ArrayList<>();
+
+				list = BoardDAO.getInstance().selectByOptionOne(category, keyword, start, end);
+
+				request.setAttribute("list", list);
+
+				// navi 값 보내기 
+				String pageNavi = BoardDAO.getInstance().getPageNaviTotalOne(currentPage, category, keyword );
+				request.setAttribute("pageNavi", pageNavi);
+				request.setAttribute("keyword", keyword);
+				request.getRequestDispatcher("/admin/adminBoardQuestion.jsp").forward(request, response);
+
+
+
 			}else if(cmd.contentEquals("/admin/adminDeleteMember.admin")) {//회원 차단기능
 				String idInput = request.getParameter("id");
 				String ipAddrInput = request.getParameter("ip");
@@ -334,40 +388,40 @@ public class AdminController extends HttpServlet {
 					response.sendRedirect("hosptInfoList.admin");
 				}
 
-			// 병원 리스트 출력
+				// 병원 리스트 출력
 			} else if(cmd.contentEquals("/hosptInfoList.admin")) {
 				int cpage = 1;
 				String page = request.getParameter("cpage");
-				
+
 				if(page != null) {
 					cpage = Integer.parseInt(request.getParameter("cpage"));
 				}
-				
+
 				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
 				int end = cpage * Configuration.recordCountPerPage;
-				
+
 				List<HListDTO> list = Mdao.hosptListByPage(start, end);
 				String pageNavi = Mdao.getHosptListPageNav(cpage);
-				
+
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("admin/adminHosptList.jsp").forward(request, response);
 
-			// 병원 정보 상세
+				// 병원 정보 상세
 			} else if(cmd.contentEquals("/hosptInfoDetailView.admin")) {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				String imglocation = "/FindWatson/hospitalImg";
 				HListDTO dto = Mdao.hosptInfo(seq);
-				
+
 				request.setAttribute("imglocation", imglocation);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/adminHosptDetailView.jsp").forward(request, response);
-			// 병원 정보 수정
+				// 병원 정보 수정
 			} else if(cmd.contentEquals("/hosptInfoModify.admin")){
 				System.out.println("도착");
-				
-				
-			// 1:1 문의 게시글 출력
+
+
+				// 1:1 문의 게시글 출력
 			} else if(cmd.contentEquals("/adminOneByOne.admin")) {
 				int cpage = 1;
 				String page = request.getParameter("cpage");
@@ -483,7 +537,7 @@ public class AdminController extends HttpServlet {
 			}else{
 				response.sendRedirect(contextPath + "/error.jsp");
 			}
-		
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect(contextPath + "/error.jsp");
