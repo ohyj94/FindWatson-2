@@ -566,7 +566,6 @@ public class AdminDAO {
 			pstat.setString(7, dto.getImg());
 			pstat.setString(8, dto.getMedicalAnimal());
 			pstat.setString(9, dto.getOpenTime());
-			
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
@@ -777,6 +776,7 @@ public class AdminDAO {
 				String content = rs.getString(3);
 				Timestamp writeDate = rs.getTimestamp(4);
 				int viewCount = rs.getInt(5);
+				viewCount = increNoticeView(viewCount, seq);
 
 				NoticeDTO dto = new NoticeDTO(seq, title, content, writeDate, viewCount);
 				return dto;
@@ -784,6 +784,23 @@ public class AdminDAO {
 		}
 	}
 
+	// 조회수 늘리기
+		// 공지
+		public int increNoticeView(int count, int seq) throws Exception {
+			String sql = "update notice set viewCount = ?+ 1 where seq = ?";
+			try (
+					Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);)
+			{
+				pstat.setInt(1, count);
+				pstat.setInt(2, seq);
+				pstat.executeUpdate();
+				con.commit();
+				return count+1;
+			}
+
+		}
+	
 	// 전문가 큐엔에이 테이블 시퀀스로 dto가져오기
 	public ExpertDTO getExpertBySeq(int expertSeq) throws Exception {
 		String sql = "select * from expert where seq =?";
@@ -797,11 +814,28 @@ public class AdminDAO {
 				String content = rs.getString(4);
 				Timestamp writeDate = rs.getTimestamp(5);
 				int viewCount = rs.getInt(6);
-
+				viewCount = increExpertView(viewCount, seq);
+						
 				ExpertDTO dto = new ExpertDTO(seq, writer, title, content, writeDate, viewCount);
 				return dto;
 			}
 		}
+	}
+	
+	// 전문가 조회수
+	public int increExpertView(int count, int seq) throws Exception {
+		String sql = "update expert set viewCount = ?+ 1 where seq = ?";
+		try (
+				Connection con = getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				) {
+			pstat.setInt(1, count);
+			pstat.setInt(2, seq);
+			pstat.executeUpdate();
+			con.commit();
+			return count+1;
+		}
+
 	}
 	
 	// 1:1 문의게시판 디테일 뷰
@@ -868,32 +902,8 @@ public class AdminDAO {
 				}
 			}
 
-	// 조회수 늘리기
-	// 공지
-	public int increNoticeView(int seq) throws Exception {
-		String sql = "update notice set viewCount = (select viewCount from notice where seq = ?) + 1 where seq = ?";
-		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-			pstat.setInt(1, seq);
-			pstat.setInt(2, seq);
-			int result = pstat.executeUpdate();
-			con.commit();
-			return result;
-		}
 
-	}
 
-	// 전문가
-	public int increExpertView(int seq) throws Exception {
-		String sql = "update expert set viewCount = (select viewCount from expert where seq = ?) + 1 where seq = ?";
-		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-			pstat.setInt(1, seq);
-			pstat.setInt(2, seq);
-			int result = pstat.executeUpdate();
-			con.commit();
-			return result;
-		}
-
-	}
 
 	// 커뮤니티
 	public int increBoardView(int seq) throws Exception {
@@ -940,4 +950,42 @@ public class AdminDAO {
 			return result;
 		}
 	}
+	//병원 정보 삭제
+	public int deleteHospt(int seq) throws Exception {
+		String sql = "delete from hosptList where seq=?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	
+	// 병원 정보 뽑기
+		public HListDTO getHListBySeq(int seq) throws Exception {
+			String sql = "select * from hosptList where seq =?";
+			try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+				pstat.setInt(1, seq);
+				try (ResultSet rs = pstat.executeQuery();) {
+					rs.next();
+					int seqInput = rs.getInt(1);
+					String hName = rs.getString(2);
+					int postCode = rs.getInt(3);
+					String address1 = rs.getString(4);
+					String address2 = rs.getString(5);
+					String phone = rs.getString(6);
+					String homePage = rs.getString(7);
+					String img = rs.getString(8);
+					String medicalAnimal = rs.getString(9);
+					String openTime = rs.getString(10);
+					Timestamp registDate = rs.getTimestamp(11);
+					int viewCount = rs.getInt(12);
+
+					HListDTO dto = new HListDTO(seqInput, hName, postCode, address1, address2, phone, homePage,
+							img, medicalAnimal, openTime, registDate, viewCount);
+					return dto;
+				}
+			}
+		}
+	
 }

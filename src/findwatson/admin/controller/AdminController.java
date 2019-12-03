@@ -61,14 +61,12 @@ public class AdminController extends HttpServlet {
 				String idInput = request.getParameter("id");
 				String pwInput = request.getParameter("pw");
 				boolean result = dao.adminLogin(idInput, pwInput);
-
 				if(result) {
-					request.getSession().setAttribute("adminInfo", idInput);
-					response.sendRedirect("main/indexAdmin.jsp");
+					request.getSession().setAttribute("adminInfo", idInput);					
 				}
-				else {
-					response.sendRedirect("main/error.jsp");
-				}
+				request.setAttribute("result", result);
+				
+				request.getRequestDispatcher("admin/loginResultView.jsp").forward(request, response);;
 			}else if(cmd.contentEquals("/adminPwModify.admin")) {//관리자 비밀번호 변경
 				String oriPw = request.getParameter("oriPw");
 				String newPw = request.getParameter("newPw");
@@ -88,7 +86,7 @@ public class AdminController extends HttpServlet {
 				}
 			}else if(cmd.contentEquals("/logout.admin")) {//관리자 로그아웃
 				request.getSession().invalidate();
-
+				response.sendRedirect("main/startAdmin.jsp");
 			}else if(cmd.contentEquals("/adminMemberList.admin")) {//회원목록 전체
 				//네비
 				int cpage = 1;
@@ -293,7 +291,7 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("/admin/adminMemberList.jsp").forward(request, response);
 
 				// 병원 정보 입력
-			} else if(cmd.contentEquals("/hosptInfoInsert.admin")) {
+			} else if(cmd.contentEquals("/hosptInfoInsert.admin")) { //병원 정보 등록
 				String repositoryName = "hospitalImg";
 				String uploadPath = request.getServletContext().getRealPath("/" + repositoryName);
 
@@ -313,13 +311,12 @@ public class AdminController extends HttpServlet {
 				String homepage = multi.getParameter("homepage");
 				String[] medicalAnimalArr = multi.getParameterValues("medicalAnimal");
 				String[] openTimeArr = multi.getParameterValues("openTime");
-				String image = multi.getFilesystemName("image");
+				String image = contextPath + "/" + repositoryName + "/" + multi.getFilesystemName("image");
 
 				String medicalAnimal = Arrays.toString(medicalAnimalArr).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
 				if(medicalAnimal.contentEquals("null")) {
 					medicalAnimal = "";
 				}
-				System.out.println("animal : " + medicalAnimal);
 
 				String openTime = Arrays.toString(openTimeArr).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
 				if(openTime.contentEquals("null")) {
@@ -439,13 +436,11 @@ public class AdminController extends HttpServlet {
 			}else if(cmd.contentEquals("/adminNoticeDetailView.admin")) { //관리자 - 공지에서 글 클릭했을때
 
 				int noticeSeq = Integer.parseInt(request.getParameter("seq"));
-				dao.increNoticeView(noticeSeq);
 				NoticeDTO dto = dao.getNoticeBySeq(noticeSeq);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/adminNoticeDetailView.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/adminExpertDetailView.admin")) {//관리자 - 전문가 Q&A에서 글 클릭했을때
 				int expertSeq = Integer.parseInt(request.getParameter("seq"));
-				dao.increExpertView(expertSeq);
 				ExpertDTO dto = dao.getExpertBySeq(expertSeq);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/adminExpertDetailView.jsp").forward(request, response);
@@ -476,6 +471,15 @@ public class AdminController extends HttpServlet {
 				response.sendRedirect(contextPath + "/boardNotice.admin");
 			}else if(cmd.contentEquals("/start.admin")) {
 				response.sendRedirect(contextPath + "/main/adminLogin.jsp");
+			}else if(cmd.contentEquals("/hosptRemove.admin")) { // 병원 정보 삭제
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				dao.deleteHospt(seq);
+				response.sendRedirect("hosptInfoList.admin");
+			}else if(cmd.contentEquals("/hosptModify.admin")) {//병원 정보 수정
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				HListDTO dto = dao.getHListBySeq(seq);
+				request.setAttribute("dto",dto);
+				request.getRequestDispatcher("admin/adminModifyHospt.jsp").forward(request, response);
 			}else{
 				response.sendRedirect(contextPath + "/error.jsp");
 			}

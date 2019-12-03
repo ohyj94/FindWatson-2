@@ -359,6 +359,7 @@ public class BoardDAO {
 		}
 	}
 	
+	//메인에 나오는 공지 5개
 	public List<NoticeDTO> getMainNotice() throws Exception{
 		String sql = "select * from (select notice.*, row_number() over(order by seq desc) rown from notice)\r\n" + 
 				"where rown <= 5 order by seq desc";
@@ -381,7 +382,7 @@ public class BoardDAO {
 			return result;
 		}
 	}
-	
+	//메인에 나오는 자유게시판 5개
 	public List<BoardDTO> getMainFree() throws Exception{
 		String sql = "select * from (select board.*, row_number() over(order by seq desc) rown from board)\r\n" + 
 				"where rown <= 5 and header='자유' order by seq desc";
@@ -408,6 +409,8 @@ public class BoardDAO {
 			return result;
 		}
 	}
+	
+	
 
 
 }

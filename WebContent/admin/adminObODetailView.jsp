@@ -17,7 +17,7 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+	href="../resources/css/adminBoard.css">
 <style>
 	.contents{width: 100%; height: 300px;}
 	.comment-box>*{width: 100%;}

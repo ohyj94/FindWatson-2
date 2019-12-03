@@ -2,8 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!--로그인 기능 연동되면 ${loginInfo == null}일때 로그인이 필요(알림창) 로그인페이지(이동) -->
 <!-- Admin Controller와 Manager Controller 무슨 차이...? -->
+
+<c:choose>
+		<c:when test="${adminInfo == null}">
+			<script>
+			alert("로그인이 필요합니다.");
+			location.href = "${pageContext.request.contextPath}/main/startAdmin.jsp";
+			</script>
+		</c:when>
+	</c:choose>
+
 
 <div class="row mb-2">
     <div id="loginBtn" class="col-12 p-1 text-right">
@@ -11,11 +20,13 @@
     <button class="btn btn-sm btn-outline-secondary" id=logout>로그아웃</button>
     </div>
 </div>
+
 <div class="row">
-    <div id="title" class="col-12 mb-3 p-1 text-center">
-        <a id=home><img id="logo" src="${pageContext.request.contextPath}/imgs/logo.png" class="col-12"></a>
+    <div id="title" class="col-12 p-0 mt-3 mb-3 text-center">
+        <a href="${pageContext.request.contextPath}/main/indexAdmin.jsp"><strong>FIND! WATSON</strong></a>
     </div>
 </div>
+
 <div class="row">
     <div id="navi" class="col-12 mb-3 p-1">
         <nav class="p-0 navbar navbar-expand-sm navbar-light bg-light">
@@ -29,7 +40,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            병원관리
+                            	병원관리
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" id="hospitalInsert">병원정보 등록</a>
@@ -39,7 +50,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            게시판관리
+                           	 게시판관리
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" id = expert>전문가Q&amp;A</a>
@@ -66,8 +77,8 @@
 
 <script>
 		//각 버튼별 주소이동
-		//홈
-		$("#home").attr("href", "${pageContext.request.contextPath}/main/indexAdmin.jsp");
+		//홈 : body에 링크
+		
 		//공지사항
 		$("#notice").attr("href", "${pageContext.request.contextPath}/boardNotice.admin");
 		
