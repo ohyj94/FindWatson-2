@@ -39,6 +39,8 @@ public class memberController extends HttpServlet {
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String redirectPage = request.getParameter("returnPage");
+			
+			System.out.println(id + ":" + pw + ":" + redirectPage);
 			try {
 				boolean result = dao.loginOk(id, pw);
 				
