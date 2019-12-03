@@ -98,7 +98,7 @@
     <%-- 검색 결과 컨테이너 시작 --%>
             <div class =row>
                 <div class=col-12>
-                    <h1>${list.size() }(검색된 병원)</h1>
+                    <h1>${list.size()}개의 병원이 검색되었습니다.</h1>
                     <hr>
                 </div>
             </div>
@@ -107,7 +107,7 @@
             		<%-- 글이 없는 경우  --%>
 				<c:when test="${list.size() == 0}">
 				<tr align=center>
-					<td colspan=5 height=300p >글이 없습니다</td></tr>
+					<td colspan=5 height=300p >해당하는 병원이 존재하지 않습니다. </td></tr>
 				</c:when>
 <%-- 글이 있는 경우 --%>
 				<c:otherwise>
@@ -134,12 +134,7 @@
       <%-- 검색 결과 컨테이너 끝 --%>
             
             
-            <div class=row>
-                <div class= col-12>
-                navi
-               ${navi}
-                </div>
-            </div>
+        
             
             <%-- --%>
            <jsp:include page="../standard/footer.jsp" />

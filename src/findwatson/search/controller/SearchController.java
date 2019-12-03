@@ -56,10 +56,9 @@ public class SearchController extends HttpServlet {
 				PrintWriter pw = response.getWriter();				
 				pw.append(j.toString());  	
 
-				// 병원 검색 결과 출력
+				
 			}else if(cmd.contentEquals("/searchFrom.s")) {
-
-				// 검색 결과 받아오는 부분 
+				// 옵션별 검색 결과 받아오는 부분 
 
 				String address1 = request.getParameter("address1");			
 				String address2 = request.getParameter("address2");
@@ -78,16 +77,13 @@ public class SearchController extends HttpServlet {
 					System.out.println("address 1,2 다 들어있는 경우 ");
 				}
 
-				System.out.println("시 : " + address1);
-				System.out.println("구 : " + address2);
 
 				String[] animal_check = request.getParameterValues("animal");
 				String animal = Arrays.toString(animal_check).replace("{","").replace("}","").replace("[","").replace("]","").replace(", ",";");
-				System.out.println(animal.contentEquals("null"));
+			
 				if(animal.contentEquals("null")) {
 					animal = "";
 				}
-				System.out.println("animal : " + animal);
 
 				String[] time_check = request.getParameterValues("time");
 				//System.out.println(Arrays.toString(time_check));
@@ -97,7 +93,6 @@ public class SearchController extends HttpServlet {
 				if(time.contentEquals("null")) {
 					time = "";
 				}
-				System.out.println("time : " + time);
 
 
 				//for(HListDTO list2 : list) {
@@ -113,9 +108,7 @@ public class SearchController extends HttpServlet {
 				int end = currentPage * Configuration.recordCountPerPage;
 
 				List<HListDTO> list = new ArrayList<>();
-				list = HospitalListDAO.getInstance().selectByPage("%"+address1+"%", "%"+address2+"%", "%"+animal+"%", "%"+time+"%",start, end);
-				String navi = dao.getPageNavi(currentPage, list.size());
-				request.setAttribute("navi", navi);
+				list = HospitalListDAO.getInstance().searchByOption(address1, address2, animal, time);
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/search/hospitalSearchView.jsp").forward(request, response);
 
@@ -123,10 +116,9 @@ public class SearchController extends HttpServlet {
 			}else if(cmd.contentEquals("/contents.s")) {
 				// 내용 전송 
 				int seq = Integer.parseInt(request.getParameter("seq"));
-				System.out.println(seq);
+			
 				HListDTO contents = HospitalListDAO.getInstance().select(seq);
-				System.out.println(contents.getHosptName());
-				//System.out.println(contents.getContents());
+			
 
 				HospitalListDAO.getInstance().plusss(contents.getViewCount(),seq);
 				request.setAttribute("contents", contents);
@@ -137,13 +129,16 @@ public class SearchController extends HttpServlet {
 			}else if(cmd.contentEquals("/contentsReview.s")){ 
 				// 여기 review controllert 로 XXXXX
 				int seq = Integer.parseInt(request.getParameter("seq"));
+
 				HListDTO contents = HospitalListDAO.getInstance().select(seq);
-				System.out.println(contents.getHosptName());
+			
 
 				HospitalListDAO.getInstance().plusss(contents.getViewCount(),seq);
 				request.setAttribute("contents", contents);
 
 				request.getRequestDispatcher("/search/hospitalSearchDetail2.jsp").forward(request, response);
+			
+				
 			}else if(cmd.contentEquals("/keywordSearch.s")) {
 				// 상단 검색바에서 검색하면 목록 가져오기 
 				// 검색어를 가져온다 
@@ -151,10 +146,7 @@ public class SearchController extends HttpServlet {
 				String keyword = request.getParameter("keywordSearch");
 				// 공백으로 나눠서 배열에 담는다 
 				String arr[] = keyword.split(" ");
-			System.out.println("단어의 개수는 " + arr.length + "개 입니다.");
-			for(String arr2 : arr) {
-			System.out.println("단어 : " + arr2);
-			}
+		 
 				// 네비게이터 받아오는 부분 
 				int currentPage =1;
 				String page = request.getParameter("currentPage");
@@ -167,37 +159,32 @@ public class SearchController extends HttpServlet {
 				List<HListDTO> list = new ArrayList<>();
 				List<HListDTO> list2 = new ArrayList<>();
 
-				// 배열의 개수만큼 검색 
+				// 배열의 개수만큼 검색한다
 				for(int i=0; i<arr.length; i++) {
-					list = HospitalListDAO.getInstance().selectByPageTotal("%"+arr[i]+"%", start, end);
+					list = HospitalListDAO.getInstance().selectByPageTotal(arr[i], start, end);
 					// 배열에서 dto를 하나씩 빼내서 list에 넣는다 
 					for(HListDTO dto : list){
 						list2.add(dto);
-						System.out.println("dto에" + arr[i]+ "를 담았음");
-						for(HListDTO dto2 : list2)
-						System.out.println("담은 병원은 " + dto2.getHosptName());
+						
 					}
 				}
 
 				Set<HListDTO> set = new HashSet<>();
 				for(HListDTO repe : list2){
 					int count = Collections.frequency(list2, repe);
-					System.out.println(count);
+				
 					if(count == arr.length) {
 						set.add(repe);//여기서 중복 병원은 세번씩 들어가니까 list대신 중복 막아주는 set 사용하기
-						System.out.println(repe.getHosptName());
+					
 					}
 				}
 
 				// 3번 중복된 값만 list에 담아 jsp에 보내기 
 				request.setAttribute("list", set);
-				
-				// navi 값 보내기 
-				String navi = HospitalListDAO.getInstance().getPageNaviTotal(currentPage, set.size());
-			System.out.println("이 값이 넘어가야함" + navi);
-				request.setAttribute("navi", navi);
+		
 
 				request.getRequestDispatcher("/search/hospitalSearchView.jsp").forward(request, response);
+			
 			}else if(cmd.contentEquals("/simpleMove.s")) {
 				//같은 페이지인데 메뉴로 이동할때와 검색후 이동할때 경로가 달라 header문제 발생해서 단순 이동도 서블렛 거치게 추가
 				//경로가 같도록 forward사용
