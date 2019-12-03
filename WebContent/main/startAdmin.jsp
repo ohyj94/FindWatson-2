@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -14,22 +14,11 @@
 <link rel="stylesheet" href="../resources/css/adminBoard.css">
 </head>
 <body>
-	<c:choose>
-		<c:when test="${sessionScope.adminInfo == null}">
-			<form action="${pageContext.request.contextPath}/login.admin"
-				method="post">
-				<div class="container">
-					<div class="row mb-2">
-						<div id="loginBtn" class="col-12 p-1 text-right"></div>
-					</div>
-					<div class="row">
-						<div id="title" class="col-12 mb-3 p-1 text-center">
-							<a id=home><img id="logo"
-								src="${pageContext.request.contextPath}/imgs/logo.png"
-								class="col-12"></a>
-						</div>
-					</div>
+
+				<div class="container">			
 					<!--            -->
+					<div class="row">관리자 로그인</div>
+					<form action="${pageContext.request.contextPath}/login.admin" method="post">
 					<div class="row">
 						<div class="col-12 mb-3 center" id="article">
 							<input type=text placeholder="아이디를 입력해주세요" name=id><br>
@@ -37,32 +26,9 @@
 							<button>로그인</button>
 						</div>
 					</div>
+					</form>
 					<!--            -->
-					<jsp:include page="../standard/footer.jsp" />
 				</div>
-			</form>
-		</c:when>
-		<c:otherwise>
-			<div class="container">
-				<jsp:include page="../standard/headerAdmin.jsp" />
-				<!--            -->
-				<div class=row>
-					<div class="col-12 center">
-						<h1>
-							<br> <br>
-						</h1>
-						<h1>관리자 계정입니다.</h1>
-						<h3>어서오세요.</h3>
-						<h1>
-							<br> <br>
-						</h1>
-					</div>
-				</div>
-				<!--            -->
-				<jsp:include page="../standard/footer.jsp" />
-			</div>
-		</c:otherwise>
 
-	</c:choose>
 </body>
 </html>

@@ -214,6 +214,7 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("loginInfo", id);
 				
 				request.getRequestDispatcher("board/freeDetailView.jsp").forward(request, response);
+
 				
 			}else if(cmd.contentEquals("/questionDetail.bo")) {
 				//자유 게시판 글읽기

@@ -2,7 +2,7 @@ package findwatson.member.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,8 +38,6 @@ public class memberController extends HttpServlet {
 		if(path.contentEquals("/login.member")) { //로그인
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
-			System.out.println(id);
-			System.out.println(pw);
 
 			try {
 				boolean result = dao.loginOk(id, pw);
@@ -47,11 +45,12 @@ public class memberController extends HttpServlet {
 					request.getSession().setAttribute("loginInfo",id);
 					//아이피 주소 membertable에 업데이트
 					dao.updateMemberIp(id, ipAddr);
-					request.setAttribute("result", result);					
-				}else {					
-					request.setAttribute("result", result);
+					response.sendRedirect("main/index.jsp");
+				}else {
+					//알림 : 로그인 실패시 다시 로그인 화면을 띄워주도록 경로 변경 바람
+					response.sendRedirect("main/index.jsp");
+
 				}
-				request.getRequestDispatcher("member/loginResultView.jsp").forward(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -179,6 +178,26 @@ public class memberController extends HttpServlet {
 				response.sendRedirect("main/error.jsp");
 			}
 
+		}//아이디찾기
+		else if(path.contentEquals("/idFind.member")) {
+			
+			
+			try {
+				String name = request.getParameter("name");
+				String birth = request.getParameter("birth");
+				String email = request.getParameter("email");
+				int phone = Integer.parseInt(request.getParameter("phone"));
+				boolean list = dao.idFind(name, birth, email, phone);
+				if(list) {
+					request.setAttribute("list", list);
+					request.getRequestDispatcher("member/viewIdFind.jsp").forward(request, response);
+				}else {
+					response.sendRedirect("main/error.jsp");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("main/error.jsp");
+			}
 		}
 	}
 

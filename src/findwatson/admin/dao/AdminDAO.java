@@ -814,11 +814,28 @@ public class AdminDAO {
 				String content = rs.getString(4);
 				Timestamp writeDate = rs.getTimestamp(5);
 				int viewCount = rs.getInt(6);
-
+				viewCount = increExpertView(viewCount, seq);
+						
 				ExpertDTO dto = new ExpertDTO(seq, writer, title, content, writeDate, viewCount);
 				return dto;
 			}
 		}
+	}
+	
+	// 전문가 조회수
+	public int increExpertView(int count, int seq) throws Exception {
+		String sql = "update expert set viewCount = ?+ 1 where seq = ?";
+		try (
+				Connection con = getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				) {
+			pstat.setInt(1, count);
+			pstat.setInt(2, seq);
+			pstat.executeUpdate();
+			con.commit();
+			return count+1;
+		}
+
 	}
 	
 	// 1:1 문의게시판 디테일 뷰
@@ -886,18 +903,7 @@ public class AdminDAO {
 			}
 
 
-	// 전문가
-	public int increExpertView(int seq) throws Exception {
-		String sql = "update expert set viewCount = (select viewCount from expert where seq = ?) + 1 where seq = ?";
-		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-			pstat.setInt(1, seq);
-			pstat.setInt(2, seq);
-			int result = pstat.executeUpdate();
-			con.commit();
-			return result;
-		}
 
-	}
 
 	// 커뮤니티
 	public int increBoardView(int seq) throws Exception {

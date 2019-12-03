@@ -193,4 +193,22 @@ public class MemberDAO {
 			}
 		}
 	}
+	//id찾기
+	public boolean idFind(String name, String birth, String email, int phone) throws Exception{
+		String sql = "select id from member where name=? and birth=? and email=? and phone=?";
+		try(Connection con = bds.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, name);
+			pstat.setString(2, birth);
+			pstat.setString(3, email);
+			pstat.setInt(4, phone);
+			try(ResultSet rs = pstat.executeQuery();){
+				boolean result = rs.next();
+			
+			return result;
+			}
+			
+		}
+		
+	}
 }
