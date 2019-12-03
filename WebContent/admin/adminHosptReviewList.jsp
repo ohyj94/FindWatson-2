@@ -32,8 +32,11 @@
                 <div class="col-md-2 d-none d-md-block">
                     글번호
                 </div>
-                <div class="col-md-6 d-none d-md-block">
-           	제목
+                <div class="col-md-2 d-none d-md-block">
+           	병원 번호
+                </div>
+                <div class="col-md-4 d-none d-md-block">
+            	제목
                 </div>
                 <div class="col-md-2 d-none d-md-block">
             	작성자
@@ -56,11 +59,14 @@
                 <div class="col-md-2 d-none d-md-block">
                     ${list.seq}
                 </div>
-                <div class="col-md-6 d-none d-md-block">
-           			${list.title}
+                <div class="col-md-2 d-none d-md-block">
+           			${list.hosptListSeq}
+                </div>
+                <div class="col-md-4 d-none d-md-block">
+                    ${list.title}
                 </div>
                 <div class="col-md-2 d-none d-md-block">
-                    ${list.writer }
+                    ${list.writer}
                 </div>
                 <div class="col-md-2 d-none d-md-block">${list.writeDate}<button type=button id=remove${list.seq}>삭제</button>
 								</div>
