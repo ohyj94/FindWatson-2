@@ -188,7 +188,7 @@ public class ComDAO {
 	   }
 	   
 	   public int delete(int comSeq) throws Exception{
-	      String sql = "delete from comments where comSeq=?";
+	      String sql = "delete from comments where seq=?";
 	      try(
 	            Connection con = this.getConnetion();
 	            PreparedStatement pstat = con.prepareStatement(sql);

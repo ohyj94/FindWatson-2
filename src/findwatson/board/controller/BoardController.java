@@ -345,6 +345,12 @@ public class BoardController extends HttpServlet {
 				//jobj.addProperty("date", dto.getDate()); //왜인지 모르겠는데 nullPoint웅앵 뜸..
 				
 				pwriter.append(jobj.toString());
+			}else if(cmd.contentEquals("/freeCommentRemove.bo")) { //자유게시판 댓글 삭제
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				int boardSeq = Integer.parseInt(request.getParameter("brdSeq"));
+				ComDAO.getInstance().delete(seq);
+				
+				response.sendRedirect("freeDetail.bo?seq="+boardSeq);
 			}else {
 				// 등록되지 않은 경로로 입장시
 

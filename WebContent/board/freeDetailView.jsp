@@ -99,7 +99,18 @@
 						<div class=col-6>${cmtDto.getDate()}</div>
 					</div>
 					<div class=row>
-						<div class=col-12>${cmtDto.content}</div>
+						<div class=col-12>${cmtDto.content}
+						<c:choose>
+						<c:when test="${loginInfo == cmtDto.writer}">
+						<button id="cmtRemove${cmtDto.comSeq}">삭제</button>
+						<script>
+						$("#cmtRemove${cmtDto.comSeq}").on("click",function(){
+							location.href='${pageContext.request.contextPath}/freeCommentRemove.bo?brdSeq=${dto.seq}&seq=${cmtDto.comSeq}';
+						})
+						</script>
+						</c:when>
+						</c:choose>
+						</div>
 					</div>
 				</c:forEach>
 			</c:otherwise>
