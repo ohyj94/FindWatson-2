@@ -284,11 +284,11 @@ red
 			
              function addt${dto.seq}(ths,sno){
                  for (var i=1;i<=5;i++){
-                     var cur=document.getElementById("star"+i+"t" + ${dto.seq});
+                     var cur=document.getElementById("star"+i+"t" + "${dto.seq}");
                      cur.className="fa fa-star";
                  }
                  for (var i=1;i<=sno;i++){
-                     var cur=document.getElementById("star"+i+"t" + ${dto.seq});
+                     var cur=document.getElementById("star"+i+"t" + "${dto.seq}");
                      if(cur.className=="fa fa-star")
                      {
                          cur.className="fa fa-star checked";
@@ -299,6 +299,7 @@ red
            //좋아요 기능
      		$("#like${dto.seq}").on("click",function(){
      			location.href="likeIncrement.re?reviewSeq="+${dto.seq};
+
      		}); 
              
 			</script>
@@ -431,11 +432,11 @@ red
         //2. 지도
         $("#btnMap").on("click", function(){
         	location.href="${pageContext.request.contextPath}/contents.s?seq=${contents.seq}";
-        })
+        });
         //3. 후기
         $("#btnReview").on("click", function(){
         	location.href="${pageContext.request.contextPath}/hospitalSearchDetail2.re?seq=${contents.seq}";
-        })
+        });
 		
 		
 	</script>
