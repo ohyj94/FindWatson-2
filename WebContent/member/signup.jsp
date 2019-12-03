@@ -491,7 +491,7 @@
 						alert("가입경로를 선택하세요!");
 						return;
 					}
-					if($(""))
+					
 					
 					
 					$("#signUp").submit();
