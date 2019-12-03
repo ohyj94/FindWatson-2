@@ -114,26 +114,17 @@
 				
             <c:forEach items="${list}" var="hospital">
             <div class =row>
-                <div class=col-4>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <img src = "${hospital.img}" id =hImg >
                 </div>
-                <div class = col-8>
+                <div class = "col-12 col-sm-6 col-md-8 col-lg-9">
                      <a href="${pageContext.request.contextPath}/contents.s?seq=${hospital.seq}">${hospital.hosptName}</a>
-                  
-                    <ul>
-                        <li>순서 : "${hospital.seq}"</li>
-                        <li>병원 이름 : "${hospital.hosptName}"</li>
-                        <li>우편번호 : ${hospital.postcode}</li>
-                        <li>주소1 : ${hospital.address1}</li>
-                        <li>주소2 : ${hospital.address2}</li>
-                        <li>전화번호 : ${hospital.phone}</li>
-                        <li>홈페이지 : ${hospital.homepage}</li>
-                        <li>진료 동물 : ${hospital.medicalAnimal}</li>
-                        <li>진료 시간 : ${hospital.openTime}</li>
-                        <li>정보 등록일 : ${hospital.registDate}</li> 
-                         <li>조회수 : ${hospital.viewCount}</li> 
-                    </ul>
-                    
+                  <br>
+                        ${hospital.address1} ${hospital.address2}<br>
+                        ${hospital.phone}<br>
+                        ${hospital.medicalAnimal}<br>
+                        ${hospital.openTime}<br>
+                 
                 </div>
             </div>
             </c:forEach>
