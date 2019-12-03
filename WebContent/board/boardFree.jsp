@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -56,8 +56,9 @@
 				<c:when test="${list.size() == 0}">게시물이 없습니다.</c:when>
 				<c:when test="${list.size() > 0}">
 					<c:forEach items="${list}" var="dto">
+				
 						<div class="row line">
-			                <div class="col-1 d-none d-md-block">1</div>
+			                <div class="col-1 d-none d-md-block">${dto.seq}</div>
 			                <div class="col-md-2 d-none d-md-block">
 			                	${dto.animalHeader}
 			                </div>
@@ -83,27 +84,38 @@
 	            	${pageNavi}
 	            </div>
             </div>
-            <!-- -->
-                            <div class="row mb-2">
-                                <div class="col-auto col-sm-2 p-1">
-                                    <select id="category">
-                                        <option value="">제목</option>
-                                    </select>
-                                </div>
-                                <div class="search-box col-auto col-sm-6 p-1">
-                                    <input type="text" class="" id="search" name="search" value="">
-                                </div>
-                                <div class="search-box col-auto col-sm-2 p-1">
-                                    <button class="btn btn-sm btn-outline-secondary">검색</button>
-                                </div>
-                                <div class="write-box col-auto col-sm-2 text-center p-1">
-                                    <button id="toWriteBtn" class="btn btn-sm btn-outline-secondary">글쓰기</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
+            
+            </div>
+            </div>
+            </div>
+            <!-- -->
+                           	<!-- 게시물 검색 -->
+						<form action="${pageContext.request.contextPath}/searchFree.bo" method="post">
+							<div class="row mb-2">
+								<div class="col-auto col-sm-2 p-1">
+									<select class="category" name="category">
+										<option value="title">제목</option>
+										<option value="writer">작성자</option>
+										<option value="animalheader">동물 분류</option>
+									</select>
+								</div>
+
+								<div class="search-box col-auto col-sm-6 p-1">
+									<input type="text" class="" id="search" name="keyword" >
+								</div>
+
+								<div class="search-box col-auto col-sm-2 p-1">
+									<button class="btn btn-sm btn-outline-secondary">검색</button>
+								</div>
+
+								<div class="write-box col-auto col-sm-2 text-center p-1">
+									<input type=button id="toWriteBtn"
+										class="btn btn-sm btn-outline-secondary" value=글쓰기>
+								</div>
+							</div>
+						</form>
+					<!--  게시물 검색 끝 -->
             <!--            -->
             <jsp:include page="../standard/footer.jsp" />  
         </div>
@@ -111,6 +123,11 @@
         	$("#toWriteBtn").on("click",function(){
         		location.href="${pageContext.request.contextPath}/board/boardWriteFree.jsp";
         	});
+        	
+        	$("select").on("change", function(){
+        		var value = $("select option:selected").val();
+        		alert(value);
+        	})
         </script>
 </body>
 </html>
