@@ -206,8 +206,6 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.contentEquals("/searchFree.bo")) {
 				String category = request.getParameter("category");
 				String keyword = request.getParameter("keyword");
-				System.out.println("category" + category);
-				System.out.println("keyword" + keyword);
 				// 네비게이터 받아오는 부분 
 				int currentPage =1;
 				String page = request.getParameter("currentPage");
@@ -221,13 +219,10 @@ public class BoardController extends HttpServlet {
 
 				list = BoardDAO.getInstance().selectByOptionFree(category, keyword, start, end);
 
-				System.out.println("list에" + keyword+ "를 담았음");
-
 				request.setAttribute("list", list);
 
 				// navi 값 보내기 
 				String pageNavi = BoardDAO.getInstance().getPageNaviTotalFree(currentPage, category, keyword );
-				System.out.println("이 값이 넘어가야함" + pageNavi);
 				request.setAttribute("pageNavi", pageNavi);
 				request.setAttribute("keyword", keyword);
 				request.getRequestDispatcher("/board/boardFree.jsp").forward(request, response);
@@ -236,8 +231,6 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.contentEquals("/searchOne.bo")) {
 				String category = request.getParameter("category");
 				String keyword = request.getParameter("keyword");
-				System.out.println("category" + category);
-				System.out.println("keyword" + keyword);
 				// 네비게이터 받아오는 부분 
 				int currentPage =1;
 				String page = request.getParameter("currentPage");
@@ -251,13 +244,10 @@ public class BoardController extends HttpServlet {
 
 				list = BoardDAO.getInstance().selectByOptionOne(category, keyword, start, end);
 
-				System.out.println("list에" + keyword+ "를 담았음");
-
 				request.setAttribute("list", list);
 
 				// navi 값 보내기 
 				String pageNavi = BoardDAO.getInstance().getPageNaviTotalOne(currentPage, category, keyword );
-				System.out.println("이 값이 넘어가야함" + pageNavi);
 				request.setAttribute("pageNavi", pageNavi);
 				request.setAttribute("keyword", keyword);
 				request.getRequestDispatcher("/board/boardQuestion.jsp").forward(request, response);

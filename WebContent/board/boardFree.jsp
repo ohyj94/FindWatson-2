@@ -56,7 +56,7 @@
 				<c:when test="${list.size() == 0}">게시물이 없습니다.</c:when>
 				<c:when test="${list.size() > 0}">
 					<c:forEach items="${list}" var="dto">
-					개수는 ${list.size()}
+				
 						<div class="row line">
 			                <div class="col-1 d-none d-md-block">${dto.seq}</div>
 			                <div class="col-md-2 d-none d-md-block">
