@@ -23,7 +23,7 @@
   			<div class =row>
                         <div class= col-12>
                             <h5>아이디</h5>
-                            ${id}
+                            ${id.id}
                         </div>
                     </div>
 

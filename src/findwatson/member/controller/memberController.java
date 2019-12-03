@@ -38,6 +38,8 @@ public class memberController extends HttpServlet {
 		if(path.contentEquals("/login.member")) { //로그인
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
+			System.out.println(id);
+			System.out.println(pw);
 
 			try {
 				boolean result = dao.loginOk(id, pw);
@@ -187,14 +189,16 @@ public class memberController extends HttpServlet {
 				String birth = request.getParameter("birth");
 				String email = request.getParameter("email");
 				int phone = Integer.parseInt(request.getParameter("phone"));
-				String list = dao.idFind(name, birth, email, phone);
+				boolean list = dao.idFind(name, birth, email, phone);
 				System.out.println(list);
-//				if(list) {
-//					request.setAttribute("list", list);
-//					request.getRequestDispatcher("member/viewIdFind.jsp").forward(request, response);
-//				}else {
-//					response.sendRedirect("main/error.jsp");
-//				}
+				if(list) {
+					String id = dao.idFindGet(name, birth, email, phone);
+					request.setAttribute("id", id);
+					System.out.println(id);
+					request.getRequestDispatcher("member/viewIdFind.jsp").forward(request, response);
+				}else {
+					response.sendRedirect("main/error.jsp");
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.sendRedirect("main/error.jsp");
