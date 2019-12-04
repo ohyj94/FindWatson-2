@@ -15,7 +15,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		
-		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
 		<link rel="stylesheet" href="resources/css/mainStyle.css">
         <style>
             img{
@@ -23,6 +23,42 @@
             }
             #hosImg{
                 width:100%;
+            }
+            #head_title{
+            margin-top:3%;
+            margin-bottom:4%;
+            font-size:35px;
+            color : #084480;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight:700;
+            }
+            #area-search{
+            background-color:#f0f4ff;
+            padding-top:3%;
+            }
+          
+            .animal-line{
+            
+            margin:0.1%;
+            margin-top:10px;
+            background-color:white;
+            }
+            .label{
+            background-color :#084480;
+            color:white;
+            }
+            label{
+            padding:0px;
+            }
+            .checkbox{
+            padding-top:0.5%;
+            padding-bottom:0.1%;
+            padding-right:0px;
+            padding-left:0px;
+            }
+            
+            #searchBtn2{
+            background-color:#084480;
             }
         </style>
 </head>
@@ -35,9 +71,9 @@
 			<div class=row>
                 <div id="article-botton" class="col-12 line mb-3 p-0">
                 <form action="${pageContext.request.contextPath}/searchFrom.s" class="col-12 p-0" method="post">
-                    <div class="col-12 line">동물병원 상세 검색</div>
+                    <div class="col-12 line" id=head_title>동물병원 검색</div>
                     <div id="area-search" class="col-12">
-                        <div class="row line">
+                        <div class="row line" id=area-line>
                             <label class="col-auto align-self-center">지역별</label>
                             <select name="address1" id="address1" class="col-12 col-sm-4">
                                 <option value="null">-시 선택-</option>
@@ -45,37 +81,40 @@
                             </select> <select name="address2" id="address2" class="col-12 col-sm-4">
                             <option value="null">-구 선택-</option>
                             </select>
-                            
                         </div>
-                        <div class="row line">
-                            <div class="col-12 line">진료동물</div>
-                            <label class="col-4 col-md-3">
+                        
+                        <div class="row animal-line">
+                            <div class="col-12 label">진료 동물</div>
+                            <div class="col-12 checkbox">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=새>새
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=물고기>물고기
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=햄스터>햄스터
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=토끼>토끼
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=고슴도치>고슴도치
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=파충류>파충류
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=곤충류>곤충류
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=기타>기타
                             </label>
-                        </div>
-                        <div class="row line">
-                            <div class="col-12 line">진료시간</div>
+                        </div></div>
+                        
+                        <div class="row animal-line">
+                            <div class="col-12 label">진료시간</div>
+                             <div class="col-12 checkbox">
                             <label class="col-12 col-md-4">
                                 <input type="checkbox" name=time value=주간진료>주간진료
                             </label>
@@ -85,6 +124,7 @@
                             <label class="col-12 col-md-4">
                                 <input type="checkbox" name=time value=야간응급진료>야간응급진료
                             </label>
+                        </div>
                         </div>
                         <div class="row line">
                         	<button id="searchBtn2" class="col m-0 btn btn-sm btn-outline-secondary">검색</button>
