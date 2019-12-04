@@ -111,7 +111,7 @@ public class ObODAO {
 
 	// 1:1 문의 페이지 목록 10개씩
 	public List<ObODTO> ObOByPage(int start, int end) throws Exception {
-		String sql = "select * from" + "(select oneByOne.*, row_number() over (order by writer) as rown from oneByOne)"
+		String sql = "select * from" + "(select oneByOne.*, row_number() over (order by seq desc) as rown from oneByOne)"
 				+ " where rown between ? and ?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, start);
@@ -252,7 +252,7 @@ public class ObODAO {
 
 	// 1:1 문의 페이지 목록 10개씩           회원 자기목록만
 	public List<ObODTO> myObOByPage(int start, int end, String id) throws Exception {
-		String sql = "select * from" + "(select oneByOne.*, row_number() over (order by writer) as rown from oneByOne where writer = ?)"
+		String sql = "select * from" + "(select oneByOne.*, row_number() over (order by seq desc) as rown from oneByOne where writer = ?)"
 				+ " where rown between ? and ?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setString(1, id);

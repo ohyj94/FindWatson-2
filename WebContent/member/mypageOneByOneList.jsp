@@ -95,7 +95,7 @@
                                     <input type="text" class="" id="search" name="search" value="">
                                 </div>
                                 <div class="search-box col-auto col-sm-2 p-1">
-                                    <button class="btn btn-sm btn-outline-secondary">검색</button>
+                                    <button class="btn btn-sm btn-outline-secondary" id=write>글쓰기</button>
                                 </div>
                             </div>
                         </div>
@@ -113,6 +113,10 @@
         	$('#insert').on('click',function(){
         		$('form').submit();
         	})
+        	$('#write').on('click',function(){
+        		location.href="${pageContext.request.contextPath}/mypageOneByOne.member";
+        	})
+        	
         </script>
         
         

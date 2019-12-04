@@ -50,7 +50,7 @@
             <div class=row>
                 <div class="col-12 con btns">
                   <a href="idFind.jsp">아이디 찾기</a> / 
-                  <a href="#">비밀번호 찾기</a>  
+                  <a href="pwFind.jsp">비밀번호 찾기</a>  
                 </div>
             </div>
             

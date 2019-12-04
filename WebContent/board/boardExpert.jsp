@@ -52,7 +52,7 @@
 						<div class="row line">
 			                <div class="col-1">${dto.seq }</div>
 			                <div class="col-10 col-md-6 text-left">
-			                <a href='${pageContext.request.contextPath}/freeDetail.bo?seq=${dto.seq}'>${dto.title}</a>
+			                <a href='${pageContext.request.contextPath}/expertDetail.bo?seq=${dto.seq}'>${dto.title}</a>
 			                </div>
 			                <div class="col-6 d-none d-md-block col-md-2 text-left">${dto.writer}</div>
 			                <div class="col-6 d-none d-md-block col-md-2 text-left">${dto.formedDate}</div>
@@ -67,19 +67,6 @@
 	            </div>
             </div>
             <!-- -->
-                            <div class="row mb-2">
-                                <div class="col-auto col-sm-2 p-1">
-                                    <select id="category">
-                                        <option value="">제목</option>
-                                    </select>
-                                </div>
-                                <div class="search-box col col-sm-8 p-1">
-                                    <input type="text" class="" id="search" name="search" value="">
-                                </div>
-                                <div class="search-box col-auto col-sm-2 p-1">
-                                    <button class="btn btn-sm btn-outline-secondary">검색</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -130,7 +130,7 @@ display:none;
 		console.log(result);
 		
 		if( (title == "") || (result == null) ){
-			alert("내용을 입력해주세요");
+			alert("내용은 2줄이상 입력해주세요");
 		}else{
 			var result = confirm("이대로 수정하시겠습니까?");
 			if(result){

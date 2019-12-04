@@ -61,17 +61,9 @@
 							<div class="col-12 text-center">${pageNavi}</div>
 						</div>
 						<div class="row mb-2">
-							<div class="col-auto col-sm-2 p-1">
-								<select id="category">
-									<option value="">제목</option>
-								</select>
+							<div class="col-auto col-sm-10 p-1">
 							</div>
-							<div class="search-box col-auto col-sm-6 p-1">
-								<input type="text" class="" id="search" name="search" value="">
-							</div>
-							<div class="search-box col-auto col-sm-2 p-1">
-								<button class="btn btn-sm btn-outline-secondary">검색</button>
-							</div>
+							
 							<div class="write-box col-auto col-sm-2 text-center p-1">
 								<button class="btn btn-sm btn-outline-secondary" id=writeBtn>작성하기</button>
 							</div>

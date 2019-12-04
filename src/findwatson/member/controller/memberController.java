@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
 
+import findwatson.admin.dao.AdminDAO;
+import findwatson.admin.dto.OneByOneCommentDTO;
 import findwatson.board.dao.ObODAO;
 import findwatson.board.dto.ObODTO;
 import findwatson.configuration.Configuration;
@@ -36,6 +38,7 @@ public class memberController extends HttpServlet {
 		System.out.println(path);
 
 		MemberDAO dao = MemberDAO.getInstance();
+		AdminDAO adminDao = AdminDAO.getInstance();
 		ObODAO Odao = ObODAO.getInstance();
 		PrintWriter pwriter = response.getWriter();
 
@@ -158,8 +161,20 @@ public class memberController extends HttpServlet {
 			}
 		}
 		//1:1문의 멤버가 디테일뷰
-		else if(path.contentEquals("/mypageOneByOneDetailView.member")) {
-			
+		else if(path.contentEquals("/mypageOneByOneDetailView.member")) { 
+			String id = (String)request.getSession().getAttribute("loginInfo");
+			try {
+				int ObOSeq = Integer.parseInt(request.getParameter("seq"));
+				ObODTO dto = Odao.getObOBySeq(ObOSeq);
+				request.setAttribute("dto", dto);
+				//이미 잇는 댓글
+				List<OneByOneCommentDTO> resultList = adminDao.commentsList((ObOSeq));
+				request.setAttribute("commentList", resultList);
+				request.getRequestDispatcher("member/mypageOneByOneDetailView.jsp").forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("main/error.jsp");
+			}
 		}
 		//1:1문의 글쓰러들어가기
 		else if(path.contentEquals("/mypageOneByOne.member")) {
@@ -183,7 +198,7 @@ public class memberController extends HttpServlet {
 				int result = dao.insertOneByOne(id, title, content, header);
 				if(result > 0) {
 					System.out.println("1:1문의글 저장성공");
-					response.sendRedirect("toMain.main");
+					response.sendRedirect("mypageOneByOneList.member");
 				}
 
 			} catch (Exception e) {
@@ -261,12 +276,50 @@ public class memberController extends HttpServlet {
 				String email = request.getParameter("email");
 				int phone = Integer.parseInt(request.getParameter("phone"));
 				boolean list = dao.idFind(name, birth, email, phone);
+				System.out.println(list);
 				if(list) {
-					request.setAttribute("list", list);
+					String id = dao.idFindGet(name, birth, email, phone);
+					request.setAttribute("id", id);
+					System.out.println(id);
 					request.getRequestDispatcher("member/viewIdFind.jsp").forward(request, response);
 				}else {
 					response.sendRedirect("main/error.jsp");
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("main/error.jsp");
+			}
+		}//비밀번호찾기
+		else if (path.contentEquals("/pwFind.member")) {
+			try {
+				String name = request.getParameter("name");
+				String id = request.getParameter("id");
+				String birth = request.getParameter("birth");
+				String email = request.getParameter("email");
+				int phone = Integer.parseInt(request.getParameter("phone"));
+				boolean list = dao.pwFind(name, id, birth, email, phone);
+				if(list) {
+					request.getRequestDispatcher("member/viewPwFind.jsp").forward(request, response);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("main/error.jsp");
+			}
+		}//비밀번호 변경
+		else if (path.contentEquals("/viewPwFind.member")) {
+			try {
+				String id = request.getParameter("id");
+				String pw = request.getParameter("pw");
+				System.out.println("아무거나");
+				int list = dao.pwFindGet(id, pw);
+				if(list > 0) {
+					request.getRequestDispatcher("member/login.jsp").forward(request, response);
+				}
+				else {
+					System.out.println("DB에 없는 정보");
+					response.sendRedirect("/FindWatson/member/noPwFind.jsp");
+				}
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.sendRedirect("main/error.jsp");

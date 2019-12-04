@@ -1138,7 +1138,7 @@ public class AdminDAO {
 		//병원리뷰목록 게시판 목록 10개씩
 		public List<ReviewDTO> hosptReviewListByPage(int start, int end) throws Exception{
 			String sql = "select * from"
-					+ "(select HosptReview.*, row_number() over (order by seq) as rown from HosptReview)"
+					+ "(select HosptReview.*, row_number() over (order by seq desc) as rown from HosptReview)"
 					+ " where rown between ? and ?";
 			try(
 					Connection con = this.getConnection();
