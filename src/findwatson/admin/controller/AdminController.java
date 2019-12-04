@@ -248,7 +248,7 @@ public class AdminController extends HttpServlet {
 
 
 			}else if(cmd.contentEquals("/boardFree.admin")){//자유게시판 글 출력
-				String pageCategory = "boardFree.bo";
+				String pageCategory = "boardFree.admin";
 				int cpage = 1;
 				String page = request.getParameter("cpage");
 				if(page != null) {
@@ -264,7 +264,7 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("admin/adminBoardFree.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/boardQuestion.admin")) { //질문게시판 글 출력
-				String pageCategory = "boardQuestion.bo";
+				String pageCategory = "boardQuestion.admin";
 				int cpage = 1;
 				String page = request.getParameter("cpage");
 				if(page != null) {

@@ -5,23 +5,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>찾아줘 왓슨!</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<title>찾아줘!왓슨</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+
+<style>
+div{
+
+}
+#board-top {
+text-align: left !important;
+}
+#boardTitle{
+border-top: 2px solid black;
+border-bottom: 2px solid black;
+}
+#boardCon{
+border-top: 1px solid gray;
+}
+</style>
 </head>
 <body>
 	<div class="container">
-
-	
 		<jsp:include page="../standard/headerAdmin.jsp" /> 	
 
 		<!--            -->
@@ -30,35 +39,34 @@
 				<div class="row">
 					<div id="article-middle" class="col-12 mt-2">
 						<div class="row mb-3 p-1 text-center">
-							<h3 id="board-top" class="col-auto col-sm-4 m-0">공지사항</h3>
-							<span class="col-auto col-sm-8 mt-2"> <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
-							</span>
+							<div id="board-top" class="col-12 m-0"><strong>공지사항</strong></div>							
 						</div>
-						<div class="row line">
-							<div class="col-md-1 d-none d-md-block"></div>
-							<div class="col-md-6 d-none d-md-block">제목</div>
-							<div class="col-md-2 d-none d-md-block">작성일</div>
-							<div class="col-md-2 d-none d-md-block">조회수</div>
-							<div class="col-md-1 d-none d-md-block"></div>
+						<hr>
+						<div class="row line m-0 pt-1 pb-1" id=boardTitle>
+							<div class="col-1 d-none d-lg-block">번호</div>
+							<div class="col-6 d-none d-lg-block">제목</div>
+							<div class="col-2 d-none d-lg-block">작성일</div>
+							<div class="col-2 d-none d-lg-block">조회수</div>
+							<div class="col-1 d-none d-lg-block"></div>
 						</div>
 						<!-- 게시글 목록 -->
 						<c:forEach items="${list}" var="list">
-							<div class="row line">
-								<div class="col-md-1 d-none d-md-block">${list.seq}</div>
-								<div class="col-md-6 d-none d-md-block"><a href='${pageContext.request.contextPath}/adminNoticeDetailView.admin?seq=${list.seq}'>${list.title}</a></div>
-								<div class="col-md-2 d-none d-md-block">
-									${list.formedDate}</div>
-								<div class="col-md-2 d-none d-md-block">${list.viewCount}
-								</div>
-								<div class="col-md-1 d-none d-md-block"><button type=button id=remove${list.seq}>삭제</button></div>
+							<div class="row line m-0 pt-1 pb-1" id=boardCon>
+								<div class="col-1">${list.seq}</div>
+								<div class="col-11 col-md-6 col-lg-6"><a href='${pageContext.request.contextPath}/adminNoticeDetailView.admin?seq=${list.seq}'>${list.title}</a></div>
+								
+								<div class="col-5 col-md-2 col-lg-2"> ${list.formedDate}</div>
+								<div class="col-1 col-md-1 col-lg-2">${list.viewCount} </div>
+								<div class="col-6 col-md-2 col-lg-1"><span id=remove${list.seq}>삭제</span></div>
 							</div>
 							<script>
-										$("#remove${list.seq}").on("click",function() {
-															var result = confirm("정말 삭제하시겠습니까?");
-															if (result) {
-																location.href = '${pageContext.request.contextPath}/noticeRemove.admin?seq=${list.seq}';
-															}
-														})
+								$("#remove${list.seq}").css("cursor","pointer");
+								$("#remove${list.seq}").on("click",function() {
+									var result = confirm("정말 삭제하시겠습니까?");
+									if (result) {
+										location.href = '${pageContext.request.contextPath}/noticeRemove.admin?seq=${list.seq}';
+									}
+								})
 									</script>
 						</c:forEach>
 						

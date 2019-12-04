@@ -11,8 +11,7 @@
         <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        
-        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
         <link rel="stylesheet" href="resources/css/mainStyle.css">
         <style>
 			#article-top{
@@ -43,36 +42,37 @@
         </style>
     </head>
     <body>
-        <div class="container">
-            <jsp:include page="../standard/header.jsp" />           
+<div class="container col-12">
+<jsp:include page="../standard/header.jsp" />           
+<!--    내용시작    -->
+<div class="row mt-2">
+<div class="col d-none d-sm-block"></div>
+	<div class="container col-12 col-sm-6">       
             <!--    내용시작        -->
-            <div class="row">
-                <div id="article-top" class="col-12 mb-5 p-0">
+            <div class="row line mb-2">
+                <div id="article-top" class="col-12 mb-1 p-0">
                     <!--여기 이미지  -->
-                    <div id="article-logo" class="col-12 p-2 line">
+                    <div id="article-logo" class="col-12 p-2">
                             <div id="article-img">이미지</div>
                     </div>
                     <!--  -->
-                    
-                        <div class="col-12 p-1" id="searchTop">
-                        	<div class="col-12 p-0">
-                        		<%-- keyword Search --%>
-						<form class="form-inline" action="${pageContext.request.contextPath}/keywordSearch.s" class="col-12" method=post>
-							<input class="form-control col-8 col-sm-10" type="search" placeholder="Search" aria-label="Search" name=keywordSearch>
-							<button id="searchBtn1" class="btn btn-outline-secondary m-auto col-4 col-sm-2" type="submit">Search</button>
-						</form>
-							</div>
-                        </div>
-                   
+                    <div class="col-12 p-1" id="searchTop">
+                    <div class="col-12 p-0">
+                        <form class="form-inline" action="${pageContext.request.contextPath}/keywordSearch.s" class="col-12" method=post>
+                            <input class="form-control col-8 col-sm-10" type="search" placeholder="Search" aria-label="Search" name=keywordSearch>
+                            <button id="searchBtn1" class="btn btn-outline-secondary m-auto col-4 col-sm-2" type="submit">Search</button>
+                        </form>
+				    </div>
+                    </div>
                 </div>
-                <div id="article-middle" class="col-12 mb-3">
-                    <div class="row line">
-                        <div id="article-middle-left" class="col-12 col-md-6 text-center">
-                            <div class="row line">
-                                <div class="col-6 prevealTitle">공지사항</div>
-                                <div class="col-6">
-                                    <a href="${pageContext.request.contextPath}/boardNotice.bo">더보기</a>
-                                </div>
+            </div>
+                <div class="row">
+                    <div id="article-middle" class="col-12">
+                    <div class="row mt-3 mb-1">
+                        <!-- 공지사항 -->
+                        <div id="article-middle-left" class="col-12 col-sm-6 mb-1 text-center">
+                            <div class="row line mb-1">
+                                <div class="col-12 prevealTitle">공지사항</div>
                             </div>
                             <div class="row line">
                                 <div class="col-12 prevealCon">
@@ -93,12 +93,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="article-middle-right" class="col-12 col-md-6 text-center">
-                            <div class="row line">
-                                <div class="col-6 prevealTitle">자유게시판</div>
-                                <div class="col-6">
-                                    <a href="${pageContext.request.contextPath}/boardFree.bo">더보기</a>
-                                </div>
+                         <!-- 자유게시판 -->
+                        <div id="article-middle-right" class="col-12 col-sm-6 text-center">
+                            <div class="row line mb-1">
+                                <div class="col-12 prevealTitle">자유게시판</div>
                             </div>
                             <div class="row line">
                                 <div class="col-12 prevealCon">
@@ -119,59 +117,56 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                         <!-- 여기 캐러셀 -->
-                        
-                        <div id="carouselExampleIndicators"
-                         class="carousel slide col-12 mt-5 mb-5 p-0" data-ride="carousel" style="width: 1000px; margin: auto">
+                <div class="row">
+                    <div id="carouselExampleIndicators"
+                         class="carousel slide col-12 mt-1 mb-2 p-0 align-self-center" data-ride="carousel">
                         <ol class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                         </ol>
-                        <div class="carousel-inner">
+                        <div class="carousel-inner" style="width: 100%; margin: auto">
                             <div class="carousel-item active">
-                                <img src="imgs/animal/%EB%B1%81%EC%83%88.png" class="imgSize d-block">
+                                <img src="imgs/animal/%EC%88%98%EB%8B%AC.jpg" class="d-block w-100">
                             </div>
                             <div class="carousel-item">
-                                <img src="imgs/animal/%EA%B3%A0%EC%8A%B4%EB%8F%84%EC%B9%98.jpg" class="imgSize d-block">
+                                <img src="imgs/animal/%EC%88%98%EB%8B%AC.jpg" class="d-block w-100">
                             </div>
                             <div class="carousel-item">
-                                <img src="imgs/animal/%EC%95%B5%EB%AC%B4%EC%83%88.jpg" class="imgSize d-block"> 
+                                <img src="imgs/animal/%EC%88%98%EB%8B%AC.jpg" class="d-block w-100"> 
                             </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-                        <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                        </a>
                     </div>
-                        
+                </div>
                         <!--  -->
                     </div>
                 </div>
-                
-                <%--검색 컨테이너 시작 --%>
-			
-                <div id="article-botton" class="col-12 p-0">
-                	
+        <div class="row">
+            <div id="article-botton" class="col-12 p-0">
                 <form action="${pageContext.request.contextPath}/searchFrom.s" class="col-12 p-0" id="detailSearch" method="post">
-                    <div class="col-12 line">동물병원 상세 검색</div>
+                    <div class="col-12 line mb-1">동물병원 상세 검색</div>
                     <div id="area-search" class="col-12">
-                        <div class="row line">
-                            <label class="col-auto align-self-center">지역별</label>
+                        <div class="row line mb-1">
+                            <label class="col-12 col-sm-4 align-self-center">지역별</label>
                             <select name="address1" id="address1" class="col-12 col-sm-4">
                                 <option value="null">-시 선택-</option>
                                 <option value="서울">서울</option>
                             </select> <select name="address2" id="address2" class="col-12 col-sm-4">
                             <option value="null">-구 선택-</option>
                             </select>
-                            
                         </div>
-                        <div class="row line">
-                            <div class="col-12 line">진료동물</div>
+                        <div class="row line mb-1">
+                            <div class="col-12">진료동물</div>
                             <label class="col-4 col-md-3">
                                 <input type="checkbox" name=animal value=새>새
                             </label>
@@ -197,8 +192,8 @@
                                 <input type="checkbox" name=animal value=기타>기타
                             </label>
                         </div>
-                        <div class="row line">
-                            <div class="col-12 line">진료시간</div>
+                        <div class="row line mb-1">
+                        <div class="col-12">진료시간</div>
                             <label class="col-12 col-md-4">
                                 <input type="checkbox" name=time value=주간진료>주간진료
                             </label>
@@ -209,17 +204,20 @@
                                 <input type="checkbox" name=time value=야간응급진료>야간응급진료
                             </label>
                         </div>
-                        <div class="row line">
+                        <div class="row">
                         	<button id="searchBtn2" class="col m-0 btn btn-sm btn-outline-secondary">검색</button>
                         </div>
                     </div>
-                     </form>
-                    
-                </div>
+                </form>
             </div>
-            <!--            -->
-            <jsp:include page="../standard/footer.jsp" />
         </div>
+            <!--            -->
+	</div>
+<div class="col d-none d-sm-block"></div>
+</div>
+<!--            -->
+<jsp:include page="../standard/footer.jsp" />
+</div>
         <script type="text/javascript">
            $("#address1").on("click", function() {
 				$.ajax({

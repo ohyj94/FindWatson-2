@@ -880,6 +880,7 @@ public class AdminDAO {
 			}
 		}
 	}
+
 	//1:1문의게시글에 댓글 저장
 	public int insertComments(int seq, String comments) throws Exception {
 		String sql = "insert into onebyonecomments values(onebyonecommentsSeq.nextval,?,?,sysdate)";
@@ -915,7 +916,7 @@ public class AdminDAO {
 			return list;
 		}
 	}
-	// 전문가 게시판 시퀀스로 dto가져오기
+	// 질문/자유게시판 시퀀스로 dto가져오기
 	public BoardDTO getBoardBySeq(int expertSeq, String header) throws Exception {
 		String sql = "select * from Board where seq = ? and header = ?";
 		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
@@ -941,31 +942,31 @@ public class AdminDAO {
 		}
 
 	}
-	// 전문가 게시판 시퀀스로 dto가져오기
-	public BoardDTO getBoardBySeq2(int expertSeq) throws Exception {
-		String sql = "select * from Board where seq = ?";
-		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-			pstat.setInt(1, expertSeq);
-			try (ResultSet rs = pstat.executeQuery();) {
-				rs.next();
-				int seq = rs.getInt(1);
-				String writer = rs.getString(2);
-				String headerInput = rs.getString(3);
-				String animalHeader = rs.getString(4);
-				String title = rs.getString(5);
-				String content = rs.getString(6);
-				String ipAddr = rs.getString(7);
-				int viewCount = rs.getInt(8);
-				Timestamp writeDate = rs.getTimestamp(9);
+	// 질문/자유 게시판 시퀀스로 dto가져오기
+		public BoardDTO getBoardBySeq2(int seq) throws Exception {
+			String sql = "select * from Board where seq = ?";
+			try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+				pstat.setInt(1, seq);
+				try (ResultSet rs = pstat.executeQuery();) {
+					rs.next();
+					
+					String writer = rs.getString(2);
+					String headerInput = rs.getString(3);
+					String animalHeader = rs.getString(4);
+					String title = rs.getString(5);
+					String content = rs.getString(6);
+					String ipAddr = rs.getString(7);
+					int viewCount = rs.getInt(8);
+					Timestamp writeDate = rs.getTimestamp(9);
 
-				BoardDTO dto = new BoardDTO(seq, writer, headerInput, animalHeader, title, content, ipAddr, viewCount,
-						writeDate);
-				return dto;
+					BoardDTO dto = new BoardDTO(seq, writer, headerInput, animalHeader, title, content, ipAddr, viewCount,
+							writeDate);
+					return dto;
+				}
 			}
 
 		}
 
-	}
 	//관리자 비밀번호 변경 - 기존 비밀번호와 확인
 	public boolean adminPwSameCheck(String oriPwInput) throws Exception{
 		String sql = "select * from admin where pw = ?";

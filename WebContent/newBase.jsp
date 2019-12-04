@@ -11,30 +11,29 @@
         <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="resources/css/mainStyle.css">
 </head>
 <body>
-	<button id="toBN" type="button">공지사항</button>
-	<button id="toBF" type="button">자유게시판</button>
-	<button id="toBQ" type="button">질문게시판</button>
-	<button id="toBE" type="button">전문가Q&A</button>
-	<button id="toBQbO" type="button">1:1 문의</button>
+<!-- container -->
+	<div class="container col-12">
 	
-	<script>
-		$("#toBN").on("click",function(){
-			location.href="boardNotice.bo";
-		});
-		$("#toBF").on("click",function(){
-			location.href="boardFree.bo";
-		});
-		$("#toBQ").on("click",function(){
-			location.href="boardQuestion.bo";
-		});
-		$("#toBE").on("click",function(){
-			location.href="boardExpert.bo";
-		});
-		$("#toBQbO").on("click",function(){
-			location.href="adminOneByOne.admin";
-		});
-	</script>
+	<!-- 헤더 -->
+	<jsp:include page="standard/header.jsp" />   
+	     
+	<div class="row mt-2">
+	    <div class="col d-none d-sm-block"></div>
+	        
+	        <!-- 중심내용 -->
+	        여기에 중심내용 작성하시면 됩니다!
+	        
+	    <div class="col d-none d-sm-block"></div>
+	</div>
+	
+	<!-- 푸터-->
+	<jsp:include page="standard/footer.jsp" />
+	
+	</div>
+<!-- container --> 
 </body>
 </html>
