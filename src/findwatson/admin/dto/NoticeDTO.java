@@ -71,9 +71,8 @@ public class NoticeDTO {
 	}
 
 	public String getFormedDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY.MM.dd.");
 		long date = this.writeDate.getTime();
-		long current_date = System.currentTimeMillis();
 
 		return sdf.format(date);
 
