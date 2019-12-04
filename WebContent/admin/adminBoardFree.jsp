@@ -107,6 +107,7 @@
 	<jsp:include page="../standard/footer.jsp" />
 	
 	</div>
+	
 <!-- container --> 
 </body>
 </html>
