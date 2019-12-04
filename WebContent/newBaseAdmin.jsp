@@ -18,16 +18,16 @@
 	<div class="container col-12">
 	
 	<!-- 헤더 -->
-	<jsp:include page="../standard/headerAdmin.jsp" />   
+	<jsp:include page="../standard/header.jsp" />   
 	     
 	<div class="row mt-2">
-	    <div class=container>
+	    <div class="col d-none d-sm-block"></div>
 	        
 	        <!-- 중심내용 -->
 	        여기에 중심내용 작성하시면 됩니다!
 	        <!-- 중심내용 -->
 	        
-	    </div>
+	    <div class="col d-none d-sm-block"></div>
 	</div>
 	
 	<!-- 푸터-->

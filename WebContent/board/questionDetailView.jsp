@@ -38,15 +38,29 @@
 #article, .line {
 	border: 0.5px solid lightgray;
 }
+#boardContent{
+min-height: 500px;
+}
+#btnCon{
+text-align: right;
+}
 </style>
 </head>
 <body>
-	<div class=container>
-		<jsp:include page="../standard/headerMember.jsp" />
+<!-- container -->
+	<div class="container col-12">
+	
+	<!-- 헤더 -->
+	<jsp:include page="../standard/header.jsp" />   
+	     
+	<div class="row mt-2">
+	    <div class="col d-none d-sm-block"></div>
 		<!--  -->
+		<div class=container>
 		<div class=row>
 			<div class=col-12>
 				<h3>커뮤니티 - 질문</h3>
+				<hr>
 				<h4>${dto.title}</h4>
 			</div>
 		</div>
@@ -57,17 +71,19 @@
 			<div class="col-6">
 				<h5 class="right">${dto.getDate()}&emsp;view.${dto.viewCount}</h5>
 			</div>
+			<div class=col-12><hr></div>
 			<hr>
 		</div>
 		<div class=row>
 			<div class=col-12 id=boardContent>${dto.content}</div>
+			<div class=col-12><hr></div>
 		</div>
 		<c:choose>
 			<c:when test="${loginInfo == dto.writer}">
 				<div class=row>
-					<div class=col-12 id=boardContent>
-						<button id=modify>수정</button>
-						<button id=remove>삭제</button>
+					<div class=col-12 id=btnCon>
+						<button id=modify type="button" class="btn btn-outline-secondary">수정</button>
+						<button id=remove type="button" class="btn btn-outline-secondary">삭제</button>
 					</div>
 				</div>
 
@@ -129,8 +145,8 @@
 				<textarea id=cmt placeholder="댓글을 입력해 주세요"></textarea>
 			</div>
 			<div class="col-2 center">
-				<button id=cmtBtn>등록</button>
-				<button id=reset>댓글새로고침</button>
+				<button id=cmtBtn type="button" class="btn btn-outline-secondary">등록</button>
+				<button id=reset type="button" class="btn btn-outline-secondary">새로고침</button>
 			</div>
 		</div>
 		<script>
@@ -167,9 +183,15 @@
 					location.href='${pageContext.request.contextPath}/questionDetail.bo?seq=${dto.seq}';
 				});
 		</script>
+		</div>
 		<!--  -->
-		<jsp:include page="../standard/footer.jsp" />
+		    <div class="col d-none d-sm-block"></div>
 	</div>
-
+	
+	<!-- 푸터-->
+	<jsp:include page="../standard/footer.jsp" />
+	
+	</div>
+<!-- container --> 
 </body>
 </html>

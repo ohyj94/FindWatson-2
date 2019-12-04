@@ -85,7 +85,7 @@ public class BoardController extends HttpServlet {
 
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
-				request.getRequestDispatcher("board/boardQuestion.jsp").forward(request, response);
+				request.getRequestDispatcher("board/adminBoardQuestion.jsp").forward(request, response);
 
 				// 전문가Q&A 글 목록 출력			
 			} else if(cmd.contentEquals("/boardExpert.bo")) {

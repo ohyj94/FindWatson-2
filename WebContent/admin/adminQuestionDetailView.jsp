@@ -12,6 +12,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+<style>
+#boardContent{
+min-height: 500px;
+}
+</style>
 </head>
 <body>
 <!-- container -->
@@ -27,6 +32,7 @@
 	      <div class=row>
 		<div class=col-12>
 		<h3>커뮤니티 - 질문</h3>
+		<hr>
 				<h4>${dto.title}</h4>
 		</div>
 		</div>
@@ -37,10 +43,12 @@
 			<div class="col-6">
 				<h5 class="right">${dto.getDate()}&emsp;view.${dto.viewCount}</h5>
 			</div>
+			<div class=col-12><hr></div>
 			<hr>
 		</div>
 		<div class=row>
 			<div class=col-12 id=boardContent>${dto.content}</div>
+			<div class=col-12><hr></div>
 		</div>
 	        <!-- 중심내용 -->
 	        
