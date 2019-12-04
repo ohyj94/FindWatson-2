@@ -129,7 +129,7 @@ public class BoardController extends HttpServlet {
 				String header = request.getParameter("header");
 				String animalHeader = request.getParameter("animalHeader");
 				String questionTitle = Configuration.protectXSS(request.getParameter("questionTitle"));
-				String content = Configuration.protectXSS(request.getParameter("content"));
+				String content = request.getParameter("content");
 
 				dao.insert(new BoardDTO(0,id, header, animalHeader, questionTitle, content, ipAddr, 0, null));
 				response.sendRedirect("boardQuestion.bo");
@@ -168,7 +168,7 @@ public class BoardController extends HttpServlet {
 				String header = request.getParameter("header");
 				String animalHeader = request.getParameter("animalHeader");
 				String questionTitle = Configuration.protectXSS(request.getParameter("freeTitle"));
-				String content = Configuration.protectXSS(request.getParameter("content"));
+				String content = request.getParameter("content");
 				
 
 				dao.insert(new BoardDTO(0,id, header, animalHeader, questionTitle, content, ipAddr, 0, null));
@@ -330,7 +330,7 @@ public class BoardController extends HttpServlet {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				String animalHeader = request.getParameter("animalHeader");
 				String title = Configuration.protectXSS(request.getParameter("title"));
-				String content = Configuration.protectXSS(request.getParameter("content"));
+				String content = request.getParameter("content");
 
 				dao.update(seq, title, content, animalHeader);
 				String header = AdminDAO.getInstance().getBoardBySeq2(seq).getHeader();

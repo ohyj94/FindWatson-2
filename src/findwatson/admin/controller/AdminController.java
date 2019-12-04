@@ -138,7 +138,7 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("/admin/adminBanList.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/expertWrite.admin")){ //전문가 Q&A 글쓰기
 				String title = Configuration.protectXSS(request.getParameter("boardTitle"));
-				String content = Configuration.protectXSS(request.getParameter("content"));
+				String content = request.getParameter("content");
 				System.out.println(content);
 
 				dao.insertToExpert(new ExpertDTO(0, id, title, content, null, 0));
@@ -172,7 +172,7 @@ public class AdminController extends HttpServlet {
 				pwriter.append(jObj.toString());
 			}else if(cmd.contentEquals("/noticeWrite.admin")) {//공지사항 글쓰기
 				String title = Configuration.protectXSS(request.getParameter("boardTitle"));
-				String content = Configuration.protectXSS(request.getParameter("content"));
+				String content = request.getParameter("content");
 				System.out.println(content);
 
 				dao.insertToNotice(new ExpertDTO(0, id, title, content, null, 0));
@@ -618,7 +618,7 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("admin/noticeModify.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/noticeModifyProc.admin")) { //공지 수정 프로세스
 				String title = Configuration.protectXSS(request.getParameter("boardTitle"));
-				String content = Configuration.protectXSS(request.getParameter("content"));
+				String content = request.getParameter("content");
 				int seq= Integer.parseInt(request.getParameter("seq"));
 				
 				System.out.println(content);
@@ -631,7 +631,7 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("admin/expertModify.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/expertModifyProc.admin")) {//전문가 Q&A 수정 프로세스
 				String title = Configuration.protectXSS(request.getParameter("boardTitle"));
-				String content = Configuration.protectXSS(request.getParameter("content"));
+				String content = request.getParameter("content");
 				int seq= Integer.parseInt(request.getParameter("seq"));
 				
 				dao.updateExpert(seq, title, content);
