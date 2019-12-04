@@ -15,7 +15,7 @@
 
 <style>
 div{
-border: 1px solid black;
+
 }
 #board-top {
 text-align: left !important;
@@ -40,28 +40,30 @@ border-bottom: 2px solid black;
 						</div>
 						<hr>
 						<div class="row line m-0 pt-1 pb-1" id=boardTitle>
-							<div class="col-md-1 d-none d-md-block"></div>
-							<div class="col-md-6 d-none d-md-block">제목</div>
-							<div class="col-md-2 d-none d-md-block">작성일</div>
-							<div class="col-md-2 d-none d-md-block">조회수</div>
-							<div class="col-md-1 d-none d-md-block"></div>
+							<div class="col-1 d-none d-lg-block">번호</div>
+							<div class="col-6 d-none d-lg-block">제목</div>
+							<div class="col-2 d-none d-lg-block">작성일</div>
+							<div class="col-2 d-none d-lg-block">조회수</div>
+							<div class="col-1 d-none d-lg-block"></div>
 						</div>
 						<!-- 게시글 목록 -->
 						<c:forEach items="${list}" var="list">
-							<div class="row line">
-								<div class="col-1 p-0">${list.seq}</div>
-								<div class="col-8 col-md-6 d-md-block"><a href='${pageContext.request.contextPath}/adminNoticeDetailView.admin?seq=${list.seq}'>${list.title}</a></div>
-								<div class="col-md-2 d-none d-md-block"> ${list.formedDate}</div>
-								<div class="col-1 col-md-2 d-none d-sm-block">${list.viewCount} </div>
-								<div class="col-3 col-sm-2"><button type=button id=remove${list.seq}>삭제</button></div>
+							<div class="row line m-0 pt-1 pb-1">
+								<div class="col-1">${list.seq}</div>
+								<div class="col-11 col-lg-6"><a href='${pageContext.request.contextPath}/adminNoticeDetailView.admin?seq=${list.seq}'>${list.title}</a></div>
+								
+								<div class="col-5 col-lg-2"> ${list.formedDate}</div>
+								<div class="col-1 col-lg-2">${list.viewCount} </div>
+								<div class="col-6 col-lg-1"><span id=remove${list.seq}>삭제</span></div>
 							</div>
 							<script>
-										$("#remove${list.seq}").on("click",function() {
-															var result = confirm("정말 삭제하시겠습니까?");
-															if (result) {
-																location.href = '${pageContext.request.contextPath}/noticeRemove.admin?seq=${list.seq}';
-															}
-														})
+								$("#remove${list.seq}").css("cursor","pointer");
+								$("#remove${list.seq}").on("click",function() {
+									var result = confirm("정말 삭제하시겠습니까?");
+									if (result) {
+										location.href = '${pageContext.request.contextPath}/noticeRemove.admin?seq=${list.seq}';
+									}
+								})
 									</script>
 						</c:forEach>
 						
