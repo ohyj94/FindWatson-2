@@ -16,7 +16,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainStyle.css">
 <style>
 	.contents{width: 100%; height: 300px;}
 	.comment-box>*{width: 100%;}
@@ -26,7 +26,7 @@
 </head>
 <body>
 	<div class=container>
-		<jsp:include page="../standard/headerAdmin.jsp"/>
+		<jsp:include page="../standard/headerMember.jsp"/>
 		<!--  -->
 		
             <div class="row">
@@ -71,14 +71,7 @@
                             
 							</c:forEach>
                            	</div>
-                           	<div class="row line">
-                                <div class="comment-box col-auto col-sm-10 pt-1 pl-1 p-0">
-									<textarea class="txtaReSize" name="comment" id=comment></textarea>
-                                </div>
-                                <div class="write-box col-auto col-sm-2 text-center p-1">
-									<button class="btn btn-sm btn-outline-secondary" id=commentWrite>작성하기</button>
-                                </div>
-                            </div>
+                           	
                         </div>
                     </div>
                 </div>
@@ -88,25 +81,7 @@
 	</div>
 	
 	<script>
-	$('#commentWrite').on('click',function(){
-		$.ajax({
-			url:"${pageContext.request.contextPath}/adminComment.admin",
-			type:"post",
-			data:{
-				seq:"${dto.seq}",
-				comment:$("#comment").val()	
-			},
-			dataType:"Json"
-		}).done(function(data){
-			console.log(data);
-			$("#comment").val("");
-			
-			$('#commentContainer').append();
-			
-		}).fail(function(){
-			console.log(data);
-		})
-	})
+	
 	</script>
 </body>
 </html>

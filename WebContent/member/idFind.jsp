@@ -124,13 +124,13 @@
 		//찾기버튼 공란검사
 		$("#find").on("click",function(){
 			
-			if($("#name").val()=""){
+			if($("#name").val()==""){
 				alert("이름을 입력하세요!")
 			}
-			if($("#email").val()=""){
+			if($("#email").val()==""){
 				alert("이메일을 입력하세요!")
 			}
-			if($("#phone").val()=""){
+			if($("#phone").val()==""){
 				alert("핸드폰번호를 입력하세요!")
 			}
 		})

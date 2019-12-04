@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -26,6 +27,7 @@ import findwatson.admin.dto.ChartDTO;
 import findwatson.admin.dto.ExpertDTO;
 import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
+import findwatson.admin.dto.OneByOneCommentDTO;
 import findwatson.board.dao.BoardDAO;
 import findwatson.board.dao.ObODAO;
 import findwatson.board.dto.BoardDTO;
@@ -519,9 +521,33 @@ public class AdminController extends HttpServlet {
 				int ObOSeq = Integer.parseInt(request.getParameter("seq"));
 				ObODTO dto = Odao.getObOBySeq(ObOSeq);
 				request.setAttribute("dto", dto);
+				//이미 잇는 댓글
+				List<OneByOneCommentDTO> resultList = dao.commentsList((ObOSeq));
+				request.setAttribute("commentList", resultList);
 				request.getRequestDispatcher("admin/adminObODetailView.jsp").forward(request, response);
 
+			}else if(cmd.contentEquals("/adminComment.admin")) {//1:1문의 댓글 남기기
+				System.out.println("1:1문의 댓글 진입");
+				
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				String comment = request.getParameter("comment");
+				
+				System.out.println(" : 댓글내용" + comment + " : 글번호" + seq);
+				int result = dao.insertComments(seq, comment);
+				System.out.println("댓글저장 성공했따");
+				int updateHeader = dao.updateHeader(seq);
+				List<OneByOneCommentDTO> resultList = dao.commentsList(seq);
+				Gson g = new Gson();
 
+				if (result>0) {
+					response.getWriter().append(g.toJson(resultList));
+				}else {
+					response.getWriter().append(g.toJson("댓글저장실패"));
+				}
+				
+				
+				
+				
 			}else if(cmd.contentEquals("/adminMemberChart.admin")) {//회원통계
 
 
