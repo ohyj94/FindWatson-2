@@ -16,11 +16,13 @@
 		<style>
 		.inputs input{
 		position: relative;
-		left: 50%;
-		transform:translateX(-50%);
+		
 		}
 		.btns{
 		text-align:center;
+		}
+		div{
+		text-align: center;
 		}
 		</style>
 </head>
@@ -56,8 +58,8 @@
             
             <div class=row>
                 <div class="col-12 con btns">
-                	<button type="button" id=tologin>로그인</button>
-                    <button type="button" id=signUp>회원가입</button>
+                	<button type="button" id=tologin class="btn btn-outline-secondary">로그인</button>
+                   <button type="button" id=signUp class="btn btn-outline-secondary">회원가입</button>
                 </div>
             </div>
             
