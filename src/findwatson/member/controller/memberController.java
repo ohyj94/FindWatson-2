@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
 
+import findwatson.board.dao.ObODAO;
+import findwatson.board.dto.ObODTO;
+import findwatson.configuration.Configuration;
 import findwatson.member.dao.MemberDAO;
 import findwatson.member.dto.MemberDTO;
 
@@ -33,28 +36,31 @@ public class memberController extends HttpServlet {
 		System.out.println(path);
 
 		MemberDAO dao = MemberDAO.getInstance();
+		ObODAO Odao = ObODAO.getInstance();
 		PrintWriter pwriter = response.getWriter();
 
 		if(path.contentEquals("/login.member")) { //로그인
 			String id = request.getParameter("id");
+			System.out.println(id);
 			String pw = request.getParameter("pw");
+			System.out.println(pw);
 			String redirectPage = request.getParameter("returnPage");
 			try {
 				boolean result = dao.loginOk(id, pw);
-				
+
 				if(result) {
 					if(redirectPage != null) {
 						request.setAttribute("redirectPage", redirectPage);
-						
+
 					}
 					request.getSession().setAttribute("loginInfo",id);
 					//아이피 주소 membertable에 업데이트
 					dao.updateMemberIp(id, ipAddr);
 				}
-				
+
 				request.setAttribute("result", result);
 				request.getRequestDispatcher("member/loginResultView.jsp").forward(request, response);
-					
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -127,21 +133,63 @@ public class memberController extends HttpServlet {
 				e.printStackTrace();
 				response.sendRedirect("main/error.jsp");
 			}
-		}//1:1문의 글쓰기
+		}
+		//1:1문의 리스트   내껏만
+		else if(path.contentEquals("/mypageOneByOneList.member")) {
+			String id = (String)request.getSession().getAttribute("loginInfo");
+			try {
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - Configuration.recordCountPerPage - 1;
+				int end = cpage * Configuration.recordCountPerPage;
+
+				List<ObODTO> list = Odao.myObOByPage(start, end, id);
+				String pageNavi = Odao.getMyObOPageNav(cpage, id);
+
+				request.setAttribute("list", list);
+				request.setAttribute("pageNavi", pageNavi);
+				request.getRequestDispatcher("member/mypageOneByOneList.jsp").forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("main/error.jsp");
+			}
+		}
+		//1:1문의 멤버가 디테일뷰
+		else if(path.contentEquals("/mypageOneByOneDetailView.member")) {
+			
+		}
+		//1:1문의 글쓰러들어가기
 		else if(path.contentEquals("/mypageOneByOne.member")) {
 			String id = (String)request.getSession().getAttribute("loginInfo");
 			try {
 				request.setAttribute("id", id);
 				request.getRequestDispatcher("member/mypageOneByOne.jsp").forward(request, response);
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.sendRedirect("main/error.jsp");
 			}
-		}else if(path.contentEquals("/onebyoneInsert.member")) {
+		}//1:1문의 글쓰기 저장
+		else if(path.contentEquals("/onebyoneInsert.member")) {
 			String id = (String)request.getSession().getAttribute("loginInfo");
-			
-			
+			try {
+				String title = request.getParameter("title");
+				String content = request.getParameter("content");
+				String header = "건의";
+
+				int result = dao.insertOneByOne(id, title, content, header);
+				if(result > 0) {
+					System.out.println("1:1문의글 저장성공");
+					response.sendRedirect("toMain.main");
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("main/error.jsp");
+			}
 		}//정보인포->정보수정으로 이동
 		else if(path.contentEquals("/InfoModify.member")) {
 			try{String id = request.getParameter("id");
@@ -205,8 +253,8 @@ public class memberController extends HttpServlet {
 
 		}//아이디찾기
 		else if(path.contentEquals("/idFind.member")) {
-			
-			
+
+
 			try {
 				String name = request.getParameter("name");
 				String birth = request.getParameter("birth");

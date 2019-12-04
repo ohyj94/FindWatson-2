@@ -14,6 +14,7 @@ import findwatson.admin.dto.ChartDTO;
 import findwatson.admin.dto.ExpertDTO;
 import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
+import findwatson.admin.dto.OneByOneCommentDTO;
 import findwatson.board.dto.BoardDTO;
 import findwatson.board.dto.ObODTO;
 import findwatson.configuration.Configuration;
@@ -879,7 +880,41 @@ public class AdminDAO {
 			}
 		}
 	}
-
+	//1:1문의게시글에 댓글 저장
+	public int insertComments(int seq, String comments) throws Exception {
+		String sql = "insert into onebyonecomments values(onebyonecommentsSeq.nextval,?,?,sysdate)";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, seq);
+			pstat.setString(2, comments);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	//1:1문의게시글에 댓글 보여주기
+	public List<OneByOneCommentDTO> commentsList(int seq) throws Exception{
+		String sql = "select * from onebyonecomments where onebyoneseq = ?";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, seq);
+			ResultSet rs = pstat.executeQuery();
+			List<OneByOneCommentDTO> list = new ArrayList<>();
+			while(rs.next()) {
+				int commentSeq = rs.getInt(1);
+				int onebyoneSeq = rs.getInt(2);
+				String comment = rs.getString(3);
+				Timestamp writeDate = rs.getTimestamp(4);
+				OneByOneCommentDTO dto = new OneByOneCommentDTO(commentSeq,onebyoneSeq,comment,writeDate);
+				list.add(dto);
+			}
+			return list;
+		}
+	}
 	// 전문가 게시판 시퀀스로 dto가져오기
 	public BoardDTO getBoardBySeq(int expertSeq, String header) throws Exception {
 		String sql = "select * from Board where seq = ? and header = ?";

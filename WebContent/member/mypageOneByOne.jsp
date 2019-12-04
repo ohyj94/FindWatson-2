@@ -25,7 +25,7 @@
   			<div class =row>
                         <div class= col-12>
                             <h5>작성자</h5>
-                            <div>${id}</div>
+                            <div name=id>${id}</div>
                         </div>
                     </div>
   			<div class =row>

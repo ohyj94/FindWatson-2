@@ -212,4 +212,21 @@ public class MemberDAO {
 		}
 		
 	}
+	//1:1 글쓰기 저장
+	public int insertOneByOne(String id, String title, String content, String header) throws Exception{
+		String sql = "insert into onebyone values (onebyoneSeq.nextval,?,'N',?,?,?,'아이피',sysdate)";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, id);
+			pstat.setString(2, header);
+			pstat.setString(3, title);
+			pstat.setString(4, content);
+			
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
 }
