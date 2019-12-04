@@ -11,15 +11,18 @@
         <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		
-		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="resources/css/mainStyle.css">
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
+		<link rel="stylesheet" href="resources/css/mainStyle.css">
 
 </head>
 <body>
-<div class="container">
+	<div class="container">
 <jsp:include page="../standard/headerMember.jsp" />  
+<div class="row mt-2">
+	    <div class="col d-none d-sm-block"></div>
 <!--            -->
+<div class="container">
+           <div class=col>
   			<div class =row>
                         <div class= col-12>
                             <h5>아이디</h5>
@@ -80,7 +83,7 @@
                              ${dto.lovePet}
                         </div>
                     </div>
-                    <form action="${pageContext.request.contextPath}/InfoModify.member">
+                    <form action="${pageContext.request.contextPath}/InfoModify.member" method="post">
                      <input type=hidden name="id" value=${ dto.id}>
                      <input type=hidden name="pw" value=${ dto.pw}>
                      <input type=hidden name="name" value=${ dto.name}>
@@ -99,7 +102,17 @@
                     </form>
 
             <!--            -->  
+                <div class="col d-none d-sm-block"></div>
+	</div>
              <jsp:include page="../standard/footer.jsp" />  
         </div>
+        </div>
+        </div>
+        
+        <script>
+        $("#modify").on("click", function(){
+        	$("form").submit();
+        });
+        </script>
 </body>
 </html>

@@ -131,7 +131,7 @@ public class MemberDAO {
 		try(Connection con = bds.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 
-			pstat.setString(1,pw);
+			pstat.setString(1,Util.encrypt(pw));
 			pstat.setString(2, name);
 			pstat.setString(3, birth);
 			pstat.setString(4, gender);
