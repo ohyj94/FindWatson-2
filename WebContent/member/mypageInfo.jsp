@@ -94,7 +94,8 @@
                      <input type=hidden name="lovePet" value=${ dto.lovePet}>
                      <input type=hidden name="signPath" value=${ dto.signPath}>
 
-                    <div><button id=modify>정보수정</button></div>
+                    <div>
+                     <button type="button" id=modify class="btn btn-outline-secondary">정보수정</button></div>
                     </form>
 
             <!--            -->  
