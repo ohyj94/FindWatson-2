@@ -137,7 +137,7 @@ public class AdminController extends HttpServlet {
 				//
 				request.getRequestDispatcher("/admin/adminBanList.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/expertWrite.admin")){ //전문가 Q&A 글쓰기
-				String title = request.getParameter("boardTitle");
+				String title = Configuration.protectXSS(request.getParameter("boardTitle"));
 				String content = request.getParameter("content");
 				System.out.println(content);
 
@@ -171,7 +171,7 @@ public class AdminController extends HttpServlet {
 				jObj.addProperty("imgPath", imgPath);
 				pwriter.append(jObj.toString());
 			}else if(cmd.contentEquals("/noticeWrite.admin")) {//공지사항 글쓰기
-				String title = request.getParameter("boardTitle");
+				String title = Configuration.protectXSS(request.getParameter("boardTitle"));
 				String content = request.getParameter("content");
 				System.out.println(content);
 
@@ -361,12 +361,12 @@ public class AdminController extends HttpServlet {
 				int maxSize = 1024 * 1024 * 10; // 10MB 용량 제한
 				MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "UTF8", new DefaultFileRenamePolicy());
 
-				String name = multi.getParameter("name");
+				String name = Configuration.protectXSS(multi.getParameter("name"));
 				int postcode = Integer.parseInt(multi.getParameter("postcode"));
-				String address1 = multi.getParameter("address1");
-				String address2 = multi.getParameter("address2");
+				String address1 = Configuration.protectXSS(multi.getParameter("address1"));
+				String address2 = Configuration.protectXSS(multi.getParameter("address2"));
 				String phone = multi.getParameter("phone");
-				String homepage = multi.getParameter("homepage");
+				String homepage = Configuration.protectXSS(multi.getParameter("homepage"));
 				String[] medicalAnimalArr = multi.getParameterValues("medicalAnimal");
 				String[] openTimeArr = multi.getParameterValues("openTime");
 				String image = contextPath + "/" + repositoryName + "/" + multi.getFilesystemName("image");
@@ -405,14 +405,14 @@ public class AdminController extends HttpServlet {
 				int maxSize = 1024 * 1024 * 10; // 10MB 용량 제한
 				MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "UTF8", new DefaultFileRenamePolicy());
 
-				String name = multi.getParameter("name");
+				String name = Configuration.protectXSS(multi.getParameter("name"));
 				int postcode = Integer.parseInt(multi.getParameter("postcode"));
 				int seq = Integer.parseInt(multi.getParameter("seq"));
 				HListDTO dto = dao.getHListBySeq(seq);
-				String address1 = multi.getParameter("address1");
-				String address2 = multi.getParameter("address2");
+				String address1 = Configuration.protectXSS(multi.getParameter("address1"));
+				String address2 = Configuration.protectXSS(multi.getParameter("address2"));
 				String phone = multi.getParameter("phone");
-				String homepage = multi.getParameter("homepage");
+				String homepage = Configuration.protectXSS(multi.getParameter("homepage"));
 				String[] medicalAnimalArr = multi.getParameterValues("medicalAnimal");
 				String[] openTimeArr = multi.getParameterValues("openTime");
 				String image = contextPath + "/" + repositoryName + "/" + multi.getFilesystemName("image");
@@ -468,13 +468,8 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/adminHosptDetailView.jsp").forward(request, response);
 
-				// 병원 정보 수정
-			} else if(cmd.contentEquals("/hosptInfoModify.admin")){
-				System.out.println("도착");
-
 				
-			// 병원 리뷰 네비 적용된 리스트 출력
-			} else if(cmd.contentEquals("/adminHosptReviewList.admin")) {
+			}else if(cmd.contentEquals("/adminHosptReviewList.admin")) {
 				int cpage = 1;
 				String param = request.getParameter("cpage");
 
@@ -622,7 +617,7 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/noticeModify.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/noticeModifyProc.admin")) { //공지 수정 프로세스
-				String title = request.getParameter("boardTitle");
+				String title = Configuration.protectXSS(request.getParameter("boardTitle"));
 				String content = request.getParameter("content");
 				int seq= Integer.parseInt(request.getParameter("seq"));
 				
@@ -635,7 +630,7 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("admin/expertModify.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/expertModifyProc.admin")) {//전문가 Q&A 수정 프로세스
-				String title = request.getParameter("boardTitle");
+				String title = Configuration.protectXSS(request.getParameter("boardTitle"));
 				String content = request.getParameter("content");
 				int seq= Integer.parseInt(request.getParameter("seq"));
 				
