@@ -14,17 +14,19 @@
 		<link rel="stylesheet" href="../resources/css/mainStyle.css">
     </head>
     <body>
-        <div class="container">
+<div class="container col-12">
         <jsp:include page="../standard/header.jsp" />
             <!--            -->
-
+	<div class="row mt-2">
+	    <div class="col d-none d-sm-block"></div>
             결제 실패!
 관리자에게 문의바람
 admin@admin.co.kr
-
-            <!--            -->
+	    <div class="col d-none d-sm-block"></div>
+	</div>
+	   <!--            -->
             <jsp:include page="../standard/footer.jsp" />
-        </div>
+</div>
         
         <script>
             
