@@ -37,20 +37,20 @@
                                 <span class="col-auto col-sm-8 mt-2">자유롭게 소통하는 공간 입니다.</span>
                             </div>
                             <div class="row line">
-                <div class="col-1 d-none d-md-block"></div>
-                <div class="col-md-1 d-none d-md-block">
+                <div class="col-1 d-none d-lg-block"></div>
+                <div class="col-md-1 d-none d-lg-block">
                     말머리
                 </div>
-                <div class="col-md-5 d-none d-md-block">
+                <div class="col-md-5 d-none d-lg-block">
                     제목
                 </div>
-                <div class="col-md-2 d-none d-md-block">
+                <div class="col-md-2 d-none d-lg-block">
                     작성자
                 </div>
-                <div class="col-md-2 d-none d-md-block">
+                <div class="col-md-2 d-none d-lg-block">
                     작성날짜
                 </div>
-                 <div class="col-md-1 d-none d-md-block">
+                 <div class="col-md-1 d-none d-lg-block">
            	조회수
                 </div>
             </div>
@@ -61,23 +61,20 @@
 					<c:forEach items="${list}" var="dto">
 				
 						<div class="row line">
-			                <div class="col-1 d-none d-md-block">${dto.seq}</div>
-			                <div class="col-md-1 d-none d-md-block">
-			                	${dto.animalHeader}
+			                <div class="order-md-1 col-1 d-none d-md-block">${dto.seq}</div>
+			                <div class="col-1 order-1 col-md-1 order-md-2">
+			                	[${dto.animalHeader}]
 			                </div>
-			                <div class="col-8 col-md-5 text-left">
+			                <div class="col-11 order-2 col-md-5 order-md-3 text-left">
 			                 <a href='${pageContext.request.contextPath}/freeDetail.bo?seq=${dto.seq}'>${dto.title}</a> 
 			                </div>
-			                <!-- 모바일에서만 보이는 div -->
-			                <div class="col-4 d-block d-md-none">${dto.animalHeader}</div>
-			                <!-- 모바일에서만 보이는 div -->
-			                <div class="col-6 col-md-2 text-left">
+			                <div class="col-1 order-3 col-md-2 order-md-4 text-left">
 			                   	${dto.writer}
 			                </div>
-			                <div class="col-5 col-md-2 text-center">
+			                <div class="col-1 order-4 col-md-2 order-md-5 text-left">
 			                    ${dto.getDate()}
 			                </div>
-			                <div class="col-1 col-md-1 text-center">
+			                <div class="col-1 order-5 col-md-1 order-md-6 text-center">
 											${dto.viewCount}</div>
 			            </div>
 			            
