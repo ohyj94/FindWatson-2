@@ -281,7 +281,7 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("dto", dto);
 				request.setAttribute("loginInfo", id);
 				
-				String pageNavi = ComDAO.getInstance().getPageNaviCmt(cpage, seq);
+				String pageNavi = ComDAO.getInstance().getPageNaviCmtFree(cpage, seq);
 				List<ComDTO> list = ComDAO.getInstance().selectByPage(seq, start, end);
 				request.setAttribute("pageNavi", pageNavi);
 				request.setAttribute("list", list);
@@ -290,14 +290,26 @@ public class BoardController extends HttpServlet {
 				
 			}else if(cmd.contentEquals("/questionDetail.bo")) {
 				//질문 게시판 글읽기
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
+				int end = cpage * Configuration.recordCountPerPage;
+				
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				AdminDAO adao = AdminDAO.getInstance();
 				BoardDTO dto = adao.getBoardBySeq(seq, "질문");
 				request.setAttribute("dto", dto);
 				request.setAttribute("loginInfo", id);
-				List<ComDTO> list = ComDAO.getInstance().selectAll(seq);
+				
+				String pageNavi = ComDAO.getInstance().getPageNaviCmtQuestion(cpage, seq);
+				List<ComDTO> list = ComDAO.getInstance().selectByPage(seq, start, end);
+				request.setAttribute("pageNavi", pageNavi);
 				request.setAttribute("list", list);
-				request.getRequestDispatcher("board/freeDetailView.jsp").forward(request, response);
+				request.getRequestDispatcher("board/questionDetailView.jsp").forward(request, response);
+
 				
 			}else if(cmd.contentEquals("/boardRemove.bo")){
 				//게시판 글삭제
@@ -342,7 +354,19 @@ public class BoardController extends HttpServlet {
 				JsonObject jobj = new JsonObject();
 				jobj.addProperty("writer", dto.getWriter());
 				jobj.addProperty("comment", comment);
-				//jobj.addProperty("date", dto.getDate()); //왜인지 모르겠는데 nullPoint웅앵 뜸..
+				//jobj.addProperty("date", dto.getDate()); 
+				
+				pwriter.append(jobj.toString());
+			}else if(cmd.contentEquals("/questionCommentWrite.bo")) { //질문게시판 댓글 작성
+				String comment = request.getParameter("comment");
+				int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
+				ComDTO dto = new ComDTO(0,boardSeq, id, comment,ipAddr,null);
+				ComDAO.getInstance().insert(dto);
+				
+				JsonObject jobj = new JsonObject();
+				jobj.addProperty("writer", dto.getWriter());
+				jobj.addProperty("comment", comment);
+				//jobj.addProperty("date", dto.getDate()); 
 				
 				pwriter.append(jobj.toString());
 			}else if(cmd.contentEquals("/freeCommentRemove.bo")) { //자유게시판 댓글 삭제
@@ -351,6 +375,12 @@ public class BoardController extends HttpServlet {
 				ComDAO.getInstance().delete(seq);
 				
 				response.sendRedirect("freeDetail.bo?seq="+boardSeq);
+			}else if(cmd.contentEquals("/questionCommentRemove.bo")) { //질문게시판 댓글 삭제
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				int boardSeq = Integer.parseInt(request.getParameter("brdSeq"));
+				ComDAO.getInstance().delete(seq);
+				
+				response.sendRedirect("questionDetail.bo?seq="+boardSeq);
 			}else {
 				// 등록되지 않은 경로로 입장시
 
