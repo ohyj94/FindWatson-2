@@ -118,7 +118,7 @@ text-align: right;
 						<div class=col-12>${cmtDto.content}
 						<c:choose>
 						<c:when test="${loginInfo == cmtDto.writer}">
-						<button id="cmtRemove${cmtDto.comSeq}">삭제</button>
+						<button id="cmtRemove${cmtDto.comSeq}" type="button" class="btn btn-outline-secondary">삭제</button>
 						<script>
 						$("#cmtRemove${cmtDto.comSeq}").on("click",function(){
 							location.href='${pageContext.request.contextPath}/questionCommentRemove.bo?brdSeq=${dto.seq}&seq=${cmtDto.comSeq}';
