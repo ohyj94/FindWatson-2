@@ -14,10 +14,11 @@
 		<link rel="stylesheet" href="resources/css/mainStyle.css">
     </head>
     <body>
-        <div class="container">
+        <div class="container col-12">
         <jsp:include page="../standard/header.jsp" />
-            <!--            -->
-
+            <!--            --> 
+	<div class="row mt-2">
+	    <div class="col d-none d-sm-block"></div>
             <h3>후원 감사합니다</h3>
             <p>"${paid }"원 결제하셨습니다.</p>
             
@@ -27,7 +28,8 @@
 					</c:when>
 			</c:choose>
             <button type="button" id="toMainBtn">메인으로 돌아가기</button>
-
+	    <div class="col d-none d-sm-block"></div>
+	</div>
             <!--            -->
             <jsp:include page="../standard/footer.jsp" />
         </div>

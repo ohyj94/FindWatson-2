@@ -224,17 +224,18 @@ public class memberController extends HttpServlet {
 			request.setAttribute("dto", dto);
 			System.out.println(id);
 			request.getRequestDispatcher("member/mypageModify.jsp").forward(request, response);
+			
 			}catch(Exception e) {
 				response.sendRedirect("main/error.jsp");
 			}
 		}//정보수정
 		else if(path.contentEquals("/mypageModify.member")) {
-			System.out.println("10");
 			try {String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
 			String birth = request.getParameter("birth");
 			String gender = request.getParameter("gender");
+			System.out.println(gender);
 			String email = request.getParameter("email");
 			String phone = request.getParameter("phone");
 			String postcode =request.getParameter("postcode");

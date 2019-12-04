@@ -18,8 +18,10 @@
 
 </head>
 <body>
-<div class="container">
+<div class="container col-12">
 <jsp:include page="../standard/headerMember.jsp" />  
+<div class="row mt-2">
+	    <div class="col d-none d-sm-block"></div>
 <!--            -->
   		 <form action="${pageContext.request.contextPath}/onebyoneInsert.member">
   			<div class =row>
@@ -50,6 +52,8 @@
                     </form>
 
             <!--            -->  
+             <div class="col d-none d-sm-block"></div>
+	</div>
              <jsp:include page="../standard/footer.jsp" />  
         </div>
         
