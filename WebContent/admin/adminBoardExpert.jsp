@@ -6,75 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>찾아줘 왓슨!</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 </head>
 <body>
-	<div class="container">
-		<jsp:include page="../standard/headerAdmin.jsp" /> 	
-		<!--            -->
-		<div class="row">
-			<div class="col-12 mb-3" id="article">
-				<div class="row">
-					<div id="article-middle" class="col-12 mt-2">
-						<div class="row mb-3 p-1 text-center">
-							<h3 id="board-top" class="col-auto col-sm-4 m-0">전문가 Q&amp;A</h3>
-							<span class="col-auto col-sm-8 mt-2"> <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
-							</span>
-						</div>
-						<div class="row line">
-							<div class="col-md-2 d-none d-md-block">글번호</div>
-							<div class="col-md-2 d-none d-md-block">작성자</div>
-							<div class="col-md-4 d-none d-md-block">제목</div>
-							<div class="col-md-2 d-none d-md-block">작성일</div>
-							<div class="col-md-2 d-none d-md-block">조회수</div>
-						</div>
-						<!-- 게시글 목록 -->
-						<c:forEach items="${list}" var="list">
-							<div class="row line">
-								<div class="col-md-2 d-none d-md-block">${list.seq}</div>
-								<div class="col-md-2 d-none d-md-block">${list.writer}</div>
-								<div class="col-md-4 d-none d-md-block"><a href='${pageContext.request.contextPath}/adminExpertDetailView.admin?seq=${list.seq}'>${list.title}</a></div>
-								<div class="col-md-2 d-none d-md-block">
-									${list.formedDate}</div>
-								<div class="col-md-2 d-none d-md-block">${list.viewCount}<button type=button id=remove${list.seq}>삭제</button>
-								</div>
-							</div>
-							<script>
-										$("#remove${list.seq}").on("click",function() {
-															var result = confirm("정말 삭제하시겠습니까?");
-															if (result) {
-																location.href = '${pageContext.request.contextPath}/expertRemove.admin?seq=${list.seq}';
-															}
-														})
-									</script>
-						</c:forEach>
-						<div class="row">
-							<div class="col-12 text-center">${pageNavi}</div>
-						</div>
-						<div class="row mb-2">
-							<div class="col-auto col-sm-10 p-1">
-							</div>
-							
-							<div class="write-box col-auto col-sm-2 text-center p-1">
-								<button class="btn btn-sm btn-outline-secondary" id=writeBtn>작성하기</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--            -->
-		<jsp:include page="../standard/footer.jsp" />
-		</div>
+	<div class="container col-12">
+	<jsp:include page="../standard/headerAdmin.jsp" />   
+	<div class="row mt-2">	        
+	        <!-- 중심내용 -->
+		
+		
+		
+		
+		
+			 <!-- 중심내용 -->	        
+	</div>
+	<jsp:include page="../standard/footer.jsp" />
+	</div>
+		
 	<script>
 //글쓰기 버튼
 	$("#writeBtn").on("click",function(){

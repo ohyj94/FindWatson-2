@@ -141,7 +141,7 @@ text-align: left !important;
 	$("#returnBtn").on("click",function(){
 		var result = confirm("입력하신 내용은 저장되지 않습니다. 정말 돌아가시겠습니까?");
 		if(result){
-			location.href = "${pageContext.request.contextPath}/boardNotice.admin";
+			history.back();
 		}
 	})
 
