@@ -35,19 +35,26 @@
                 
             </div>
             <div class="row line"> 
-            	<hr style="border:solid 10px black;">        
+            	 	<div class=col-12>
+            	 	<hr style="border:solid 1px;">  
+            	 	</div>
             </div>
             <div class="row line">
                 
-                <div class="col-4 d-block">
+                <div class="col-4 d-block text-center">
                     아이디
                 </div>
-                <div class="col-4 d-block">
+                <div class="col-4 d-block text-center">
            	이름
                 </div>
-                <div class="col-4 d-block">
+                <div class="col-4 d-block text-center">
             	차단하기
                 </div>
+            </div>
+             <div class="row line"> 
+            	 	<div class=col-12>
+            	 	<hr style="border:solid 1px;">  
+            	 	</div>
             </div>
             <!-- 게시글 목록 -->
             
@@ -62,13 +69,13 @@
            <c:forEach items="${list}" var="list">
            	<div class="row line">
                 
-                <div class="col-4 d-block">
+                <div class="col-4 d-block text-center">
                   ${list.id}
                 </div>
-                <div class="col-4 d-block">
+                <div class="col-4 d-block text-center">
            			${list.name }
                 </div>
-                <div class="col-4 d-block">
+                <div class="col-4 d-block text-center">
                     <a id="banIp${list.id}" href=#>차단</a>
                 </div>
             </div>
@@ -86,11 +93,21 @@
            </c:otherwise>
            </c:choose>
             <form action="${pageContext.request.contextPath}/admin/adminSearchMember.admin" method="post">
+                             <div class="row line"> 
+            	 	<div class=col-12>
+            	 	<hr style="border:solid 1px;">  
+            	 	</div>
+            </div>
                             <div class="row">
                                 <div class="col-12 text-center">
                                     ${pageNavi}
                                 </div>
                             </div>
+                            <div class="row line"> 
+            	 	<div class=col-12>
+            	 	<hr style="border:solid 1px;">  
+            	 	</div>
+            </div>
                             <div class="row">
                                 <div class="col-4">
                                     <select id="category">
@@ -112,6 +129,7 @@
         	})
         </script>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

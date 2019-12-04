@@ -36,8 +36,11 @@
             </div>
             <!-- 회원 통계 -->
             	
-            	<div class="row">
-            	<div class="col-11 mb-3">
+            	 <div class="row line"> 
+            	 	<div class=col-12>
+            	 	<hr style="border:solid 1px;">  
+            	 	</div>
+            </div>
             	 <canvas id="memberChart"></canvas>
             	<script>
             	   var ctx = document.getElementById('memberChart');
@@ -78,17 +81,15 @@
             	       }
             	   });
             	   </script>
-            	   </div>
-            	   </div>
+            	   
             <!--        -->
-             <div class="row">
-            	<div class="col-11 mb-3">
-            	
-            	</div>
-            	</div>
+              <div class="row line"> 
+            	 	<div class=col-12>
+            	 	<hr style="border:solid 1px;">  
+            	 	</div>
+            </div>
             <!-- 관심동물 -->
-            <div class="row">
-            	<div class="col-11 mb-3">
+            
             <canvas id="lovePetChart"></canvas>
             	<script>
             	   var ctx = document.getElementById('lovePetChart');
@@ -131,12 +132,14 @@
             	       }
             	   });
             	</script>
-            	</div>
-            	</div>
+            	 <div class="row line"> 
+            	 	<div class=col-12>
+            	 	<hr style="border:solid 1px;">  
+            	 	</div>
+            </div>
             <!--        -->
             <!-- 가입경로 -->
-            <div class="row">
-            	<div class="col-11 mb-3">
+            
             <canvas id="signpathChart"></canvas>
             	<script>
             	   var ctx = document.getElementById('signpathChart');
@@ -177,12 +180,14 @@
             	       }
             	   });
             	</script>
-            	</div>
-            	</div>
+            	 <div class="row line"> 
+            	 	<div class=col-12>
+            	 	<hr style="border:solid 1px;">  
+            	 	</div>
+            </div>
             <!--        -->
             <!-- 가장 인기있는 게시물 -->
-            <div class="row">
-            	<div class="col-11 mb-3">
+            
             <canvas id="top5Chart"></canvas>
             	<script>
             	   var ctx = document.getElementById('top5Chart');
@@ -223,8 +228,11 @@
             	       }
             	   });
             	</script>
-            	</div>
-            	</div>
+            	 <div class="row line"> 
+            	 	<div class=col-12>
+            	 	<hr style="border:solid 1px;">  
+            	 	</div>
+            </div>
             <!--        -->
            
                        

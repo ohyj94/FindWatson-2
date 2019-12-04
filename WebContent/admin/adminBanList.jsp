@@ -33,18 +33,24 @@
                            <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
                     </span>
             </div>
+             <div class="row line"> 
+            	 	<div class=col-12>
+            	 	<hr style="border:solid 1px;">  
+            	 	</div>
+            </div>
             <div class="row line">
                 
-                <div class="col-4 d-block">
+                <div class="col-4 d-block text-center">
                     아이디
                 </div>
-                <div class="col-4 d-block">
+                <div class="col-4 d-block text-center">
            IP
                 </div>
-                <div class="col-4 d-block">
+                <div class="col-4 d-block text-center">
                     차단 사유
                 </div>
             </div>
+             
             <!-- 게시글 목록 -->
            <c:choose>
            <c:when test="${list.size() == 0}">
@@ -54,40 +60,37 @@
            </c:when>
            <c:otherwise>
           		 <c:forEach items="${list}" var="list">
+           <div class="row line"> 
+            	 	<div class=col-12>
+            	 	<hr style="border:solid 1px;">  
+            	 	</div>
+            </div>
            <div class="row line">
                 
-                <div class="col-4 d-block">
+                <div class="col-4 d-block text-center">
                     ${list.id}
                 </div>
-                <div class="col-4 d-block">
+                <div class="col-4 d-block text-center">
            			${list.ip }
                 </div>
-                <div class="col-4 d-block">
+                <div class="col-4 d-block text-center">
                     ${list.reason }
                 </div>
             </div>
             </c:forEach>
            </c:otherwise>
            </c:choose>
+            <div class="row line"> 
+            	 	<div class=col-12>
+            	 	<hr style="border:solid 1px;">  
+            	 	</div>
+            </div>
                             <div class="row">
                                 <div class="col-12 text-center">
                                     ${pageNavi}
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <select id="category">
-                                        <option value="">제목</option>
-                                    </select>
-                                </div>
-                                <div class="search-box col-6">
-                                    <input type="text" class="" id="search" name="search" value="">
-                                </div>
-                                <div class="search-box col-2">
-                                    <button class="btn btn-sm btn-outline-secondary">검색</button>
-                                
-                            </div>
-                        </div>
+                            
                     </div>
                 </div>
             </div>
