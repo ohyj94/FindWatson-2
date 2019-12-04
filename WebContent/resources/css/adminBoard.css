@@ -3,9 +3,7 @@
 	box-sizing: border-box;
 	font-family: 'Noto Sans KR', sans-serif;
 }
-div {
-	border: 1px solid black
-}
+
 #logo {
 	width: 500px;
 	height: 100px;
