@@ -127,7 +127,7 @@
                     </div>
                     <div class="row mb-2">
                         <div class="col-12">
-                            <img src="imgs/animal/%EC%82%AC%EB%A7%89%EC%97%AC%EC%9A%B0.jpg" class="d-block w-100">
+                            <img src="../imgs/animal/%EC%BD%94%EB%89%B4%EC%96%B4.png" class="rounded mx-auto d-block" style="border-radius: 10px">
                         </div>
                     </div>
                         <!--                여기는 세션정보에 따라 block하기-->
@@ -452,7 +452,7 @@ $("#name").on("focusout", function(){
 })
 
 $("#birth").on("focusout",function(){
-	var regex = /[0-9]{6}/g;
+	var regex = /[0-9]{4}[-][0-9]{2}[-][0-9]{2}/g;
 	var data = $("#birth").val();
 	var result = regex.exec(data);
 	
