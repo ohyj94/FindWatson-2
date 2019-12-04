@@ -141,7 +141,8 @@
 					data:{
 						comment : $("#cmt").val(),
 						boardSeq: ${dto.seq}
-					},
+					}
+					,
 					dataType:"json"
 				}).done(function(data){
 					var row = $("<div class=row></div>");
