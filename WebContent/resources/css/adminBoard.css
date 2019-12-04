@@ -4,6 +4,17 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+#pwMdf,#logout{
+     color: gray;
+}
+#pwMdf:hover,#logout:hover{
+     cursor:pointer;
+     color:darkgray;
+}
+#btnBlank{
+    color: darkgray; 
+}
+
 #logo {
 	width: 500px;
 	height: 100px;
