@@ -191,8 +191,8 @@ public class memberController extends HttpServlet {
 		else if(path.contentEquals("/onebyoneInsert.member")) {
 			String id = (String)request.getSession().getAttribute("loginInfo");
 			try {
-				String title = request.getParameter("title");
-				String content = request.getParameter("content");
+				String title = Configuration.protectXSS(request.getParameter("title"));
+				String content = Configuration.protectXSS(request.getParameter("content"));
 				String header = "건의";
 
 				int result = dao.insertOneByOne(id, title, content, header);
