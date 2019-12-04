@@ -12,14 +12,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
-		<link rel="stylesheet" href="resources/css/mainStyle.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 </head>
 <body>
 <!-- container -->
 	<div class="container col-12">
 	
 	<!-- 헤더 -->
-	<jsp:include page="../standard/header.jsp" />   
+	<jsp:include page="../standard/headerAdmin.jsp" />   
 	     
 	<div class="row mt-2">
 	    <div class="col d-none d-sm-block"></div>
