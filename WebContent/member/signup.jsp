@@ -18,8 +18,10 @@
 
 </head>
 <body>
-	<div class="container">
+	<div class="container col-12">
 		<jsp:include page="../standard/header.jsp" /> 
+		<div class="row mt-2">
+	    <div class="col d-none d-sm-block"></div>
 		<!--            -->
 		<form action="${pageContext.request.contextPath}/signUp.member" method="post" id=signUp>
 			<div class=row>
@@ -180,6 +182,8 @@
 				</div>
 			</div>
 		</form>
+		  <div class="col d-none d-sm-block"></div>
+	</div>
 		
 				<!--            -->
 				<jsp:include page="../standard/footer.jsp" />
@@ -357,7 +361,7 @@
 							return;
 						}
 					}
-					if($("#pw").val() == "" || $("#pwRe").val() == "" || $("#pw").val() !== $("#pwRe").val()){
+					if($("#pw").val() == "" || $("#pwRe").val() == "" || $("#pw").val() != $("#pwRe").val()){
 						alert("비밀번호를 제대로 입력하세요!");
 						return;
 					}
