@@ -604,17 +604,17 @@ public class BoardDAO {
 		}
 	}
 
-	public int increViewCnt(int count, int seq) throws Exception{
-		String sql = "update board set viewCount=?+1 where boardSeq=?";
+	public int increViewCnt(int seq) throws Exception{
+		String sql = "update board set viewCount=(select viewCount from board where seq=?)+1 where seq=?";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
-			pstat.setInt(1, count);
+			pstat.setInt(1, seq);
 			pstat.setInt(2, seq);
-			pstat.executeUpdate();
+			int result = pstat.executeUpdate();
 			con.commit();
-			return count + 1;
+			return result;
 		}
 	}
 	

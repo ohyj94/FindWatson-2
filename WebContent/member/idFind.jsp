@@ -68,7 +68,7 @@
 				</div>
 			</div>
 			<div class="col-12 con">
-				<button id=Find>아이디찾기</button>
+				 <button type="button" id=Find class="btn btn-outline-secondary">아이디찾기</button>
 			</div>
 	</form>
 	<!--            -->

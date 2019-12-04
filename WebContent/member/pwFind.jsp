@@ -21,6 +21,12 @@
 <link rel="stylesheet" href="../resources/css/mainStyle.css">
 
 </head>
+<style>
+div{
+text-align: center;
+}
+</style>
+
 <body>
 
 	<div class="container">
@@ -49,9 +55,9 @@
 				</div>
 			</div>
 			<div class=row>
-				<div class="col-12 col-md-6">
+				<div class="col-12">
 					<h5>생년월일</h5>
-					<input type=text id=birth placeholder="yyyymmdd" name="birth">
+					<input type=text id=birth placeholder="yymmdd" name="birth">
 				</div>
 				<div class=col-12>
 					<div id=birthCheck></div>
@@ -76,7 +82,7 @@
 				</div>
 			</div>
 			<div class="col-12 con">
-				<button id=find>비밀번호 찾기</button>
+		 <button type="button" id=find class="btn btn-outline-secondary">비밀번호 찾기</button></div>
 			</div>
 		</form>
 		<!--            -->
