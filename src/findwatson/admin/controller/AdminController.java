@@ -535,6 +535,7 @@ public class AdminController extends HttpServlet {
 				System.out.println(" : 댓글내용" + comment + " : 글번호" + seq);
 				int result = dao.insertComments(seq, comment);
 				System.out.println("댓글저장 성공했따");
+				int updateHeader = dao.updateHeader(seq);
 				List<OneByOneCommentDTO> resultList = dao.commentsList(seq);
 				Gson g = new Gson();
 
