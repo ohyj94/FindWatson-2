@@ -34,20 +34,7 @@
     <div class="col d-none d-sm-block"></div>
 </div>
 <script>
-$("#login").on("click",function(){
-    location.href="${pageContext.request.contextPath}/member/login.jsp";
-})
-$("#join").on("click",function(){
-    location.href="${pageContext.request.contextPath}/member/signup.jsp";
-})
-$("#logout").on("click", function(){
-	location.href="${pageContext.request.contextPath}/logout.member"
-})
 $("#donate").on("click",function(){
     location.href="${pageContext.request.contextPath}/donate/donateForm.jsp"
 })
-//자유 게시판
-$("#free").attr("href", "${pageContext.request.contextPath}/boardFree.bo");
-//질문 게시판
-$("#question").attr("href", "${pageContext.request.contextPath}/boardQuestion.bo");
 </script>

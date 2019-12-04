@@ -33,7 +33,7 @@
 							<h3 id="board-top" class="col-auto col-sm-4 m-0">자유게시판</h3>
 							<span class="col-auto col-sm-8 mt-2">자유롭게 소통하는 공간 입니다.</span>
 						</div>
-						<div class="row line">
+						<div class="row line2">
 							<div class="col-1 d-none d-lg-block"></div>
 							<div class="col-md-1 d-none d-lg-block">말머리</div>
 							<div class="col-md-5 d-none d-lg-block">제목</div>
@@ -50,19 +50,16 @@
 										<div class="order-md-1 col-1 d-none d-md-block">${dto.seq}</div>
 										<div class="col-1 order-1 col-md-1 order-md-2">
 											[${dto.animalHeader}]</div>
-										<div class="col-11 order-2 col-md-5 order-md-3 text-left">
-											<a class=black
-												href='${pageContext.request.contextPath}/freeDetail.bo?seq=${dto.seq}'>${dto.title}</a>
+										<div class="col-11 order-2 col-md-4 order-md-3 text-left">
+											<a class=black href='${pageContext.request.contextPath}/freeDetail.bo?seq=${dto.seq}'>${dto.title}</a>
 										</div>
-										<div
-											class="ftsm col-2 order-3 col-md-2 order-md-4 text-center gray">
-											${dto.writer}</div>
-										<div
-											class="ftsm col-2 order-4 col-md-2 order-md-5 text-center gray">
-											${dto.getDate()}</div>
-										<div
-											class="ftsm col-2 order-5 col-md-1 order-md-6 text-center gray">
-											${dto.viewCount}<button type=button id=remove${dto.seq}>삭제</button></div>
+										<div class="ftsm col-2 order-3 col-md-2 order-md-4 text-center gray">${dto.writer}</div>
+										<div class="ftsm col-2 order-4 col-md-2 order-md-5 text-center gray">${dto.getDate()}</div>
+										<div class="ftsm col-2 order-5 col-md-1 order-md-6 text-center gray">${dto.viewCount}</div>
+											<div class="ftsm col-4 order-6 d-md-none"></div>
+										<div class="col-2 order-7 col-md-1 order-md-7 text-center">
+											<span id=remove${dto.seq} class=ftsm>삭제</span>
+											</div>
 									</div>
 									<script>
 										$("#remove${dto.seq}").on("click",function() {

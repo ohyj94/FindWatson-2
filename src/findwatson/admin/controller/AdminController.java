@@ -222,7 +222,7 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("admin/adminBoardExpert.jsp").forward(request, response);
 
 			}else if(cmd.contentEquals("/boardNotice.admin")){// 공지사항 글 목록 출력
-				String pageCategory = "boardNotice.bo";
+				String pageCategory = "boardNotice.admin";
 				int cpage = 1;
 				String page = request.getParameter("cpage");
 				if(page != null) {

@@ -66,6 +66,9 @@ display:none;
 .black{
 	color:black;
 }
+.ftsm{
+	font-size: 12px;
+}
 .line{
 	border: 1px solid lightgray;
 }
