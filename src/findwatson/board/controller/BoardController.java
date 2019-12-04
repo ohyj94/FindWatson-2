@@ -128,7 +128,7 @@ public class BoardController extends HttpServlet {
 
 				String header = request.getParameter("header");
 				String animalHeader = request.getParameter("animalHeader");
-				String questionTitle = request.getParameter("questionTitle");
+				String questionTitle = Configuration.protectXSS(request.getParameter("questionTitle"));
 				String content = request.getParameter("content");
 
 				dao.insert(new BoardDTO(0,id, header, animalHeader, questionTitle, content, ipAddr, 0, null));
@@ -164,12 +164,12 @@ public class BoardController extends HttpServlet {
 		        pwriter.append(jObj.toString());
 		        
 		    // 커뮤니티(자유) - 글쓰기
-
 			} else if(cmd.contentEquals("/communityFreeWrite.bo")) {
 				String header = request.getParameter("header");
 				String animalHeader = request.getParameter("animalHeader");
-				String questionTitle = request.getParameter("freeTitle");
+				String questionTitle = Configuration.protectXSS(request.getParameter("freeTitle"));
 				String content = request.getParameter("content");
+				
 
 				dao.insert(new BoardDTO(0,id, header, animalHeader, questionTitle, content, ipAddr, 0, null));
 				response.sendRedirect("boardFree.bo");
@@ -276,6 +276,7 @@ public class BoardController extends HttpServlet {
 				int end = cpage * Configuration.recordCountPerPage;
 				
 				int seq = Integer.parseInt(request.getParameter("seq"));
+				dao.increViewCnt(seq);
 				AdminDAO adao = AdminDAO.getInstance();
 				BoardDTO dto = adao.getBoardBySeq(seq, "자유");
 				request.setAttribute("dto", dto);
@@ -299,6 +300,7 @@ public class BoardController extends HttpServlet {
 				int end = cpage * Configuration.recordCountPerPage;
 				
 				int seq = Integer.parseInt(request.getParameter("seq"));
+				dao.increViewCnt(seq);
 				AdminDAO adao = AdminDAO.getInstance();
 				BoardDTO dto = adao.getBoardBySeq(seq, "질문");
 				request.setAttribute("dto", dto);
@@ -327,7 +329,7 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.contentEquals("/boardModifyProc.bo")) { //게시판 글 수정 프로세스
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				String animalHeader = request.getParameter("animalHeader");
-				String title = request.getParameter("title");
+				String title = Configuration.protectXSS(request.getParameter("title"));
 				String content = request.getParameter("content");
 
 				dao.update(seq, title, content, animalHeader);
@@ -346,7 +348,7 @@ public class BoardController extends HttpServlet {
 								
 				request.getRequestDispatcher("board/boardExpertDetailView.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/freeCommentWrite.bo")) { //자유게시판 댓글 작성
-				String comment = request.getParameter("comment");
+				String comment = Configuration.protectXSS(request.getParameter("comment"));
 				int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
 				ComDTO dto = new ComDTO(0,boardSeq, id, comment,ipAddr,null);
 				ComDAO.getInstance().insert(dto);
@@ -358,7 +360,7 @@ public class BoardController extends HttpServlet {
 				
 				pwriter.append(jobj.toString());
 			}else if(cmd.contentEquals("/questionCommentWrite.bo")) { //질문게시판 댓글 작성
-				String comment = request.getParameter("comment");
+				String comment = Configuration.protectXSS(request.getParameter("comment"));
 				int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
 				ComDTO dto = new ComDTO(0,boardSeq, id, comment,ipAddr,null);
 				ComDAO.getInstance().insert(dto);

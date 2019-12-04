@@ -38,7 +38,7 @@
                             </div>
                             <div class="row line">
                 <div class="col-1 d-none d-md-block"></div>
-                <div class="col-md-2 d-none d-md-block">
+                <div class="col-md-1 d-none d-md-block">
                     말머리
                 </div>
                 <div class="col-md-5 d-none d-md-block">
@@ -50,6 +50,9 @@
                 <div class="col-md-2 d-none d-md-block">
                     작성날짜
                 </div>
+                 <div class="col-md-1 d-none d-md-block">
+           	조회수
+                </div>
             </div>
             <!-- 게시글 목록 -->
 			<c:choose>
@@ -59,7 +62,7 @@
 				
 						<div class="row line">
 			                <div class="col-1 d-none d-md-block">${dto.seq}</div>
-			                <div class="col-md-2 d-none d-md-block">
+			                <div class="col-md-1 d-none d-md-block">
 			                	${dto.animalHeader}
 			                </div>
 			                <div class="col-8 col-md-5 text-left">
@@ -71,9 +74,11 @@
 			                <div class="col-6 col-md-2 text-left">
 			                   	${dto.writer}
 			                </div>
-			                <div class="col-6 col-md-2 text-center">
-			                    ${dto.writeDate}
+			                <div class="col-5 col-md-2 text-center">
+			                    ${dto.getDate()}
 			                </div>
+			                <div class="col-1 col-md-1 text-center">
+											${dto.viewCount}</div>
 			            </div>
 			            
 					</c:forEach>
