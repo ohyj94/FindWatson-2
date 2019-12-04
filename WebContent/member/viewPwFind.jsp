@@ -20,13 +20,13 @@
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="../resources/css/mainStyle.css">
 
-
-</head>
 <style>
 div{
 text-align: center;
 }
 </style>
+</head>
+<body>
 <jsp:include page="../standard/header.jsp" />
 <!--            -->
 <form action="${pageContext.request.contextPath}/viewPwFind.member"

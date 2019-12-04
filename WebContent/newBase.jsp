@@ -26,7 +26,7 @@
 	        
 	        <!-- 중심내용 -->
 	        여기에 중심내용 작성하시면 됩니다!
-	        
+	        <!--  -->
 	    <div class="col d-none d-sm-block"></div>
 	</div>
 	

@@ -18,8 +18,10 @@
 
 </head>
 <body>
-<div class="container">
+<div class="container col-12">
 <jsp:include page="../standard/headerMember.jsp" />  
+<div class="row mt-2">
+	    <div class="col d-none d-sm-block"></div>
 <!--            -->
   		<div class=row>
 			<div class="col-12 article">
@@ -105,6 +107,8 @@
 
 			</div>
 		</div>
+		<div class="col d-none d-sm-block"></div>
+	</div>
             <!--            -->  
              <jsp:include page="../standard/footer.jsp" />  
         </div>

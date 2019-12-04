@@ -29,8 +29,10 @@ text-align: center;
 
 <body>
 
-	<div class="container">
+		<div class="container col-12">
 		<jsp:include page="../standard/header.jsp" />
+		<div class="row mt-2">
+	    <div class="col d-none d-sm-block"></div>
 		<!--            -->
 		<form action="${pageContext.request.contextPath}/pwFind.member"
 			method="post" id=frm>
@@ -85,6 +87,8 @@ text-align: center;
 		 <button type="button" id=find class="btn btn-outline-secondary">비밀번호 찾기</button></div>
 			</div>
 		</form>
+		<div class="col d-none d-sm-block"></div>
+	</div>
 		<!--            -->
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
