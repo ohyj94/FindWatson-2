@@ -120,7 +120,7 @@
 		var result = regex.exec(content);
 		
 		if( (title == "") || (result == null) ){
-			alert("내용을 입력해주세요");
+			alert("내용은 2줄이상 입력해주세요");
 		}else{
 			var result = confirm("정말 등록 하시겠습니까?");
 			if(result){

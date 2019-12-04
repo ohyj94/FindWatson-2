@@ -36,7 +36,7 @@
                             <input type="text" id=pwRe><br>
                             <form action="${pageContext.request.contextPath}/mypageWithdrawal.member" method="post" id=frm>
                             <div id=pwCheck></div>
-                            <button id=withdrawal>탈퇴하기</button>
+                             <button type="button" id=withdrawal class="btn btn-outline-secondary">탈퇴하기</button></div>
                             </form>
                         </div>
                     </div>

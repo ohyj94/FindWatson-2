@@ -22,6 +22,11 @@
 
 
 </head>
+<style>
+div{
+text-align: center;
+}
+</style>
 <jsp:include page="../standard/header.jsp" />
 <!--            -->
 <form action="${pageContext.request.contextPath}/viewPwFind.member"
@@ -46,7 +51,8 @@
 
 	<div class=row>
 		<div class=col-12>
-			<button id=change>비밀번호 변경</button>
+			<button type="button" id=change class="btn btn-outline-secondary"> 비밀번호 변경</button>
+		
 		</div>
 	</div>
 </form>

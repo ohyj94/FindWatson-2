@@ -14,6 +14,7 @@ import findwatson.admin.dto.ChartDTO;
 import findwatson.admin.dto.ExpertDTO;
 import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
+import findwatson.admin.dto.OneByOneCommentDTO;
 import findwatson.board.dto.BoardDTO;
 import findwatson.board.dto.ObODTO;
 import findwatson.configuration.Configuration;
@@ -552,7 +553,7 @@ public class AdminDAO {
 			return result;
 		}
 	}
-	
+
 	// 관리자 - 병원정보 등록
 	public int insertHospitalInfo(HListDTO dto) throws Exception {
 		String sql = "insert into hosptList values (hosptListSeq.nextval,?,?,?,?,?,?,?,?,?,sysdate,0)";
@@ -572,26 +573,26 @@ public class AdminDAO {
 		}
 	}
 	// 관리자 - 병원정보 수정
-		public int updateHospitalInfo(HListDTO dto) throws Exception {
-			String sql = "update hosptList set hosptname =?, postCode=?,address1=?,address2=?,phone=?,homepage=?,"
-					+ "img=?,medicalAnimal=?,opentime=?,registdate=sysdate where seq=?";
-			try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-				pstat.setString(1, dto.getHosptName());
-				pstat.setInt(2, dto.getPostcode());
-				pstat.setString(3, dto.getAddress1());
-				pstat.setString(4, dto.getAddress2());
-				pstat.setString(5, dto.getPhone());
-				pstat.setString(6, dto.getHomepage());
-				pstat.setString(7, dto.getImg());
-				pstat.setString(8, dto.getMedicalAnimal());
-				pstat.setString(9, dto.getOpenTime());
-				pstat.setInt(10, dto.getSeq());
-				int result = pstat.executeUpdate();
-				con.commit();
-				return result;
-			}
+	public int updateHospitalInfo(HListDTO dto) throws Exception {
+		String sql = "update hosptList set hosptname =?, postCode=?,address1=?,address2=?,phone=?,homepage=?,"
+				+ "img=?,medicalAnimal=?,opentime=?,registdate=sysdate where seq=?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setString(1, dto.getHosptName());
+			pstat.setInt(2, dto.getPostcode());
+			pstat.setString(3, dto.getAddress1());
+			pstat.setString(4, dto.getAddress2());
+			pstat.setString(5, dto.getPhone());
+			pstat.setString(6, dto.getHomepage());
+			pstat.setString(7, dto.getImg());
+			pstat.setString(8, dto.getMedicalAnimal());
+			pstat.setString(9, dto.getOpenTime());
+			pstat.setInt(10, dto.getSeq());
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
 		}
-	
+	}
+
 
 	//관리자통계 - 남자회원 수
 	public int recordMemberMTotalCount () throws Exception {
@@ -726,59 +727,59 @@ public class AdminDAO {
 		}
 	}
 	//관리자통계 - 가입경로 키워드검색
-		public int recordKeywordSearchTotalCount () throws Exception {
-			String sql = "select count(signpath) from member where signpath=' ''특수 동물 병원'' 키워드 검색'";
-			try(
-					Connection con = this.getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-					){
-				ResultSet rs = pstat.executeQuery();
-				rs.next();
-				return rs.getInt(1);
-			}
+	public int recordKeywordSearchTotalCount () throws Exception {
+		String sql = "select count(signpath) from member where signpath=' ''특수 동물 병원'' 키워드 검색'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
 		}
-		//관리자통계 - 가입경로 지인소개
-		public int recordIntroduceTotalCount () throws Exception {
-			String sql = "select count(signpath) from member where signpath='지인 소개'";
-			try(
-					Connection con = this.getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-					){
-				ResultSet rs = pstat.executeQuery();
-				rs.next();
-				return rs.getInt(1);
-			}
+	}
+	//관리자통계 - 가입경로 지인소개
+	public int recordIntroduceTotalCount () throws Exception {
+		String sql = "select count(signpath) from member where signpath='지인 소개'";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
 		}
-		//관리자통계 - 가입경로 기타
-		public int recordOtherSearchTotalCount () throws Exception {
-			String sql = "select count(lovepet) from member where lovepet not in (' ''찾아조 왓슨!'' 직접검색',' ''특수 동물 병원'' 키워드 검색','지인 소개')";
-			try(
-					Connection con = this.getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-					){
-				ResultSet rs = pstat.executeQuery();
-				rs.next();
-				return rs.getInt(1);
-			}
+	}
+	//관리자통계 - 가입경로 기타
+	public int recordOtherSearchTotalCount () throws Exception {
+		String sql = "select count(lovepet) from member where lovepet not in (' ''찾아조 왓슨!'' 직접검색',' ''특수 동물 병원'' 키워드 검색','지인 소개')";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
 		}
-		//관리자통계 - 인기게시물 top5
-		public List<ChartDTO> recordTop5 () throws Exception {
-			String sql = "select * from (SELECT title,viewcount FROM board union all select title,viewcount from expert order by viewcount desc) where rownum<=5";
-			try(
-					Connection con = this.getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-					){
-				ResultSet rs = pstat.executeQuery();
-				List<ChartDTO> list = new ArrayList<>();
-				while(rs.next()) {
-					String title = rs.getString(1);
-					int viewCount = rs.getInt(2);
-					ChartDTO dto = new ChartDTO (title,viewCount);
-					list.add(dto);
-				}
-				return list;
+	}
+	//관리자통계 - 인기게시물 top5
+	public List<ChartDTO> recordTop5 () throws Exception {
+		String sql = "select * from (SELECT title,viewcount FROM board union all select title,viewcount from expert order by viewcount desc) where rownum<=5";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			List<ChartDTO> list = new ArrayList<>();
+			while(rs.next()) {
+				String title = rs.getString(1);
+				int viewCount = rs.getInt(2);
+				ChartDTO dto = new ChartDTO (title,viewCount);
+				list.add(dto);
 			}
+			return list;
 		}
+	}
 	//공지사항 테이블 시퀀스로 dto가져오기
 	public NoticeDTO getNoticeBySeq(int noticeSeq)throws Exception{
 		String sql = "select * from notice where seq =?";
@@ -805,22 +806,22 @@ public class AdminDAO {
 	}
 
 	// 조회수 늘리기
-		// 공지
-		public int increNoticeView(int count, int seq) throws Exception {
-			String sql = "update notice set viewCount = ?+ 1 where seq = ?";
-			try (
-					Connection con = this.getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);)
-			{
-				pstat.setInt(1, count);
-				pstat.setInt(2, seq);
-				pstat.executeUpdate();
-				con.commit();
-				return count+1;
-			}
-
+	// 공지
+	public int increNoticeView(int count, int seq) throws Exception {
+		String sql = "update notice set viewCount = ?+ 1 where seq = ?";
+		try (
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);)
+		{
+			pstat.setInt(1, count);
+			pstat.setInt(2, seq);
+			pstat.executeUpdate();
+			con.commit();
+			return count+1;
 		}
-	
+
+	}
+
 	// 전문가 큐엔에이 테이블 시퀀스로 dto가져오기
 	public ExpertDTO getExpertBySeq(int expertSeq) throws Exception {
 		String sql = "select * from expert where seq =?";
@@ -835,13 +836,13 @@ public class AdminDAO {
 				Timestamp writeDate = rs.getTimestamp(5);
 				int viewCount = rs.getInt(6);
 				viewCount = increExpertView(viewCount, seq);
-						
+
 				ExpertDTO dto = new ExpertDTO(seq, writer, title, content, writeDate, viewCount);
 				return dto;
 			}
 		}
 	}
-	
+
 	// 전문가 조회수
 	public int increExpertView(int count, int seq) throws Exception {
 		String sql = "update expert set viewCount = ?+ 1 where seq = ?";
@@ -857,7 +858,7 @@ public class AdminDAO {
 		}
 
 	}
-	
+
 	// 1:1 문의게시판 디테일 뷰
 	public ObODTO getObOBySeq(int ObOSeq) throws Exception {
 		String sql = "select * from oneByOne where seq =?";
@@ -879,7 +880,41 @@ public class AdminDAO {
 			}
 		}
 	}
-
+	//1:1문의게시글에 댓글 저장
+	public int insertComments(int seq, String comments) throws Exception {
+		String sql = "insert into onebyonecomments values(onebyonecommentsSeq.nextval,?,?,sysdate)";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, seq);
+			pstat.setString(2, comments);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	//1:1문의게시글에 댓글 보여주기
+	public List<OneByOneCommentDTO> commentsList(int seq) throws Exception{
+		String sql = "select * from onebyonecomments where onebyoneseq = ?";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, seq);
+			ResultSet rs = pstat.executeQuery();
+			List<OneByOneCommentDTO> list = new ArrayList<>();
+			while(rs.next()) {
+				int commentSeq = rs.getInt(1);
+				int onebyoneSeq = rs.getInt(2);
+				String comment = rs.getString(3);
+				Timestamp writeDate = rs.getTimestamp(4);
+				OneByOneCommentDTO dto = new OneByOneCommentDTO(commentSeq,onebyoneSeq,comment,writeDate);
+				list.add(dto);
+			}
+			return list;
+		}
+	}
 	// 전문가 게시판 시퀀스로 dto가져오기
 	public BoardDTO getBoardBySeq(int expertSeq, String header) throws Exception {
 		String sql = "select * from Board where seq = ? and header = ?";
@@ -907,45 +942,45 @@ public class AdminDAO {
 
 	}
 	// 전문가 게시판 시퀀스로 dto가져오기
-		public BoardDTO getBoardBySeq2(int expertSeq) throws Exception {
-			String sql = "select * from Board where seq = ?";
-			try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-				pstat.setInt(1, expertSeq);
-				try (ResultSet rs = pstat.executeQuery();) {
-					rs.next();
-					int seq = rs.getInt(1);
-					String writer = rs.getString(2);
-					String headerInput = rs.getString(3);
-					String animalHeader = rs.getString(4);
-					String title = rs.getString(5);
-					String content = rs.getString(6);
-					String ipAddr = rs.getString(7);
-					int viewCount = rs.getInt(8);
-					Timestamp writeDate = rs.getTimestamp(9);
+	public BoardDTO getBoardBySeq2(int expertSeq) throws Exception {
+		String sql = "select * from Board where seq = ?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, expertSeq);
+			try (ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				int seq = rs.getInt(1);
+				String writer = rs.getString(2);
+				String headerInput = rs.getString(3);
+				String animalHeader = rs.getString(4);
+				String title = rs.getString(5);
+				String content = rs.getString(6);
+				String ipAddr = rs.getString(7);
+				int viewCount = rs.getInt(8);
+				Timestamp writeDate = rs.getTimestamp(9);
 
-					BoardDTO dto = new BoardDTO(seq, writer, headerInput, animalHeader, title, content, ipAddr, viewCount,
-							writeDate);
-					return dto;
-				}
-
+				BoardDTO dto = new BoardDTO(seq, writer, headerInput, animalHeader, title, content, ipAddr, viewCount,
+						writeDate);
+				return dto;
 			}
 
 		}
-			//관리자 비밀번호 변경 - 기존 비밀번호와 확인
-			public boolean adminPwSameCheck(String oriPwInput) throws Exception{
-				String sql = "select * from admin where pw = ?";
-				try(
-						Connection con = getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-						){
-						pstat.setString(1,oriPwInput);
-						try(
-							ResultSet rs = pstat.executeQuery();
-								){
-							return rs.next();
-						}
-				}
+
+	}
+	//관리자 비밀번호 변경 - 기존 비밀번호와 확인
+	public boolean adminPwSameCheck(String oriPwInput) throws Exception{
+		String sql = "select * from admin where pw = ?";
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1,oriPwInput);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+				return rs.next();
 			}
+		}
+	}
 
 
 	// 커뮤니티
@@ -1003,179 +1038,194 @@ public class AdminDAO {
 			return result;
 		}
 	}
-	
+
 	// 병원 정보 뽑기
-		public HListDTO getHListBySeq(int seq) throws Exception {
-			String sql = "select * from hosptList where seq =?";
-			try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-				pstat.setInt(1, seq);
-				try (ResultSet rs = pstat.executeQuery();) {
-					rs.next();
-					int seqInput = rs.getInt(1);
-					String hName = rs.getString(2);
-					int postCode = rs.getInt(3);
-					String address1 = rs.getString(4);
-					String address2 = rs.getString(5);
-					String phone = rs.getString(6);
-					String homePage = rs.getString(7);
-					String img = rs.getString(8);
-					String medicalAnimal = rs.getString(9);
-					String openTime = rs.getString(10);
-					Timestamp registDate = rs.getTimestamp(11);
-					int viewCount = rs.getInt(12);
-
-					HListDTO dto = new HListDTO(seqInput, hName, postCode, address1, address2, phone, homePage,
-							img, medicalAnimal, openTime, registDate, viewCount);
-					return dto;
-				}
-			}
-		}
-		//병원리뷰목록 게시판 내의 총 글의 개수
-		public int recordHosptReviewListTotalCount () throws Exception {
-			String sql = "select count(seq) from hosptReview";
-			try(
-					Connection con = this.getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-					){
-				ResultSet rs = pstat.executeQuery();
+	public HListDTO getHListBySeq(int seq) throws Exception {
+		String sql = "select * from hosptList where seq =?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			try (ResultSet rs = pstat.executeQuery();) {
 				rs.next();
-				return rs.getInt(1);
+				int seqInput = rs.getInt(1);
+				String hName = rs.getString(2);
+				int postCode = rs.getInt(3);
+				String address1 = rs.getString(4);
+				String address2 = rs.getString(5);
+				String phone = rs.getString(6);
+				String homePage = rs.getString(7);
+				String img = rs.getString(8);
+				String medicalAnimal = rs.getString(9);
+				String openTime = rs.getString(10);
+				Timestamp registDate = rs.getTimestamp(11);
+				int viewCount = rs.getInt(12);
+
+				HListDTO dto = new HListDTO(seqInput, hName, postCode, address1, address2, phone, homePage,
+						img, medicalAnimal, openTime, registDate, viewCount);
+				return dto;
 			}
 		}
-		//병원리뷰목록 페이지 네비게이터
-		public String getHosptReviewListPageNav(int currentPage) throws Exception {
-			//게시판 내의 총 글의 개수
-			int recordTotalCount = this.recordHosptReviewListTotalCount();
-			//한 페이지에 몇개의 글을 보여줄건지
-			//int recordCountPerPage = 10;
-			//한 페이지에서 몇개의 네비게이터를 보여줄건지
-			//int naviCountPerPage = 10;
-			//총 몇개의 페이지인지
-			int pageTotalCount = 0;
-			if(recordTotalCount % Configuration.recordCountPerPage > 0) {
-				//총 글의 개수를 페이지당 보여줄 개수로 나누었을 때, 나머지가 생기면 총페이지의 개수 +1
-				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
-			}else {
-				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
-			}
-
-			//현재 페이지 값이 비정상 값일 때, 조정하는 보안 코드
-			if(currentPage < 1) {
-				currentPage = 1;
-			}else if(currentPage > pageTotalCount) {
-				currentPage = pageTotalCount;
-			}
-
-			//현재 내가 위치하고 있는 페이지에 따라 네비게이터 시작 페이지 값을 구하는 공식
-			int startNavi = ((currentPage-1) / Configuration.naviCountPerPage) * Configuration.naviCountPerPage + 1;
-			int endNavi = startNavi + Configuration.naviCountPerPage - 1;
-
-			//페이지 끝값이 비정상 값일 때, 조정하는 보안 코드
-			if(endNavi > pageTotalCount) {
-				endNavi = pageTotalCount;
-			}
-
-			System.out.println("현재 페이지 번호 : " + currentPage);
-			System.out.println("네비게이터 시작 번호 : " + startNavi);
-			System.out.println("네비게이터 끝 번호 : " + endNavi);
-
-			boolean needPrev = true;
-			boolean needNext = true;
-
-			if(currentPage == 1) {
-				needPrev = false;
-			}
-			if(currentPage == pageTotalCount) {
-				needNext = false;
-			}
-			StringBuilder sb = new StringBuilder();
-
-			if(needPrev) {sb.append("<a href='adminHosptReviewList.admin?cpage="+(currentPage-1)+"'> < </a>");}
-
-			for(int i = startNavi; i <= endNavi;i++) {
-				sb.append("<a href='adminHosptReviewList.admin?cpage="+i+"'>");
-				sb.append(i + " ");
-				sb.append("</a>");
-			}
-			if(needNext) {sb.append("<a href='adminHosptReviewList.admin?cpage="+(currentPage+1)+"'> > </a>");}
-			return sb.toString();
+	}
+	//병원리뷰목록 게시판 내의 총 글의 개수
+	public int recordHosptReviewListTotalCount () throws Exception {
+		String sql = "select count(seq) from hosptReview";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			ResultSet rs = pstat.executeQuery();
+			rs.next();
+			return rs.getInt(1);
 		}
-		//병원리뷰목록 게시판 목록 10개씩
-		public List<ReviewDTO> hosptReviewListByPage(int start, int end) throws Exception{
-			String sql = "select * from"
-					+ "(select HosptReview.*, row_number() over (order by seq) as rown from HosptReview)"
-					+ " where rown between ? and ?";
+	}
+	//병원리뷰목록 페이지 네비게이터
+	public String getHosptReviewListPageNav(int currentPage) throws Exception {
+		//게시판 내의 총 글의 개수
+		int recordTotalCount = this.recordHosptReviewListTotalCount();
+		//한 페이지에 몇개의 글을 보여줄건지
+		//int recordCountPerPage = 10;
+		//한 페이지에서 몇개의 네비게이터를 보여줄건지
+		//int naviCountPerPage = 10;
+		//총 몇개의 페이지인지
+		int pageTotalCount = 0;
+		if(recordTotalCount % Configuration.recordCountPerPage > 0) {
+			//총 글의 개수를 페이지당 보여줄 개수로 나누었을 때, 나머지가 생기면 총페이지의 개수 +1
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+		}
+
+		//현재 페이지 값이 비정상 값일 때, 조정하는 보안 코드
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		//현재 내가 위치하고 있는 페이지에 따라 네비게이터 시작 페이지 값을 구하는 공식
+		int startNavi = ((currentPage-1) / Configuration.naviCountPerPage) * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + Configuration.naviCountPerPage - 1;
+
+		//페이지 끝값이 비정상 값일 때, 조정하는 보안 코드
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		System.out.println("현재 페이지 번호 : " + currentPage);
+		System.out.println("네비게이터 시작 번호 : " + startNavi);
+		System.out.println("네비게이터 끝 번호 : " + endNavi);
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if(currentPage == 1) {
+			needPrev = false;
+		}
+		if(currentPage == pageTotalCount) {
+			needNext = false;
+		}
+		StringBuilder sb = new StringBuilder();
+
+		if(needPrev) {sb.append("<a href='adminHosptReviewList.admin?cpage="+(currentPage-1)+"'> < </a>");}
+
+		for(int i = startNavi; i <= endNavi;i++) {
+			sb.append("<a href='adminHosptReviewList.admin?cpage="+i+"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+		}
+		if(needNext) {sb.append("<a href='adminHosptReviewList.admin?cpage="+(currentPage+1)+"'> > </a>");}
+		return sb.toString();
+	}
+	//병원리뷰목록 게시판 목록 10개씩
+	public List<ReviewDTO> hosptReviewListByPage(int start, int end) throws Exception{
+		String sql = "select * from"
+				+ "(select HosptReview.*, row_number() over (order by seq desc) as rown from HosptReview)"
+				+ " where rown between ? and ?";
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, start);
+			pstat.setInt(2, end);
 			try(
-					Connection con = this.getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
+					ResultSet rs = pstat.executeQuery();
 					){
-				pstat.setInt(1, start);
-				pstat.setInt(2, end);
-				try(
-						ResultSet rs = pstat.executeQuery();
-						){
-					List<ReviewDTO> result = new ArrayList<>();
-					while(rs.next()) {
-						int seq = rs.getInt(1);
-						int hosptListSeq = rs.getInt(2);
-						int score = rs.getInt(3);
-						String title = rs.getString(4);
-						String content = rs.getString(5);
-						String header = rs.getString(6);
-						String writer = rs.getString(7);
-						Timestamp writeDate = rs.getTimestamp(8);
-						String ipAddr = rs.getString(9);
-						int likeCount = rs.getInt(10);
-						ReviewDTO dto = new ReviewDTO(seq,hosptListSeq,score,title,content,header,writer,writeDate,ipAddr,likeCount);
-						result.add(dto);
-					}
-					return result;
+				List<ReviewDTO> result = new ArrayList<>();
+				while(rs.next()) {
+					int seq = rs.getInt(1);
+					int hosptListSeq = rs.getInt(2);
+					int score = rs.getInt(3);
+					String title = rs.getString(4);
+					String content = rs.getString(5);
+					String header = rs.getString(6);
+					String writer = rs.getString(7);
+					Timestamp writeDate = rs.getTimestamp(8);
+					String ipAddr = rs.getString(9);
+					int likeCount = rs.getInt(10);
+					ReviewDTO dto = new ReviewDTO(seq,hosptListSeq,score,title,content,header,writer,writeDate,ipAddr,likeCount);
+					result.add(dto);
 				}
-			}
-		}
-		//병원리뷰 삭제
-		public int deleteHosptReview(int seq) throws Exception {
-			String sql = "delete from hosptReview where seq=?";
-			try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-				pstat.setInt(1, seq);
-				int result = pstat.executeUpdate();
-				con.commit();
 				return result;
 			}
 		}
-
-		//공지 수정
-		public int updateNotice(int seq, String title, String content)throws Exception{
-			String sql = "update notice set title =?, content =? where seq = ?";
-					try(
-							Connection con = getConnection(); 
-							PreparedStatement pstat = con.prepareStatement(sql);
-							){
-						pstat.setString(1, title);
-						pstat.setString(2, content);
-						pstat.setInt(3, seq);
-						
-						int result = pstat.executeUpdate();
-						con.commit();
-						return result;
-							
-					}
+	}
+	//병원리뷰 삭제
+	public int deleteHosptReview(int seq) throws Exception {
+		String sql = "delete from hosptReview where seq=?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
 		}
-		//전문가 수정
-				public int updateExpert(int seq, String title, String content)throws Exception{
-					String sql = "update expert set title =?, content =? where seq = ?";
-							try(
-									Connection con = getConnection(); 
-									PreparedStatement pstat = con.prepareStatement(sql);
-									){
-								pstat.setString(1, title);
-								pstat.setString(2, content);
-								pstat.setInt(3, seq);
-								
-								int result = pstat.executeUpdate();
-								con.commit();
-								return result;
-									
-							}
-				}
+	}
+
+	//공지 수정
+	public int updateNotice(int seq, String title, String content)throws Exception{
+		String sql = "update notice set title =?, content =? where seq = ?";
+		try(
+				Connection con = getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, title);
+			pstat.setString(2, content);
+			pstat.setInt(3, seq);
+
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+
+		}
+	}
+	//전문가 수정
+	public int updateExpert(int seq, String title, String content)throws Exception{
+		String sql = "update expert set title =?, content =? where seq = ?";
+		try(
+				Connection con = getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, title);
+			pstat.setString(2, content);
+			pstat.setInt(3, seq);
+
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+
+		}
+	}
+	//댓글저장성공하면 답변완료로 바꿔주기
+	public int updateHeader (int seq)throws Exception{
+		String sql = "update onebyone set answerok='Y' where seq=?";
+		try(
+				Connection con = getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, seq);
+
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+
+		}
+	}
 }

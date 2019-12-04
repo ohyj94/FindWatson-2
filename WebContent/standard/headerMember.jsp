@@ -58,7 +58,7 @@
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="${pageContext.request.contextPath}/mypageInfo.member">내 정보</a>
                             <a class="dropdown-item" href="${pageContext.request.contextPath}/mypageDonation.do">내 후원보기</a>
-                            <a class="dropdown-item" href="#">1 : 1 문의</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/mypageOneByOneList.member">1 : 1 문의</a>
                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/mypageWithdrawal.jsp">회원 탈퇴</a>
                         </div>
                     </li>

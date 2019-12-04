@@ -22,7 +22,7 @@
 		</c:otherwise>
 	</c:choose>
 	<script>
-	location.href = "${pageContext.request.contextPath }/main/index.jsp";
+	location.href = "${pageContext.request.contextPath }/main/start.jsp";
 	</script>
 </body>
 </html>

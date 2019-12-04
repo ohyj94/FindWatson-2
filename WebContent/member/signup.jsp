@@ -105,8 +105,8 @@
 				<div class=col-12>
 					<input type="text" id="postcode" name=postcode placeholder="우편번호"
 						readonly onclick="sample4_execDaumPostcode()">
-					<button id=addressBtn type="button"
-						onclick="sample4_execDaumPostcode()">찾기</button>
+					<button type="button" id=addressBtn class="btn btn-outline-secondary" onclick="sample4_execDaumPostcode()"> 찾기</button>
+					
 				</div>
 				<div class=col-6>
 					<input type="text" id="address1" class="col-12" name=address1 placeholder="도로명주소"
@@ -176,7 +176,7 @@
 			</div>
 			<div class=row>
 				<div class="col-12 con">
-					<button type=button id=save>가입</button>
+				<button type="button" id=save class="btn btn-outline-secondary"> 가입</button>
 				</div>
 			</div>
 		</form>
@@ -295,7 +295,7 @@
 					var result = regex.exec(name);
 					if (result == null) {
 						$("#nameCheck").html("잘못된 이름 형식입니다.");
-					} else if (result !== null){
+					} else if (result != null){
 						$("#nameCheck").html("올바른 이름 형식입니다.");
 					}
 				})
@@ -306,7 +306,7 @@
 					var result = regex.exec(year);
 					if (result == null) {
 						$("#yearCheck").html("잘못된 생년월일 형식입니다.");
-					} else if (result !== null){
+					} else if (result != null){
 						$("#yearCheck").html("올바른 생년월일 형식입니다.");
 					}
 				})
@@ -319,7 +319,7 @@
 
 					if (result == null) {
 						$("#emailCheck").html("잘못된 이메일 형식입니다.");
-					} else if (result !== null) {
+					} else if (result != null) {
 						$("#emailCheck").html("올바른 이메일 형식입니다.");
 					}
 				})
@@ -331,7 +331,7 @@
 					var result = regex.exec(phone);
 					if (result == null) {
 						$("#phoneCheck").html("잘못된 번호 형식입니다.");
-					} else if(result !== null){
+					} else if(result != null){
 						$("#phoneCheck").html("올바른 번호 형식입니다.");
 					}
 
@@ -344,7 +344,7 @@
 						alert("아이디를 입력하세요!");
 						return;
 					}
-					if($("#id").val()!==""){
+					if($("#id").val()!=""){
 						var regex = /^[a-z][a-z0-9]{6,13}$/gm;
 						var id = $("#id").val();
 						var result = regex.exec(id);
@@ -361,7 +361,7 @@
 						alert("비밀번호를 제대로 입력하세요!");
 						return;
 					}
-					if($("#pw").val()!==""){
+					if($("#pw").val()!=""){
 						
 						
 						var regex = /^[a-zA-Z0-9]{8,12}$/;
@@ -389,7 +389,7 @@
 						alert("이름을 입력하세요!");
 						return;
 					}
-					if($("#name").val()!==""){
+					if($("#name").val()!=""){
 						var regex = /^[가-힣]{2,8}$/gm;
 						var name = $("#name").val();
 						var result = regex.exec(name);
@@ -407,7 +407,7 @@
 						return;
 					}
 					
-					if($("#year").val()!==""){
+					if($("#year").val()!=""){
 						var regex = /^[0-9]{6}$/gm;
 						var year = $("#year").val();
 						var result = regex.exec(year);
@@ -429,7 +429,7 @@
 						return;
 					}
 					
-					if($("#email").val()!==""){
+					if($("#email").val()!=""){
 						var regex = /^[0-9a-zA-Z]+@[a-z]+(\.[a-z]+){1,2}$/gm;
 						var email = $("#email").val();
 						var result = regex.exec(email);
@@ -446,7 +446,7 @@
 						return;
 					}
 					
-					if($("#phone").val()!==""){
+					if($("#phone").val()!=""){
 						var regex = /^01[0-9]{8,9}$/gm;
 						var phone = $("#phone").val();
 						var result = regex.exec(phone);

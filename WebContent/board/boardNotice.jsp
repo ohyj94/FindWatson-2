@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="resources/css/mainStyle.css">
         
         <style>
+        	div{border: 1px solid black}
             #category{width: 100%; height: 100%;}
             .search-box>*{width: 100%;}
             .write-box>*{width: 100%;}

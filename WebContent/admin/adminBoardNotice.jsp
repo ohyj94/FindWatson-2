@@ -35,20 +35,22 @@
 							</span>
 						</div>
 						<div class="row line">
-							<div class="col-md-2 d-none d-md-block">글번호</div>
+							<div class="col-md-1 d-none d-md-block"></div>
 							<div class="col-md-6 d-none d-md-block">제목</div>
 							<div class="col-md-2 d-none d-md-block">작성일</div>
 							<div class="col-md-2 d-none d-md-block">조회수</div>
+							<div class="col-md-1 d-none d-md-block"></div>
 						</div>
 						<!-- 게시글 목록 -->
 						<c:forEach items="${list}" var="list">
 							<div class="row line">
-								<div class="col-md-2 d-none d-md-block">${list.seq}</div>
+								<div class="col-md-1 d-none d-md-block">${list.seq}</div>
 								<div class="col-md-6 d-none d-md-block"><a href='${pageContext.request.contextPath}/adminNoticeDetailView.admin?seq=${list.seq}'>${list.title}</a></div>
 								<div class="col-md-2 d-none d-md-block">
 									${list.formedDate}</div>
-								<div class="col-md-2 d-none d-md-block">${list.viewCount}<button type=button id=remove${list.seq}>삭제</button>
+								<div class="col-md-2 d-none d-md-block">${list.viewCount}
 								</div>
+								<div class="col-md-1 d-none d-md-block"><button type=button id=remove${list.seq}>삭제</button></div>
 							</div>
 							<script>
 										$("#remove${list.seq}").on("click",function() {
