@@ -16,8 +16,9 @@
 <div class="row">
    <div class="col d-none d-sm-block"></div>
     <div id="loginBtn" class="col-12 col-sm-6 p-1 mb-1 text-right">
-       <button class="btn btn-sm btn-outline-secondary" id="donate">후원하기</button>
-		<button class="btn btn-sm btn-outline-secondary" id="logout">로그아웃</button>
+       	<span id="donate">후원하기</span>
+		<span>&nbsp;</span><span id="btnBlank">|</span><span>&nbsp;</span>
+		<span id="logout">로그아웃</span>
     </div>
     <div class="col d-none d-sm-block"></div>
 </div>

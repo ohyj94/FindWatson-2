@@ -4,8 +4,15 @@
 }
 
 /*div { border: 1px solid black}*/
-#loginBtn{
-	background-color: ;
+#login,#logout,#donate,#join{
+     color: gray;
+}
+#login:hover,#logout:hover,#donate:hover,#join:hover{
+     cursor:pointer;
+     color:darkgray;
+}
+#btnBlank{
+    color: darkgray; 
 }
 #logo {
 	width: 100%;
