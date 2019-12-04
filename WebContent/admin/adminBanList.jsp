@@ -5,17 +5,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-        <title>찾아줘 왓슨!</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+<title>찾아줘! 왓슨</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 </head>
 <body>
-    <div class="container">
-		<jsp:include page="../standard/headerAdmin.jsp" />
+<!-- container -->
+   <div class="container col-12">
+   
+   <!-- 헤더 -->
+   <jsp:include page="../standard/headerAdmin.jsp" />   
+        
+   <div class="row mt-2">
+       <div class=container>
             <!--            -->
             <div class="row">
         <div class="col-12 mb-3" id="article">
@@ -29,13 +35,13 @@
             </div>
             <div class="row line">
                 
-                <div class="col-md-3 d-none d-md-block">
+                <div class="col-4 d-block">
                     아이디
                 </div>
-                <div class="col-md-3 d-none d-md-block">
+                <div class="col-4 d-block">
            IP
                 </div>
-                <div class="col-md-6 d-none d-md-block">
+                <div class="col-4 d-block">
                     차단 사유
                 </div>
             </div>
@@ -50,13 +56,13 @@
           		 <c:forEach items="${list}" var="list">
            <div class="row line">
                 
-                <div class="col-md-3 d-none d-md-block">
+                <div class="col-4 d-block">
                     ${list.id}
                 </div>
-                <div class="col-md-3 d-none d-md-block">
+                <div class="col-4 d-block">
            			${list.ip }
                 </div>
-                <div class="col-md-6 d-none d-md-block">
+                <div class="col-4 d-block">
                     ${list.reason }
                 </div>
             </div>
@@ -68,27 +74,31 @@
                                     ${pageNavi}
                                 </div>
                             </div>
-                            <div class="row mb-2">
-                                <div class="col-auto col-sm-2 p-1">
+                            <div class="row">
+                                <div class="col-4">
                                     <select id="category">
                                         <option value="">제목</option>
                                     </select>
                                 </div>
-                                <div class="search-box col-auto col-sm-6 p-1">
+                                <div class="search-box col-6">
                                     <input type="text" class="" id="search" name="search" value="">
                                 </div>
-                                <div class="search-box col-auto col-sm-2 p-1">
+                                <div class="search-box col-2">
                                     <button class="btn btn-sm btn-outline-secondary">검색</button>
-                                </div>
-                                <div class="write-box col-auto col-sm-2 text-center p-1">
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!--            -->
-            <jsp:include page="../standard/footer.jsp" /> 	
-</div>
+                </div>
+   </div>
+   
+   <!-- 푸터-->
+   <jsp:include page="../standard/footer.jsp" />
+   
+   </div>
+<!-- container --> 
 </body>
 </html>
