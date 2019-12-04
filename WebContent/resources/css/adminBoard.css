@@ -13,9 +13,7 @@
 strong{
 	font-size: 28px;
 }
-.navbar, .navbar-nav{
-	background-color: ;
-}
+
 #article-img {
 	width: 100%;
 	height: 100px;
@@ -56,9 +54,6 @@ strong{
 	width: 100%;
 }
 
-#article, .line {
-	border: 0.5px solid lightgray;
-}
 .noneExist{
 display:none;
 }

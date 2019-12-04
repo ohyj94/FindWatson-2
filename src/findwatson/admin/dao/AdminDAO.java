@@ -880,7 +880,7 @@ public class AdminDAO {
 		}
 	}
 
-	// 전문가 게시판 시퀀스로 dto가져오기
+	// 자유/질문 게시판 시퀀스로 dto가져오기
 	public BoardDTO getBoardBySeq(int expertSeq, String header) throws Exception {
 		String sql = "select * from Board where seq = ? and header = ?";
 		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
@@ -906,14 +906,14 @@ public class AdminDAO {
 		}
 
 	}
-	// 전문가 게시판 시퀀스로 dto가져오기
-		public BoardDTO getBoardBySeq2(int expertSeq) throws Exception {
+	// 질문/자유 게시판 시퀀스로 dto가져오기
+		public BoardDTO getBoardBySeq2(int seq) throws Exception {
 			String sql = "select * from Board where seq = ?";
 			try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-				pstat.setInt(1, expertSeq);
+				pstat.setInt(1, seq);
 				try (ResultSet rs = pstat.executeQuery();) {
 					rs.next();
-					int seq = rs.getInt(1);
+					
 					String writer = rs.getString(2);
 					String headerInput = rs.getString(3);
 					String animalHeader = rs.getString(4);
