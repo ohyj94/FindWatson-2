@@ -105,8 +105,8 @@
 				<div class=col-12>
 					<input type="text" id="postcode" name=postcode placeholder="우편번호"
 						readonly onclick="sample4_execDaumPostcode()">
-					<button id=addressBtn type="button"
-						onclick="sample4_execDaumPostcode()">찾기</button>
+					<button type="button" id=addressBtn class="btn btn-outline-secondary" onclick="sample4_execDaumPostcode()"> 찾기</button>
+					
 				</div>
 				<div class=col-6>
 					<input type="text" id="address1" class="col-12" name=address1 placeholder="도로명주소"
@@ -176,7 +176,7 @@
 			</div>
 			<div class=row>
 				<div class="col-12 con">
-					<button type=button id=save>가입</button>
+				<button type="button" id=save class="btn btn-outline-secondary"> 가입</button>
 				</div>
 			</div>
 		</form>

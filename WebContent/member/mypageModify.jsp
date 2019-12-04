@@ -125,8 +125,8 @@
                     <!--               -->
                     <div class=row>
                     <div class="col-12 center">
-						<button id=save>정보 수정</button>
-                        <button type="button" id=reset>초기화</button>
+                     <button type="button" id=save class="btn btn-outline-secondary">정보수정</button></div>
+					 <button type="button" id=reset class="btn btn-outline-secondary">초기화</button></div>
                     </div>
                     </div>
                     </form>
