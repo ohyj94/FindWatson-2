@@ -34,7 +34,7 @@
 				<div class="row">
 					<div id="article-middle" class="col-12 mt-2">
 						<div class="row mb-3 p-1 text-center">
-							<h3 id="board-top" class="col-auto col-sm-4 m-0">전문가 Q&A</h3>
+							<h3 id="board-top" class="col-auto col-sm-4 m-0">전문가 Q&amp;A</h3>
 							<span class="col-auto col-sm-8 mt-2"> <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
 							</span>
 						</div>

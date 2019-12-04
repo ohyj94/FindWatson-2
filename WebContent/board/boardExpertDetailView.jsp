@@ -20,7 +20,7 @@
 		<!--  -->
 		<div class=row>
 			<div class=col-12>
-				<h3>공지사항</h3>
+				<h3>전문가 Q&amp;A</h3>
 				<h4>${dto.title}</h4>
 				<h5 class=right>${dto.getDate()} &emsp; view.${dto.viewCount}</h5>
 				<hr>
