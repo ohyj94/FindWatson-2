@@ -1,31 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>찾아줘 왓슨!</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
-
+<title>찾아줘! 왓슨</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 </head>
 <body>
-	<div class="container">
-
-
-		<jsp:include page="../standard/headerAdmin.jsp" /> 	
-		<!--            -->
-		<div class="row">
+<!-- container -->
+	<div class="container col-12">
+	
+	<!-- 헤더 -->
+	<jsp:include page="../standard/headerAdmin.jsp" />   
+	     
+	<div class="row mt-2">
+	    <div class=container>
+	        
+	        <!-- 중심내용 -->
+	       <div class="row">
 			<div class="col-12 mb-3" id="article">
 				<div class="row">
 					<div id="article-middle" class="col-12 mt-2">
@@ -33,7 +32,7 @@
 							<h3 id="board-top" class="col-auto col-sm-4 m-0">질문게시판</h3>
 							<span class="col-auto col-sm-8 mt-2">자유롭게 질문하는 공간 입니다.</span>
 						</div>
-						<div class="row line">
+						<div class="row line2">
 							<div class="col-1 d-none d-md-block"></div>
 							<div class="col-md-2 d-none d-md-block">말머리</div>
 							<div class="col-md-5 d-none d-md-block">제목</div>
@@ -45,7 +44,7 @@
 							<c:when test="${list.size() == 0}">게시물이 없습니다.</c:when>
 							<c:when test="${list.size() > 0}">
 								<c:forEach items="${list}" var="dto">
-									<div class="row line">
+									<div class="row line2">
 										<div class="col-1 d-none d-md-block">1</div>
 										<div class="col-md-2 d-none d-md-block">
 											${dto.animalHeader}</div>
@@ -94,8 +93,15 @@
 				</div>
 			</div>
 		</div>
-		<!--            -->
-		<jsp:include page="../standard/footer.jsp" />
+	        <!-- 중심내용 -->
+	        
+	    </div>
 	</div>
+	
+	<!-- 푸터-->
+	<jsp:include page="../standard/footer.jsp" />
+	
+	</div>
+<!-- container --> 
 </body>
 </html>

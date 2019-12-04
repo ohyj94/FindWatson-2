@@ -48,8 +48,8 @@
                             커뮤니티
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" id = free href=#>자유게시판</a>
-                            <a class="dropdown-item" id=question href=#>질문게시판</a>
+                            <a class="dropdown-item" id = free href="${pageContext.request.contextPath}/boardFree.bo">자유게시판</a>
+                            <a class="dropdown-item" id=question href="${pageContext.request.contextPath}/boardQuestion.bo">질문게시판</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">

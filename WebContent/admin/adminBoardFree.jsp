@@ -1,31 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>찾아줘 왓슨!</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
-
-
+<title>찾아줘! 왓슨</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 </head>
 <body>
-	<div class="container">
-
-	<jsp:include page="../standard/headerAdmin.jsp" /> 	
-
-		<!--            -->
-		<div class="row">
+<!-- container -->
+	<div class="container col-12">
+	
+	<!-- 헤더 -->
+	<jsp:include page="../standard/headerAdmin.jsp" />   
+	     
+	<div class="row mt-2">
+	    <div class=container>
+	        
+	       <div class="row">
 			<div class="col-12 mb-3" id="article">
 				<div class="row">
 					<div id="article-middle" class="col-12 mt-2">
@@ -36,10 +34,11 @@
 						<div class="row line2">
 							<div class="col-1 d-none d-lg-block"></div>
 							<div class="col-md-1 d-none d-lg-block">말머리</div>
-							<div class="col-md-5 d-none d-lg-block">제목</div>
+							<div class="col-md-4 d-none d-lg-block">제목</div>
 							<div class="col-md-2 d-none d-lg-block text-center">작성자</div>
 							<div class="col-md-2 d-none d-lg-block text-center">작성날짜</div>
 							<div class="col-md-1 d-none d-lg-block">조회수</div>
+							<div class="col-md-1 d-none d-lg-block"></div>
 						</div>
 						<!-- 게시글 목록 -->
 						<c:choose>
@@ -51,7 +50,7 @@
 										<div class="col-1 order-1 col-md-1 order-md-2">
 											[${dto.animalHeader}]</div>
 										<div class="col-11 order-2 col-md-4 order-md-3 text-left">
-											<a class=black href='${pageContext.request.contextPath}/freeDetail.bo?seq=${dto.seq}'>${dto.title}</a>
+											<a class=black href='${pageContext.request.contextPath}/adminFreeDetailView.admin?seq=${dto.seq}'>${dto.title}</a>
 										</div>
 										<div class="ftsm col-2 order-3 col-md-2 order-md-4 text-center gray">${dto.writer}</div>
 										<div class="ftsm col-2 order-4 col-md-2 order-md-5 text-center gray">${dto.getDate()}</div>
@@ -100,9 +99,14 @@
 				</div>
 			</div>
 		</div>
-		<!--            -->
-		<jsp:include page="../standard/footer.jsp" />
-
+	        
+	    </div>
 	</div>
+	
+	<!-- 푸터-->
+	<jsp:include page="../standard/footer.jsp" />
+	
+	</div>
+<!-- container --> 
 </body>
 </html>
