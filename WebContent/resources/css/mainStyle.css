@@ -2,10 +2,7 @@
 	box-sizing: border-box;
 	font-family: 'Noto Sans KR', sans-serif;
 }
-
-div {
-	border: 1px solid black
-}
+/*div { border: 1px solid black}*/
 #loginBtn{
 	background-color: ;
 }
@@ -22,7 +19,19 @@ strong{
 .navbar, .navbar-nav{
 	background-color: ;
 }
-
+#searchTop{
+	width: 90%;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color:#084480;
+	border-radius: 3px;
+}
+#searchBtn1{
+	background-color:#ffffff; 
+	color:#084480;
+	width: 5%;
+}
 #article-img {
 	width: 100%;
 	height: 100px;
@@ -63,4 +72,5 @@ display:none;
 }
 .center{
 	text-align: center;
-}
+}    
+.line{border: 1px solid lightgray;}
