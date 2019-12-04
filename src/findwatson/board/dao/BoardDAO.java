@@ -604,7 +604,7 @@ public class BoardDAO {
 		}
 	}
 
-	public int increViewCnt(int seq) throws Exception{
+	public int increViewCnt(int seq) throws Exception{ //뷰카운트 증가
 		String sql = "update board set viewCount=(select viewCount from board where seq=?)+1 where seq=?";
 		try(
 				Connection con = this.getConnection();

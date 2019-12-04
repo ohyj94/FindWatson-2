@@ -21,7 +21,7 @@
 	<div class="container col-12">
 	
 	<!-- 헤더 -->
-	<jsp:include page="../standard/headerAdmin.jsp" />   
+	<jsp:include page="../standard/header.jsp" />   
 	     
 	<div class="row mt-2">
 	    <div class="col d-none d-sm-block"></div>
