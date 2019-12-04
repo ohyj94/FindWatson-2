@@ -61,3 +61,12 @@ display:none;
 .center{
 	text-align: center;
 }
+.gray{
+    color:#a6a6a6;
+}
+.black{
+	color:black;
+}
+.ftsm{
+	font-size: 12px;
+}

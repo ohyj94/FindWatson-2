@@ -20,7 +20,8 @@
             .search-box>*{width: 100%;}
             .write-box>*{width: 100%;}
             #article, .line{
-                border: 0.5px solid lightgray;
+                border-top: 0.5px solid lightgray;
+                border-bottom: 0.5px solid lightgray;
             }
         </style>
 </head>
@@ -44,10 +45,10 @@
                 <div class="col-md-5 d-none d-lg-block">
                     제목
                 </div>
-                <div class="col-md-2 d-none d-lg-block">
+                <div class="col-md-2 d-none d-lg-block text-center">
                     작성자
                 </div>
-                <div class="col-md-2 d-none d-lg-block">
+                <div class="col-md-2 d-none d-lg-block text-center">
                     작성날짜
                 </div>
                  <div class="col-md-1 d-none d-lg-block">
@@ -66,15 +67,15 @@
 			                	[${dto.animalHeader}]
 			                </div>
 			                <div class="col-11 order-2 col-md-5 order-md-3 text-left">
-			                 <a href='${pageContext.request.contextPath}/freeDetail.bo?seq=${dto.seq}'>${dto.title}</a> 
+			                 <a class=black href='${pageContext.request.contextPath}/freeDetail.bo?seq=${dto.seq}'>${dto.title}</a> 
 			                </div>
-			                <div class="col-1 order-3 col-md-2 order-md-4 text-left">
+			                <div class="ftsm col-2 order-3 col-md-2 order-md-4 text-center gray">
 			                   	${dto.writer}
 			                </div>
-			                <div class="col-1 order-4 col-md-2 order-md-5 text-left">
+			                <div class="ftsm col-2 order-4 col-md-2 order-md-5 text-center gray">
 			                    ${dto.getDate()}
 			                </div>
-			                <div class="col-1 order-5 col-md-1 order-md-6 text-center">
+			                <div class="ftsm col-2 order-5 col-md-1 order-md-6 text-center gray">
 											${dto.viewCount}</div>
 			            </div>
 			            
