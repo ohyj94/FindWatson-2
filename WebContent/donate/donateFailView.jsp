@@ -19,9 +19,21 @@
             <!--            -->
 	<div class="row mt-2">
 	    <div class="col d-none d-sm-block"></div>
+<div class="col-12 text-center mt-5">
+    <div class=row>
+        <div class="col-12">
             결제 실패!
-관리자에게 문의바람
-admin@admin.co.kr
+    관리자에게 문의바람
+    admin@admin.co.kr
+        </div>
+    </div>
+    <div class="row mt-2 mb-2">
+        <div class="col-12 text-center">
+            <button id="toMainBtn" type="button" class="btn btn-outline-secondary">돌아가기</button>
+        </div>
+    </div>
+</div>
+
 	    <div class="col d-none d-sm-block"></div>
 	</div>
 	   <!--            -->
@@ -35,7 +47,7 @@ admin@admin.co.kr
             location.href="#";
         })
         $("#toMainBtn").on("click", function(){
-            location.href="#";
+            location.href="${pageContext.request.contextPath}/toMain.main";
         })
         </script>
     </body>
