@@ -85,13 +85,14 @@ text-align: center;
 			</div>
 			<div class="col-12 con">
 		 <button type="button" id=find class="btn btn-outline-secondary">비밀번호 찾기</button></div>
-			</div>
 		</form>
-		<div class="col d-none d-sm-block"></div>
-	</div>
+		
 		<!--            -->
+		<div class="col d-none d-sm-block"></div>
+	</div>			
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
+	
 	<script type="text/javascript">
 	//아이디확인
 	$("#id").on("keyup",function() {
