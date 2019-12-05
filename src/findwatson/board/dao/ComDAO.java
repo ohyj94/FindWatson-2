@@ -190,6 +190,113 @@ public class ComDAO {
 			return sb.toString();
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 		}
+	  //댓글 페이지 네비게이터 - 질문(관리자)
+	  public String getPageNaviCmtQuestionAdmin(int currentPage, int boardSeq) throws Exception {
+
+			int recordTotalCount = this.getCmtSize(boardSeq);
+		
+			int pageTotalCount = 0;
+
+			if(recordTotalCount % Configuration.recordCountPerPage > 0) {
+
+				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+
+			}else{
+				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+			}
+
+			if(currentPage < 1) {
+				currentPage = 1;	
+
+			}else if(currentPage > pageTotalCount) {
+				currentPage = pageTotalCount;
+			}
+
+			int startNavi = (currentPage - 1) /  Configuration.naviCountPerPage  * Configuration.naviCountPerPage + 1;
+
+			int endNavi = startNavi + Configuration.naviCountPerPage - 1;
+
+			if(endNavi > pageTotalCount) {
+				endNavi = pageTotalCount;
+			}
+			boolean needPrev = true;
+			boolean needNext = true;
+
+			if(startNavi == 1) {
+				needPrev = false;
+			}
+			if(endNavi == pageTotalCount) {
+				needNext = false;
+			}
+
+			StringBuilder sb = new StringBuilder();
+			if(needPrev) {sb.append("<a href = '${pageContext.request.contextPath}/adminQuestionDetailView.admin?cpage="+(startNavi -1)+"'> < </a>");}
+			// 값을 서버에서 만들어서 + 붙여서 프론트로 나가는거니까 
+			// 서버에서 이미 앵커태그가 붙어야한다 
+			for(int i = startNavi; i <= endNavi; i++) {
+				sb.append("<a href = 'adminQuestionDetailView.admin?seq="+boardSeq+"&cpage="+i+"'> ");
+				sb.append(i + " ");
+				sb.append("</a>");
+			}
+			if(needNext) sb.append("<a href = '${pageContext.request.contextPath}/adminQuestionDetailView.admin?cpage="+(endNavi+1)+"'> > </a>");
+
+			return sb.toString();
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+		}
+	  
+	  //댓글 페이지 네비게이터 - 자유(관리자)
+	  public String getPageNaviCmtFreeAdmin(int currentPage, int boardSeq) throws Exception {
+
+			int recordTotalCount = this.getCmtSize(boardSeq);
+		
+			int pageTotalCount = 0;
+
+			if(recordTotalCount % Configuration.recordCountPerPage > 0) {
+
+				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+
+			}else{
+				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+			}
+
+			if(currentPage < 1) {
+				currentPage = 1;	
+
+			}else if(currentPage > pageTotalCount) {
+				currentPage = pageTotalCount;
+			}
+
+			int startNavi = (currentPage - 1) /  Configuration.naviCountPerPage  * Configuration.naviCountPerPage + 1;
+
+			int endNavi = startNavi + Configuration.naviCountPerPage - 1;
+
+			if(endNavi > pageTotalCount) {
+				endNavi = pageTotalCount;
+			}
+			boolean needPrev = true;
+			boolean needNext = true;
+
+			if(startNavi == 1) {
+				needPrev = false;
+			}
+			if(endNavi == pageTotalCount) {
+				needNext = false;
+			}
+
+			StringBuilder sb = new StringBuilder();
+			if(needPrev) {sb.append("<a href = '${pageContext.request.contextPath}/adminFreeDetailView.admin?cpage="+(startNavi -1)+"'> < </a>");}
+			// 값을 서버에서 만들어서 + 붙여서 프론트로 나가는거니까 
+			// 서버에서 이미 앵커태그가 붙어야한다 
+			for(int i = startNavi; i <= endNavi; i++) {
+				sb.append("<a href = 'adminFreeDetailView.admin?seq="+boardSeq+"&cpage="+i+"'> ");
+				sb.append(i + " ");
+				sb.append("</a>");
+			}
+			if(needNext) sb.append("<a href = '${pageContext.request.contextPath}/adminFreeDetailView.admin?cpage="+(endNavi+1)+"'> > </a>");
+
+			return sb.toString();
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+		}
 	  
 	  //글 시퀀스 주면 댓글 몇개인지 꺼내는 메서드
 	  public int getCmtSize(int boardSeq)throws Exception{

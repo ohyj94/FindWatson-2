@@ -30,7 +30,6 @@ color: #a6a6a680;
 </style>
 </head>
 <body>
-
 				<div class="container">	
 				<div class="row pt-5">		
 					<!--            -->
