@@ -12,71 +12,86 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		
-		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="resources/css/mainStyle.css">
+		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
+		<link rel="stylesheet" href="resources/css/mainStyle.css">
         
         <style>
-        	div{border: 1px solid black}
-            #category{width: 100%; height: 100%;}
-            .search-box>*{width: 100%;}
-            .write-box>*{width: 100%;}
-            #article, .line{
-                border: 0.5px solid lightgray;
-            }
+.line{
+border: none;
+}
+#board-top {
+text-align: left !important;
+}
+#boardTitle{
+border-top: 2px solid black;
+border-bottom: 2px solid black;
+}
+#boardCon{
+border-top: 1px solid gray;
+}
+#boardPage{
+border-top: 1px solid gray;
+}
         </style>
 </head>
 <body>
-    <div class="container">
-            <jsp:include page="../standard/header.jsp" />   
-            <!--            -->
-            <div class="row">
-        <div class="col-12 mb-3" id="article">
-                    <div class="row">
-                        <div id="article-middle" class="col-12 mt-2">
-                           <div class="row mb-3 p-1 text-center">
-							<h3 id="board-top" class="col-auto col-sm-4 m-0">공지사항</h3>
-							<span class="col-auto col-sm-8 mt-2"> <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
-							</span>
+
+	<div class="container col-12">
+	<jsp:include page="../standard/header.jsp" />   	     
+	<div class="row mt-2">
+	    <div class="col d-none d-sm-block"></div>
+	        
+	        <!-- -->
+	      
+	        <div class=container>
+		<div class="row">
+			<div class="col-12 mb-3" id="article">
+				<div class="row">
+					<div id="article-middle" class="col-12 mt-2">
+						<div class="row mb-3 p-1 text-center">
+							<div id="board-top" class="col-12 m-0"><strong>공지사항</strong></div>							
 						</div>
+						<hr>
+						<div class="row line m-0 pt-1 pb-1" id=boardTitle>
+							<div class="col-1 d-none d-lg-block">번호</div>
+							<div class="col-8 d-none d-lg-block">제목</div>
+							<div class="col-2 d-none d-lg-block">작성일</div>
+							<div class="col-1 d-none d-lg-block">조회수</div>
+						</div>
+						<!-- 게시글 목록 -->
+						<c:choose>
+							<c:when test="${list.size() == 0}">게시물이 없습니다.</c:when>
+							<c:when test="${list.size() > 0}">
+							
+							<c:forEach items="${list}" var="list">
+							<div class="row line m-0 pt-1 pb-1" id=boardCon>
+								<div class="col-1">${list.seq}</div>
+								<div class="col-10 col-md-6 col-lg-8"><a href='${pageContext.request.contextPath}/noticeDetail.bo?seq=${list.seq}'>${list.title}</a></div>
+								
+								<div class="col-6 col-md-2 col-lg-2 ftsm gray"> ${list.formedDate}</div>
+								<div class="col-6 col-md-1 col-lg-1 text-center ftsm gray">${list.viewCount} </div>					
+							</div>
+						</c:forEach>
+							
+							</c:when>
+						</c:choose>
+																								
 						<div class="row">
-							<div class="col-md-1 d-none d-md-block">글번호</div>
-							<div class="col-md-8 d-none d-md-block">제목</div>
-							<div class="col-md-2 d-none d-md-block">작성일</div>
-							<div class="col-md-1 d-none d-md-block">조회수</div>
-						</div>
-            <!-- 게시글 목록 -->
-			<c:choose>
-				<c:when test="${list.size() == 0}">게시물이 없습니다.</c:when>
-				<c:when test="${list.size() > 0}">
-					<c:forEach items="${list}" var="dto">
-						<div class="row line">
-			                <div class="col-1">${dto.seq }</div>
-			                <div class="col-10 col-md-8 text-left">
-			                <a href='${pageContext.request.contextPath}/noticeDetail.bo?seq=${dto.seq}'>${dto.title}</a>
-			                </div>
-			                <div class="col-6 d-none d-md-block col-md-2 text-left">${dto.formedDate}</div>
-			                <div class="col-6 d-none d-md-block col-md-1 text-center">${dto.viewCount }</div>
-			            </div>
-					</c:forEach>
-				</c:when>	            
-			</c:choose>          
-            <div class="row">
-	            <div class="col-12 text-center">
-	            	${pageNavi}
-	            </div>
-            </div>
-            <!-- -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--            -->
-            <jsp:include page="../standard/footer.jsp" />   
-        </div>
-         <script>
-        	$("#toWriteBtn").on("click",function(){
-        		location.href="${pageContext.request.contextPath}/board/boardWriteQuestion.jsp";
-        	});
-        </script>
+							<div class="col-12 text-center pt-2 mt-1" id=boardPage>${pageNavi}</div>
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	        
+	        
+	        <!--  -->
+	        
+	<div class="col d-none d-sm-block"></div>
+	</div>
+	<jsp:include page="../standard/footer.jsp" />	
+	</div>
+
 </body>
 </html>

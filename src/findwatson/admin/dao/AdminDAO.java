@@ -1229,4 +1229,31 @@ public class AdminDAO {
 
 		}
 	}
+	
+	public OneByOneCommentDTO getLastest(int onebyoneSeq) throws Exception{
+		String sql = "select * from onebyonecomments where onebyoneseq=? order by seq desc";
+		
+		try(
+				Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, onebyoneSeq);
+			try(
+					ResultSet rs = pstat.executeQuery();
+					){
+					rs.next();
+					int seq = rs.getInt(1);
+					String comment = rs.getString(3);
+					Timestamp writeDate = rs.getTimestamp(4);
+					
+					return new OneByOneCommentDTO(seq, onebyoneSeq, comment, writeDate);
+					
+				}
+		}
+	}
 }
+
+
+
+
+
