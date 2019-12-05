@@ -12,6 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainStyle.css">
 
 <style>
@@ -120,7 +121,7 @@
 			<div class="col-12 col-sm-6">	
             <div class="row mt-2">
                 <div class="col d-none d-sm-block"></div>
-                <div class="col-12 col-sm-6">
+                <div class="col-12 col-sm-8">
                     <div class="row mb-2">
                         <div class="col-12">
                             <h2 class="tit_sub mr-2 mb-0">후원하기</h2>
@@ -142,7 +143,7 @@
                                         <p class="col-auto p-0">후원조회 및 증빙서류발급이 용이합니다.</p>
                                     </div>
                                     <div class="col-12 p-0">
-                                        <a href="${pageContext.request.contextPath}/member/2login.jsp" class="btn02_blue col-12">로그인</a>
+                                            <a role="button" class="btn btn-outline-secondary btn02_blue mb-1" href="${pageContext.request.contextPath}/member/login.jsp">로그인</a>
                                     </div>
                                 </div>
                                 </div>
@@ -457,7 +458,7 @@ $("#name").on("focusout", function(){
 })
 
 $("#birth").on("focusout",function(){
-	var regex = /[0-9]{4}[-][0-9]{2}[-][0-9]{2}/g;
+	var regex = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
 	var data = $("#birth").val();
 	var result = regex.exec(data);
 	

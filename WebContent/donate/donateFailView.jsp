@@ -11,6 +11,7 @@
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainStyle.css">
 </head>
 <body>
@@ -20,7 +21,7 @@
 		<div class="row mt-2">
 			<div class="col d-none d-sm-block"></div>
 
-			<div class="col-6 text-center mt-5 line">
+			<div class="col-6 text-center mt-5 mb-5 line">
 				<div class="row mt-2">
 					<img src="${pageContext.request.contextPath}/imgs/animal/fail.jpg" class="rounded mx-auto d-block">
 				</div>
@@ -42,10 +43,6 @@
 	</div>
 
 	<script>
-		//나중에 링크 수정하기
-		$("#myDonaBtn").on("click", function() {
-			location.href = "#";
-		})
 		$("#toMainBtn").on("click", function() {
 			location.href = "${pageContext.request.contextPath}/toMain.main";
 		})
