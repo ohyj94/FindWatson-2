@@ -308,7 +308,7 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("/admin/adminBoardFree.jsp").forward(request, response);
 
 				// 질문게시판
-			}else if(cmd.contentEquals("/searchOne.admin")) {
+			}else if(cmd.contentEquals("/searchQuestion.admin")) {
 				String category = request.getParameter("category");
 				String keyword = request.getParameter("keyword");
 				// 네비게이터 받아오는 부분 
