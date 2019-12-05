@@ -752,7 +752,7 @@ public class AdminDAO {
 	}
 	//관리자통계 - 가입경로 기타
 	public int recordOtherSearchTotalCount () throws Exception {
-		String sql = "select count(lovepet) from member where lovepet not in (' ''찾아조 왓슨!'' 직접검색',' ''특수 동물 병원'' 키워드 검색','지인 소개')";
+		String sql = "select count(lovepet) from member where signpath not in (' ''찾아조 왓슨!'' 직접검색',' ''특수 동물 병원'' 키워드 검색','지인 소개')";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
