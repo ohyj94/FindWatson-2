@@ -13,6 +13,13 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+		<style>
+		.center{
+		min-height: 720px;
+		line-height: 720px;
+		}
+		
+		</style>
 </head>
 <body>
 <!-- container -->
@@ -27,14 +34,9 @@
 	        <!-- 중심내용 -->
 	       <div class=row>
 					<div class="col-12 center">
-						<h1>
-							<br> <br>
-						</h1>
-						<h1>관리자 계정입니다.</h1>
-						<h3>어서오세요.</h3>
-						<h1>
-							<br> <br>
-						</h1>
+						
+						<strong>관리자 계정입니다.</strong>
+						
 					</div>
 				</div>
 	        <!-- 중심내용 -->

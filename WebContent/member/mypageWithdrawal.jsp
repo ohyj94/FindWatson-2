@@ -37,8 +37,10 @@ text-align: center;
                          
                         </div>
                     </div>
+                    
                     <div class=row>
                         <div class=col-12>
+                        <form action="${pageContext.request.contextPath}/mypageWithdrawal.member" method="post" id=frm>
                         <div class=row>
                             <div class="col-4 text-right"> 비밀번호 재입력 </div>
                             <div class=col-4><input type="text" id=pw><br></div>
@@ -46,13 +48,15 @@ text-align: center;
                             </div>
                             <div class=row>
                             <div class="col-4 text-right"> 비밀번호 확인 </div>
-                            <div class=col-4><input type="text" id=pwRe><br>
+                            <div class=col-4><input type="text" id=pwRe><br></div>
                             <div class=col-4></div>
-                            <div id=pwCheck></div></div>
+                            <div id=pwCheck></div>
                             </div>
-                            <form action="${pageContext.request.contextPath}/mypageWithdrawal.member" method="post" id=frm>
+                            
+                           
                             <div id=btn>
                              <button type="button" id=withdrawal class="btn btn-outline-secondary">탈퇴하기</button></div>
+                            
                             </form>
                         </div>
                     </div>
