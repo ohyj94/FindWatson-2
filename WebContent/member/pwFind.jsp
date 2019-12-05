@@ -241,9 +241,6 @@ text-align: center;
 					return false;
 				}
 			}
-			
-		
-
 			$("#frm").submit();
 		})
 	</script>

@@ -364,6 +364,10 @@ public class AdminDAO {
 		if(currentPage == pageTotalCount) {
 			needNext = false;
 		}
+		if(currentPage == 0) {
+			needPrev = false;
+			needNext = false;
+		}
 		StringBuilder sb = new StringBuilder();
 
 		if(needPrev) {sb.append("<a href='adminBanList.admin?cpage="+(currentPage-1)+"'> < </a>");}
@@ -458,6 +462,10 @@ public class AdminDAO {
 			needPrev = false;
 		}
 		if(currentPage == pageTotalCount) {
+			needNext = false;
+		}
+		if(currentPage == 0) {
+			needPrev = false;
 			needNext = false;
 		}
 		StringBuilder sb = new StringBuilder();
@@ -716,7 +724,7 @@ public class AdminDAO {
 	}
 	//관리자통계 - 가입경로 직접검색
 	public int recordDirectSearchTotalCount () throws Exception {
-		String sql = "select count(signpath) from member where signpath=' ''찾아조 왓슨!'' 직접검색'";
+		String sql = "select count(signpath) from member where signpath='''찾아조 왓슨!'' 직접검색'";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -728,7 +736,7 @@ public class AdminDAO {
 	}
 	//관리자통계 - 가입경로 키워드검색
 	public int recordKeywordSearchTotalCount () throws Exception {
-		String sql = "select count(signpath) from member where signpath=' ''특수 동물 병원'' 키워드 검색'";
+		String sql = "select count(signpath) from member where signpath='''특수 동물 병원'' 키워드 검색'";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -752,7 +760,7 @@ public class AdminDAO {
 	}
 	//관리자통계 - 가입경로 기타
 	public int recordOtherSearchTotalCount () throws Exception {
-		String sql = "select count(lovepet) from member where signpath not in (' ''찾아조 왓슨!'' 직접검색',' ''특수 동물 병원'' 키워드 검색','지인 소개')";
+		String sql = "select count(lovepet) from member where signpath not in ('''찾아조 왓슨!'' 직접검색','''특수 동물 병원'' 키워드 검색','지인 소개')";
 		try(
 				Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -1122,6 +1130,10 @@ public class AdminDAO {
 			needPrev = false;
 		}
 		if(currentPage == pageTotalCount) {
+			needNext = false;
+		}
+		if(currentPage == 0) {
+			needPrev = false;
 			needNext = false;
 		}
 		StringBuilder sb = new StringBuilder();
