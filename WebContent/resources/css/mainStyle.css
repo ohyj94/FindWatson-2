@@ -4,8 +4,15 @@
 }
 
 /*div { border: 1px solid black}*/
-#loginBtn{
-	background-color: ;
+#login,#logout,#donate,#join{
+     color: gray;
+}
+#login:hover,#logout:hover,#donate:hover,#join:hover{
+     cursor:pointer;
+     color:darkgray;
+}
+#btnBlank{
+    color: darkgray; 
 }
 #logo {
 	width: 100%;
@@ -73,5 +80,20 @@ display:none;
 }
 .center{
 	text-align: center;
+}
+.gray{
+    color:#a6a6a6;
+}
+.black{
+	color:black;
+}
+.ftsm{
+	font-size: 12px;
+}
+.line{
+	border: 1px solid lightgray;
 }    
-.line{border: 1px solid lightgray;}
+.line2{
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+}

@@ -104,11 +104,12 @@
         	})
         </script>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            </form>
+            
                           
             <!--            -->
             <jsp:include page="../standard/footer.jsp" />

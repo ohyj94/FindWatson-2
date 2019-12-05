@@ -131,7 +131,7 @@ public class MemberDAO {
 		try(Connection con = bds.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 
-			pstat.setString(1,pw);
+			pstat.setString(1,Util.encrypt(pw));
 			pstat.setString(2, name);
 			pstat.setString(3, birth);
 			pstat.setString(4, gender);
@@ -268,6 +268,21 @@ public class MemberDAO {
 			pstat.setString(2, header);
 			pstat.setString(3, title);
 			pstat.setString(4, content);
+			
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	
+	public int deleteOneByOne(int seq) throws Exception{
+		String sql = "delete from onebyone where seq=?";
+		
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, seq);
 			
 			int result = pstat.executeUpdate();
 			con.commit();

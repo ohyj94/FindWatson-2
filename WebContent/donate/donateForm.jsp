@@ -15,202 +15,313 @@
 <link rel="stylesheet" href="../resources/css/mainStyle.css">
 
 <style>
-.tb_box_login {
-text-align:center;
-}
-.tb_box_login p{
-display:inline-block;
-}
-.total{
-text-align:center;
-}
-.btn_area{
-text-align:center;
-}
+            .tb_box_login {
+                text-align:center;
+            }
+            .tb_box_login p{
+                display:inline-block;
+            }
+            .total{
+                text-align:center;
+            }
+            .btn_area{
+                text-align:center;
+            }
+            * {
+                box-sizing: border-box;
+                font-family: 'Noto Sans KR', sans-serif;
+            }
+/*            div { border: 1px solid black}*/
+            #loginBtn{
+                background-color: ;
+            }
+            #logo {
+                width: 100%;
+                height: 50px;
+                margin: auto;
+                background-color: ghostwhite;
+            }
+            strong{
+                font-size: 28px;
+            }
+
+            .navbar, .navbar-nav{
+                background-color: ;
+            }
+            #searchTop{
+                width: 90%;
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color:#084480;
+                border-radius: 3px;
+            }
+            #searchBtn1{
+                background-color:#ffffff; 
+                color:#084480;
+                width: 5%;
+            }
+            #article-img {
+                width: 100%;
+                height: 100px;
+                margin: auto;
+                background-color: ghostwhite;
+            }
+
+            #footer>div {
+                height: 100%;
+            }
+
+            #footer-logo>div {
+                height: 100%;
+                background-color: ghostwhite;
+            }
+
+            #footer-contents {
+                font-size: 8pt;
+            }
+            .nav-item {
+                display: inline-block;
+                width: 100%;
+                text-align: center;
+            }
+
+            .navbar-nav {
+                width: 100%;
+            }
+            .noneExist{
+                display:none;
+            }
+            .right{
+                text-align: right;
+            }
+            #cmt{
+                width:100%;
+                height: 100%;
+            }
+            .center{
+                text-align: center;
+            }    
+            .line{border: 1px solid lightgray;}
+            #searchAdd{width: 100%}
+            .ipTag{width: 100; height: 100%;}
+            #inputPay{width: 20%; height: 50%;}
+            .fontReSize{font-size: 8pt;}
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="container col-12">
 		<jsp:include page="../standard/header.jsp" />
-		<!--  후원폼          -->
-	<div class="row">
-		<div class="con_top col-12 p-0">
-			<h2 class="tit_sub">후원하기</h2>
-			<p class="txt_sub">동물 소중 어쩌구 저쩌구 설명설명</p>
-		</div>
-	</div>
-	<div class="row">
-				<!--                여기는 세션정보에 따라 block하기-->
-				<c:choose>
-					<c:when test="${loginInfo ==null}">
-						<div class="tb_box_login col-12 p-0">
-							<div class="col-12 p-0">
-							<p class="col-auto p-0">"로그인 후 후원을 하시면&nbsp;</p><p class="col-auto p-0">후원조회 및 증빙서류발급이 용이합니다."</p>
-							</div>
-							<div class="col-12 p-0">
-							<a href="${pageContext.request.contextPath}/member/2login.jsp" class="btn02_blue col-12">로그인</a>
-							</div>
-						</div>
-					</c:when>
-				</c:choose>
-	</div>
-				<!--            여기서부터 입력폼-->
-	<div class="row">
-	<form action="${pageContext.request.contextPath}/donate.do" method="post" class="col-12 p-0">
-				<div class="step1 col-12 p-0">
-						<div class="sps_step_t col-12 p-0">
-							<h3 class="tit_step">
-								<span> "STEP" <strong>1</strong></span> "후원사업 선택"
-							</h3>
-						</div>
-						<div class="sps_step_c col-12">			
-							<div class="row line">		
-								<div class="col-12 col-sm-3 p-0">후원금액</div>
-								<div class="col-12 col-sm-9 p-0">
-									<div class="checkAmount col-12">
-										<div class="row">
-											<div class="price col-12 col-md-3"> <input type="radio" name="support" value="1004">
-											<label for="sponsor_money01">"1,004원"</label></div>
-											
-											<div class="price col-12 col-md-3"><input type="radio" name="support" value="2000">
-											<label for="sponsor_money02">"2,000원"</label></div>
-											
-											<div class="price col-12 col-md-3"> <input type="radio" name="support" value="5000">
-											<label for="sponsor_money03">"5,000원"</label></div>
-											
-											<div class="price d-none d-sm-block col-md-3 "></div>
-											
-											<div class="price col-12 col-md-3"> <input type="radio" name="support" value="10000">
-											<label for="sponsor_money04">"10,000원"</label></div>
-											
-											<div class="price col-12 col-md-3"> <input type="radio" name="support" value="50000">
-											<label for="sponsor_money05">"50,000원"</label></div>
-											
-											<div class="price col-12 col-md-5"> <input type="radio" name="support" value="etc">
-											<label for="sponsor_money06">&nbsp;기타 </label>&nbsp;<input type="text" id="inputPay" disabled>&nbsp;<span>원</span></div>
-										</div>
-										</div>	
-								</div>
-							</div>
-								<div class="row line">
-										<div class="total col-12">"총 후원금액" <span id="inputDisplay"></span>원</div>
-								</div>
-						</div>	
-					</div>
-						<div class="step2 col-12 p-0">
-							<div class="sps_step_t col-12 p-0">
-								<h3 class="tit_step">
-									<span> "STEP" <strong>2</strong>
-									</span> "후원자 정보"
-								</h3>
-							</div>
-							
-							<div class="sps_step_c col-12">
-								<div class="row">
-									<p class="txt_required">
-										<strong class="required" title="필수입력">*</strong> "표시 입력사항은 모두 필수입니다."
-									</p>
-								</div>
-										<div class="row line">
-											<div class="inputs col-12">
-												<div class="row">
-												<div id="name_field" class="col-12 col-md-2">후원자명<strong class="required" title="필수입력">*</strong></div>
-												<div class="col-12 col-md-5"><input type="text" id="name" name="name" placeholder="이름을 입력하세요"></div>
-												<div class="col-12 col-md-5" id="validName"></div>
-												</div>
-											</div>
-											
-											<div class="inputs col-12">
-											<div class="row">
-												<div id="birth_field" class="col-12 col-md-2">생년월일<strong class="required" title="필수입력">*</strong></div>
-												<div class="col-12 col-md-5"><input type="text" id="birth" name="birth" placeholder="주민등록번호 앞 6자리"></div>
-												<div class="col-12 col-md-5" id="validBirth"></div>
-												</div>
-											</div>
-											
-											<div class="inputs col-12">
-											<div class="row">
-												<div id="phone_field" class="col-12 col-md-2">휴대폰<strong class="required" title="필수입력">*</strong></div>
-												<div class="col-12 col-md-5"><input type="text" id="phone" name="phone"></div>
-												<div class="col-12 col-md-5" id="validPhone"></div>
-											</div>
-											</div>
-											
-											<div class="inputs col-12">
-											<div class="row">
-												<div id="email_field" class="col-12 col-md-2">이메일<strong class="required" title="필수입력">*</strong></div>
-												<div class="col-12 col-md-5"><input type="text" id="email" name="email"></div>
-												<div class="col-12 col-md-5" id="validEmail"></div>
-											</div>
-											</div>
-											
-											<div class="inputs col-12">
-											<div class="row">
-												<div id="addr_field" class="col-12 col-md-2">주소<strong class="required" title="필수입력">*</strong></div>
-													<div class="wrap_address col-12 col-md-10">
-													<div class="row">
-														<div class="col-6 col-sm-4"><input type="text" id="postcode" name="postcode" onclick="exeDaumPostcode();" readonly></div>
-														<div class="col-6 col-sm-4"><input type="button" value="검색" onclick="exeDaumPostcode();"></input></div>
-													</div>
-													<div class="row">
-													<div class="col-12 col-md-6"><input type="text" id="addr1" name="addr1" onclick="exeDaumPostcode();" readonly></div>
-													<div class="col-12 col-md-6"><input type="text" id="addr2" name="addr2" placeholder="상세주소를 입력해주세요."></div>
-													</div>
-													</div>
-											</div>
-											</div>
+		
+	<div class="row mt-2">
+	    <div class="col d-none d-sm-block"></div>
+<!--  후원폼  -->
+            <div class="row mt-2">
+                <div class="col d-none d-sm-block"></div>
+                <div class="col-12 col-sm-6">
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <h2 class="tit_sub mr-2 mb-0">후원하기</h2>
+                            <p class="txt_sub align-self-center m-0">소중한 아이들을 위해 기부해주세요!</p>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <img src="../imgs/animal/%EC%BD%94%EB%89%B4%EC%96%B4.png" class="rounded mx-auto d-block" style="border-radius: 10px">
+                        </div>
+                    </div>
+                        <!--                여기는 세션정보에 따라 block하기-->
+                        <c:choose>
+                            <c:when test="${loginInfo ==null}">
+                               <div class="row line mb-2">
+                                <div class="tb_box_login col-12 p-0">
+                                    <div class="col-12 p-0">
+                                        <p class="col-auto p-0">"로그인 후 후원을 하시면&nbsp;</p>
+                                        <p class="col-auto p-0">후원조회 및 증빙서류발급이 용이합니다."</p>
+                                    </div>
+                                    <div class="col-12 p-0">
+                                        <a href="${pageContext.request.contextPath}/member/2login.jsp" class="btn02_blue col-12">로그인</a>
+                                    </div>
+                                </div>
+                                </div>
+                            </c:when>
+                        </c:choose>
+                    <!--            여기서부터 입력폼-->
+                    <div class="row">
+                        <form action="${pageContext.request.contextPath}/donate.do" method="post" class="col-12 p-0">
+                            <div class="step1 col-12 p-0">
+                                <div class="sps_step_t col-12 p-0">
+                                    <h3 class="tit_step">
+                                        <span> "STEP" <strong>1</strong></span> "후원사업 선택"
+                                    </h3>
+                                </div><hr>
+                                <div class="sps_step_c col-12">			
+                                    <div class="row line">		
+                                        <div class="col-12 text-center mb-1">
+                                            후원금액
+                                        </div>
+                                        <div class="col-12">
+                                                <div class="row">
+                                                    <div class="price col-12 col-md-3">
+                                                        <input type="radio" name="support" value="1000">
+                                                        <label for="sponsor_money01">"1,000원"</label>
+                                                    </div>
+                                                    <div class="price col-12 col-md-3">
+                                                        <input type="radio" name="support" value="2000">
+                                                        <label for="sponsor_money02">"2,000원"</label>
+                                                    </div>
+                                                    <div class="price col-12 col-md-3">
+                                                        <input type="radio" name="support" value="5000">
+                                                        <label for="sponsor_money03">"5,000원"</label>
+                                                    </div>
+                                                    <div class="price col-12 col-md-3">
+                                                        <input type="radio" name="support" value="10000">
+                                                        <label for="sponsor_money04">"10,000원"</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="price col-12 col-md-3 align-self-center">
+                                                        <input type="radio" name="support" value="50000">
+                                                        <label for="sponsor_money05">"50,000원"</label>
+                                                    </div>
+                                                    <div class="price col-12 col-md-9 mb-2 align-self-center"> 
+                                                        <input type="radio" name="support" value="etc">
+                                                        <label for="sponsor_money06">기타</label>
+                                                        <input type="text" class="d-inline form-control" id="inputPay" disabled> 원
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="row line mt-1">
+                                        <div class="total col-12">"총 후원금액" <span id="inputDisplay"></span>원</div>
+                                    </div>
+                                </div>	
+                            </div>
+                            <div class="step2 col-12 p-0 mt-2">
+                                <div class="sps_step_t col-12 p-0">
+                                    <h3 class="tit_step">
+                                        <span> "STEP" <strong>2</strong>
+                                        </span> "후원자 정보"
+                                    </h3>
+                                </div><hr>
+                                <div class="sps_step_c col-12">
+                                    <div class="row line">
+                                        <div class="col-12 mb-1 mt-1">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 text-center">
+                                                    <label class="mt-2">후원자명</label>
+                                                </div>
+                                                <div class="col-12 col-sm-5">
+                                                    <input type="text" id="name" class="ipTag form-control" name="name" placeholder="이름">
+                                                </div>
+                                                <div class="col-12 col-sm-4 align-self-center fontReSize" id="validName"></div>
+                                            </div>
+                                        </div>
 
-											<div class="inputs col-12">
-											<div class="row">
-												<div id="name_field" class="col-12 col-md-2">약관동의<strong class="required" title="필수입력">*</strong></div>
-												<div class="check_area col-12 col-md-10">
-													<div class="row">
-														<input type="checkbox" id="agree" name="agree"> <label for="agree">&nbsp;"개인정보 수집, 이용목적 및 취급방침"</label>
-														&nbsp;<button type="button" class="btn_detail">+</button>
-													</div>
-													<div class="agree_cont row">
-														<div class="agree_cont_style col-12">
-																	<p class="">수집하는 개인정보의 항목 및 수집방법</p>
-																	<p>개인정보 수집항목</p>
-														</div>
-													</div>
-												</div>										
-											</div>
-										</div>
-										</div>
-							</div>
-						</div>
-						
-						<div class="step3 col-12 p-0">
-							<div class="sps_step_t col-12 p-0">
-								<h3 class="tit_step">
-									<span> "STEP" <strong>3</strong>
-									</span> "납입방법 선택"
-								</h3>
-							</div>
-							<div class="sps_step_c col-12">
-								<div class="row">
-									<h4 class="inblock col-12 col-md-3">"후원금 납입방법"</h4>
-									<p class="inblock col-12 col-md-9">"설명설명"</p>
-								</div>
-								
-									<div class="row line">
-										<div class="col-4 col-md-2">납입방법</div>
-										<div class="payMethodBox col-8 col-md-10">
-											<input type="radio" name="payMethod" id="payMethod1" value="card">
-											<label for="payMethod1">신용카드</label>
-										</div>											
-									</div>							
-							</div>						
-					</div>
-					<div class="btn_area col-12 p-0">
-							<button type="button" id="donaBtn">후원신청</button>
-					</div>
-					
-					<input type="hidden" name="etcPrice" id="etcPrice">
-				</form>
-			</div>
-		<!--            -->
+                                        <div class="col-12 mb-1">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 text-center">
+                                                     <label class="mt-2">생년월일</label>
+                                                </div>
+                                                <div class="col-12 col-sm-5">
+                                                    <input type="date" class="ipTag form-control" id="birth" name="birth" max="2050-12-31"></div>
+                                                <div class="col-12 col-sm-4 align-self-center fontReSize" id="validBirth"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-1">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 text-center">
+                                                    <label class="mt-2">전화번호</label>
+                                                </div>
+                                                <div class="col-12 col-sm-5">
+                                                    <input type="text" class="ipTag form-control" id="phone" name="phone" placeholder="전화번호">
+                                                </div>
+                                                <div class="col-12 col-sm-4 align-self-center fontReSize" id="validPhone"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 mb-1">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 text-center">
+                                                    <label class="mt-2">이메일</label>
+                                                </div>
+                                                <div class="col-12 col-sm-5">
+                                                    <input type="text" class="ipTag form-control" id="email" name="email" placeholder="이메일">
+                                                </div>
+                                                <div class="col-12 col-sm-4 align-self-center fontReSize" id="validEmail"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-1">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 text-center">
+                                                    <label class="mt-2">주소</label>
+                                                </div>
+                                                <div class="wrap_address col-12 col-sm-9">
+                                                    <div class="row mb-1">
+                                                        <div class="col-12 col-sm-4">
+                                                        <input type="text" class="ipTag form-control" id="postcode" name="postcode" onclick="exeDaumPostcode();" readonly></div>
+                                                        <div class="col-12 col-sm-8"><input type="text" class="ipTag form-control" id="addr1" name="addr1" onclick="exeDaumPostcode();" readonly></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-8"><input type="text" class="ipTag form-control" id="addr2" name="addr2" placeholder="상세주소를 입력해주세요."></div>
+                                                        <div class="col-6 col-sm-4 text-center">
+                                                        <input type="button" id="searchAdd" class="btn btn-outline-secondary" value="검색" onclick="exeDaumPostcode();"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-1">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 text-center">
+                                                    <label class="mt-2">약관동의</label>
+                                                </div>
+                                                <div class="check_area col-12 col-sm-9">
+                                                    <div class="row ml-2">
+                                                        <input type="checkbox" class="align-self-center" id="agree" name="agree"> 
+                                                        <label for="agree" class="align-self-center mb-0 mr-2">&nbsp;"개인정보 수집, 이용목적 및 취급방침"</label>
+                                                        &nbsp;<button type="button" class="btn_detail btn btn-outline-secondary">+</button>
+                                                    </div>
+                                                    <div class="agree_cont row">
+                                                        <div class="agree_cont_style col-12">
+                                                            <p class="">수집하는 개인정보의 항목 및 수집방법</p>
+                                                            <p>개인정보 수집항목</p>
+                                                        </div>
+                                                    </div>
+                                                </div>										
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step3 col-12 p-0 mt-2">
+                                    <div class="sps_step_t col-12 p-0">
+                                        <h3 class="tit_step">
+                                            <span> "STEP" <strong>3</strong>
+                                            </span> "납입방법 선택"
+                                        </h3>
+                                    </div><hr>
+                                    <div class="sps_step_c col-12 line">
+                                        <div class="row">
+                                            <div class="col-4">후원방식</div>
+                                            <div class="payMethodBox col-8">
+                                                <input type="radio" name="payMethod" id="payMethod1" value="card">
+                                                <label for="payMethod1">신용카드</label>
+                                            </div>											
+                                        </div>							
+                                    </div>						
+                                </div>
+                                <div class="btn_area col-12 mt-2 p-0">
+                                    <button class="btn btn-outline-secondary" type="button" id="donaBtn">후원신청</button>
+                                </div>
+                                <input type="hidden" name="etcPrice" id="etcPrice">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col d-none d-sm-block"></div>
+            </div>
+<!--  후원폼 끝  -->	      
+	    <div class="col d-none d-sm-block"></div>
+	</div>
 		<jsp:include page="../standard/footer.jsp" />
 	</div>
 </body>
@@ -341,7 +452,7 @@ $("#name").on("focusout", function(){
 })
 
 $("#birth").on("focusout",function(){
-	var regex = /[0-9]{6}/g;
+	var regex = /[0-9]{4}[-][0-9]{2}[-][0-9]{2}/g;
 	var data = $("#birth").val();
 	var result = regex.exec(data);
 	

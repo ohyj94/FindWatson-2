@@ -222,7 +222,7 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("admin/adminBoardExpert.jsp").forward(request, response);
 
 			}else if(cmd.contentEquals("/boardNotice.admin")){// 공지사항 글 목록 출력
-				String pageCategory = "boardNotice.bo";
+				String pageCategory = "boardNotice.admin";
 				int cpage = 1;
 				String page = request.getParameter("cpage");
 				if(page != null) {
@@ -248,7 +248,7 @@ public class AdminController extends HttpServlet {
 
 
 			}else if(cmd.contentEquals("/boardFree.admin")){//자유게시판 글 출력
-				String pageCategory = "boardFree.bo";
+				String pageCategory = "boardFree.admin";
 				int cpage = 1;
 				String page = request.getParameter("cpage");
 				if(page != null) {
@@ -264,7 +264,7 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("admin/adminBoardFree.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/boardQuestion.admin")) { //질문게시판 글 출력
-				String pageCategory = "boardQuestion.bo";
+				String pageCategory = "boardQuestion.admin";
 				int cpage = 1;
 				String page = request.getParameter("cpage");
 				if(page != null) {
@@ -512,39 +512,46 @@ public class AdminController extends HttpServlet {
 
 				List<ObODTO> list = Odao.ObOByPage(start, end);
 				String pageNavi = Odao.getObOPageNav(cpage);
-
+				
+				request.setAttribute("cpage", cpage);
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("admin/adminBoardObO.jsp").forward(request, response);
 				// 1:1 문의게시판 디테일 뷰
 			} else if(cmd.contentEquals("/adminObODetailView.admin")) {
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				System.out.println(page);
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				
 				int ObOSeq = Integer.parseInt(request.getParameter("seq"));
 				ObODTO dto = Odao.getObOBySeq(ObOSeq);
 				request.setAttribute("dto", dto);
 				//이미 잇는 댓글
 				List<OneByOneCommentDTO> resultList = dao.commentsList((ObOSeq));
+				request.setAttribute("cpage", cpage);
 				request.setAttribute("commentList", resultList);
 				request.getRequestDispatcher("admin/adminObODetailView.jsp").forward(request, response);
 
 			}else if(cmd.contentEquals("/adminComment.admin")) {//1:1문의 댓글 남기기
-				System.out.println("1:1문의 댓글 진입");
 				
-				int seq = Integer.parseInt(request.getParameter("seq"));
+				int onebyoneSeq = Integer.parseInt(request.getParameter("seq"));
 				String comment = request.getParameter("comment");
 				
-				System.out.println(" : 댓글내용" + comment + " : 글번호" + seq);
-				int result = dao.insertComments(seq, comment);
-				System.out.println("댓글저장 성공했따");
-				int updateHeader = dao.updateHeader(seq);
-				List<OneByOneCommentDTO> resultList = dao.commentsList(seq);
-				Gson g = new Gson();
-
-				if (result>0) {
-					response.getWriter().append(g.toJson(resultList));
-				}else {
-					response.getWriter().append(g.toJson("댓글저장실패"));
-				}
+				int result = dao.insertComments(onebyoneSeq, comment);
+				int updateHeader = dao.updateHeader(onebyoneSeq);
 				
+				OneByOneCommentDTO data = dao.getLastest(onebyoneSeq);
+				JsonObject obj = new JsonObject();
+				if (result>0) {
+					obj.addProperty("comment", data.getComment());
+					obj.addProperty("date", data.getFormedDate());
+				}else {					
+					obj.addProperty("result", false);				
+				}
+				response.getWriter().append(obj.toString());
 				
 				
 				

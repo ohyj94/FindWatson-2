@@ -16,31 +16,48 @@
         <link rel="stylesheet" href="../resources/css/mainStyle.css">
      
 </head>
+<style>
+input{
+width: 100%;
+}
+#btn{
+text-align: center;
+}
+</style>
 <body>
 
-<div class="container">
+<div class="container col-12">
             <jsp:include page="../standard/headerMember.jsp" />  
+            <div class="row mt-2">
+	    <div class="col d-none d-sm-block"></div>
             <!--            -->
  <div class= row>
-                        <div class= col-12>
+                        <div class= "col-12 text-center">
                             <h2>회원 탈퇴</h2>
-                            <hr>
-                            <br>
+                         
                         </div>
                     </div>
                     <div class=row>
                         <div class=col-12>
-                            비밀번호 재입력
-                            <input type="text" id=pw><br>
-                            비밀번호 확인
-                            <input type="text" id=pwRe><br>
+                        <div class=row>
+                            <div class="col-4 text-right"> 비밀번호 재입력 </div>
+                            <div class=col-4><input type="text" id=pw><br></div>
+                            <div class=col-4></div>
+                            </div>
+                            <div class=row>
+                            <div class="col-4 text-right"> 비밀번호 확인 </div>
+                            <div class=col-4><input type="text" id=pwRe><br>
+                            <div class=col-4></div>
+                            <div id=pwCheck></div></div>
+                            </div>
                             <form action="${pageContext.request.contextPath}/mypageWithdrawal.member" method="post" id=frm>
-                            <div id=pwCheck></div>
+                            <div id=btn>
                              <button type="button" id=withdrawal class="btn btn-outline-secondary">탈퇴하기</button></div>
                             </form>
                         </div>
                     </div>
-
+  <div class="col d-none d-sm-block"></div>
+	</div>
             <!--            -->
             <jsp:include page="../standard/footer.jsp" />
         </div>

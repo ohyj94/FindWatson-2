@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!-- 회원전용 페이지 header : 로그인 정보가 없으면 로그인페이지로 이동. 페이지 조회 불가능하도록 -->
-
 <c:choose>
 			<c:when test="${loginInfo ==null}">
 				<script>
@@ -12,21 +10,28 @@
 				</script>
 			</c:when>
 </c:choose>
-		
+
 <div class="row">
-    <div id="loginBtn" class="col-12 p-1 mb-1 text-right">
-       <button class="btn btn-sm btn-outline-secondary" id="donate">후원하기</button>
-		<button class="btn btn-sm btn-outline-secondary" id="logout">로그아웃</button>
+<div class="col d-none d-sm-block"></div>
+    <div id="loginBtn" class="col-12 col-sm-6 p-1 mb-1 text-right">       
+				<span id="donate">후원하기</span>
+				<span>&nbsp;</span><span id="btnBlank">|</span><span>&nbsp;</span>
+				<span id="logout">로그아웃</span>			
     </div>
+<div class="col d-none d-sm-block"></div>
 </div>
-		
+<hr class="m-0">
+
 <div class="row">
-    <div id="title" class="col-12 p-0 mt-3 mb-3 text-center">
+   <div class="col d-none d-sm-block"></div>
+    <div id="title" class="col-12 col-sm-6 p-0 mt-3 mb-3 text-center">
         <a href="${pageContext.request.contextPath}/toMain.main"><strong>FIND! WATSON</strong></a>
     </div>
+    <div class="col d-none d-sm-block"></div>
 </div>
-<div class="row">
-    <div id="navi" class="col-12 p-0 mb-1">
+<div class="row bg-light">
+   <div class="col d-none d-sm-block"></div>
+    <div id="navi" class="col-12 col-sm-6 p-1">
         <nav class="p-0 navbar navbar-expand-sm navbar-light bg-light">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -47,8 +52,8 @@
                             커뮤니티
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/boardFree.bo">자유게시판</a>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/boardQuestion.bo">질문게시판</a>
+                            <a class="dropdown-item" id = free href="${pageContext.request.contextPath}/boardFree.bo">자유게시판</a>
+                            <a class="dropdown-item" id=question href="${pageContext.request.contextPath}/boardQuestion.bo">질문게시판</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -66,6 +71,7 @@
             </div>
         </nav>
     </div>
+    <div class="col d-none d-sm-block"></div>
 </div>
 
 <script>

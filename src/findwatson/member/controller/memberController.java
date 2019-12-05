@@ -205,8 +205,23 @@ public class memberController extends HttpServlet {
 				e.printStackTrace();
 				response.sendRedirect("main/error.jsp");
 			}
-		}//정보인포->정보수정으로 이동
-		else if(path.contentEquals("/InfoModify.member")) {
+		}else if(path.contentEquals("/OBOremove.member")) {
+			//회원용 : 일대일 문의글 삭제
+			System.out.println("컨트롤러 들어옴");
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			try {
+			int result = dao.deleteOneByOne(seq);
+			if(result > 0) {
+				response.sendRedirect("mypageOneByOneList.member");
+			}
+			
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+		}else if(path.contentEquals("/InfoModify.member")) {
+			//정보인포->정보수정으로 이동
 			try{String id = request.getParameter("id");
 			String pw = Configuration.protectXSS(request.getParameter("pw"));
 			String name = Configuration.protectXSS(request.getParameter("name"));
@@ -224,17 +239,18 @@ public class memberController extends HttpServlet {
 			request.setAttribute("dto", dto);
 			System.out.println(id);
 			request.getRequestDispatcher("member/mypageModify.jsp").forward(request, response);
+			
 			}catch(Exception e) {
 				response.sendRedirect("main/error.jsp");
 			}
 		}//정보수정
 		else if(path.contentEquals("/mypageModify.member")) {
-			System.out.println("10");
 			try {String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
 			String birth = request.getParameter("birth");
 			String gender = request.getParameter("gender");
+			System.out.println(gender);
 			String email = request.getParameter("email");
 			String phone = request.getParameter("phone");
 			String postcode =request.getParameter("postcode");

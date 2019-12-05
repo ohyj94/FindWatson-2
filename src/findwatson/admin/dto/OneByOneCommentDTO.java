@@ -1,6 +1,7 @@
 package findwatson.admin.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class OneByOneCommentDTO {
 	private int seq;
@@ -42,5 +43,8 @@ public class OneByOneCommentDTO {
 		this.writeDate = writeDate;
 	}
 	
-	
+	public String getFormedDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.");
+		return sdf.format(this.writeDate);
+	}
 }

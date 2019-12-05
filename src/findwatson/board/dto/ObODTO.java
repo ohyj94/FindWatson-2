@@ -27,7 +27,7 @@ public class ObODTO {
 		} else if (hour < 24) {
 			return "오늘";
 		} else {
-			SimpleDateFormat sdf = new SimpleDateFormat("yy년 MM월 dd일");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.");
 			return sdf.format(processedWrite_date);
 		}
 	}

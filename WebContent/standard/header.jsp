@@ -6,18 +6,23 @@
     <div id="loginBtn" class="col-12 col-sm-6 p-1 mb-1 text-right">
        <c:choose>
 			<c:when test="${loginInfo ==null}">
-				<button class="btn btn-sm btn-outline-secondary" id="donate">후원하기</button>
-				<button class="btn btn-sm btn-outline-secondary" id="login">로그인</button>
-				<button class="btn btn-sm btn-outline-secondary" id="join">회원가입</button>
+				<span id="donate">후원하기</span>
+				<span>&nbsp;</span><span id="btnBlank">|</span><span>&nbsp;</span>
+				<span id="login">로그인</span>
+				<span>&nbsp;</span><span id="btnBlank">|</span><span>&nbsp;</span>
+				<span id="join">회원가입</span>
 			</c:when>
 			<c:otherwise>
-				<button class="btn btn-sm btn-outline-secondary" id="donate">후원하기</button>
-				<button class="btn btn-sm btn-outline-secondary" id="logout">로그아웃</button>
+				<span id="donate">후원하기</span>
+				<span>&nbsp;</span><span id="btnBlank">|</span><span>&nbsp;</span>
+				<span id="logout">로그아웃</span>
 			</c:otherwise>
 		</c:choose> 
     </div>
 <div class="col d-none d-sm-block"></div>
 </div>
+<hr class="m-0">
+
 <div class="row">
    <div class="col d-none d-sm-block"></div>
     <div id="title" class="col-12 col-sm-6 p-0 mt-3 mb-3 text-center">
@@ -48,8 +53,8 @@
                             커뮤니티
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" id = free href=#>자유게시판</a>
-                            <a class="dropdown-item" id=question href=#>질문게시판</a>
+                            <a class="dropdown-item" id = free href="${pageContext.request.contextPath}/boardFree.bo">자유게시판</a>
+                            <a class="dropdown-item" id=question href="${pageContext.request.contextPath}/boardQuestion.bo">질문게시판</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -69,3 +74,18 @@
     </div>
     <div class="col d-none d-sm-block"></div>
 </div>
+
+<script>
+$("#login").on("click",function(){
+    location.href="${pageContext.request.contextPath}/member/login.jsp";
+})
+$("#join").on("click",function(){
+    location.href="${pageContext.request.contextPath}/member/signup.jsp";
+})
+$("#logout").on("click", function(){
+	location.href="${pageContext.request.contextPath}/logout.member"
+})
+$("#donate").on("click",function(){
+    location.href="${pageContext.request.contextPath}/donate/donateForm.jsp"
+})
+</script>
