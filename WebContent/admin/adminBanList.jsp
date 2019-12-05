@@ -5,40 +5,62 @@
 <html>
 <head>
 <meta charset="UTF-8">
-        <title>찾아줘 왓슨!</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+<title>찾아줘! 왓슨</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+      <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
+   
+   <style>
+	#boardTitle{
+border-top: 2px solid black;
+border-bottom: 2px solid black;
+}
+#boardCon{
+border-top: 1px solid gray;
+}
+#boardPage{
+border-top: 1px solid gray;
+}
+.line{
+border:none;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-		<jsp:include page="../standard/headerAdmin.jsp" />
+<!-- container -->
+   <div class="container col-12">
+   
+   <!-- 헤더 -->
+   <jsp:include page="../standard/headerAdmin.jsp" />   
+        
+   <div class="row mt-2">
+       <div class=container>
             <!--            -->
             <div class="row">
         <div class="col-12 mb-3" id="article">
             <div class="row">
             <div id="article-middle" class="col-12 mt-2">
                 <div class="row mb-3 p-1 text-center">
-                    <h3 id="board-top" class="col-auto col-sm-4 m-0">차단 IP 조회</h3>
-                    <span class="col-auto col-sm-8 mt-2">
-                           <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
-                    </span>
+                    <div id="board-top" class="col-12 m-0 text-left"><strong>차단 IP 조회</strong></div>
             </div>
-            <div class="row line">
+            
+            <div class="row line m-0 pt-1 pb-1" id=boardTitle>
                 
-                <div class="col-md-3 d-none d-md-block">
+                <div class="col-4  text-center">
                     아이디
                 </div>
-                <div class="col-md-3 d-none d-md-block">
+                <div class="col-4  text-center">
            IP
                 </div>
-                <div class="col-md-6 d-none d-md-block">
+                <div class="col-4  text-center">
                     차단 사유
                 </div>
             </div>
+             
             <!-- 게시글 목록 -->
            <c:choose>
            <c:when test="${list.size() == 0}">
@@ -48,47 +70,40 @@
            </c:when>
            <c:otherwise>
           		 <c:forEach items="${list}" var="list">
-           <div class="row line">
+           
+           <div class="row line m-0 pt-1 pb-1" id=boardCon>
                 
-                <div class="col-md-3 d-none d-md-block">
+                <div class="col-4  text-center ">
                     ${list.id}
                 </div>
-                <div class="col-md-3 d-none d-md-block">
+                <div class="col-4  text-center ">
            			${list.ip }
                 </div>
-                <div class="col-md-6 d-none d-md-block">
+                <div class="col-4  text-center ">
                     ${list.reason }
                 </div>
             </div>
             </c:forEach>
            </c:otherwise>
            </c:choose>
+            
                             <div class="row">
-                                <div class="col-12 text-center">
+                                <div class="col-12 text-center pt-2 mt-1" id=boardPage>
                                     ${pageNavi}
                                 </div>
                             </div>
-                            <div class="row mb-2">
-                                <div class="col-auto col-sm-2 p-1">
-                                    <select id="category">
-                                        <option value="">제목</option>
-                                    </select>
-                                </div>
-                                <div class="search-box col-auto col-sm-6 p-1">
-                                    <input type="text" class="" id="search" name="search" value="">
-                                </div>
-                                <div class="search-box col-auto col-sm-2 p-1">
-                                    <button class="btn btn-sm btn-outline-secondary">검색</button>
-                                </div>
-                                <div class="write-box col-auto col-sm-2 text-center p-1">
-                                </div>
-                            </div>
-                        </div>
+                            
                     </div>
                 </div>
             </div>
             <!--            -->
-            <jsp:include page="../standard/footer.jsp" /> 	
-</div>
+                </div>
+   </div>
+   
+   <!-- 푸터-->
+   <jsp:include page="../standard/footer.jsp" />
+   
+   </div>
+<!-- container --> 
 </body>
 </html>
