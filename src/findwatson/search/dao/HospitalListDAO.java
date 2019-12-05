@@ -132,6 +132,7 @@ public class HospitalListDAO {
 					int viewCount = rs.getInt(12);
 
 					medicalAnimal = (medicalAnimal).replace(";",",");
+					openTime = (openTime).replace(";",",");
 					dto = new HListDTO(seq, hosptName, postcode, city, gu,
 							phone, homepage, img, medicalAnimal, openTime, registDate, viewCount);
 					

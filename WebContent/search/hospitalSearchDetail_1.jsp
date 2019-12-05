@@ -36,11 +36,18 @@
                 }
                 #map{
                     width: 100%;
-                    height: 450px;
+                    height: 250px;
                  
                 }
+                   #map2{
+                    width: 100%;
+                    height: 500px;
+                 
+                }
+                
                 #hosImg{
                     width:100%;
+                    margin:auto;
                 }
                 hr{
                     background-color: darkgrey;  
@@ -76,8 +83,11 @@
                 }
                 #mapBox{
                    margin-bottom:300px;
+                   width:105%;
+                   height:30%;
                    
                 }
+            
                 #map_title{
                     background-color: #f0f4ff;
                     padding: 10px;
@@ -115,8 +125,13 @@
                 padding-left:10px;
                 padding-bottom:5px;
                 }
-              #btnModify{
-                margin-left:13px;
+              #btnReview{
+                margin-left:1px;
+                
+              }
+                 #btnModify{
+                margin-left:1px;
+               
               }
             </style>
 </head>
@@ -139,43 +154,48 @@
                   <div class = "col-12">
                        <div id="header_name">${contents.hosptName}</div>
                        <div class="row">
-                       <div class="col-8 col-md-9 col-lg-11">
+                       <div class="col">
                        <h6>정보수정일 : ${contents.registDate}</h6>
                        </div>
-                       <div class="col-4 col-md-3 col-lg-1">
-                       <label>Total. </label> ${contents.viewCount}
-                       
-                      
-                       </div>
-                         
+               
                   </div>
                   <hr>
                   </div>
            </div>
 
                     <div class = row>
-                        <div class = "col-12 col-md-6">
-                            <img src="${contents.img}" id=hosImg name=hosImg>
+                        <div class = "col-12  col-md-3 col-lg-5 col-xl-6">
+                            <%-- <img src="${contents.img}" id=hosImg name=hosImg>--%>
+                            <img src="${pageContext.request.contextPath}/resources/hospital.PNG" id=hosImg name=hosImg>
                         </div>
                         
-                        <div class = "col-12 col-md-6">
+                        <div class = "col-12  col-md-9 col-lg-7 col-xl-6">
                             <div class="row hosIn1">
                                 <div class =col-12>
+                                <div class = row>
+                                <div class = "col d-block d-md-none">
+                                &nbsp; &nbsp;
+                                </div>
+                                </div>
                                 <div class="row info">
-                                    <label class = title>병원 이름</label>${contents.hosptName}</div>
+                                    <label class = "title d-none d-md-block">병원 이름</label>
+                                     <a class="d-block d-md-none">&nbsp; &nbsp; ▶  &nbsp; </a>${contents.hosptName}</div>
                                      <div class="row info">
-                                    <label class = title>주소</label><span>${contents.address1}</span><span> ${contents.address2}</span></div>
+                                    <label class = "title d-none d-md-block">주소</label>
+                                       <a class="d-block d-md-none">&nbsp; &nbsp; ▶&nbsp;</a>${contents.address1} ${contents.address2}</div>
                                      <div class="row info">
-                                   <label class = title>전화번호</label>${contents.phone}</div>
+                                   <label class = "title d-none d-md-block">전화번호</label>
+                                      <a class="d-block d-md-none">&nbsp; &nbsp; ▶&nbsp;</a>${contents.phone}</div>
                                      <div class="row info">
-                                    <label class = title>홈페이지</label>${contents.homepage}</div>
+                                    <label class = "title d-none d-md-block">홈페이지</label>
+                                        <a class="d-block d-md-none">&nbsp; &nbsp; ▶&nbsp;  </a>${contents.homepage}</div>
                                      <div class="row info">
-                                    <label class = title>진료 동물</label>${contents.medicalAnimal}</div>
+                                    <label class = "title d-none d-md-block">진료 동물</label>
+                                      <a class="d-block d-md-none">&nbsp; &nbsp; ▶&nbsp; </a>${contents.medicalAnimal}</div>
                                      <div class="row info">
-                                    <label class = title>운영 시간</label>${contents.openTime}</div>
-                                    <div class="row info">
-                                    <button type="button" class="btn btn-secondary" id="btnModify" >정보 수정 제안</button>
-                                    </div>
+                                    <label class = "title d-none d-md-block">운영 시간</label>
+                                       <a class="d-block d-md-none">&nbsp; &nbsp; ▶&nbsp;</a>${contents.openTime}</div>
+                                    
                                     
                                 </div>
                             </div> 
@@ -187,6 +207,14 @@
                  
 
                     <%--지도, 후기--%>
+                    
+                    <div class=" row d-none d-md-block">
+                    <div class=col-12>
+                    <div >&nbsp; &nbsp; &nbsp;  </div>
+                     <label>Total. </label> ${contents.viewCount}
+                       
+                    </div>
+                    </div>
                         <div class=row>
                             <div class= col-12>
                                 
@@ -194,22 +222,24 @@
 
                                     <button type="button" class="btn btn-secondary" id=btnMap>지도</button>
                                     <button type="button" class="btn btn-secondary" id=btnReview>후기</button>
-                                    
+                                     <button type="button" class="btn btn-secondary" id="btnModify" >정보 수정 제안</button>
                                 </div>
                                 <hr>
                             </div>
                         </div>
 
 
-                        <div class = row id="mapBox">
+                        <div class = row id="mapBoxS d-block d-md-none">
                             <div class = "col-12" id="mapBox_col">
                                 <br>
                                 <div id= map_title><img src="${pageContext.request.contextPath}/resources/map_icon.png" id=map_icon>&nbsp;&nbsp;찾아가는 길</div>
-                                <div id = map></div>
+                                <div class=" d-block d-md-none" id = map></div>
+                                <div class="d-none d-md-block" id = map2></div>
                                 <br>
                             </div>
                         </div>
                         
+               
                      
                      
                         </div>
@@ -228,8 +258,11 @@
 <!-- container --> 
  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9ebb4503ccfdcae7c7da7ddc3ecf4d58"></script>
                         <script>
+                        
+                        // map1
                             var place = [];
                             var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                            
                                 mapOption = { 
                                     center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
                                     level: 3 // 지도의 확대 레벨
@@ -254,6 +287,37 @@
 
                                 // 마커 위치를 클릭한 위치로 옮깁니다
                                 marker.setPosition(latlng);
+                                //                 marker.setMap(map);
+                            });
+                     
+                     //map2      
+                            var place2 = [];
+                            var mapContainer2 = document.getElementById('map2'), // 지도를 표시할 div 
+                            
+                                mapOption2 = { 
+                                    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                                    level: 3 // 지도의 확대 레벨
+                                };
+                            var map2 = new kakao.maps.Map(mapContainer2, mapOption2); // 지도를 생성합니다
+
+
+                            // 지도를 클릭한 위치에 표출할 마커입니다
+                            var marker2 = new kakao.maps.Marker({ 
+                                // 지도 중심좌표에 마커를 생성합니다 
+                                position: map.getCenter() 
+                            }); 
+                            // 지도에 마커를 표시합니다
+                            marker.setMap(map2);
+
+                            // 지도에 클릭 이벤트를 등록합니다
+                            // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+                            kakao.maps.event.addListener(map2, 'click', function(mouseEvent) {        
+
+                                // 클릭한 위도, 경도 정보를 가져옵니다 
+                                var latlng2 = mouseEvent.latLng; 
+
+                                // 마커 위치를 클릭한 위치로 옮깁니다
+                                marker.setPosition(latlng2);
                                 //                 marker.setMap(map);
                             });
                             
