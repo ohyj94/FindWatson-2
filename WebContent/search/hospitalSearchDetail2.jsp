@@ -293,10 +293,8 @@ red
 
 				<div class=row>
 					<div class="col-12  col-md-3 col-lg-5 col-xl-6">
-						<%-- <img src="${contents.img}" id=hosImg name=hosImg>--%>
-						<img
-							src="${pageContext.request.contextPath}/resources/hospital.PNG"
-							id=hosImg name=hosImg>
+						 <img src="${contents.img}" id=hosImg name=hosImg>
+						
 					</div>
 
 					<div class="col-12  col-md-9 col-lg-7 col-xl-6">
