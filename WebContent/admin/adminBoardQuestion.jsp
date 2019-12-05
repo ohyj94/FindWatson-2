@@ -17,7 +17,11 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
-
+<style>
+.full{
+width:100%;
+}
+</style>
 </head>
 <body>
 <!-- container -->
@@ -80,7 +84,27 @@
 						<div class="row">
 							<div class="col-12 text-center">${pageNavi}</div>
 						</div>
-						
+						<!-- 게시물 검색 -->
+								<form action="${pageContext.request.contextPath}/searchQuestion.admin"
+									method="post">
+									<div class="row">
+										<div class="col-2">
+											<select class="category full" name="category">
+												<option value="title">제목</option>
+												<option value="writer">작성자</option>
+												<option value="animalheader">동물 분류</option>
+											</select>
+										</div>
+										<div class="search-box col-8">
+											<input type="text" class=" full" id="search" name="keyword">
+										</div>
+
+										<div class="search-box col-2">
+											<button class="btn btn-sm btn-outline-secondary full">검색</button>
+										</div>
+									</div>
+								</form>
+								<!-- 게시물 검색 끝 -->
 						
 					</div>
 				</div>

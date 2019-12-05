@@ -29,8 +29,10 @@ import findwatson.admin.dto.HListDTO;
 import findwatson.admin.dto.NoticeDTO;
 import findwatson.admin.dto.OneByOneCommentDTO;
 import findwatson.board.dao.BoardDAO;
+import findwatson.board.dao.ComDAO;
 import findwatson.board.dao.ObODAO;
 import findwatson.board.dto.BoardDTO;
+import findwatson.board.dto.ComDTO;
 import findwatson.board.dto.ObODTO;
 import findwatson.configuration.Configuration;
 import findwatson.member.dto.MemberDTO;
@@ -306,7 +308,7 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("/admin/adminBoardFree.jsp").forward(request, response);
 
 				// 질문게시판
-			}else if(cmd.contentEquals("/searchOne.admin")) {
+			}else if(cmd.contentEquals("/searchQuestion.admin")) {
 				String category = request.getParameter("category");
 				String keyword = request.getParameter("keyword");
 				// 네비게이터 받아오는 부분 
@@ -512,39 +514,46 @@ public class AdminController extends HttpServlet {
 
 				List<ObODTO> list = Odao.ObOByPage(start, end);
 				String pageNavi = Odao.getObOPageNav(cpage);
-
+				
+				request.setAttribute("cpage", cpage);
 				request.setAttribute("list", list);
 				request.setAttribute("pageNavi", pageNavi);
 				request.getRequestDispatcher("admin/adminBoardObO.jsp").forward(request, response);
 				// 1:1 문의게시판 디테일 뷰
 			} else if(cmd.contentEquals("/adminObODetailView.admin")) {
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				System.out.println(page);
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				
 				int ObOSeq = Integer.parseInt(request.getParameter("seq"));
 				ObODTO dto = Odao.getObOBySeq(ObOSeq);
 				request.setAttribute("dto", dto);
 				//이미 잇는 댓글
 				List<OneByOneCommentDTO> resultList = dao.commentsList((ObOSeq));
+				request.setAttribute("cpage", cpage);
 				request.setAttribute("commentList", resultList);
 				request.getRequestDispatcher("admin/adminObODetailView.jsp").forward(request, response);
 
 			}else if(cmd.contentEquals("/adminComment.admin")) {//1:1문의 댓글 남기기
-				System.out.println("1:1문의 댓글 진입");
 				
-				int seq = Integer.parseInt(request.getParameter("seq"));
+				int onebyoneSeq = Integer.parseInt(request.getParameter("seq"));
 				String comment = request.getParameter("comment");
 				
-				System.out.println(" : 댓글내용" + comment + " : 글번호" + seq);
-				int result = dao.insertComments(seq, comment);
-				System.out.println("댓글저장 성공했따");
-				int updateHeader = dao.updateHeader(seq);
-				List<OneByOneCommentDTO> resultList = dao.commentsList(seq);
-				Gson g = new Gson();
-
-				if (result>0) {
-					response.getWriter().append(g.toJson(resultList));
-				}else {
-					response.getWriter().append(g.toJson("댓글저장실패"));
-				}
+				int result = dao.insertComments(onebyoneSeq, comment);
+				int updateHeader = dao.updateHeader(onebyoneSeq);
 				
+				OneByOneCommentDTO data = dao.getLastest(onebyoneSeq);
+				JsonObject obj = new JsonObject();
+				if (result>0) {
+					obj.addProperty("comment", data.getComment());
+					obj.addProperty("date", data.getFormedDate());
+				}else {					
+					obj.addProperty("result", false);				
+				}
+				response.getWriter().append(obj.toString());
 				
 				
 				
@@ -606,13 +615,53 @@ public class AdminController extends HttpServlet {
 				dao.increBoardView(freeSeq);
 				BoardDTO dto = dao.getBoardBySeq(freeSeq,"자유");
 				request.setAttribute("dto", dto);
+				
+				//댓글 불러오기
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
+				int end = cpage * Configuration.recordCountPerPage;
+				String pageNavi = ComDAO.getInstance().getPageNaviCmtFreeAdmin(cpage, freeSeq);
+				List<ComDTO> list = ComDAO.getInstance().selectByPage(freeSeq, start, end);
+				request.setAttribute("pageNavi", pageNavi);
+				request.setAttribute("list", list);
+				
 				request.getRequestDispatcher("admin/adminFreeDetailView.jsp").forward(request, response);
 			}else if(cmd.contentEquals("/adminQuestionDetailView.admin")) {//관리자 - 질문게시판에서 글 클릭했을때
 				int questionSeq = Integer.parseInt(request.getParameter("seq"));
 				dao.increBoardView(questionSeq);
 				BoardDTO dto = dao.getBoardBySeq(questionSeq,"질문");
 				request.setAttribute("dto", dto);
+				
+				//댓글 불러오기
+				int cpage = 1;
+				String page = request.getParameter("cpage");
+				if(page != null) {
+					cpage = Integer.parseInt(request.getParameter("cpage"));
+				}
+				int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage - 1);
+				int end = cpage * Configuration.recordCountPerPage;
+				String pageNavi = ComDAO.getInstance().getPageNaviCmtQuestionAdmin(cpage, questionSeq);
+				List<ComDTO> list = ComDAO.getInstance().selectByPage(questionSeq, start, end);
+				request.setAttribute("pageNavi", pageNavi);
+				request.setAttribute("list", list);
+				
 				request.getRequestDispatcher("admin/adminQuestionDetailView.jsp").forward(request, response);
+			}else if(cmd.contentEquals("/questionCommentRemove.admin")) {//관리자-질문 댓글삭제
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				int boardSeq = Integer.parseInt(request.getParameter("brdSeq"));
+				ComDAO.getInstance().delete(seq);
+				
+				response.sendRedirect("adminQuestionDetailView.admin?seq="+boardSeq);
+			}else if(cmd.contentEquals("/freeCommentRemove.admin")) {//관리자-자유 댓글삭제
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				int boardSeq = Integer.parseInt(request.getParameter("brdSeq"));
+				ComDAO.getInstance().delete(seq);
+				
+				response.sendRedirect("adminFreeDetailView.admin?seq="+boardSeq);
 			}else if(cmd.contentEquals("/boardRemove.admin")) { //커뮤니티게시판 글삭제
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				dao.deleteBoard(seq);

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>찾아줘!왓슨</title>
+<title>찾아줘! 왓슨</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -15,8 +15,8 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
 		
 <style>
-div{
-
+.line{
+border:none;
 }
 #board-top {
 text-align: left !important;
@@ -77,9 +77,9 @@ text-align: center;
 								<div class="col-1">${list.seq}</div>
 								<div class="col-10 col-md-6 col-lg-7"><a href='${pageContext.request.contextPath}/adminNoticeDetailView.admin?seq=${list.seq}'>${list.title}</a></div>
 								
-								<div class="col-5 col-md-2 col-lg-2"> ${list.formedDate}</div>
-								<div class="col-1 col-md-1 col-lg-1 text-center">${list.viewCount} </div>
-								<div class="col-5 col-md-2 col-lg-1 delBtn"><span id=remove${list.seq}>삭제</span></div>
+								<div class="col-5 col-md-2 col-lg-2 ftsm gray"> ${list.formedDate}</div>
+								<div class="col-4 col-md-1 col-lg-1 text-center ftsm gray">${list.viewCount} </div>
+								<div class="col-2 col-md-2 col-lg-1 delBtn"><span id=remove${list.seq}>삭제</span></div>
 							</div>
 							<script>
 								$("#remove${list.seq}").css("cursor","pointer");

@@ -17,6 +17,9 @@
 #board-top {
 text-align: left !important;
 }
+#boardContent{
+min-height:500px;
+}
 .btns {
 text-align:right;
 }

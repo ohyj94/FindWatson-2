@@ -205,8 +205,23 @@ public class memberController extends HttpServlet {
 				e.printStackTrace();
 				response.sendRedirect("main/error.jsp");
 			}
-		}//정보인포->정보수정으로 이동
-		else if(path.contentEquals("/InfoModify.member")) {
+		}else if(path.contentEquals("/OBOremove.member")) {
+			//회원용 : 일대일 문의글 삭제
+			System.out.println("컨트롤러 들어옴");
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			try {
+			int result = dao.deleteOneByOne(seq);
+			if(result > 0) {
+				response.sendRedirect("mypageOneByOneList.member");
+			}
+			
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+		}else if(path.contentEquals("/InfoModify.member")) {
+			//정보인포->정보수정으로 이동
 			try{String id = request.getParameter("id");
 			String pw = Configuration.protectXSS(request.getParameter("pw"));
 			String name = Configuration.protectXSS(request.getParameter("name"));

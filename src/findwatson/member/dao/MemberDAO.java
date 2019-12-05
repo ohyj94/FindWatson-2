@@ -274,4 +274,19 @@ public class MemberDAO {
 			return result;
 		}
 	}
+	
+	public int deleteOneByOne(int seq) throws Exception{
+		String sql = "delete from onebyone where seq=?";
+		
+		try(
+				Connection con = getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, seq);
+			
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
 }

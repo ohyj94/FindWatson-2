@@ -12,6 +12,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+<style>
+.full{
+width:100%;
+}
+</style>
 </head>
 <body>
 <!-- container -->
@@ -78,19 +83,19 @@
 						<!-- 게시물 검색 -->
 						<form action="${pageContext.request.contextPath}/searchFree.admin" method="post">
 						
-						<div class="row mb-2">
-							<div class="col-auto col-sm-2 p-1">
-								<select id="category" name="category">
+						<div class="row">
+							<div class="col-2">
+								<select id="category" name="category" class=full>
 									<option value="title">제목</option>
 										<option value="writer">작성자</option>
 										<option value="animalheader">동물 분류</option>
 								</select>
 							</div>
-							<div class="search-box col-auto col-sm-6 p-1">
-								<input type="text" class="" id="search" name="keyword">
+							<div class="search-box col-8">
+								<input type="text" class=" full" id="search" name="keyword">
 							</div>
-							<div class="search-box col-auto col-sm-2 p-1">
-								<button class="btn btn-sm btn-outline-secondary">검색</button>
+							<div class="search-box col-2">
+								<button class="btn btn-sm btn-outline-secondary full">검색</button>
 							</div>
 						</div>
 						
