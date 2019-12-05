@@ -20,27 +20,6 @@
 </head>
 <body>
 <!-- container -->
-<<<<<<< HEAD
-   <div class="container col-12">
-   
-   <!-- 헤더 -->
-   <jsp:include page="../standard/headerAdmin.jsp" />   
-        
-   <div class="row mt-2">
-       <div class=container>
-           
-           <!-- 중심내용 -->
-           여기에 중심내용 작성하시면 됩니다!
-           <!-- 중심내용 -->
-           
-       </div>
-   </div>
-   
-   <!-- 푸터-->
-   <jsp:include page="../standard/footer.jsp" />
-   
-   </div>
-=======
 	<div class="container col-12">
 	
 	<!-- 헤더 -->
@@ -49,9 +28,11 @@
 	<div class="row mt-2">
 	    <div class="col d-none d-sm-block"></div>
 	        
-	        <!-- 중심내용 -->
+	        <!--  -->
+		
 	        여기에 중심내용 작성하시면 됩니다!
-	        <!-- 중심내용 -->
+		
+	        <!--  -->
 	        
 	    <div class="col d-none d-sm-block"></div>
 	</div>
@@ -60,7 +41,7 @@
 	<jsp:include page="../standard/footer.jsp" />
 	
 	</div>
->>>>>>> 50b9edd1b5770711ec387a22c587d89a45f08f38
+
 <!-- container --> 
 </body>
 </html>
