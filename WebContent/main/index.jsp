@@ -14,6 +14,9 @@
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
         <link rel="stylesheet" href="resources/css/mainStyle.css">
         <style>
+        div{
+        border-style:none;
+        }
 			#article-top{
 			position: relative;
 			}
@@ -39,7 +42,17 @@
             }
             #searchBtn2{width: 100%;}
             label{margin-bottom: 0px;}
-             
+            .prevealTitle{
+            background-color:#f0f4ff;
+            border : 1px solid white;
+               font-weight:500;
+         
+            color : #084480;
+            }
+            .prevealCon{
+            border : 1px solid white;
+          
+            }
         </style>
     </head>
     <body>
