@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +13,6 @@
         <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
         <script>
             $(function() {
@@ -74,28 +73,40 @@
             });
         </script>
         <style>
+/*            div{border: 1px solid black;}*/
+/*
             #lodingBird{
                 position: absolute;
                 left: 50%;
                 top: 50%;
                 transform: translate(-50%, -50%);
             }
+*/
             * {
                 box-sizing: border-box;
                 font-family: 'Noto Sans KR', sans-serif;
             }
+            .line{border: 1px solid lightgray;}
         </style>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <img src="imgs/donate/loadingBird.gif" alt="엑박" id="lodingBird">
-                <div class="errorNotice col-12 text-center mt-5">
-                    <p>혹시 화면이 멈췄다면 돌아가서 결제를 다시 시도해주세요</p>
-                    <p>문제 반복시 관리자에게 연락 바랍니다</p>
-                    <a href="javascript:history.go(-4)">BACK</a>
+	<div class="container col-12">
+        <div class="row mt-5">
+            <div class="col d-none d-sm-block"></div>
+                <div class="contents col-6 line">
+                   <div class="row">
+                        <img src="${pageContext.request.contextPath}/imgs/donate/loadingBird.gif" alt="엑박" id="lodingBird" class="rounded mx-auto d-block">
+                    </div>                   
+                    <div class="row mb-2">
+                        <div class="errorNotice col-12 text-center mt-5">
+                            <p>혹시 화면이 멈췄다면 돌아가서 결제를 다시 시도해주세요</p>
+                            <p>문제 반복시 관리자에게 연락 바랍니다</p>
+                            <a role="button" class="btn btn-outline-secondary" href="javascript:history.go(-4)">BACK</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            <div class="col d-none d-sm-block"></div>
         </div>
+	</div>
     </body>
 </html>

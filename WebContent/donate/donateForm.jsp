@@ -12,7 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<link rel="stylesheet" href="../resources/css/mainStyle.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainStyle.css">
 
 <style>
             .tb_box_login {
@@ -115,7 +115,9 @@
 		
 	<div class="row mt-2">
 	    <div class="col d-none d-sm-block"></div>
+
 <!--  후원폼  -->
+			<div class="col-12 col-sm-6">	
             <div class="row mt-2">
                 <div class="col d-none d-sm-block"></div>
                 <div class="col-12 col-sm-6">
@@ -127,7 +129,7 @@
                     </div>
                     <div class="row mb-2">
                         <div class="col-12">
-                            <img src="../imgs/animal/%EC%BD%94%EB%89%B4%EC%96%B4.png" class="rounded mx-auto d-block" style="border-radius: 10px">
+                            <img src="../imgs/animal/%EC%BD%94%EB%89%B4%EC%96%B4.png" class="rounded mx-auto d-block" style="border-radius: 10px;">
                         </div>
                     </div>
                         <!--                여기는 세션정보에 따라 block하기-->
@@ -136,8 +138,8 @@
                                <div class="row line mb-2">
                                 <div class="tb_box_login col-12 p-0">
                                     <div class="col-12 p-0">
-                                        <p class="col-auto p-0">"로그인 후 후원을 하시면&nbsp;</p>
-                                        <p class="col-auto p-0">후원조회 및 증빙서류발급이 용이합니다."</p>
+                                        <p class="col-auto p-0">로그인 후 후원을 하시면&nbsp;</p>
+                                        <p class="col-auto p-0">후원조회 및 증빙서류발급이 용이합니다.</p>
                                     </div>
                                     <div class="col-12 p-0">
                                         <a href="${pageContext.request.contextPath}/member/2login.jsp" class="btn02_blue col-12">로그인</a>
@@ -152,7 +154,7 @@
                             <div class="step1 col-12 p-0">
                                 <div class="sps_step_t col-12 p-0">
                                     <h3 class="tit_step">
-                                        <span> "STEP" <strong>1</strong></span> "후원사업 선택"
+                                        <span> STEP <strong>1</strong></span> 후원사업 선택
                                     </h3>
                                 </div><hr>
                                 <div class="sps_step_c col-12">			
@@ -164,44 +166,45 @@
                                                 <div class="row">
                                                     <div class="price col-12 col-md-3">
                                                         <input type="radio" name="support" value="1000">
-                                                        <label for="sponsor_money01">"1,000원"</label>
+                                                        <label for="sponsor_money01" style="font-weight: 900">1,000원</label>
                                                     </div>
                                                     <div class="price col-12 col-md-3">
                                                         <input type="radio" name="support" value="2000">
-                                                        <label for="sponsor_money02">"2,000원"</label>
+                                                        <label for="sponsor_money02" style="font-weight: 900">2,000원</label>
                                                     </div>
                                                     <div class="price col-12 col-md-3">
                                                         <input type="radio" name="support" value="5000">
-                                                        <label for="sponsor_money03">"5,000원"</label>
+                                                        <label for="sponsor_money03" style="font-weight: 900">5,000원</label>
                                                     </div>
                                                     <div class="price col-12 col-md-3">
                                                         <input type="radio" name="support" value="10000">
-                                                        <label for="sponsor_money04">"10,000원"</label>
+                                                        <label for="sponsor_money04" style="font-weight: 900">10,000원</label>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="price col-12 col-md-3 align-self-center">
                                                         <input type="radio" name="support" value="50000">
-                                                        <label for="sponsor_money05">"50,000원"</label>
+                                                        <label for="sponsor_money05" style="font-weight: 900">50,000원</label>
                                                     </div>
                                                     <div class="price col-12 col-md-9 mb-2 align-self-center"> 
                                                         <input type="radio" name="support" value="etc">
                                                         <label for="sponsor_money06">기타</label>
-                                                        <input type="text" class="d-inline form-control" id="inputPay" disabled> 원
+                                                        <input type="text" class="d-inline form-control" id="inputPay" style="font-weight: 900" disabled> 원
                                                     </div>
                                                 </div>
                                         </div>
                                     </div>
                                     <div class="row line mt-1">
-                                        <div class="total col-12">"총 후원금액" <span id="inputDisplay"></span>원</div>
+                                        <div class="total col-12" style="font-size: 15pt;">
+                                        총 후원금액 <span id="inputDisplay"></span>원</div>
                                     </div>
                                 </div>	
                             </div>
                             <div class="step2 col-12 p-0 mt-2">
                                 <div class="sps_step_t col-12 p-0">
                                     <h3 class="tit_step">
-                                        <span> "STEP" <strong>2</strong>
-                                        </span> "후원자 정보"
+                                        <span> STEP <strong>2</strong>
+                                        </span> 후원자 정보
                                     </h3>
                                 </div><hr>
                                 <div class="sps_step_c col-12">
@@ -278,7 +281,7 @@
                                                 <div class="check_area col-12 col-sm-9">
                                                     <div class="row ml-2">
                                                         <input type="checkbox" class="align-self-center" id="agree" name="agree"> 
-                                                        <label for="agree" class="align-self-center mb-0 mr-2">&nbsp;"개인정보 수집, 이용목적 및 취급방침"</label>
+                                                        <label for="agree" class="align-self-center mb-0 mr-2">&nbsp;개인정보 수집, 이용목적 및 취급방침</label>
                                                         &nbsp;<button type="button" class="btn_detail btn btn-outline-secondary">+</button>
                                                     </div>
                                                     <div class="agree_cont row">
@@ -295,8 +298,8 @@
                                 <div class="step3 col-12 p-0 mt-2">
                                     <div class="sps_step_t col-12 p-0">
                                         <h3 class="tit_step">
-                                            <span> "STEP" <strong>3</strong>
-                                            </span> "납입방법 선택"
+                                            <span> STEP <strong>3</strong>
+                                            </span> 납입방법 선택
                                         </h3>
                                     </div><hr>
                                     <div class="sps_step_c col-12 line">
@@ -319,7 +322,9 @@
                 </div>
                 <div class="col d-none d-sm-block"></div>
             </div>
-<!--  후원폼 끝  -->	      
+            </div>
+<!--  후원폼 끝  -->
+      
 	    <div class="col d-none d-sm-block"></div>
 	</div>
 		<jsp:include page="../standard/footer.jsp" />
