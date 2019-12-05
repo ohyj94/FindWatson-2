@@ -50,7 +50,7 @@ min-height: 720px;
 						<hr>
 						<div class="row">
 							<form action="${pageContext.request.contextPath}/login.member" method=post id=frm class="col-12 p-0">
-							<div class="col-12 m-1 text-center"><input type=password id=id name=id placeholder="아이디"></div>
+							<div class="col-12 m-1 text-center"><input type=text id=id name=id placeholder="아이디"></div>
 							<div class="col-12 m-1 text-center"><input type=password id=pw name=pw placeholder="비밀번호"></div>
 							<div class="col-12 mt-4 p-0 text-center">
 								<button type=button id= tologin class="btn btn-outline-secondary">로그인</button>
