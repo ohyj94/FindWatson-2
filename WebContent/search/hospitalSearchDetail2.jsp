@@ -234,16 +234,19 @@ width:20px;
 </head>
 <body>
 
+
+<!-- container -->
 <div class="container col-12">
+<!-- 헤더 -->
 <jsp:include page="../standard/header.jsp" />   
 <div class="row">
 <div class="col d-none d-sm-block"></div>
 	        
 	        
 	    
-	      <!-- 중심내용 -->    
-		<div class=containier>
-			
+	     
+		<div class=container>
+			<!-- 중심내용 -->    
 			<div class="row">
 				<div class="col-12">
 					<div id="header_name">${contents.hosptName}</div>
@@ -252,8 +255,9 @@ width:20px;
                        <h6>정보수정일 : ${contents.getDate()}</h6>
                        </div>
                			</div>
+                  	<hr>
                   	</div>
-					<hr>
+					
 				</div>
 			
 
@@ -507,6 +511,7 @@ width:20px;
 				</form>	
 				</c:when>
 			</c:choose>
+</div>
 </div>
 <!--    -->
 <div class="col d-none d-sm-block"></div>
