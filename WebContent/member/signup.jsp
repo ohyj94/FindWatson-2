@@ -159,13 +159,11 @@
 			</div>
 			<div class=row>
 				<div class=col-12>
-					<input type="radio" name=signPath value="'찾아조 왓슨!'
-					직접검색" class=signpath>'찾아조 왓슨!'
+					<input type="radio" name=signPath value="'찾아조 왓슨!' 직접검색" class=signpath>'찾아조 왓슨!'
 					직접검색
 				</div>
 				<div class=col-12>
-					<input type="radio" name=signPath value="'특수 동물 병원'
-					키워드 검색" class=signpath>'특수 동물 병원'
+					<input type="radio" name=signPath value="'특수 동물 병원' 키워드 검색" class=signpath>'특수 동물 병원'
 					키워드 검색
 				</div>
 				<div class=col-12>

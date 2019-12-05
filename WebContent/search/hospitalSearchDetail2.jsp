@@ -170,7 +170,6 @@ red
 .starCon {
 	display: inline;
 }
-
 .fa-star:hover {
 	cursor: pointer;
 }

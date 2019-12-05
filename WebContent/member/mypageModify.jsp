@@ -15,7 +15,12 @@
 		
 		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
         <link rel="stylesheet" href="resources/css/mainStyle.css">
-        
+<style>
+#id{
+border:none;
+margin-bottom:2px;
+}
+</style>        
 
 </head>
 <body>
@@ -33,7 +38,7 @@
                      <div class =row>
                         <div class= "col-12">
                             <h5>아이디</h5>
-                            <input type="text" id = id name=id>
+                             <input type=text id = id name=id value=${ dto.id} readonly="readonly">
                         </div>
                         </div>
 
@@ -102,7 +107,7 @@
                     </div>
                     <div class=row>
                         <div class=col-6><input type="text" id="postcode" name=postcode placeholder="우편번호" readonly value=${ dto.postcode} onclick="sample4_execDaumPostcode()"> </div>
-                        <div class=col-6><button id = addressBtn type="button" onclick="sample4_execDaumPostcode()">찾기</button></div>                      
+                        <div class=col-6><button id = addressBtn type="button" onclick="sample4_execDaumPostcode()" class="btn btn-outline-secondary">찾기</button></div>                      
                     </div>
                     
                     <div class=row>                    
@@ -164,14 +169,22 @@
             }
             //비밀번호 확인
              $("#pw").on("keyup",function(){
-                var pw = $("#pw").val();
-                var pwRe = $("#pwRe").val();
-
-                if(pw == pwRe){
-                    $("#pwCheck").html("<div id=blue>비밀번호 일치</div>");
-                }else{
-                    $("#pwCheck").html("<div id=red>비밀번호 불일치</div>");
-                }
+            	 var regex = /^[a-zA-Z0-9]{8,12}$/;
+            	 var data = $('#pw').val();
+	                var result = regex.exec(data);
+	                if(result !=null){
+	                	   var pw = $("#pw").val();
+	                       var pwRe = $("#pwRe").val();
+	                       
+	                       if(pw == pwRe){
+	                           $("#pwCheck").html("<div id=blue>비밀번호 일치</div>");
+	                       }else{
+	                           $("#pwCheck").html("<div id=red>비밀번호 불일치</div>");
+	                       }
+	                }
+	                else if(result == null){
+	                	$("#pwCheck").html("<div id=red>비밀번호는 숫자,영어를 이용해 8-14자로 입력하십시오.</div>")
+	                }
             })
             $("#pwRe").on("keyup",function(){
                 var pw = $("#pw").val();
@@ -224,6 +237,11 @@
             
             //정보 수정버튼 클릭
              $("#save").on("click",function(){
+            	 if($("#id").val() == ""){
+            		 alert("아이디를 입력하세요!");
+            		 return;
+            	 }
+            	 
             		if($("#pw").val() == "" || $("#pwRe").val() == "" || $("#pw").val() != $("#pwRe").val()){
 						alert("비밀번호를 제대로 입력하세요!");
 						return;

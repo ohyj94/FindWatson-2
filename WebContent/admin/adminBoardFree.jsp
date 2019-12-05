@@ -12,6 +12,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+<style>
+.full{
+width:100%;
+}
+</style>
 </head>
 <body>
 <!-- container -->
@@ -31,7 +36,7 @@
 							<h3 id="board-top" class="col-auto col-sm-4 m-0">자유게시판</h3>
 							<span class="col-auto col-sm-8 mt-2">자유롭게 소통하는 공간 입니다.</span>
 						</div>
-						<div class="row line2">
+						<div class="row line3">
 							<div class="col-1 d-none d-lg-block"></div>
 							<div class="col-md-1 d-none d-lg-block">말머리</div>
 							<div class="col-md-4 d-none d-lg-block">제목</div>
@@ -57,7 +62,7 @@
 										<div class="ftsm col-2 order-5 col-md-1 order-md-6 text-center gray">${dto.viewCount}</div>
 											<div class="ftsm col-4 order-6 d-md-none"></div>
 										<div class="col-2 order-7 col-md-1 order-md-7 text-center">
-											<span id=remove${dto.seq} class=ftsm>삭제</span>
+											<span id=remove${dto.seq} class="ftsm remBtn">&emsp;삭제&emsp;</span>
 											</div>
 									</div>
 									<script>
@@ -78,19 +83,19 @@
 						<!-- 게시물 검색 -->
 						<form action="${pageContext.request.contextPath}/searchFree.admin" method="post">
 						
-						<div class="row mb-2">
-							<div class="col-auto col-sm-2 p-1">
-								<select id="category" name="category">
+						<div class="row">
+							<div class="col-2">
+								<select id="category" name="category" class=full>
 									<option value="title">제목</option>
 										<option value="writer">작성자</option>
 										<option value="animalheader">동물 분류</option>
 								</select>
 							</div>
-							<div class="search-box col-auto col-sm-6 p-1">
-								<input type="text" class="" id="search" name="keyword">
+							<div class="search-box col-8">
+								<input type="text" class=" full" id="search" name="keyword">
 							</div>
-							<div class="search-box col-auto col-sm-2 p-1">
-								<button class="btn btn-sm btn-outline-secondary">검색</button>
+							<div class="search-box col-2">
+								<button class="btn btn-sm btn-outline-secondary full">검색</button>
 							</div>
 						</div>
 						

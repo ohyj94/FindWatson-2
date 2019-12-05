@@ -17,7 +17,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+	<link rel="stylesheet" href="../resources/css/adminBoard.css">
 <style>
 #board-top {
 text-align: left !important;

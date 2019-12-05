@@ -49,6 +49,41 @@ min-height: 500px;
 			<div class=col-12 id=boardContent>${dto.content}</div>
 			<div class=col-12><hr></div>
 		</div>
+		<c:choose>
+			<c:when test="${list.size() ==0}">
+				<div class=row>
+					<div class="col-12 center">
+						<h5>댓글이 없습니다.</h5>
+					</div>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${list}" var="cmtDto">
+					<div class=row>
+						<div class=col-6>${cmtDto.writer}</div>
+						<div class=col-6>${cmtDto.getDate()}</div>
+					</div>
+					<div class=row>
+						<div class=col-12>${cmtDto.content}
+						<button id="cmtRemove${cmtDto.comSeq}" type="button" class="btn btn-outline-secondary">삭제</button>
+						<script>
+						$("#cmtRemove${cmtDto.comSeq}").on("click",function(){
+							location.href='${pageContext.request.contextPath}/freeCommentRemove.admin?brdSeq=${dto.seq}&seq=${cmtDto.comSeq}';
+						})
+						</script>
+						</div>
+					</div>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+		<div class=row>
+		<div class="col-12 center">${pageNavi}</div>
+		</div>
+		<div class=row>
+		<div class=col-12>
+		<hr>
+		</div>
+		</div>
 	        <!-- 중심내용 -->
 	        
 	    </div>
