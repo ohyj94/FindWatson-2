@@ -86,8 +86,8 @@ border:none;
             		var reason = prompt("차단 사유 : ");
             		if(reason == ""){
             			alert("차단사유는 필수 입력 사항입니다.")
-            		}else{
-                		location.href="${pageContext.request.contextPath}/admin/adminDeleteMember.admin?id=${list.id}&ip=${list.ipAddr}&reason="+reason;
+            		}else if(reason != null){
+            			location.href="${pageContext.request.contextPath}/admin/adminDeleteMember.admin?id=${list.id}&ip=${list.ipAddr}&reason="+reason;
             		}
             	})
             </script>                
