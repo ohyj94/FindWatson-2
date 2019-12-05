@@ -36,7 +36,7 @@ width:100%;
 							<h3 id="board-top" class="col-auto col-sm-4 m-0">자유게시판</h3>
 							<span class="col-auto col-sm-8 mt-2">자유롭게 소통하는 공간 입니다.</span>
 						</div>
-						<div class="row line2">
+						<div class="row line3">
 							<div class="col-1 d-none d-lg-block"></div>
 							<div class="col-md-1 d-none d-lg-block">말머리</div>
 							<div class="col-md-4 d-none d-lg-block">제목</div>
@@ -62,7 +62,7 @@ width:100%;
 										<div class="ftsm col-2 order-5 col-md-1 order-md-6 text-center gray">${dto.viewCount}</div>
 											<div class="ftsm col-4 order-6 d-md-none"></div>
 										<div class="col-2 order-7 col-md-1 order-md-7 text-center">
-											<span id=remove${dto.seq} class=ftsm>삭제</span>
+											<span id=remove${dto.seq} class="ftsm remBtn">&emsp;삭제&emsp;</span>
 											</div>
 									</div>
 									<script>
