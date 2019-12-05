@@ -14,6 +14,9 @@
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
         <link rel="stylesheet" href="resources/css/mainStyle.css">
         <style>
+        div{
+        border-style:none;
+        }
 			#article-top{
 			position: relative;
 			}
@@ -39,7 +42,17 @@
             }
             #searchBtn2{width: 100%;}
             label{margin-bottom: 0px;}
-             
+            .prevealTitle{
+            background-color:#f0f4ff;
+            border : 1px solid white;
+               font-weight:500;
+         
+            color : #084480;
+            }
+            .prevealCon{
+            border : 1px solid white;
+          
+            }
         </style>
     </head>
     <body>
@@ -156,66 +169,74 @@
                         <!--  -->
                     </div>
                 </div>
-        <div class="row">
-            <div id="article-botton" class="col-12 p-0">
-                <form action="${pageContext.request.contextPath}/searchFrom.s" class="col-12 p-0" id="detailSearch" method="post">
-                    <div class="col-12 line mb-1">동물병원 상세 검색</div>
+      <%--검색 컨테이너 시작 --%>
+			<div class=row>
+                <div id="article-botton" class="col-12 line mb-3 p-0">
+                <form action="${pageContext.request.contextPath}/searchFrom.s" class="col-12 p-0" method="post">
+                    <div class="col-12 line" id=head_title>동물병원 검색</div>
                     <div id="area-search" class="col-12">
-                        <div class="row line mb-1">
-                            <label class="col-12 col-sm-4 align-self-center">지역별</label>
-                            <select name="address1" id="address1" class="col-12 col-sm-4">
+                        <div class="row line" id=area-line>
+                            <label class="col-12 col-sm-2 col-md-1  align-self-center " id=area-label>지역별</label>
+                             <a class="d-none d-sm-block">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a><select name="address1" id="address1" class="col-12 col-sm-4 col-md-5">
                                 <option value="null">-시 선택-</option>
                                 <option value="서울">서울</option>
-                            </select> <select name="address2" id="address2" class="col-12 col-sm-4">
+                            </select> 
+                            <select name="address2" id="address2" class="col-12 col-sm-4 col-md-5">
                             <option value="null">-구 선택-</option>
                             </select>
                         </div>
-                        <div class="row line mb-1">
-                            <div class="col-12">진료동물</div>
-                            <label class="col-4 col-md-3">
+                        
+                        <div class="row animal-line">
+                            <div class="col-12 label">진료 동물</div>
+                            <div class="col-12 checkbox">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=새>새
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=물고기>물고기
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=햄스터>햄스터
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=토끼>토끼
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=고슴도치>고슴도치
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=파충류>파충류
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=곤충류>곤충류
                             </label>
-                            <label class="col-4 col-md-3">
+                            <label class="col-auto col-md-3 ">
                                 <input type="checkbox" name=animal value=기타>기타
                             </label>
-                        </div>
-                        <div class="row line mb-1">
-                        <div class="col-12">진료시간</div>
-                            <label class="col-12 col-md-4">
+                        </div></div>
+                        
+                        <div class="row animal-line">
+                            <div class="col-12 label">진료시간</div>
+                             <div class="col-12 checkbox">
+                            <label class="col-12 col-md-3">
                                 <input type="checkbox" name=time value=주간진료>주간진료
                             </label>
-                            <label class="col-12 col-md-4">
+                            <label class="col-12 col-md-3">
                                 <input type="checkbox" name=time value=24시간진료>24시간진료
                             </label>
-                            <label class="col-12 col-md-4">
+                            <label class="col-12 col-md-3">
                                 <input type="checkbox" name=time value=야간응급진료>야간응급진료
                             </label>
                         </div>
-                        <div class="row">
+                        </div>
+                        <div class="row line" id=btnn>
                         	<button id="searchBtn2" class="col m-0 btn btn-sm btn-outline-secondary">검색</button>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
+                    </form>
+                </div> 
+                </div>
+             <%--검색 컨테이너 끝 --%>
             <!--            -->
 	</div>
 <div class="col d-none d-sm-block"></div>

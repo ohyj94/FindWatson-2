@@ -23,6 +23,9 @@ width: 100%;
 #btn{
 text-align: center;
 }
+.this{
+min-height:730px;
+}
 </style>
 <body>
 
@@ -40,7 +43,7 @@ text-align: center;
                     
                     
                     <div class=row>
-                        <div class=col-12>
+                        <div class="col-12 this">
                         <form action="${pageContext.request.contextPath}/mypageWithdrawal.member" method="post" id=frm>
                         <div class=row>
                             <div class="col-6 text-right"> 비밀번호 재입력 </div>
