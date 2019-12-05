@@ -153,6 +153,18 @@
 				alert("전화번호를 입력하세요!");
 				return;
 			}
+    	  if($("#phone").val()!=""){
+				var regex = /^01[0-9]{8,9}$/gm;
+				var phone = $("#phone").val();
+				var result = regex.exec(phone);
+				if (result != null) {
+					
+				}
+				else{
+					alert("전화번호 형식에 맞지않습니다.")
+					return;
+				}
+			}
     	  if($("#homepage").val()==""){
 				alert("홈페이지주소를 입력하세요!");
 				return;
