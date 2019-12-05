@@ -13,6 +13,18 @@
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script><!-- 차트cdn -->
+      <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
+   
+
+	<style>
+	#boardTitle{
+border-top: 2px solid black;
+border-bottom: 2px solid black;
+}
+.line{
+border:none;
+}
+</style>
 </head>
 <body>
 <!-- container -->
@@ -36,10 +48,8 @@
             </div>
             <!-- 회원 통계 -->
             	
-            	 <div class="row line"> 
-            	 	<div class=col-12>
-            	 	<hr style="border:solid 1px;">  
-            	 	</div>
+            	 <div class="row line m-0 pt-1 pb-1 " id=boardTitle>
+            	<div class="col-12  text-center">회원 통계</div>
             </div>
             	 <canvas id="memberChart"></canvas>
             	<script>
@@ -49,7 +59,7 @@
             	       data: {
             	           labels: ['총 회원 수', '성별(남)', '성별(여)'],
             	           datasets: [{
-            	               label: '회원 통계',
+            	               label: '총 회원 수',
             	               data: [${totalCount}, ${memberMCount}, ${memberWCount}],
             	               backgroundColor: [
             	                   'rgba(255, 99, 132, 0.2)',
@@ -83,10 +93,8 @@
             	   </script>
             	   
             <!--        -->
-              <div class="row line"> 
-            	 	<div class=col-12>
-            	 	<hr style="border:solid 1px;">  
-            	 	</div>
+               <div class="row line m-0 pt-1 pb-1" id=boardTitle>
+            	<div class="col-12  text-center">관심 동물</div>
             </div>
             <!-- 관심동물 -->
             
@@ -132,10 +140,8 @@
             	       }
             	   });
             	</script>
-            	 <div class="row line"> 
-            	 	<div class=col-12>
-            	 	<hr style="border:solid 1px;">  
-            	 	</div>
+            	  <div class="row line m-0 pt-1 pb-1" id=boardTitle>
+            		<div class="col-12  text-center">가입 경로</div>
             </div>
             <!--        -->
             <!-- 가입경로 -->
@@ -146,7 +152,7 @@
             	   var myDoughnutChart = new Chart(ctx, {
             		    type: 'doughnut',
             	       data: {
-            	           labels: ["'찾아조 왓슨!' 직접검색", "'특수 동물 병원'' 키워드 검색", '지인 소개', '기타'],
+            	           labels: ["'찾아조 왓슨!' 직접검색", "'특수 동물 병원' 키워드 검색", '지인 소개', '기타'],
             	           datasets: [{
             	               label: '가입 경로',
             	               data: [${directSearch}, ${keywordSearch}, ${introduce}, ${otherSearch}],
@@ -180,10 +186,8 @@
             	       }
             	   });
             	</script>
-            	 <div class="row line"> 
-            	 	<div class=col-12>
-            	 	<hr style="border:solid 1px;">  
-            	 	</div>
+            	  <div class="row line m-0 pt-1 pb-1" id=boardTitle>
+            		<div class="col-12  text-center">조회수 높은 게시물 top 5</div>
             </div>
             <!--        -->
             <!-- 가장 인기있는 게시물 -->
@@ -228,11 +232,7 @@
             	       }
             	   });
             	</script>
-            	 <div class="row line"> 
-            	 	<div class=col-12>
-            	 	<hr style="border:solid 1px;">  
-            	 	</div>
-            </div>
+            	  
             <!--        -->
            
                        

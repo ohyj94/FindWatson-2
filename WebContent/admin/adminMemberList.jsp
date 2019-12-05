@@ -12,6 +12,23 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminBoard.css">
+   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700,900&display=swap&subset=korean" rel="stylesheet">
+
+<style>
+	#boardTitle{
+border-top: 2px solid black;
+border-bottom: 2px solid black;
+}
+#boardCon{
+border-top: 1px solid gray;
+}
+#boardPage{
+border-top: 1px solid gray;
+}
+.line{
+border:none;
+}
+</style>
 </head>
 <body>
 <!-- container -->
@@ -28,34 +45,21 @@
             <div class="row">
             <div id="article-middle" class="col-12 mt-2">
                 <div class="row mb-3 p-1 text-center">
-                    <h3 id="board-top" class="col-auto col-sm-4 m-0">회원 목록 조회</h3>
-                    <span class="col-auto col-sm-8 mt-2">
-                           <!-- 코멘트를 뭐라 적어야할지 모르겠... -->
-                    </span>
+                    <div id="board-top" class="col-12 m-0 text-left"><strong>회원목록조회</strong></div>	
+                  
                 
             </div>
-            <div class="row line"> 
-            	 	<div class=col-12>
-            	 	<hr style="border:solid 1px;">  
-            	 	</div>
-            </div>
-            <div class="row line">
+           
+            <div class="row line m-0 pt-1 pb-1" id=boardTitle>
                 
-                <div class="col-4 d-block text-center">
-                    아이디
-                </div>
-                <div class="col-4 d-block text-center">
-           	이름
-                </div>
-                <div class="col-4 d-block text-center">
-            	차단하기
-                </div>
+               <div class="col-4  text-center">아이디</div>
+                   
+                
+                <div class="col-4  text-center">이름</div>
+    
+              <div class="col-4  text-center">차단하기</div>
             </div>
-             <div class="row line"> 
-            	 	<div class=col-12>
-            	 	<hr style="border:solid 1px;">  
-            	 	</div>
-            </div>
+            
             <!-- 게시글 목록 -->
             
            
@@ -67,16 +71,14 @@
            </c:when>
            <c:otherwise>
            <c:forEach items="${list}" var="list">
-           	<div class="row line">
+           	<div class="row line m-0 pt-1 pb-1" id=boardCon>
                 
-                <div class="col-4 d-block text-center">
-                  ${list.id}
-                </div>
-                <div class="col-4 d-block text-center">
+                <div class="col-4  text-center ">${list.id}</div>
+                <div class="col-4  text-center ">
            			${list.name }
                 </div>
-                <div class="col-4 d-block text-center">
-                    <a id="banIp${list.id}" href=#>차단</a>
+                <div class="col-4  text-center ">
+                    <a id="banIp${list.id}" href=# style="color: red">차단</a>
                 </div>
             </div>
             <script>
@@ -93,21 +95,13 @@
            </c:otherwise>
            </c:choose>
             <form action="${pageContext.request.contextPath}/admin/adminSearchMember.admin" method="post">
-                             <div class="row line"> 
-            	 	<div class=col-12>
-            	 	<hr style="border:solid 1px;">  
-            	 	</div>
-            </div>
+                            
                             <div class="row">
-                                <div class="col-12 text-center">
+                                <div class="col-12 text-center pt-2 mt-1" id=boardPage>
                                     ${pageNavi}
                                 </div>
                             </div>
-                            <div class="row line"> 
-            	 	<div class=col-12>
-            	 	<hr style="border:solid 1px;">  
-            	 	</div>
-            </div>
+                           
                             <div class="row">
                                 <div class="col-4">
                                     <select id="category">
