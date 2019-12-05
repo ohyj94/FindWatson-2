@@ -39,7 +39,7 @@ color: #a6a6a680;
 					<div class="col-12"><img src="../imgs/findWatson.png" id="logoImg"></div>
 					
 					<div class="col-12 mt-4">
-					<form action="${pageContext.request.contextPath}/login.admin" method="post">
+					<form action="${pageContext.request.contextPath}/login.admin" id=frm method="post">
 					
 						<div class="col-12 mb-3 center" id="article">
 							<div class="col-12 m-1"><input type=text placeholder="아이디" name=id required></div>
