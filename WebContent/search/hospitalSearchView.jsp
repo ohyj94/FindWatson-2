@@ -34,7 +34,9 @@
             padding-top:2%;
             padding-bottom:0%;
             }
-          
+            #info_small{
+               font-size:13px;
+                }
           #area-line{
           margin-right:0%;
           }
@@ -115,7 +117,8 @@ padding-right:0px;}
 	     
 	<div class="row mt-2">
 	    <div class="col d-none d-sm-block"></div>
-	        
+	       
+	       <div class=container>
 	        <!-- 중심내용 -->
 	        <div class=row>
 	        <div class=col>
@@ -223,6 +226,7 @@ padding-right:0px;}
             	</c:otherwise>
 		</c:choose>
 		
+		</div>
 		</div>
 		</div>
       <%-- 검색 결과 컨테이너 끝 --%>

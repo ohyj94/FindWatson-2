@@ -75,9 +75,7 @@
              .row_info{
              margin-left:10px;
              }
-                .view_div{
-                    border: 1px solid grey;
-                }
+             
                 #btn_map{
                     border-right-style: solid 1px white;
                 }
@@ -113,6 +111,9 @@
                 color:#084480;
                    font-weight:700;
                 }
+                #info_small{
+               font-size:13px;
+                }
                 .hosIn2{
                 margin:0px;
                 }
@@ -133,6 +134,17 @@
                 margin-left:1px;
                
               }
+              .hp_link:link{
+              text-decoration: none;
+             
+              }
+              .hp_link:visited{
+              color: black; text-decoration: none;
+              }
+              .hp_link:hover{
+              font-weight:700;
+              }
+             
             </style>
 </head>
 <body>
@@ -155,7 +167,7 @@
                        <div id="header_name">${contents.hosptName}</div>
                        <div class="row">
                        <div class="col">
-                       <h6>정보수정일 : ${contents.registDate}</h6>
+                       <h6>정보수정일 : ${contents.getDate()}</h6>
                        </div>
                
                   </div>
@@ -170,7 +182,40 @@
                         </div>
                         
                         <div class = "col-12  col-md-9 col-lg-7 col-xl-6">
-                            <div class="row hosIn1">
+                            
+                            <%-- 작은 화면일 경우  --%>
+                            <div class="row hosIn1 d-block d-sm-none" id=info_small >
+                                <div class =col-12>
+                                <div class = row>
+                                <div class = "col d-block d-md-none">
+                                &nbsp; &nbsp;
+                                </div>
+                                </div>
+                                <div class="row info">
+                                    <label class = "title d-none d-md-block">병원 이름</label>
+                                     <a class="d-block d-md-none">&nbsp; &nbsp; &nbsp; ▶  &nbsp; </a>${contents.hosptName}</div>
+                                     <div class="row info">
+                                    <label class = "title d-none d-md-block">주소</label>
+                                       <a class="d-block d-md-none">&nbsp; &nbsp; &nbsp; ▶&nbsp;</a>${contents.address1} ${contents.address2}</div>
+                                     <div class="row info">
+                                   <label class = "title d-none d-md-block">전화번호</label>
+                                      <a class="d-block d-md-none">&nbsp; &nbsp; &nbsp; ▶&nbsp;</a>${contents.phone}</div>
+                                     <div class="row info">
+                                    <label class = "title d-none d-md-block">홈페이지</label>
+                                        <a class="d-block d-md-none">&nbsp; &nbsp; &nbsp; ▶&nbsp;  </a><a href="${contents.homepage}" class=hp_link>${contents.homepage}</a></div>
+                                     <div class="row info">
+                                    <label class = "title d-none d-md-block">진료 동물</label>
+                                      <a class="d-block d-md-none">&nbsp; &nbsp; &nbsp; ▶&nbsp; </a>${contents.medicalAnimal}</div>
+                                     <div class="row info">
+                                    <label class = "title d-none d-md-block">운영 시간</label>
+                                       <a class="d-block d-md-none">&nbsp; &nbsp; &nbsp; ▶&nbsp;</a>${contents.openTime}</div>
+                              
+                                </div>
+                            </div> 
+                            
+                            <%-- 큰 화면일 경우  --%>
+                            
+                            <div class="row hosIn1 d-none d-sm-block" id=info_big>
                                 <div class =col-12>
                                 <div class = row>
                                 <div class = "col d-block d-md-none">
@@ -188,18 +233,18 @@
                                       <a class="d-block d-md-none">&nbsp; &nbsp; ▶&nbsp;</a>${contents.phone}</div>
                                      <div class="row info">
                                     <label class = "title d-none d-md-block">홈페이지</label>
-                                        <a class="d-block d-md-none">&nbsp; &nbsp; ▶&nbsp;  </a>${contents.homepage}</div>
+                                        <a class="d-block d-md-none">&nbsp; &nbsp; ▶&nbsp;  </a><a href="${contents.homepage}" class=hp_link>${contents.homepage}</a></div>
                                      <div class="row info">
                                     <label class = "title d-none d-md-block">진료 동물</label>
                                       <a class="d-block d-md-none">&nbsp; &nbsp; ▶&nbsp; </a>${contents.medicalAnimal}</div>
                                      <div class="row info">
                                     <label class = "title d-none d-md-block">운영 시간</label>
                                        <a class="d-block d-md-none">&nbsp; &nbsp; ▶&nbsp;</a>${contents.openTime}</div>
-                                    
-                                    
+                              
                                 </div>
                             </div> 
-                                  
+                            
+                               
                         </div>
                     </div>
                     
