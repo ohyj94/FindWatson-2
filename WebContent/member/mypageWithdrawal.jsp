@@ -31,25 +31,26 @@ text-align: center;
             <div class="row mt-2">
 	    <div class="col d-none d-sm-block"></div>
             <!--            -->
- <div class= row>
+ 					<div class=col>
+ 					<div class= row>
                         <div class= "col-12 text-center">
                             <h2>회원 탈퇴</h2>
-                         
                         </div>
                     </div>
+                    
                     
                     <div class=row>
                         <div class=col-12>
                         <form action="${pageContext.request.contextPath}/mypageWithdrawal.member" method="post" id=frm>
                         <div class=row>
-                            <div class="col-4 text-right"> 비밀번호 재입력 </div>
-                            <div class=col-4><input type="text" id=pw><br></div>
-                            <div class=col-4></div>
+                            <div class="col-6 text-right"> 비밀번호 재입력 </div>
+                            <div class=col-6><input type="text" id=pw><br></div>
+                            
                             </div>
                             <div class=row>
-                            <div class="col-4 text-right"> 비밀번호 확인 </div>
-                            <div class=col-4><input type="text" id=pwRe><br></div>
-                            <div class=col-4></div>
+                            <div class="col-6 text-right"> 비밀번호 확인 </div>
+                            <div class=col-6><input type="text" id=pwRe><br></div>
+                            
                             <div id=pwCheck></div>
                             </div>
                             
@@ -59,6 +60,7 @@ text-align: center;
                             
                             </form>
                         </div>
+                    </div>
                     </div>
   <div class="col d-none d-sm-block"></div>
 	</div>

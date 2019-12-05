@@ -340,7 +340,7 @@ public class memberController extends HttpServlet {
 			try {
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
-<<<<<<< HEAD
+
 				System.out.println(id +"/n"+ pw);
 				
 				int list = dao.pwFindGet(id, pw);
@@ -353,13 +353,6 @@ public class memberController extends HttpServlet {
 					System.out.println("DB에 없는 정보");
 					response.sendRedirect("/FindWatson/member/noPwFind.jsp");
 				}
-=======
-				System.out.println(id + ":" + pw);
-				int list = dao.pwFindGet(id, pw);
-				request.setAttribute("result", list);
-				request.getRequestDispatcher("member/noPwFind.jsp").forward(request, response);
-	
->>>>>>> 7851e38d0825be992ae05f9271bd9015e8442720
 
 			} catch (Exception e) {
 				e.printStackTrace();
