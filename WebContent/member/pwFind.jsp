@@ -243,7 +243,7 @@ text-align: center;
 			}
 			
 		
-			consol.log("dd");
+
 			$("#frm").submit();
 		})
 	</script>

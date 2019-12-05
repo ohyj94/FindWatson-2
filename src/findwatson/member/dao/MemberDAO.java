@@ -229,7 +229,7 @@ public class MemberDAO {
 
 	}
 	//비밀번호찾기
-	public boolean pwFind(String name, String id, String birth, String email, int phone)throws Exception{
+	public boolean pwFind(String name, String id, String birth, String email, String phone)throws Exception{
 		String sql = "select pw from member where name=? and id=? and birth=? and email=? and phone=?";
 		try(Connection con = bds.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -237,7 +237,7 @@ public class MemberDAO {
 			pstat.setString(2 ,id);
 			pstat.setString(3, birth);
 			pstat.setString(4, email);
-			pstat.setInt(5, phone);
+			pstat.setString(5, phone);
 			try(ResultSet rs = pstat.executeQuery();){
 				boolean result = rs.next();
 				return result;
@@ -249,7 +249,7 @@ public class MemberDAO {
 		String sql = "update member set pw=? where id=?";
 		try(Connection con = bds.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1 ,pw);
+			pstat.setString(1, Util.encrypt(pw));
 			pstat.setString(2, id);
 				int result = pstat.executeUpdate();
 				con.commit();

@@ -79,6 +79,7 @@ min-height: 720px;
             });
 	        $("#tologin").on("click",function(){
 	        	var referrer =  document.referrer;
+	        	
 	        	$("#returnPage").val(referrer);
 	        	$("#frm").submit();
 	        });

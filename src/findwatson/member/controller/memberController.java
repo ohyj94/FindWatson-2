@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 import com.google.gson.JsonObject;
 
@@ -312,8 +313,10 @@ public class memberController extends HttpServlet {
 				String id = request.getParameter("id");
 				String birth = request.getParameter("birth");
 				String email = request.getParameter("email");
-				int phone = Integer.parseInt(request.getParameter("phone"));
+				String phone = request.getParameter("phone");
+				System.out.println(phone);
 				boolean list = dao.pwFind(name, id, birth, email, phone);
+				request.setAttribute("id", id);
 				if(list) {
 					request.getRequestDispatcher("member/viewPwFind.jsp").forward(request, response);
 				}
@@ -326,10 +329,13 @@ public class memberController extends HttpServlet {
 			try {
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
-				System.out.println("아무거나");
+				System.out.println(id +"/n"+ pw);
+				
 				int list = dao.pwFindGet(id, pw);
+				request.getSession().invalidate();
 				if(list > 0) {
-					request.getRequestDispatcher("member/login.jsp").forward(request, response);
+//					request.getRequestDispatcher("member/login.jsp").forward(request, response);
+					response.sendRedirect("member/login.jsp");
 				}
 				else {
 					System.out.println("DB에 없는 정보");

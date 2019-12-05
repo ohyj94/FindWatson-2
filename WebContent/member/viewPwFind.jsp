@@ -24,6 +24,9 @@
 div{
 text-align: center;
 }
+#tmpId{
+display: none;
+}
 </style>
 </head>
 <body>
@@ -36,6 +39,7 @@ text-align: center;
 			<h5>비밀번호 변경</h5>
 		</div>
 	</div>
+	<input type=text id=tmpId name=id value=${id}>
 	<div class=row>
 		<div class=col-12>
 			<h5>비밀번호</h5>
@@ -70,19 +74,13 @@ $("#pw").on("keyup", function() {
     var data = $('#pw').val();
     var result = regex.exec(data);
     if (result != null){
-    	var pw = $("#pw").val();
-		var pwRe = $("#pwRe").val();
+		$("#pwCheck").html("");
 
-		if (pw == pwRe) {
-			$("#pwCheck").html("<div id=blue>비밀번호 일치</div>");
-		} else {
-			$("#pwCheck").html("<div id=red>비밀번호 불일치</div>");
-		}
     }
     else if(result == null){
     	$("#pwCheck").html("<div id=red>비밀번호는 숫자,영어를 이용해 8-14자로 입력하십시오.</div>");
     }
-	
+   
 })
 $("#pwRe").on("keyup", function() {
 	var regex = /^[a-zA-Z0-9]{8,14}$/;
@@ -103,7 +101,37 @@ $("#pwRe").on("keyup", function() {
     }
 })
   
+$("#change").on("click",function(){
+	console.log($("#tmpId").val());
+	if ($("#pw").val() == "" || $("#pwRe").val()==""|| $("#pw").val() != $("#pwRe").val()){
+		alert("비밀번호를 제대로 입력하세요.")
+		return ;
+	}
+	if($("#pw").val()!=""){
+		
+		
+		var regex = /^[a-zA-Z0-9]{8,12}$/;
+        var data = $('#pw').val();
+        var result = regex.exec(data);
+        if (result != null){
+        	var pw = $("#pw").val();
+			var pwRe = $("#pwRe").val();
 
+			if (pw == pwRe) {
+				
+			} else {
+				alert("비밀번호 불일치");
+				return;
+			}
+        }
+        else{
+        	alert("비밀번호 형식에 맞지않습니다.");
+        	return;
+        }
+		
+	}
+	$("#frm").submit();
+})
 </script>
 </body>
 </html>
