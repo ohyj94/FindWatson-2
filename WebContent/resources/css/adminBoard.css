@@ -87,3 +87,13 @@ display:none;
 	border-top: 1px solid lightgray;
 	border-bottom: 1px solid lightgray;
 }
+.line3{
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+}
+.full{
+	width:100%;
+}
+.remBtn{
+	border:1px solid black;
+}
